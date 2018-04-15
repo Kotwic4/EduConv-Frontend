@@ -1,3 +1,17 @@
-<p>
-  header works!
-</p>
+<div class="container-fluid header__container-fluid">
+    <div class="container header__container">
+        <span
+            class="header__upload pull-right"
+            (click)="networkInput.click()"
+        >
+            <i class="fa fa-cloud-upload"></i>
+        </span>
+
+        <input
+            type="file"
+            class="input-image__networkInput"
+            (change)="onNetworkChange($event)"
+            #networkInput
+        >
+    </div>
+</div>

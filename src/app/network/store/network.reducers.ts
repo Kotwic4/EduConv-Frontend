@@ -2,10 +2,12 @@ import * as NetworkActions from './network.actions';
 
 export interface State {
     inputImage: String;
+    uploadedNetwork: String;
 }
 
 const initialState: State = {
-    inputImage: ''
+    inputImage: '',
+    uploadedNetwork: ''
 };
 
 export function networkReducer(state = initialState, action: NetworkActions.NetworkActions) {
@@ -19,6 +21,11 @@ export function networkReducer(state = initialState, action: NetworkActions.Netw
             return {
                 ...state,
                 inputImage: ''
+            };
+        case (NetworkActions.NETWORK_UPLOAD):
+            return {
+                ...state,
+                uploadedNetwork: action.payload
             };
         default:
             return state;
