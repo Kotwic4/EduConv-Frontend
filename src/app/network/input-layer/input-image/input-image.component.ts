@@ -48,7 +48,7 @@ export class InputImageComponent implements OnInit {
     }
 
     onNetworkStart(event) {
-        console.log('NETWORK START');
+        this.store.dispatch(new NetworkActions.NetworkStart());
         event.stopPropagation();
     }
 }
