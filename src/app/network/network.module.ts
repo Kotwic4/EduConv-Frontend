@@ -6,6 +6,7 @@ import { InputLayerComponent } from './input-layer/input-layer.component';
 import { HiddenLayersComponent } from './hidden-layers/hidden-layers.component';
 import { OutputLayerComponent } from './output-layer/output-layer.component';
 import { InputImageComponent } from './input-layer/input-image/input-image.component';
+import { ResultsComponent } from './output-layer/results/results.component';
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ import { InputImageComponent } from './input-layer/input-image/input-image.compo
     InputLayerComponent,
     HiddenLayersComponent,
     OutputLayerComponent,
-    InputImageComponent
+    InputImageComponent,
+    ResultsComponent
   ]
 })
 export class NetworkModule { }

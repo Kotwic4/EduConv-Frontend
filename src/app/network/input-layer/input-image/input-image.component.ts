@@ -13,16 +13,15 @@ import * as NetworkActions from '../../store/network.actions';
 export class InputImageComponent implements OnInit {
     @ViewChild('imageInput') imageInput;
     inputImage: String;
-    imageSubscription: Subscription;
+    subscription: Subscription;
 
     constructor(private store: Store<fromApp.AppState>) {
     }
 
     ngOnInit() {
-        this.imageSubscription = this.store.select('network')
+        this.subscription = this.store.select('network')
             .subscribe(
                 data => {
-                    console.log(data);
                     this.inputImage = data.inputImage;
                 }
             );

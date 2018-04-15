@@ -1,0 +1,41 @@
+.results {
+    height: 500px;
+    overflow: auto;
+
+    .results__item {
+        $item-height: 30px;
+
+        width: 100%;
+        height: $item-height;
+        box-sizing: border-box;
+        position: relative;
+        background-color: grey;
+
+        .results__label {
+            width: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 2;
+            height: 100%;
+            box-sizing: border-box;
+            text-align: center;
+            line-height: $item-height;
+        }
+
+        .results__progress-bar {
+            height: 100%;
+            background-color: lightgray;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+
+        margin-bottom: 10px;
+
+        .results__item:last-child {
+            margin-bottom: 0;
+        }
+    }
+}
