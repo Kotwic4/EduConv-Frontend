@@ -1,0 +1,39 @@
+<div
+    class="input-image d-flex justify-content-center align-items-center"
+>
+    <div class="input-image__image-container">
+        <img
+            class="input-image__image"
+            [src]="inputImage"
+        >
+
+        <i
+            class="fa fa-times input-image__delete-image"
+            (click)="onImageDelete($event)"
+            *ngIf="inputImage"
+        ></i>
+    </div>
+
+    <span
+        class="input-image__start-network"
+        *ngIf="inputImage"
+        (click)="onNetworkStart($event)"
+    >
+        <i class="fa fa-play-circle"></i>
+    </span>
+
+    <input
+        type="file"
+        class="input-image__imageInput"
+        (change)="onImageChange($event)"
+        #imageInput
+    >
+
+    <div
+        *ngIf="!inputImage"
+        class="input-image__placeholder d-flex justify-content-center align-items-center"
+        (click)="imageInput.click()"
+    >
+        Click to upload an image
+    </div>
+</div>
