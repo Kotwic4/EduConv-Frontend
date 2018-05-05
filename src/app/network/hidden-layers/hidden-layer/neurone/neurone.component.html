@@ -1,7 +1,7 @@
 <div class="neurone__container" *ngIf="!placeholder">
     <i
         class="fa fa-times neurone__delete"
-        (click)="delete.emit()"
+        (click)="delete.emit(index)"
         matTooltip="Delete neurone"
         matTooltipPosition="below"
     ></i>

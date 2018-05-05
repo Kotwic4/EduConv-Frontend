@@ -2,3 +2,11 @@
     white-space: nowrap;
     overflow: auto;
 }
+
+.hidden-layers__add {
+    position: absolute;
+    top: 20px;
+    right: 15px;
+    font-size: 20px;
+    cursor: pointer;
+}

@@ -1,5 +1,7 @@
 import * as NetworkActions from './network.actions';
 import {HiddenLayerType} from '../hidden-layers/hidden-layer/hidden-layer-type.enum';
+import {HIDDEN_LAYER_CHANGE_TYPE} from './network.actions';
+import {HIDDEN_LAYER_ADD} from './network.actions';
 
 export interface State {
     inputImage: String;
@@ -52,6 +54,8 @@ const initialState: State = {
 };
 
 export function networkReducer(state = initialState, action: NetworkActions.NetworkActions) {
+    let newHiddenLayers;
+
     switch (action.type) {
         case (NetworkActions.INPUT_IMAGE_UPLOAD):
             return {
@@ -69,7 +73,7 @@ export function networkReducer(state = initialState, action: NetworkActions.Netw
                 uploadedNetwork: action.payload
             };
         case (NetworkActions.NEURONE_ADD):
-            const newHiddenLayers = [
+            newHiddenLayers = [
                 ...state.hiddenLayers
             ];
 
@@ -80,15 +84,40 @@ export function networkReducer(state = initialState, action: NetworkActions.Netw
                 hiddenLayers: newHiddenLayers
             };
         case (NetworkActions.NEURONE_DELETE):
-            const newHiddenLayers2 = [
+            newHiddenLayers = [
                 ...state.hiddenLayers
             ];
 
-            newHiddenLayers2[action.payload.layer].neurons--;
+            newHiddenLayers[action.payload.layer].neurons--;
 
             return {
                 ...state,
-                hiddenLayers: newHiddenLayers2
+                hiddenLayers: newHiddenLayers
+            };
+        case (NetworkActions.HIDDEN_LAYER_ADD):
+            newHiddenLayers = [
+                ...state.hiddenLayers
+            ];
+
+            newHiddenLayers.push({
+                type: 0,
+                neurons: 0
+            });
+
+            return {
+                ...state,
+                hiddenLayers: newHiddenLayers
+            };
+        case (NetworkActions.HIDDEN_LAYER_CHANGE_TYPE):
+            newHiddenLayers = [
+                ...state.hiddenLayers
+            ];
+
+            newHiddenLayers[action.payload.index].type = action.payload.type;
+
+            return {
+                ...state,
+                hiddenLayers: newHiddenLayers
             };
         default:
             return state;

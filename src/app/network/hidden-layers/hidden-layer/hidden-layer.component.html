@@ -1,7 +1,29 @@
-<div class="hidden-layer__container">
+<div class="hidden-layer__container" #hiddenLayer>
+    <div class="hidden-layer__tools">
+        <div class="hidden-layer__type">
+            <mat-form-field>
+                <mat-select [(value)]="layer.type" (change)="onTypeChange()">
+                    <mat-option
+                        *ngFor="let value of types_values; let i = index;"
+                        [value]="value"
+                    >{{ types_names[i] }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div class="hidden-layer__settings">
+            <i
+                matTooltip="Layer settings"
+                matTooltipPosition="below"
+                class="fa fa-cog"
+                (click)="openSettings()"
+            ></i>
+        </div>
+    </div>
     <app-neurone
         *ngFor="let neurone of range(layer.neurons); let i = index;"
-        (delete)="onNeuroneDelete(i)"
+        [index]="i"
+        (delete)="onNeuroneDelete($event)"
     ></app-neurone>
     <app-neurone [placeholder]="true" (add)="onNeuroneAdd()"></app-neurone>
 </div>

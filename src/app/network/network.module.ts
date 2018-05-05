@@ -2,6 +2,7 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatSelectModule} from '@angular/material/select';
 
 import {HeaderComponent} from './header/header.component';
 import {NetworkComponent} from './network.component';
@@ -17,7 +18,8 @@ import {NeuroneComponent} from './hidden-layers/hidden-layer/neurone/neurone.com
     imports: [
         CommonModule,
         BrowserAnimationsModule,
-        MatTooltipModule
+        MatTooltipModule,
+        MatSelectModule
     ],
     declarations: [
         NetworkComponent,

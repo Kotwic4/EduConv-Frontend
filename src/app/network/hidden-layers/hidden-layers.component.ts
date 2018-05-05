@@ -26,4 +26,8 @@ export class HiddenLayersComponent implements OnInit {
                 }
             );
     }
+
+    onLayerAdd() {
+        this.store.dispatch(new NetworkActions.HiddenLayerAdd());
+    }
 }

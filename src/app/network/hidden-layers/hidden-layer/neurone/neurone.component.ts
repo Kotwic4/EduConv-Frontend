@@ -6,9 +6,10 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
     styleUrls: ['./neurone.component.scss']
 })
 export class NeuroneComponent implements OnInit {
+    @Input() index: number;
     @Input() placeholder: boolean;
     @Output() add = new EventEmitter<any>();
-    @Output() delete = new EventEmitter<any>();
+    @Output() delete = new EventEmitter<number>();
 
     constructor() {
     }

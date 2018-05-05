@@ -6,6 +6,8 @@ export const NETWORK_START = 'NETWORK_START';
 export const NETWORK_UPLOAD = 'NETWORK_UPLOAD';
 export const NEURONE_ADD = 'NEURONE_ADD';
 export const NEURONE_DELETE = 'NEURONE_DELETE';
+export const HIDDEN_LAYER_ADD = 'HIDDEN_LAYER_ADD';
+export const HIDDEN_LAYER_CHANGE_TYPE = 'HIDDEN_LAYER_CHANGE_TYPE';
 
 export class InputImageUpload implements Action {
     readonly type = INPUT_IMAGE_UPLOAD;
@@ -43,9 +45,23 @@ export class NeuroneDelete implements Action {
     constructor(public payload: { layer: number, neurone: number }) {}
 }
 
+export class HiddenLayerAdd implements Action {
+    readonly type = HIDDEN_LAYER_ADD;
+
+    constructor() {}
+}
+
+export class HiddenLayerChangeType implements Action {
+    readonly type = HIDDEN_LAYER_CHANGE_TYPE;
+
+    constructor(public payload: { index: number, type: HiddenLayerChangeType }) {}
+}
+
 export type NetworkActions =
     InputImageUpload |
     InputImageDelete |
     NetworkUpload |
     NeuroneAdd |
-    NeuroneDelete;
+    NeuroneDelete |
+    HiddenLayerAdd |
+    HiddenLayerChangeType;

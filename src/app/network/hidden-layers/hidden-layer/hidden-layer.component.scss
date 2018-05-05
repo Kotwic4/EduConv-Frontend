@@ -1,8 +1,45 @@
 .hidden-layer__container {
+    $tools-height: 30px;
+    $tools-min-width: 100px;
+    $tools-settings-width: 30px;
+
     height: 500px;
+    min-width: $tools-min-width;
     margin: 10px;
     display: inline-flex;
     writing-mode: vertical-lr;
     flex-wrap: wrap;
     align-content: flex-start;
+    align-items: center;
+    position: relative;
+    padding-top: $tools-height;
+
+    .hidden-layer__tools {
+        width: 100%;
+        height: $tools-height;
+
+        writing-mode: horizontal-tb;
+        position: absolute;
+        top: 0;
+        left: 0;
+
+        .hidden-layer__type {
+            float: left;
+            margin-top: -20px;
+            width: calc(100% - #{$tools-settings-width});
+
+            mat-form-field {
+                width: 100%;
+            }
+        }
+
+        .hidden-layer__settings {
+            float: left;
+            width: $tools-settings-width;
+            text-align: center;
+            cursor: pointer;
+            margin-top: -5px;
+        }
+    }
 }
+
