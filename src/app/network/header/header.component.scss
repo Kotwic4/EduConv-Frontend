@@ -5,13 +5,56 @@
     .header__container {
         height: 75px;
 
-        .header__upload {
-            font-size: 50px;
+        .header__upload,
+        .header__download,
+        .header__learn,
+        .header__settings {
+            font-size: 40px;
             cursor: pointer;
+            line-height: 75px;
         }
 
         .input-image__networkInput {
             display: none;
         }
+
+        .header__download {
+            margin-right: 20px;
+        }
+
+        .header__learn,
+        .header__settings {
+            font-size: 30px;
+        }
+
+        .header__settings {
+            margin-left: 20px;
+        }
+
+        .header__logo {
+            line-height: 75px;
+            text-align: center;
+            margin: 0 auto;
+            display: block;
+            font-size: 40px;
+            font-family: "Comic Sans MS";
+            text-shadow: 0 0 10px white;
+            cursor: default;
+            user-select: none;
+
+            .header__logo--edu {
+                color: #f0642a;
+                text-shadow: 1px 1px 4px #f0642a;
+            }
+
+            .header__logo--conv {
+                color: #a5a9ab;
+                text-shadow: 1px 1px 4px #a5a9ab;
+            }
+        }
     }
+}
+
+/deep/ .header__tooltip {
+
 }

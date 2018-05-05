@@ -1,10 +1,37 @@
 <div class="container-fluid header__container-fluid">
     <div class="container header__container">
         <span
+            class="header__learn pull-left"
+            (click)="learnNetwork()"
+        >
+            <i
+                matTooltip="Learn"
+                matTooltipPosition="below"
+                matTooltipClass="header__tooltip"
+                class="fa fa-play"
+            ></i>
+        </span>
+
+        <span
+            class="header__settings pull-left"
+            (click)="openSettings()"
+        >
+            <i
+                matTooltip="Settings"
+                matTooltipPosition="below"
+                matTooltipClass="header__tooltip"
+                class="fa fa-cogs"></i>
+        </span>
+
+        <span
             class="header__upload pull-right"
             (click)="networkInput.click()"
         >
-            <i class="fa fa-cloud-upload"></i>
+            <i
+                matTooltip="Upload model"
+                matTooltipPosition="below"
+                matTooltipClass="header__tooltip"
+                class="fa fa-cloud-upload"></i>
         </span>
 
         <input
@@ -13,5 +40,20 @@
             (change)="onNetworkChange($event)"
             #networkInput
         >
+
+        <span
+            class="header__download pull-right"
+            (click)="downloadNetwork()"
+        >
+            <i
+                matTooltip="Download model"
+                matTooltipPosition="below"
+                matTooltipClass="header__tooltip"
+                class="fa fa-cloud-download"></i>
+        </span>
+
+        <span class="header__logo">
+            <span class="header__logo--edu">Edu</span><span class="header__logo--conv">Conv</span>
+        </span>
     </div>
 </div>

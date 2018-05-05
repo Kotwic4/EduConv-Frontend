@@ -10,6 +10,12 @@ import * as fromApp from '../../store/app.reducers';
     styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
+    position = 'below';
+    message = 'Here is the tooltip';
+    disabled = false;
+    showDelay = 0;
+    hideDelay = 1000;
+    showExtraClass = true;
 
     constructor(private store: Store<fromApp.AppState>) {
     }
@@ -28,5 +34,17 @@ export class HeaderComponent implements OnInit {
 
             reader.readAsText(fileInput.target.files[0]);
         }
+    }
+
+    downloadNetwork() {
+        console.log('Downloading network...');
+    }
+
+    learnNetwork() {
+        console.log('Learning network...');
+    }
+
+    openSettings() {
+        console.log('Opening settings...');
     }
 }
