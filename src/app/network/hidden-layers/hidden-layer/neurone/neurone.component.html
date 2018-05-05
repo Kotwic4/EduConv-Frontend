@@ -2,6 +2,8 @@
     <i
         class="fa fa-times neurone__delete"
         (click)="delete.emit()"
+        matTooltip="Delete neurone"
+        matTooltipPosition="below"
     ></i>
 </div>
 
@@ -9,6 +11,8 @@
     class="neurone__container neurone__container--placeholder"
     *ngIf="placeholder"
     (click)="add.emit()"
+    matTooltip="Add neurone"
+    matTooltipPosition="below"
 >
     <i class="fa fa-plus"></i>
 </div>
