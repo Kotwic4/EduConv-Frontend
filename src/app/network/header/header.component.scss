@@ -9,7 +9,7 @@
         .header__download,
         .header__learn,
         .header__settings {
-            font-size: 40px;
+            font-size: 30px;
             cursor: pointer;
             line-height: 75px;
         }
@@ -20,11 +20,6 @@
 
         .header__download {
             margin-right: 20px;
-        }
-
-        .header__learn,
-        .header__settings {
-            font-size: 30px;
         }
 
         .header__settings {
