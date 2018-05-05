@@ -1,7 +1,10 @@
 <div class="hidden-layer__container" #hiddenLayer>
     <div class="hidden-layer__tools">
         <div class="hidden-layer__type">
-            <mat-form-field>
+            <mat-form-field
+                matTooltip="Layer type"
+                matTooltipPosition="below"
+            >
                 <mat-select [(value)]="layer.type" (change)="onTypeChange()">
                     <mat-option
                         *ngFor="let value of types_values; let i = index;"

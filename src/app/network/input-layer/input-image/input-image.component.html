@@ -11,6 +11,8 @@
             class="fa fa-times input-image__delete-image"
             (click)="onImageDelete($event)"
             *ngIf="inputImage"
+            matTooltip="Delete image"
+            matTooltipPosition="below"
         ></i>
     </div>
 
@@ -18,6 +20,8 @@
         class="input-image__start-network"
         *ngIf="inputImage"
         (click)="onNetworkStart($event)"
+        matTooltip="Start network"
+        matTooltipPosition="below"
     >
         <i class="fa fa-play-circle"></i>
     </span>
