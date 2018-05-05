@@ -1,0 +1,13 @@
+.neurone__container {
+    $neurone-size: 50px;
+
+    width: $neurone-size;
+    height: $neurone-size;
+    writing-mode: horizontal-tb;
+
+    border-radius: 2px;
+    border: 1px solid;
+    margin: 5px;
+    padding: 2px;
+    box-sizing: border-box;
+}
