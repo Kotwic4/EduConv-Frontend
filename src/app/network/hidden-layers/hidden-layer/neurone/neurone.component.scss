@@ -8,6 +8,35 @@
     border-radius: 2px;
     border: 1px solid;
     margin: 5px;
-    padding: 2px;
     box-sizing: border-box;
+    position: relative;
+
+    .neurone__delete {
+        position: absolute;
+        top: 2px;
+        right: 2px;
+        font-size: 13px;
+        color: gray;
+        transition: color .2s;
+        cursor: pointer;
+
+        &:hover {
+            color: black;
+        }
+    }
+}
+
+.neurone__container--placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    color: gray;
+    background-color: lightgray;
+    transition: all .3s;
+    cursor: pointer;
+
+    &:hover {
+        color: black;
+    }
 }

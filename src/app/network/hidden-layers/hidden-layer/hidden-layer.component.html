@@ -1,5 +1,7 @@
 <div class="hidden-layer__container">
     <app-neurone
-        *ngFor="let neurone of range(layer.neurons)"
+        *ngFor="let neurone of range(layer.neurons); let i = index;"
+        (delete)="onNeuroneDelete(i)"
     ></app-neurone>
+    <app-neurone [placeholder]="true" (add)="onNeuroneAdd()"></app-neurone>
 </div>

@@ -68,6 +68,28 @@ export function networkReducer(state = initialState, action: NetworkActions.Netw
                 ...state,
                 uploadedNetwork: action.payload
             };
+        case (NetworkActions.NEURONE_ADD):
+            const newHiddenLayers = [
+                ...state.hiddenLayers
+            ];
+
+            newHiddenLayers[action.payload].neurons++;
+
+            return {
+                ...state,
+                hiddenLayers: newHiddenLayers
+            };
+        case (NetworkActions.NEURONE_DELETE):
+            const newHiddenLayers2 = [
+                ...state.hiddenLayers
+            ];
+
+            newHiddenLayers2[action.payload.layer].neurons--;
+
+            return {
+                ...state,
+                hiddenLayers: newHiddenLayers2
+            };
         default:
             return state;
     }

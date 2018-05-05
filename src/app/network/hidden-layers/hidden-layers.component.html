@@ -1,5 +1,5 @@
 <h4 class="text-center layer-header">Hidden layers</h4>
 
 <div class="hidden-layers__container">
-    <app-hidden-layer *ngFor="let layer of hiddenLayers" [layer]="layer"></app-hidden-layer>
+    <app-hidden-layer *ngFor="let layer of hiddenLayers; let i = index;" [layer]="layer" [index]="i"></app-hidden-layer>
 </div>

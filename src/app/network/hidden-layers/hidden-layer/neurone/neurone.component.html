@@ -1,3 +1,14 @@
-<div class="neurone__container">
+<div class="neurone__container" *ngIf="!placeholder">
+    <i
+        class="fa fa-times neurone__delete"
+        (click)="delete.emit()"
+    ></i>
+</div>
 
+<div
+    class="neurone__container neurone__container--placeholder"
+    *ngIf="placeholder"
+    (click)="add.emit()"
+>
+    <i class="fa fa-plus"></i>
 </div>
