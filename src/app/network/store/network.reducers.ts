@@ -1,7 +1,6 @@
 import * as NetworkActions from './network.actions';
 import {HiddenLayerType} from '../hidden-layers/hidden-layer/hidden-layer-type.enum';
-import {HIDDEN_LAYER_CHANGE_TYPE} from './network.actions';
-import {HIDDEN_LAYER_ADD} from './network.actions';
+import {HIDDEN_LAYER_CHANGE_POSITION} from './network.actions';
 
 export interface State {
     inputImage: String;
@@ -28,7 +27,7 @@ const initialState: State = {
     hiddenLayers: [
         {
             type: 0,
-            neurons: 9
+            neurons: 10
         },
 
         {
@@ -114,6 +113,17 @@ export function networkReducer(state = initialState, action: NetworkActions.Netw
             ];
 
             newHiddenLayers[action.payload.index].type = action.payload.type;
+
+            return {
+                ...state,
+                hiddenLayers: newHiddenLayers
+            };
+        case (NetworkActions.HIDDEN_LAYER_CHANGE_POSITION):
+            newHiddenLayers = [
+                ...state.hiddenLayers
+            ];
+
+            newHiddenLayers.splice(action.payload.newIndex, 0, newHiddenLayers.splice(action.payload.oldIndex, 1)[0]);
 
             return {
                 ...state,

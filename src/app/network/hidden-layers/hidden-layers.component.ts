@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs/Subscription';
 
 import * as fromApp from '../../store/app.reducers';
 import * as NetworkActions from '../store/network.actions';
+import {HiddenLayerChangePosition} from '../store/network.actions';
 
 @Component({
     selector: 'app-hidden-layers',
@@ -29,5 +30,12 @@ export class HiddenLayersComponent implements OnInit {
 
     onLayerAdd() {
         this.store.dispatch(new NetworkActions.HiddenLayerAdd());
+    }
+
+    onSortable(event: any) {
+        this.store.dispatch(new NetworkActions.HiddenLayerChangePosition({
+            oldIndex: event.oldIndex,
+            newIndex: event.newIndex
+        }));
     }
 }

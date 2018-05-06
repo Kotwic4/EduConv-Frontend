@@ -13,13 +13,15 @@ import {InputImageComponent} from './input-layer/input-image/input-image.compone
 import {ResultsComponent} from './output-layer/results/results.component';
 import {HiddenLayerComponent} from './hidden-layers/hidden-layer/hidden-layer.component';
 import {NeuroneComponent} from './hidden-layers/hidden-layer/neurone/neurone.component';
+import {SortablejsModule} from 'angular-sortablejs';
 
 @NgModule({
     imports: [
         CommonModule,
         BrowserAnimationsModule,
         MatTooltipModule,
-        MatSelectModule
+        MatSelectModule,
+        SortablejsModule
     ],
     declarations: [
         NetworkComponent,
