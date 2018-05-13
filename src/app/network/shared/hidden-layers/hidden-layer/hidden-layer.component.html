@@ -27,11 +27,11 @@
             ></i>
         </div>
     </div>
+    <app-neurone *ngIf="!readonly" [placeholder]="true" (add)="onNeuroneAdd()"></app-neurone>
     <app-neurone
         [readonly]="readonly"
         *ngFor="let neurone of range(layer.neurons); let i = index;"
         [index]="i"
         (delete)="onNeuroneDelete($event)"
     ></app-neurone>
-    <app-neurone *ngIf="!readonly" [placeholder]="true" (add)="onNeuroneAdd()"></app-neurone>
 </div>

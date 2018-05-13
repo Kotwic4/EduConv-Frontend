@@ -109,6 +109,8 @@ export class StartLearningNetwork implements Action {
 
 export class LearnNetwork implements Action {
     readonly type = LEARN_NETWORK;
+
+    constructor(public payload: number) {}
 }
 
 export class EndLearningNetwork implements Action {

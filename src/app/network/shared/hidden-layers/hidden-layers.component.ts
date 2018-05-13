@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs/Subscription';
 
@@ -11,7 +11,7 @@ import {HiddenLayerChangePosition} from '../../store/network.actions';
     templateUrl: './hidden-layers.component.html',
     styleUrls: ['./hidden-layers.component.scss']
 })
-export class HiddenLayersComponent implements OnInit {
+export class HiddenLayersComponent implements OnInit, OnDestroy {
     @Input() readonly;
     subscription: Subscription;
     hiddenLayers = [];
@@ -38,5 +38,9 @@ export class HiddenLayersComponent implements OnInit {
             oldIndex: event.oldIndex,
             newIndex: event.newIndex
         }));
+    }
+
+    ngOnDestroy() {
+        this.subscription.unsubscribe();
     }
 }

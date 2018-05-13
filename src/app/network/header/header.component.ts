@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import { Store } from '@ngrx/store';
 
 import * as NetworkActions from '../store/network.actions';
@@ -10,6 +10,7 @@ import * as fromApp from '../../store/app.reducers';
     styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
+    @Input() controls;
     position = 'below';
     message = 'Here is the tooltip';
     disabled = false;
@@ -34,17 +35,5 @@ export class HeaderComponent implements OnInit {
 
             reader.readAsText(fileInput.target.files[0]);
         }
-    }
-
-    downloadNetwork() {
-        console.log('Downloading network...');
-    }
-
-    learnNetwork() {
-        console.log('Learning network...');
-    }
-
-    openSettings() {
-        console.log('Opening settings...');
     }
 }

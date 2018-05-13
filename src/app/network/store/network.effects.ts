@@ -12,6 +12,38 @@ import {NetworkOutput} from '../shared/network-output.model';
 import {LearnedNetwork} from '../shared/learned-network.model';
 import {FetchUnlearnedNetwork} from './network.actions';
 
+const unlearnedNetwork = new UnlearnedNetwork();
+unlearnedNetwork.id = 1;
+unlearnedNetwork.layers = [
+    {
+        type: 0,
+        neurons: 10
+    },
+
+    {
+        type: 1,
+        neurons: 9
+    },
+];
+
+const learnedNetwork = new LearnedNetwork();
+learnedNetwork.id = 1;
+learnedNetwork.layers = [
+    {
+        type: 0,
+        neurons: 10
+    },
+
+    {
+        type: 1,
+        neurons: 9
+    },
+];
+learnedNetwork.labels = [
+    'label1',
+    'label2'
+];
+
 @Injectable()
 export class NetworkEffects {
     @Effect()
@@ -21,11 +53,12 @@ export class NetworkEffects {
             withLatestFrom(this.store.select('networkInUsage')),
             switchMap(
                 ([action, network]) => {
+                    // console.log(network);
                     // TODO Wysłanie sieci na serwer
                     return Observable.create(
                         (observer) => {
                             observer.next(
-                                new UnlearnedNetwork()
+                                unlearnedNetwork
                             );
                         }
                     );
@@ -48,24 +81,10 @@ export class NetworkEffects {
             switchMap(
                 (action: NetworkActions.FetchUnlearnedNetwork) => {
                     // TODO Pobranie niewyuczonej sieci o ID action.payload
-                    const network = new UnlearnedNetwork();
-                    network.id = action.payload;
-                    network.layers = [
-                        {
-                            type: 0,
-                            neurons: 10
-                        },
-
-                        {
-                            type: 0,
-                            neurons: 9
-                        },
-                    ];
-
                     return Observable.create(
                         (observer) => {
                             observer.next(
-                                network
+                                unlearnedNetwork
                             );
                         }
                     );
@@ -83,16 +102,16 @@ export class NetworkEffects {
 
     @Effect()
     learnNetwork = this.actions$
-        .ofType(NetworkActions.RUN_NETWORK)
+        .ofType(NetworkActions.LEARN_NETWORK)
         .pipe(
             withLatestFrom(this.store.select('networkInUsage')),
             switchMap(
-                ([action, network]) => {
+                ([action, network]: [NetworkActions.FetchLearnedNetwork, any]) => {
                     // TODO Wysłanie sieci do nauki na serwer
                     return Observable.create(
                         (observer) => {
                             observer.next(
-                                new LearnedNetwork()
+                                learnedNetwork
                             );
                         }
                     );
@@ -109,34 +128,16 @@ export class NetworkEffects {
         );
 
     @Effect()
-    fetchLearnNetwork = this.actions$
+    fetchLearnedNetwork = this.actions$
         .ofType(NetworkActions.FETCH_LEARNED_NETWORK)
         .pipe(
             switchMap(
                 (action: NetworkActions.FetchLearnedNetwork) => {
                     // TODO Pobranie wyuczonej sieci o ID action.payload
-                    const network = new LearnedNetwork();
-                    network.id = action.payload;
-                    network.layers = [
-                        {
-                            type: 0,
-                            neurons: 10
-                        },
-
-                        {
-                            type: 0,
-                            neurons: 9
-                        },
-                    ];
-                    network.labels = [
-                        'label1',
-                        'label2'
-                    ];
-
                     return Observable.create(
                         (observer) => {
                             observer.next(
-                                network
+                                learnedNetwork
                             );
                         }
                     );

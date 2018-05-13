@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs/Subscription';
 
@@ -11,7 +11,7 @@ import {LearnedNetwork} from '../../learned-network.model';
     templateUrl: './input-image.component.html',
     styleUrls: ['./input-image.component.scss']
 })
-export class InputImageComponent implements OnInit {
+export class InputImageComponent implements OnInit, OnDestroy {
     @ViewChild('imageInput') imageInput;
     inputImage: String;
     subscription: Subscription;
@@ -49,5 +49,9 @@ export class InputImageComponent implements OnInit {
     onNetworkStart(event) {
         this.store.dispatch(new NetworkActions.NetworkStart());
         event.stopPropagation();
+    }
+
+    ngOnDestroy() {
+        this.subscription.unsubscribe();
     }
 }

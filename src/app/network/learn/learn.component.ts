@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import * as fromApp from '../../store/app.reducers';
 import {Store} from '@ngrx/store';
 import {ActivatedRoute, Params, Router} from '@angular/router';
@@ -11,11 +11,17 @@ import * as NetworkActions from '../store/network.actions';
     templateUrl: './learn.component.html',
     styleUrls: ['./learn.component.scss']
 })
-export class LearnComponent implements OnInit {
+export class LearnComponent implements OnInit, OnDestroy {
     public id: number;
     public network: UnlearnedNetwork;
     public loading: boolean;
+    public learning = false;
+    public submitted = false;
     private subscription: Subscription;
+    public learnModel = function() {
+        this.submitted = true;
+        this.store.dispatch(new NetworkActions.LearnNetwork(this.id));
+    }.bind(this);
 
     constructor(
         private store: Store<fromApp.AppState>,
@@ -34,13 +40,22 @@ export class LearnComponent implements OnInit {
                     .subscribe(
                         data => {
                             this.loading = data.fetchingNetwork;
+                            this.learning = data.learningNetwork;
 
                             if (!this.loading) {
                                 this.network = <UnlearnedNetwork>data.networkInUsage;
+                            }
+
+                            if (!this.learning && this.submitted) {
+                                this.router.navigate(['/run', this.network.id]);
                             }
                         }
                     );
             }
         );
+    }
+
+    ngOnDestroy() {
+        this.subscription.unsubscribe();
     }
 }

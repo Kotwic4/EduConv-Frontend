@@ -15,7 +15,7 @@ network.layers = [
     },
 
     {
-        type: 0,
+        type: 1,
         neurons: 9
     },
 ];
@@ -27,6 +27,8 @@ network.labels = [
 export interface State {
     uploadedNetwork: String;
     fetchingNetwork: boolean;
+    savingNetwork: boolean;
+    learningNetwork: boolean;
     networkInUsage: UnlearnedNetwork | LearnedNetwork;
     networkRunResult: NetworkOutput;
 }
@@ -34,6 +36,8 @@ export interface State {
 const initialState: State = {
     uploadedNetwork: '',
     fetchingNetwork: false,
+    savingNetwork: false,
+    learningNetwork: false,
     networkInUsage: network,
     networkRunResult: null
 };
@@ -108,14 +112,30 @@ export function networkReducer(state = initialState, action: NetworkActions.Netw
                 networkInUsage: networkInUsage
             };
         case (NetworkActions.START_MODELING_NETWORK):
+            networkInUsage = new UnlearnedNetwork();
+            networkInUsage.id = 1;
+            networkInUsage.layers = [
+                {
+                    type: 0,
+                    neurons: 10
+                },
+
+                {
+                    type: 1,
+                    neurons: 9
+                },
+            ];
+
             return {
                 ...state,
-                networkInUsage: new UnlearnedNetwork()
+                networkInUsage: networkInUsage,
+                savingNetwork: true
             };
         case (NetworkActions.END_MODELING_NETWORK):
             return {
                 ...state,
-                networkInUsage: action.payload
+                networkInUsage: action.payload,
+                savingNetwork: false
             };
         case (NetworkActions.FETCH_UNLEARNED_NETWORK):
             return {

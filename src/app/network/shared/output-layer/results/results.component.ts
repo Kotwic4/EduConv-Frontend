@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs/Subscription';
 
@@ -10,7 +10,7 @@ import {LearnedNetwork} from '../../learned-network.model';
     templateUrl: './results.component.html',
     styleUrls: ['./results.component.scss']
 })
-export class ResultsComponent implements OnInit {
+export class ResultsComponent implements OnInit, OnDestroy {
     subscription: Subscription;
     labels: String[];
     results: Number[];
@@ -33,4 +33,7 @@ export class ResultsComponent implements OnInit {
             );
     }
 
+    ngOnDestroy() {
+        this.subscription.unsubscribe();
+    }
 }

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import * as NetworkActions from '../store/network.actions';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import * as fromApp from '../../store/app.reducers';
@@ -11,7 +11,7 @@ import {LearnedNetwork} from '../shared/learned-network.model';
     templateUrl: './run.component.html',
     styleUrls: ['./run.component.scss']
 })
-export class RunComponent implements OnInit {
+export class RunComponent implements OnInit, OnDestroy {
     public id: number;
     public network: LearnedNetwork;
     public loading: boolean;
@@ -44,4 +44,7 @@ export class RunComponent implements OnInit {
         );
     }
 
+    ngOnDestroy() {
+        this.subscription.unsubscribe();
+    }
 }
