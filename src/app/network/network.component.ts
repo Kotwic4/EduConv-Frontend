@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-network',
-  templateUrl: './network.component.html',
+  template: '<router-outlet></router-outlet>',
   styleUrls: ['./network.component.scss']
 })
 export class NetworkComponent implements OnInit {

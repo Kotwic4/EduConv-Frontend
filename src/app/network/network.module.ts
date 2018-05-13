@@ -17,6 +17,10 @@ import {SortablejsModule} from 'angular-sortablejs';
 import { ModelComponent } from './model/model.component';
 import { LearnComponent } from './learn/learn.component';
 import { RunComponent } from './run/run.component';
+import {RouterModule} from '@angular/router';
+import {NetworkRoutingModule} from './network-routing.module';
+import { HomeComponent } from './home/home.component';
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
     imports: [
@@ -24,7 +28,10 @@ import { RunComponent } from './run/run.component';
         BrowserAnimationsModule,
         MatTooltipModule,
         MatSelectModule,
-        SortablejsModule
+        SortablejsModule,
+        RouterModule,
+        NetworkRoutingModule,
+        HttpClientModule
     ],
     declarations: [
         NetworkComponent,
@@ -38,7 +45,8 @@ import { RunComponent } from './run/run.component';
         NeuroneComponent,
         ModelComponent,
         LearnComponent,
-        RunComponent
+        RunComponent,
+        HomeComponent
     ]
 })
 export class NetworkModule {

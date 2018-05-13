@@ -3,6 +3,7 @@ import {HiddenLayerType} from '../shared/hidden-layers/hidden-layer/hidden-layer
 import {HIDDEN_LAYER_CHANGE_POSITION, LearnNetwork} from './network.actions';
 import {Network} from '../shared/network.model';
 import {NetworkOutput} from '../shared/network-output.model';
+import {LearnedNetwork} from '../shared/learned-network.model';
 
 export interface State {
     inputImage: String;
@@ -13,7 +14,7 @@ export interface State {
         type: HiddenLayerType,
         neurons: number
     }[];
-    networkInUsage: Network | LearnNetwork;
+    networkInUsage: Network | LearnedNetwork;
     networkRunResult: NetworkOutput;
 }
 
@@ -137,27 +138,33 @@ export function networkReducer(state = initialState, action: NetworkActions.Netw
             };
         case (NetworkActions.START_MODELING_NETWORK):
             return {
-                ...state
+                ...state,
+                networkInUsage: new Network()
             };
         case (NetworkActions.END_MODELING_NETWORK):
             return {
-                ...state
+                ...state,
+                networkInUsage: action.payload
             };
         case (NetworkActions.START_LEARNING_NETWORK):
             return {
-                ...state
+                ...state,
+                networkInUsage: action.payload
             };
         case (NetworkActions.END_LEARNING_NETWORK):
             return {
-                ...state
+                ...state,
+                networkInUsage: action.payload
             };
         case (NetworkActions.START_RUNNING_NETWORK):
             return {
-                ...state
+                ...state,
+                networkInUsage: action.payload
             };
         case (NetworkActions.END_RUNNING_NETWORK):
             return {
-                ...state
+                ...state,
+                networkRunResult: action.payload
             };
         default:
             return state;
