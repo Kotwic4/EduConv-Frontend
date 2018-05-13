@@ -1,6 +1,8 @@
 import * as NetworkActions from './network.actions';
-import {HiddenLayerType} from '../hidden-layers/hidden-layer/hidden-layer-type.enum';
-import {HIDDEN_LAYER_CHANGE_POSITION} from './network.actions';
+import {HiddenLayerType} from '../shared/hidden-layers/hidden-layer/hidden-layer-type.enum';
+import {HIDDEN_LAYER_CHANGE_POSITION, LearnNetwork} from './network.actions';
+import {Network} from '../shared/network.model';
+import {NetworkOutput} from '../shared/network-output.model';
 
 export interface State {
     inputImage: String;
@@ -11,6 +13,8 @@ export interface State {
         type: HiddenLayerType,
         neurons: number
     }[];
+    networkInUsage: Network | LearnNetwork;
+    networkRunResult: NetworkOutput;
 }
 
 const initialState: State = {
@@ -49,7 +53,9 @@ const initialState: State = {
             type: 2,
             neurons: 4
         }
-    ]
+    ],
+    networkInUsage: null,
+    networkRunResult: null
 };
 
 export function networkReducer(state = initialState, action: NetworkActions.NetworkActions) {
@@ -128,6 +134,30 @@ export function networkReducer(state = initialState, action: NetworkActions.Netw
             return {
                 ...state,
                 hiddenLayers: newHiddenLayers
+            };
+        case (NetworkActions.START_MODELING_NETWORK):
+            return {
+                ...state
+            };
+        case (NetworkActions.END_MODELING_NETWORK):
+            return {
+                ...state
+            };
+        case (NetworkActions.START_LEARNING_NETWORK):
+            return {
+                ...state
+            };
+        case (NetworkActions.END_LEARNING_NETWORK):
+            return {
+                ...state
+            };
+        case (NetworkActions.START_RUNNING_NETWORK):
+            return {
+                ...state
+            };
+        case (NetworkActions.END_RUNNING_NETWORK):
+            return {
+                ...state
             };
         default:
             return state;

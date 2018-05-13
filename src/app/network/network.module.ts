@@ -6,14 +6,17 @@ import {MatSelectModule} from '@angular/material/select';
 
 import {HeaderComponent} from './header/header.component';
 import {NetworkComponent} from './network.component';
-import {InputLayerComponent} from './input-layer/input-layer.component';
-import {HiddenLayersComponent} from './hidden-layers/hidden-layers.component';
-import {OutputLayerComponent} from './output-layer/output-layer.component';
-import {InputImageComponent} from './input-layer/input-image/input-image.component';
-import {ResultsComponent} from './output-layer/results/results.component';
-import {HiddenLayerComponent} from './hidden-layers/hidden-layer/hidden-layer.component';
-import {NeuroneComponent} from './hidden-layers/hidden-layer/neurone/neurone.component';
+import {InputLayerComponent} from './shared/input-layer/input-layer.component';
+import {HiddenLayersComponent} from './shared/hidden-layers/hidden-layers.component';
+import {OutputLayerComponent} from './shared/output-layer/output-layer.component';
+import {InputImageComponent} from './shared/input-layer/input-image/input-image.component';
+import {ResultsComponent} from './shared/output-layer/results/results.component';
+import {HiddenLayerComponent} from './shared/hidden-layers/hidden-layer/hidden-layer.component';
+import {NeuroneComponent} from './shared/hidden-layers/hidden-layer/neurone/neurone.component';
 import {SortablejsModule} from 'angular-sortablejs';
+import { ModelComponent } from './model/model.component';
+import { LearnComponent } from './learn/learn.component';
+import { RunComponent } from './run/run.component';
 
 @NgModule({
     imports: [
@@ -32,7 +35,10 @@ import {SortablejsModule} from 'angular-sortablejs';
         InputImageComponent,
         ResultsComponent,
         HiddenLayerComponent,
-        NeuroneComponent
+        NeuroneComponent,
+        ModelComponent,
+        LearnComponent,
+        RunComponent
     ]
 })
 export class NetworkModule {

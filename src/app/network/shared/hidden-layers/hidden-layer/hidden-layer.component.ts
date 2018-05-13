@@ -1,8 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 import { Store } from '@ngrx/store';
 
-import * as NetworkActions from '../../store/network.actions';
-import * as fromApp from '../../../store/app.reducers';
+import * as NetworkActions from '../../../store/network.actions';
+import * as fromApp from '../../../../store/app.reducers';
 import {HiddenLayerType} from './hidden-layer-type.enum';
 import {Subscription} from 'rxjs/Subscription';
 

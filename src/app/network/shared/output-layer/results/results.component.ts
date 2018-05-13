@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs/Subscription';
 
-import * as fromApp from '../../../store/app.reducers';
+import * as fromApp from '../../../../store/app.reducers';
 
 @Component({
     selector: 'app-results',
