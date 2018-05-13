@@ -2,6 +2,7 @@
     <div class="hidden-layer__tools">
         <div class="hidden-layer__type">
             <mat-form-field
+                *ngIf="!readonly"
                 matTooltip="Layer type"
                 matTooltipPosition="below"
             >
@@ -12,6 +13,9 @@
                     >{{ types_names[i] }}</mat-option>
                 </mat-select>
             </mat-form-field>
+            <div *ngIf="readonly" class="hidden-layer__type-readonly-name">
+                {{ types_names[layer.type] }}
+            </div>
         </div>
 
         <div class="hidden-layer__settings">
@@ -24,9 +28,10 @@
         </div>
     </div>
     <app-neurone
+        [readonly]="readonly"
         *ngFor="let neurone of range(layer.neurons); let i = index;"
         [index]="i"
         (delete)="onNeuroneDelete($event)"
     ></app-neurone>
-    <app-neurone [placeholder]="true" (add)="onNeuroneAdd()"></app-neurone>
+    <app-neurone *ngIf="!readonly" [placeholder]="true" (add)="onNeuroneAdd()"></app-neurone>
 </div>

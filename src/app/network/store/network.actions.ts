@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import {Network} from '../shared/network.model';
+import {UnlearnedNetwork} from '../shared/unlearned-network.model';
 import {LearnedNetwork} from '../shared/learned-network.model';
 import {NetworkOutput} from '../shared/network-output.model';
 
@@ -17,10 +17,12 @@ export const START_MODELING_NETWORK = 'START_MODELING_NETWORK';
 export const MODEL_NETWORK = 'MODEL_NETWORK';
 export const END_MODELING_NETWORK = 'END_MODELING_NETWORK';
 
+export const FETCH_UNLEARNED_NETWORK = 'FETCH_UNLEARNED_NETWORK';
 export const START_LEARNING_NETWORK = 'START_LEARNING_NETWORK';
 export const LEARN_NETWORK = 'LEARN_NETWORK';
 export const END_LEARNING_NETWORK = 'END_LEARNING_NETWORK';
 
+export const FETCH_LEARNED_NETWORK = 'FETCH_LEARNED_NETWORK';
 export const START_RUNNING_NETWORK = 'START_RUNNING_NETWORK';
 export const RUN_NETWORK = 'RUN_NETWORK';
 export const END_RUNNING_NETWORK = 'END_RUNNING_NETWORK';
@@ -90,13 +92,19 @@ export class ModelNetwork implements Action {
 export class EndModelingNetwork implements Action {
     readonly type = END_MODELING_NETWORK;
 
-    constructor(public payload: Network) {}
+    constructor(public payload: UnlearnedNetwork) {}
+}
+
+export class FetchUnlearnedNetwork implements Action {
+    readonly type = FETCH_UNLEARNED_NETWORK;
+
+    constructor(public payload: number) {}
 }
 
 export class StartLearningNetwork implements Action {
     readonly type = START_LEARNING_NETWORK;
 
-    constructor(public payload: Network) {}
+    constructor(public payload: UnlearnedNetwork) {}
 }
 
 export class LearnNetwork implements Action {
@@ -109,10 +117,16 @@ export class EndLearningNetwork implements Action {
     constructor(public payload: LearnedNetwork) {}
 }
 
+export class FetchLearnedNetwork implements Action {
+    readonly type = FETCH_LEARNED_NETWORK;
+
+    constructor(public payload: number) {}
+}
+
 export class StartRunningNetwork implements Action {
     readonly type = START_RUNNING_NETWORK;
 
-    constructor(public payload: Network) {}
+    constructor(public payload: UnlearnedNetwork) {}
 }
 
 export class RunNetwork implements Action {
@@ -137,9 +151,11 @@ export type NetworkActions =
     StartModelingNetwork |
     ModelNetwork |
     EndModelingNetwork |
+    FetchUnlearnedNetwork |
     StartLearningNetwork |
     LearnNetwork |
     EndLearningNetwork |
+    FetchLearnedNetwork |
     StartRunningNetwork |
     RunNetwork |
     EndRunningNetwork;

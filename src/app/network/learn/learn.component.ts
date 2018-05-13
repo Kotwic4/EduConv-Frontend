@@ -1,15 +1,46 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import * as fromApp from '../../store/app.reducers';
+import {Store} from '@ngrx/store';
+import {ActivatedRoute, Params, Router} from '@angular/router';
+import {UnlearnedNetwork} from '../shared/unlearned-network.model';
+import {Subscription} from 'rxjs/Subscription';
+import * as NetworkActions from '../store/network.actions';
 
 @Component({
-  selector: 'app-learn',
-  templateUrl: './learn.component.html',
-  styleUrls: ['./learn.component.scss']
+    selector: 'app-learn',
+    templateUrl: './learn.component.html',
+    styleUrls: ['./learn.component.scss']
 })
 export class LearnComponent implements OnInit {
+    public id: number;
+    public network: UnlearnedNetwork;
+    public loading: boolean;
+    private subscription: Subscription;
 
-  constructor() { }
+    constructor(
+        private store: Store<fromApp.AppState>,
+        private route: ActivatedRoute,
+        private router: Router
+    ) {}
 
-  ngOnInit() {
-  }
+    ngOnInit() {
+        this.route.params.subscribe(
+            (params: Params) => {
+                this.id = +params['id'];
 
+                this.store.dispatch(new NetworkActions.FetchUnlearnedNetwork(this.id));
+
+                this.subscription = this.store.select('network')
+                    .subscribe(
+                        data => {
+                            this.loading = data.fetchingNetwork;
+
+                            if (!this.loading) {
+                                this.network = <UnlearnedNetwork>data.networkInUsage;
+                            }
+                        }
+                    );
+            }
+        );
+    }
 }

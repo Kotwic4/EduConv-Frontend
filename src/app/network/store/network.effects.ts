@@ -7,9 +7,10 @@ import {HttpClient} from '@angular/common/http';
 import * as NetworkActions from './network.actions';
 import * as fromNetwork from './network.reducers';
 import {Observable} from 'rxjs/Observable';
-import {Network} from '../shared/network.model';
+import {UnlearnedNetwork} from '../shared/unlearned-network.model';
 import {NetworkOutput} from '../shared/network-output.model';
 import {LearnedNetwork} from '../shared/learned-network.model';
+import {FetchUnlearnedNetwork} from './network.actions';
 
 @Injectable()
 export class NetworkEffects {
@@ -24,7 +25,7 @@ export class NetworkEffects {
                     return Observable.create(
                         (observer) => {
                             observer.next(
-                                new Network()
+                                new UnlearnedNetwork()
                             );
                         }
                     );
@@ -41,17 +42,30 @@ export class NetworkEffects {
         );
 
     @Effect()
-    runNetwork = this.actions$
-        .ofType(NetworkActions.RUN_NETWORK)
+    fetchUnlearnNetwork = this.actions$
+        .ofType(NetworkActions.FETCH_UNLEARNED_NETWORK)
         .pipe(
-            withLatestFrom(this.store.select('networkInUsage')),
             switchMap(
-                ([action, network]) => {
-                    // TODO Asynchroniczne uruchomienie sieci
+                (action: NetworkActions.FetchUnlearnedNetwork) => {
+                    // TODO Pobranie niewyuczonej sieci o ID action.payload
+                    const network = new UnlearnedNetwork();
+                    network.id = action.payload;
+                    network.layers = [
+                        {
+                            type: 0,
+                            neurons: 10
+                        },
+
+                        {
+                            type: 0,
+                            neurons: 9
+                        },
+                    ];
+
                     return Observable.create(
                         (observer) => {
                             observer.next(
-                                new NetworkOutput()
+                                network
                             );
                         }
                     );
@@ -60,7 +74,7 @@ export class NetworkEffects {
             map(
                 (result) => {
                     return {
-                        type: NetworkActions.END_RUNNING_NETWORK,
+                        type: NetworkActions.START_LEARNING_NETWORK,
                         payload: result
                     };
                 }
@@ -88,6 +102,77 @@ export class NetworkEffects {
                 (result) => {
                     return {
                         type: NetworkActions.END_LEARNING_NETWORK,
+                        payload: result
+                    };
+                }
+            )
+        );
+
+    @Effect()
+    fetchLearnNetwork = this.actions$
+        .ofType(NetworkActions.FETCH_LEARNED_NETWORK)
+        .pipe(
+            switchMap(
+                (action: NetworkActions.FetchLearnedNetwork) => {
+                    // TODO Pobranie wyuczonej sieci o ID action.payload
+                    const network = new LearnedNetwork();
+                    network.id = action.payload;
+                    network.layers = [
+                        {
+                            type: 0,
+                            neurons: 10
+                        },
+
+                        {
+                            type: 0,
+                            neurons: 9
+                        },
+                    ];
+                    network.labels = [
+                        'label1',
+                        'label2'
+                    ];
+
+                    return Observable.create(
+                        (observer) => {
+                            observer.next(
+                                network
+                            );
+                        }
+                    );
+                }
+            ),
+            map(
+                (result) => {
+                    return {
+                        type: NetworkActions.START_RUNNING_NETWORK,
+                        payload: result
+                    };
+                }
+            )
+        );
+
+    @Effect()
+    runNetwork = this.actions$
+        .ofType(NetworkActions.RUN_NETWORK)
+        .pipe(
+            withLatestFrom(this.store.select('networkInUsage')),
+            switchMap(
+                ([action, network]) => {
+                    // TODO Asynchroniczne uruchomienie sieci
+                    return Observable.create(
+                        (observer) => {
+                            observer.next(
+                                new NetworkOutput()
+                            );
+                        }
+                    );
+                }
+            ),
+            map(
+                (result) => {
+                    return {
+                        type: NetworkActions.END_RUNNING_NETWORK,
                         payload: result
                     };
                 }

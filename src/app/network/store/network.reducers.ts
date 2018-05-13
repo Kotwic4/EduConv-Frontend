@@ -1,77 +1,62 @@
 import * as NetworkActions from './network.actions';
 import {HiddenLayerType} from '../shared/hidden-layers/hidden-layer/hidden-layer-type.enum';
 import {HIDDEN_LAYER_CHANGE_POSITION, LearnNetwork} from './network.actions';
-import {Network} from '../shared/network.model';
+import {UnlearnedNetwork} from '../shared/unlearned-network.model';
 import {NetworkOutput} from '../shared/network-output.model';
 import {LearnedNetwork} from '../shared/learned-network.model';
+import {FETCH_UNLEARNED_NETWORK} from './network.actions';
+
+const network = new LearnedNetwork();
+network.id = 1;
+network.layers = [
+    {
+        type: 0,
+        neurons: 10
+    },
+
+    {
+        type: 0,
+        neurons: 9
+    },
+];
+network.labels = [
+    'label1',
+    'label2'
+];
 
 export interface State {
-    inputImage: String;
     uploadedNetwork: String;
-    labels: String[];
-    results: Number[];
-    hiddenLayers: {
-        type: HiddenLayerType,
-        neurons: number
-    }[];
-    networkInUsage: Network | LearnedNetwork;
+    fetchingNetwork: boolean;
+    networkInUsage: UnlearnedNetwork | LearnedNetwork;
     networkRunResult: NetworkOutput;
 }
 
 const initialState: State = {
-    inputImage: '',
     uploadedNetwork: '',
-    labels: [
-        'label1',
-        'label2'
-    ],
-    results: [
-        0.3,
-        0.7
-    ],
-    hiddenLayers: [
-        {
-            type: 0,
-            neurons: 10
-        },
-
-        {
-            type: 0,
-            neurons: 9
-        },
-
-        {
-            type: 1,
-            neurons: 3
-        },
-
-        {
-            type: 2,
-            neurons: 4
-        },
-
-        {
-            type: 2,
-            neurons: 4
-        }
-    ],
-    networkInUsage: null,
+    fetchingNetwork: false,
+    networkInUsage: network,
     networkRunResult: null
 };
 
 export function networkReducer(state = initialState, action: NetworkActions.NetworkActions) {
-    let newHiddenLayers;
+    let networkInUsage;
 
     switch (action.type) {
         case (NetworkActions.INPUT_IMAGE_UPLOAD):
+            networkInUsage = <LearnedNetwork>state.networkInUsage;
+            networkInUsage.input = action.payload;
+
             return {
                 ...state,
-                inputImage: action.payload
+                networkInUsage: networkInUsage
             };
         case (NetworkActions.INPUT_IMAGE_DELETE):
+            networkInUsage = <LearnedNetwork>state.networkInUsage;
+            networkInUsage.input = null;
+
             return {
                 ...state,
-                inputImage: ''
+                networkInUsage: networkInUsage
             };
         case (NetworkActions.NETWORK_UPLOAD):
             return {
@@ -79,87 +64,84 @@ export function networkReducer(state = initialState, action: NetworkActions.Netw
                 uploadedNetwork: action.payload
             };
         case (NetworkActions.NEURONE_ADD):
-            newHiddenLayers = [
-                ...state.hiddenLayers
-            ];
-
-            newHiddenLayers[action.payload].neurons++;
+            networkInUsage = <LearnedNetwork>state.networkInUsage;
+            networkInUsage.layers[action.payload].neurons++;
 
             return {
                 ...state,
-                hiddenLayers: newHiddenLayers
+                networkInUsage: networkInUsage
             };
         case (NetworkActions.NEURONE_DELETE):
-            newHiddenLayers = [
-                ...state.hiddenLayers
-            ];
-
-            newHiddenLayers[action.payload.layer].neurons--;
+            networkInUsage = <LearnedNetwork>state.networkInUsage;
+            networkInUsage.layers[action.payload.layer].neurons--;
 
             return {
                 ...state,
-                hiddenLayers: newHiddenLayers
+                networkInUsage: networkInUsage
             };
         case (NetworkActions.HIDDEN_LAYER_ADD):
-            newHiddenLayers = [
-                ...state.hiddenLayers
-            ];
-
-            newHiddenLayers.push({
+            networkInUsage = <LearnedNetwork>state.networkInUsage;
+            networkInUsage.layers.push({
                 type: 0,
                 neurons: 0
             });
 
             return {
                 ...state,
-                hiddenLayers: newHiddenLayers
+                networkInUsage: networkInUsage
             };
         case (NetworkActions.HIDDEN_LAYER_CHANGE_TYPE):
-            newHiddenLayers = [
-                ...state.hiddenLayers
-            ];
-
-            newHiddenLayers[action.payload.index].type = action.payload.type;
+            networkInUsage = <LearnedNetwork>state.networkInUsage;
+            networkInUsage.layers[action.payload.index].type = action.payload.type;
 
             return {
                 ...state,
-                hiddenLayers: newHiddenLayers
+                networkInUsage: networkInUsage
             };
         case (NetworkActions.HIDDEN_LAYER_CHANGE_POSITION):
-            newHiddenLayers = [
-                ...state.hiddenLayers
-            ];
+            networkInUsage = <LearnedNetwork>state.networkInUsage;
 
-            newHiddenLayers.splice(action.payload.newIndex, 0, newHiddenLayers.splice(action.payload.oldIndex, 1)[0]);
+            networkInUsage.layers.splice(action.payload.newIndex, 0, networkInUsage.layers.splice(action.payload.oldIndex, 1)[0]);
 
             return {
                 ...state,
-                hiddenLayers: newHiddenLayers
+                networkInUsage: networkInUsage
             };
         case (NetworkActions.START_MODELING_NETWORK):
             return {
                 ...state,
-                networkInUsage: new Network()
+                networkInUsage: new UnlearnedNetwork()
             };
         case (NetworkActions.END_MODELING_NETWORK):
             return {
                 ...state,
                 networkInUsage: action.payload
             };
+        case (NetworkActions.FETCH_UNLEARNED_NETWORK):
+            return {
+                ...state,
+                fetchingNetwork: true
+            };
         case (NetworkActions.START_LEARNING_NETWORK):
             return {
                 ...state,
-                networkInUsage: action.payload
+                fetchingNetwork: false
             };
         case (NetworkActions.END_LEARNING_NETWORK):
             return {
                 ...state,
                 networkInUsage: action.payload
             };
+        case (NetworkActions.FETCH_LEARNED_NETWORK):
+            return {
+                ...state,
+                fetchingNetwork: true
+            };
         case (NetworkActions.START_RUNNING_NETWORK):
             return {
                 ...state,
-                networkInUsage: action.payload
+                networkInUsage: action.payload,
+                fetchingNetwork: false
             };
         case (NetworkActions.END_RUNNING_NETWORK):
             return {

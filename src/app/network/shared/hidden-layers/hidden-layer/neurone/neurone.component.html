@@ -1,5 +1,6 @@
 <div class="neurone__container" *ngIf="!placeholder">
     <i
+        *ngIf="!readonly"
         class="fa fa-times neurone__delete"
         (click)="delete.emit(index)"
         matTooltip="Delete neurone"

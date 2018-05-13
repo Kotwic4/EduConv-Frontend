@@ -1,4 +1,4 @@
-export class Network {
+export class UnlearnedNetwork {
     private _id;
     private _layers;
 

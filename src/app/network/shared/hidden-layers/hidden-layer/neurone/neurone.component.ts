@@ -8,6 +8,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 export class NeuroneComponent implements OnInit {
     @Input() index: number;
     @Input() placeholder: boolean;
+    @Input() readonly;
     @Output() add = new EventEmitter<any>();
     @Output() delete = new EventEmitter<number>();
 

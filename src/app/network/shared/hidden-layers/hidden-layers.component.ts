@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs/Subscription';
 
@@ -12,6 +12,7 @@ import {HiddenLayerChangePosition} from '../../store/network.actions';
     styleUrls: ['./hidden-layers.component.scss']
 })
 export class HiddenLayersComponent implements OnInit {
+    @Input() readonly;
     subscription: Subscription;
     hiddenLayers = [];
 
@@ -23,7 +24,7 @@ export class HiddenLayersComponent implements OnInit {
         this.subscription = this.store.select('network')
             .subscribe(
                 data => {
-                    this.hiddenLayers = data.hiddenLayers;
+                    this.hiddenLayers = data.networkInUsage.layers;
                 }
             );
     }

@@ -13,6 +13,7 @@ import {Subscription} from 'rxjs/Subscription';
 })
 export class HiddenLayerComponent implements OnInit {
     @Input() index: number;
+    @Input() readonly;
     layer: any;
     subscription: Subscription;
     types_names: string[];
@@ -28,7 +29,7 @@ export class HiddenLayerComponent implements OnInit {
             .subscribe(
                 data => {
                     this.layer = {
-                        ...data.hiddenLayers[this.index]
+                        ...data.networkInUsage.layers[this.index]
                     };
                 }
             );

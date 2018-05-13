@@ -18,11 +18,11 @@ const routes: Routes = [
                 component: ModelComponent,
             },
             {
-                path: 'learn',
+                path: 'learn/:id',
                 component: LearnComponent
             },
             {
-                path: 'run',
+                path: 'run/:id',
                 component: RunComponent
             }
         ]
