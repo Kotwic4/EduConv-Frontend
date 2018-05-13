@@ -1,28 +1,28 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs/Subscription';
 
-import * as fromApp from '../../../store/app.reducers';
-import * as NetworkActions from '../../store/network.actions';
+import * as fromApp from '../../../../store/app.reducers';
+import * as NetworkActions from '../../../store/network.actions';
+import {LearnedNetwork} from '../../learned-network.model';
 
 @Component({
     selector: 'app-input-image',
     templateUrl: './input-image.component.html',
     styleUrls: ['./input-image.component.scss']
 })
-export class InputImageComponent implements OnInit {
+export class InputImageComponent implements OnInit, OnDestroy {
     @ViewChild('imageInput') imageInput;
     inputImage: String;
     subscription: Subscription;
 
-    constructor(private store: Store<fromApp.AppState>) {
-    }
+    constructor(private store: Store<fromApp.AppState>) {}
 
     ngOnInit() {
         this.subscription = this.store.select('network')
             .subscribe(
-                data => {
-                    this.inputImage = data.inputImage;
+                (data) => {
+                    this.inputImage = (<LearnedNetwork>data.networkInUsage).input;
                 }
             );
     }
@@ -49,5 +49,9 @@ export class InputImageComponent implements OnInit {
     onNetworkStart(event) {
         this.store.dispatch(new NetworkActions.NetworkStart());
         event.stopPropagation();
+    }
+
+    ngOnDestroy() {
+        this.subscription.unsubscribe();
     }
 }

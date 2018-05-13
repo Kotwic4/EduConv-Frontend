@@ -1,8 +1,8 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import { Store } from '@ngrx/store';
 
-import * as NetworkActions from '../../store/network.actions';
-import * as fromApp from '../../../store/app.reducers';
+import * as NetworkActions from '../../../store/network.actions';
+import * as fromApp from '../../../../store/app.reducers';
 import {HiddenLayerType} from './hidden-layer-type.enum';
 import {Subscription} from 'rxjs/Subscription';
 
@@ -11,8 +11,9 @@ import {Subscription} from 'rxjs/Subscription';
     templateUrl: './hidden-layer.component.html',
     styleUrls: ['./hidden-layer.component.scss']
 })
-export class HiddenLayerComponent implements OnInit {
+export class HiddenLayerComponent implements OnInit, OnDestroy {
     @Input() index: number;
+    @Input() readonly;
     layer: any;
     subscription: Subscription;
     types_names: string[];
@@ -28,7 +29,7 @@ export class HiddenLayerComponent implements OnInit {
             .subscribe(
                 data => {
                     this.layer = {
-                        ...data.hiddenLayers[this.index]
+                        ...data.networkInUsage.layers[this.index]
                     };
                 }
             );
@@ -58,5 +59,9 @@ export class HiddenLayerComponent implements OnInit {
 
     openSettings() {
         console.log('Opening settings...');
+    }
+
+    ngOnDestroy() {
+        this.subscription.unsubscribe();
     }
 }

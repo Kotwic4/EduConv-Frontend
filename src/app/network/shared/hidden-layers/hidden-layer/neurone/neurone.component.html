@@ -1,10 +1,13 @@
 <div class="neurone__container" *ngIf="!placeholder">
     <i
+        *ngIf="!readonly"
         class="fa fa-times neurone__delete"
         (click)="delete.emit(index)"
         matTooltip="Delete neurone"
         matTooltipPosition="below"
     ></i>
+
+    <span class="neurone__index">{{ index+1 }}.</span>
 </div>
 
 <div

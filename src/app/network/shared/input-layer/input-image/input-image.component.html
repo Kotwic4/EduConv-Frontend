@@ -1,7 +1,7 @@
 <div
     class="input-image d-flex justify-content-center align-items-center"
 >
-    <div class="input-image__image-container">
+    <div class="input-image__image-container" *ngIf="inputImage">
         <img
             class="input-image__image"
             [src]="inputImage"

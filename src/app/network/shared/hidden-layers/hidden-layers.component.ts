@@ -1,17 +1,18 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs/Subscription';
 
-import * as fromApp from '../../store/app.reducers';
-import * as NetworkActions from '../store/network.actions';
-import {HiddenLayerChangePosition} from '../store/network.actions';
+import * as fromApp from '../../../store/app.reducers';
+import * as NetworkActions from '../../store/network.actions';
+import {HiddenLayerChangePosition} from '../../store/network.actions';
 
 @Component({
     selector: 'app-hidden-layers',
     templateUrl: './hidden-layers.component.html',
     styleUrls: ['./hidden-layers.component.scss']
 })
-export class HiddenLayersComponent implements OnInit {
+export class HiddenLayersComponent implements OnInit, OnDestroy {
+    @Input() readonly;
     subscription: Subscription;
     hiddenLayers = [];
 
@@ -23,7 +24,7 @@ export class HiddenLayersComponent implements OnInit {
         this.subscription = this.store.select('network')
             .subscribe(
                 data => {
-                    this.hiddenLayers = data.hiddenLayers;
+                    this.hiddenLayers = data.networkInUsage.layers;
                 }
             );
     }
@@ -37,5 +38,9 @@ export class HiddenLayersComponent implements OnInit {
             oldIndex: event.oldIndex,
             newIndex: event.newIndex
         }));
+    }
+
+    ngOnDestroy() {
+        this.subscription.unsubscribe();
     }
 }

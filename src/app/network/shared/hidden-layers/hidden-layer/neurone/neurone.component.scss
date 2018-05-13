@@ -19,6 +19,13 @@
         transition: color .2s;
         cursor: pointer;
     }
+
+    .neurone__index {
+        position: absolute;
+        bottom: 2px;
+        left: 4px;
+        font-size: 13px;
+    }
 }
 
 .neurone__container--placeholder {
