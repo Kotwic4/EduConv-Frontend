@@ -15,6 +15,7 @@ export class InputImageComponent implements OnInit, OnDestroy {
     @ViewChild('imageInput') imageInput;
     inputImage: String;
     subscription: Subscription;
+    private submitted = false;
 
     constructor(private store: Store<fromApp.AppState>) {}
 
@@ -23,6 +24,10 @@ export class InputImageComponent implements OnInit, OnDestroy {
             .subscribe(
                 (data) => {
                     this.inputImage = (<LearnedNetwork>data.networkInUsage).input;
+
+                    if (this.submitted && !data.runningNetwork) {
+                        console.log('End of running');
+                    }
                 }
             );
     }
@@ -47,7 +52,8 @@ export class InputImageComponent implements OnInit, OnDestroy {
     }
 
     onNetworkStart(event) {
-        this.store.dispatch(new NetworkActions.NetworkStart());
+        this.submitted = true;
+        this.store.dispatch(new NetworkActions.RunNetwork());
         event.stopPropagation();
     }
 

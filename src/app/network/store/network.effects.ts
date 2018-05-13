@@ -161,10 +161,13 @@ export class NetworkEffects {
             switchMap(
                 ([action, network]) => {
                     // TODO Asynchroniczne uruchomienie sieci
+                    const output = new NetworkOutput();
+                    output.classification = [0.2, 0.8];
+
                     return Observable.create(
                         (observer) => {
                             observer.next(
-                                new NetworkOutput()
+                                output
                             );
                         }
                     );

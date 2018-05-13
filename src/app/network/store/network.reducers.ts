@@ -29,6 +29,7 @@ export interface State {
     fetchingNetwork: boolean;
     savingNetwork: boolean;
     learningNetwork: boolean;
+    runningNetwork: boolean;
     networkInUsage: UnlearnedNetwork | LearnedNetwork;
     networkRunResult: NetworkOutput;
 }
@@ -38,6 +39,7 @@ const initialState: State = {
     fetchingNetwork: false,
     savingNetwork: false,
     learningNetwork: false,
+    runningNetwork: false,
     networkInUsage: network,
     networkRunResult: null
 };
@@ -163,10 +165,16 @@ export function networkReducer(state = initialState, action: NetworkActions.Netw
                 networkInUsage: action.payload,
                 fetchingNetwork: false
             };
+        case (NetworkActions.RUN_NETWORK):
+            return {
+                ...state,
+                runningNetwork: true
+            };
         case (NetworkActions.END_RUNNING_NETWORK):
             return {
                 ...state,
-                networkRunResult: action.payload
+                networkRunResult: action.payload,
+                runningNetwork: false
             };
         default:
             return state;
