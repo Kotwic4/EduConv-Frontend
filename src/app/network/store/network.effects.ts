@@ -139,17 +139,23 @@ export class NetworkEffects {
             switchMap(
                 (action: NetworkActions.FetchLearnedNetwork) => {
                     // TODO Pobranie wyuczonej sieci o ID action.payload
-                    return Observable.create(
-                        (observer) => {
-                            observer.next(
-                                learnedNetwork
-                            );
-                        }
-                    );
+
+                    const learnedNetwork2 = new LearnedNetwork();
+                    return learnedNetwork2.loadModel();
+
+                    // return Observable.create(
+                    //     (observer) => {
+                    //         observer.next(
+                    //             learnedNetwork
+                    //         );
+                    //     }
+                    // );
                 }
             ),
             map(
                 (result) => {
+                    console.log(result);
+
                     return {
                         type: NetworkActions.START_RUNNING_NETWORK,
                         payload: result
@@ -167,20 +173,14 @@ export class NetworkEffects {
                 ([action, network]) => {
                     // TODO Asynchroniczne uruchomienie sieci
                     const networkInUsage = <LearnedNetwork>network.networkInUsage;
-                    console.log(networkInUsage);
+                    return networkInUsage.run().then(
+                        (result) => {
+                            const output = new NetworkOutput();
+                            output.classification = result;
 
-                    const output = new NetworkOutput();
-                    output.classification = [0.2, 0.8];
+                            console.log("RESULT", result);
 
-                    // HTMLImageElement
-                    // const img = new Image();
-                    // img.src = networkInUsage.input;
-
-                    return Observable.create(
-                        (observer) => {
-                            observer.next(
-                                output
-                            );
+                            return output;
                         }
                     );
                 }

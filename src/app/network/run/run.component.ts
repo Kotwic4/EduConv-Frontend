@@ -28,7 +28,7 @@ export class RunComponent implements OnInit, OnDestroy {
             (params: Params) => {
                 this.id = +params['id'];
 
-                this.store.dispatch(new NetworkActions.FetchUnlearnedNetwork(this.id));
+                this.store.dispatch(new NetworkActions.FetchLearnedNetwork(this.id));
 
                 this.subscription = this.store.select('network')
                     .subscribe(
