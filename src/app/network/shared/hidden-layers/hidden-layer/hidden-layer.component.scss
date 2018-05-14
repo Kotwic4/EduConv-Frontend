@@ -26,6 +26,14 @@
         border-top: 2px solid blue;
     }
 
+    &.hidden-layer__container--type-3 {
+        border-top: 2px solid red;
+    }
+
+    &.hidden-layer__container--type-4 {
+        border-top: 2px solid orange;
+    }
+
     .hidden-layer__index {
         writing-mode: horizontal-tb;
         position: absolute;

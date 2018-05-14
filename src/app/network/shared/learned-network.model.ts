@@ -1,4 +1,6 @@
 import * as tf from '@tensorflow/tfjs';
+import {HiddenLayerType} from './hidden-layers/hidden-layer/hidden-layer-type.enum';
+import {element} from 'protractor';
 
 export class LearnedNetwork {
     private _id;
@@ -49,8 +51,45 @@ export class LearnedNetwork {
 
         return model.then(
             (data) => {
-                console.log(data);
                 this._model = data;
+                console.log(model);
+
+                this._layers = data.layers.map(
+                    (element) => {
+                        const name = element.name.split("_").slice(0, element.name.split("_").length-1).join("");
+                        let type: HiddenLayerType;
+                        let neurones: number;
+
+                        switch(name) {
+                            case "conv2d":
+                                type = HiddenLayerType.Conv2D;
+                                neurones = (<any>element).filters;
+                                break;
+
+                            case "maxpooling2d":
+                                type = HiddenLayerType.MaxPooling2D;
+                                neurones = 0;
+                                break;
+                            case "dropout":
+                                type = HiddenLayerType.Dropout;
+                                neurones = 0;
+                                break;
+                            case "flatten":
+                                type = HiddenLayerType.Flatten;
+                                neurones = 0;
+                                break;
+                            case "dense":
+                                type = HiddenLayerType.Dense;
+                                neurones = (<any>element).units;
+                                break;
+                        }
+
+                        return {
+                            type: type,
+                            neurons: neurones
+                        }
+                    }
+                );
 
                 return this;
             }
