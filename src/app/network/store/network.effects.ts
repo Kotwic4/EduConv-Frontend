@@ -11,6 +11,7 @@ import {UnlearnedNetwork} from '../shared/unlearned-network.model';
 import {NetworkOutput} from '../shared/network-output.model';
 import {LearnedNetwork} from '../shared/learned-network.model';
 import {FetchUnlearnedNetwork} from './network.actions';
+import * as fromApp from '../../store/app.reducers';
 
 const unlearnedNetwork = new UnlearnedNetwork();
 unlearnedNetwork.id = 1;
@@ -50,11 +51,12 @@ export class NetworkEffects {
     modelNetwork = this.actions$
         .ofType(NetworkActions.MODEL_NETWORK)
         .pipe(
-            withLatestFrom(this.store.select('networkInUsage')),
+            withLatestFrom(this.store.select('network')),
             switchMap(
                 ([action, network]) => {
-                    // console.log(network);
                     // TODO Wysłanie sieci na serwer
+                    const networkInUsage = network.networkInUsage;
+
                     return Observable.create(
                         (observer) => {
                             observer.next(
@@ -104,10 +106,13 @@ export class NetworkEffects {
     learnNetwork = this.actions$
         .ofType(NetworkActions.LEARN_NETWORK)
         .pipe(
-            withLatestFrom(this.store.select('networkInUsage')),
+            withLatestFrom(this.store.select('network')),
             switchMap(
                 ([action, network]: [NetworkActions.FetchLearnedNetwork, any]) => {
                     // TODO Wysłanie sieci do nauki na serwer
+                    const networkInUsage = network.networkInUsage;
+                    console.log(networkInUsage);
+
                     return Observable.create(
                         (observer) => {
                             observer.next(
@@ -157,12 +162,19 @@ export class NetworkEffects {
     runNetwork = this.actions$
         .ofType(NetworkActions.RUN_NETWORK)
         .pipe(
-            withLatestFrom(this.store.select('networkInUsage')),
+            withLatestFrom(this.store.select('network')),
             switchMap(
                 ([action, network]) => {
                     // TODO Asynchroniczne uruchomienie sieci
+                    const networkInUsage = <LearnedNetwork>network.networkInUsage;
+                    console.log(networkInUsage);
+
                     const output = new NetworkOutput();
                     output.classification = [0.2, 0.8];
+
+                    // HTMLImageElement
+                    // const img = new Image();
+                    // img.src = networkInUsage.input;
 
                     return Observable.create(
                         (observer) => {
@@ -185,6 +197,6 @@ export class NetworkEffects {
 
     constructor(private actions$: Actions,
                 private httpClient: HttpClient,
-                private store: Store<fromNetwork.State>) {
-    }
+                private store: Store<fromApp.AppState>
+    ) {}
 }
