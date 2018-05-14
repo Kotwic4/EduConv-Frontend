@@ -62,6 +62,9 @@
 
             .hidden-layer__type-readonly-name {
                 margin-top: 15px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
             }
         }
 
