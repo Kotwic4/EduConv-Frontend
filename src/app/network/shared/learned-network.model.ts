@@ -1,13 +1,12 @@
 import * as tf from '@tensorflow/tfjs';
 import {HiddenLayerType} from './hidden-layers/hidden-layer/hidden-layer-type.enum';
-import {element} from 'protractor';
 
 export class LearnedNetwork {
     private _id;
     private _layers = [];
     private _labels = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
     private _input;
-    private _model;
+    private _model: tf.Sequential;
 
     // TODO
     constructor() {
@@ -47,47 +46,43 @@ export class LearnedNetwork {
     }
 
     loadModel() {
-        const model = tf.loadModel('http://192.168.8.104:5000/model/101/model.json');
+        const model = tf.loadModel('http://127.0.0.1:5000/model/101/model.json');
 
         return model.then(
-            (data) => {
+            (data: tf.Sequential) => {
                 this._model = data;
-                console.log(model);
 
                 this._layers = data.layers.map(
-                    (element) => {
-                        const name = element.name.split("_").slice(0, element.name.split("_").length-1).join("");
+                    (layer) => {
+                        const name = layer.name.split('_').slice(0, layer.name.split('_').length - 1).join('');
                         let type: HiddenLayerType;
-                        let neurones: number;
-
-                        switch(name) {
-                            case "conv2d":
+                        let neurones = 0;
+                        if (layer.output instanceof tf.SymbolicTensor) {
+                            neurones = layer.output.shape.slice(-1)[0];
+                        }
+                        switch (name) {
+                            case 'conv2d':
                                 type = HiddenLayerType.Conv2D;
-                                neurones = (<any>element).filters;
                                 break;
 
-                            case "maxpooling2d":
+                            case 'maxpooling2d':
                                 type = HiddenLayerType.MaxPooling2D;
-                                neurones = 0;
                                 break;
-                            case "dropout":
+                            case 'dropout':
                                 type = HiddenLayerType.Dropout;
-                                neurones = 0;
                                 break;
-                            case "flatten":
+                            case 'flatten':
                                 type = HiddenLayerType.Flatten;
-                                neurones = 0;
                                 break;
-                            case "dense":
+                            case 'dense':
                                 type = HiddenLayerType.Dense;
-                                neurones = (<any>element).units;
                                 break;
                         }
 
                         return {
                             type: type,
                             neurons: neurones
-                        }
+                        };
                     }
                 );
 
@@ -100,19 +95,24 @@ export class LearnedNetwork {
         const img = new Image();
         img.src = this.input;
 
-        const croppedImage = tf.fromPixels(img);
-        const batchedImage = croppedImage.toFloat().expandDims(0);
+        const croppedImage = tf.fromPixels(img, 1);
+        const batchedImage = croppedImage.expandDims(0).toFloat();
 
         return new Promise(
             (resolve, reject) => {
                 tf.tidy(
                     () => {
                         const reshaped = batchedImage.reshape([-1, 28, 28, 1]);
-                        const output = this._model.predict(reshaped);
-                        const predictions = Array.from(output.dataSync());
-
-                        // TODO
-                        resolve(predictions.slice(0, 10));
+                        const model: tf.Sequential = this._model;
+                        let inp: any = reshaped;
+                        let out: any = reshaped;
+                        for (let i = 0; i < model.layers.length; i++) {
+                            const layer = model.getLayer('', i);
+                            out = layer.apply(inp);
+                            console.log(out);
+                            inp = out;
+                        }
+                        resolve(Array.from(out.dataSync()));
                     }
                 );
             }
