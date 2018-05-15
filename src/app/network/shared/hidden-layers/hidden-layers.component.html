@@ -8,7 +8,6 @@
     (click)="onLayerAdd()"
 ></i>
 
-<div class="hidden-layers__container" [sortablejs]="hiddenLayers" [sortablejsOptions]="{ onUpdate: onSortable.bind(this), disabled: readonly }">
-<!--<div class="hidden-layers__container">-->
+<div class="hidden-layers__container">
     <app-hidden-layer [readonly]="readonly" *ngFor="let layer of hiddenLayers; let i = index;" [index]="i"></app-hidden-layer>
 </div>

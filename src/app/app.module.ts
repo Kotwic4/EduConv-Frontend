@@ -22,8 +22,7 @@ import {NetworkEffects} from './network/store/network.effects';
         StoreModule.forRoot(reducers),
         EffectsModule.forRoot([
             NetworkEffects
-        ]),
-        SortablejsModule.forRoot({animation: 150}),
+        ])
     ],
     providers: [],
     bootstrap: [AppComponent]
