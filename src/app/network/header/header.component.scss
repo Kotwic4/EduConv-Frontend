@@ -27,17 +27,21 @@
             font-size: 40px;
             font-family: "Comic Sans MS";
             text-shadow: 0 0 10px white;
-            cursor: default;
             user-select: none;
+            cursor: pointer;
 
-            .header__logo--edu {
-                color: #f0642a;
-                text-shadow: 1px 1px 4px #f0642a;
-            }
+            .header__logo-link {
+                text-decoration: none;
 
-            .header__logo--conv {
-                color: #a5a9ab;
-                text-shadow: 1px 1px 4px #a5a9ab;
+                .header__logo--edu {
+                    color: #f0642a;
+                    text-shadow: 1px 1px 4px #f0642a;
+                }
+
+                .header__logo--conv {
+                    color: #a5a9ab;
+                    text-shadow: 1px 1px 4px #a5a9ab;
+                }
             }
         }
     }
