@@ -33,26 +33,47 @@
         <!--</span>-->
 
         <span
-            *ngIf="controls?.save"
-            class="header__save pull-right"
-            (click)="controls?.cb()"
+            *ngIf="controls?.onSave"
+            class="header__control-btn header__control-btn--save pull-right"
+            (click)="controls?.onSave()"
         >
             <i
                 matTooltip="Save model"
                 matTooltipPosition="below"
-                matTooltipClass="header__tooltip"
                 class="fa fa-floppy-o"></i>
         </span>
 
         <span
-            *ngIf="controls?.learn"
-            class="header__learn pull-right"
-            (click)="controls?.cb()"
+            *ngIf="controls?.onLayerAdd"
+            class="header__control-btn header__control-btn--add-layer pull-right"
+            (click)="controls?.onLayerAdd()"
         >
             <i
-                matTooltip="Learn"
+                matTooltip="Add layer"
                 matTooltipPosition="below"
-                matTooltipClass="header__tooltip"
+                class="fa fa-plus"></i>
+        </span>
+
+        <span
+            *ngIf="controls?.onLearn"
+            class="header__control-btn header__control-btn--learn pull-right"
+            (click)="controls?.onLearn()"
+        >
+            <i
+                matTooltip="Learn network"
+                matTooltipPosition="below"
+                class="fa fa-leanpub"
+            ></i>
+        </span>
+
+        <span
+            *ngIf="controls?.onRun"
+            class="header__control-btn header__control-btn--run pull-right"
+            (click)="controls?.onRun()"
+        >
+            <i
+                matTooltip="Run network"
+                matTooltipPosition="below"
                 class="fa fa-play"
             ></i>
         </span>

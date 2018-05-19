@@ -29,17 +29,6 @@ export class HiddenLayersComponent implements OnInit, OnDestroy {
             );
     }
 
-    onLayerAdd() {
-        this.store.dispatch(new NetworkActions.HiddenLayerAdd());
-    }
-
-    onSortable(event: any) {
-        this.store.dispatch(new NetworkActions.HiddenLayerChangePosition({
-            oldIndex: event.oldIndex,
-            newIndex: event.newIndex
-        }));
-    }
-
     ngOnDestroy() {
         this.subscription.unsubscribe();
     }
