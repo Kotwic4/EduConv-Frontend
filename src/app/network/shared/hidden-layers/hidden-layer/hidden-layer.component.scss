@@ -13,6 +13,7 @@
     position: relative;
     padding: #{20px + $tools-height} 10px 0 10px;
     border-radius: 2px;
+    overflow: hidden;
 
     &.hidden-layer__container--type-0 {
         border-top: 2px solid yellow;
@@ -75,6 +76,15 @@
             cursor: pointer;
             margin-top: -5px;
         }
+    }
+
+    .hidden-layer__collapser {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 15px;
+        cursor: pointer;
     }
 }
 

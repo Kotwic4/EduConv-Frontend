@@ -20,16 +20,18 @@ import {RouterModule} from '@angular/router';
 import {NetworkRoutingModule} from './network-routing.module';
 import { HomeComponent } from './home/home.component';
 import {HttpClientModule} from '@angular/common/http';
+import {BrowserModule} from '@angular/platform-browser';
 
 @NgModule({
     imports: [
         CommonModule,
+        BrowserModule,
         BrowserAnimationsModule,
         MatTooltipModule,
         MatSelectModule,
         RouterModule,
         NetworkRoutingModule,
-        HttpClientModule
+        HttpClientModule,
     ],
     declarations: [
         NetworkComponent,

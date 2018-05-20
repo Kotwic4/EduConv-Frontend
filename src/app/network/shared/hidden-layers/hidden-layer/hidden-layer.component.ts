@@ -5,11 +5,41 @@ import * as NetworkActions from '../../../store/network.actions';
 import * as fromApp from '../../../../store/app.reducers';
 import {HiddenLayerType} from './hidden-layer-type.enum';
 import {Subscription} from 'rxjs/Subscription';
+import {animate, animateChild, group, query, state, style, transition, trigger} from '@angular/animations';
 
 @Component({
     selector: 'app-hidden-layer',
     templateUrl: './hidden-layer.component.html',
-    styleUrls: ['./hidden-layer.component.scss']
+    styleUrls: ['./hidden-layer.component.scss'],
+    animations: [
+        trigger('collapsable', [
+            state('inactive', style({
+                width: "0px"
+            })),
+            state('active', style({
+                width: "*"
+            })),
+            transition('inactive <=> active', [
+                group([
+                    query('@hiddable', [
+                        animateChild()
+                    ]),
+                    animate("200ms linear"),
+                ]),
+            ]),
+        ]),
+        trigger('hiddable', [
+            state('inactive', style({
+                opacity: 0
+            })),
+            state('active', style({
+                opacity: 1
+            })),
+            transition('inactive <=> active', [
+                animate("200ms linear")
+            ]),
+        ]),
+    ]
 })
 export class HiddenLayerComponent implements OnInit, OnDestroy {
     @Input() index: number;
@@ -18,6 +48,8 @@ export class HiddenLayerComponent implements OnInit, OnDestroy {
     subscription: Subscription;
     types_names: string[];
     types_values: number[];
+    collapsed = false;
+    state = "active";
 
     constructor(private store: Store<fromApp.AppState>) {
         this.types_names = Object.keys(HiddenLayerType).filter(k => typeof HiddenLayerType[k as any] === 'number');
@@ -63,5 +95,10 @@ export class HiddenLayerComponent implements OnInit, OnDestroy {
 
     ngOnDestroy() {
         this.subscription.unsubscribe();
+    }
+
+    toggleCollapsed() {
+        this.state = this.state === 'active' ? 'inactive' : 'active';
+        this.collapsed = !this.collapsed;
     }
 }

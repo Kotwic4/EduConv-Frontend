@@ -23,7 +23,17 @@ unlearnedNetwork.layers = [
 
     {
         type: 1,
-        neurons: 9
+        neurons: 4
+    },
+
+    {
+        type: 2,
+        neurons: 6
+    },
+
+    {
+        type: 4,
+        neurons: 20
     },
 ];
 
@@ -37,7 +47,17 @@ learnedNetwork.layers = [
 
     {
         type: 1,
-        neurons: 9
+        neurons: 4
+    },
+
+    {
+        type: 2,
+        neurons: 6
+    },
+
+    {
+        type: 4,
+        neurons: 20
     },
 ];
 learnedNetwork.labels = [

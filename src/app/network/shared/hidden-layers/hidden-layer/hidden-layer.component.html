@@ -1,5 +1,6 @@
 <div
     [ngClass]="['hidden-layer__container', 'hidden-layer__container--type-' + layer.type]"
+    [@collapsable]="state"
 >
     <span class="hidden-layer__index">{{ index+1 }}.</span>
 
@@ -17,7 +18,12 @@
                     >{{ types_names[i] }}</mat-option>
                 </mat-select>
             </mat-form-field>
-            <div *ngIf="readonly" class="hidden-layer__type-readonly-name">
+            <div
+                *ngIf="readonly"
+                class="hidden-layer__type-readonly-name"
+                [matTooltip]="types_names[layer.type]"
+                matTooltipPosition="below"
+            >
                 {{ types_names[layer.type] }}
             </div>
         </div>
@@ -31,11 +37,27 @@
             ></i>
         </div>
     </div>
-    <app-neurone *ngIf="!readonly" [placeholder]="true" (add)="onNeuroneAdd()"></app-neurone>
-    <app-neurone
-        [readonly]="readonly"
-        *ngFor="let neurone of range(layer.neurons); let i = index;"
-        [index]="i"
-        (delete)="onNeuroneDelete($event)"
-    ></app-neurone>
+
+    <ng-container>
+        <app-neurone
+            [@hiddable]="state"
+            *ngIf="!readonly"
+            [placeholder]="true"
+            (add)="onNeuroneAdd()"
+        ></app-neurone>
+        <app-neurone
+            [@hiddable]="state"
+            [readonly]="readonly"
+            *ngFor="let neurone of range(layer.neurons); let i = index;"
+            [index]="i"
+            (delete)="onNeuroneDelete($event)"
+        ></app-neurone>
+    </ng-container>
+
+    <div
+        class="hidden-layer__collapser"
+        (click)="toggleCollapsed()"
+        matTooltip="Toggle collapse"
+        matTooltipPosition="above"
+    ></div>
 </div>
