@@ -7,7 +7,19 @@ export interface DenseLayerArgs {
     use_bias?: Boolean;
 }
 
-export class DenseLayer implements HiddenLayer {
+export class DenseLayer extends HiddenLayer {
     layer_name: String = 'Dense';
     args: DenseLayerArgs;
+
+    public getNeurons(): number {
+        return this.args.units;
+    }
+
+    public setNeurons(number: number): void {
+        this.args.units = number;
+    }
+
+    public haveNeurons(): boolean {
+        return true;
+    }
 }

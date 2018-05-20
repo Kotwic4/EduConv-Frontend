@@ -4,7 +4,7 @@ export interface DropoutLayerArgs {
     rate: number;
 }
 
-export class DropoutLayer implements HiddenLayer {
+export class DropoutLayer extends HiddenLayer {
     layer_name: String = 'Dropout';
     args: DropoutLayerArgs;
 }
