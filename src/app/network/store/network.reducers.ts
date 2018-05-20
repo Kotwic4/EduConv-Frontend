@@ -16,7 +16,17 @@ network.layers = [
 
     {
         type: 1,
-        neurons: 9
+        neurons: 4
+    },
+
+    {
+        type: 2,
+        neurons: 6
+    },
+
+    {
+        type: 4,
+        neurons: 20
     },
 ];
 network.labels = [

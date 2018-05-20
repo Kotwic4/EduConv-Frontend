@@ -12,10 +12,17 @@ import {LearnedNetwork} from '../shared/learned-network.model';
     styleUrls: ['./run.component.scss']
 })
 export class RunComponent implements OnInit, OnDestroy {
+    private subscription: Subscription;
+
     public id: number;
     public network: LearnedNetwork;
     public loading: boolean;
-    private subscription: Subscription;
+    public imageLoaded: boolean;
+    public run = function() {
+        if (this.imageLoaded) {
+            this.store.dispatch(new NetworkActions.RunNetwork());
+        }
+    }.bind(this);
 
     constructor(
         private store: Store<fromApp.AppState>,
@@ -37,6 +44,13 @@ export class RunComponent implements OnInit, OnDestroy {
 
                             if (!this.loading) {
                                 this.network = <LearnedNetwork>data.networkInUsage;
+                            }
+
+                            if ((<LearnedNetwork>data.networkInUsage).input) {
+                                this.imageLoaded = true;
+                            }
+                            else {
+                                this.imageLoaded = false;
                             }
                         }
                     );

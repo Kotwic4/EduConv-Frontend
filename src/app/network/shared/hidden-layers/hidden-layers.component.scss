@@ -10,14 +10,3 @@
     font-size: 20px;
     cursor: pointer;
 }
-
-app-hidden-layer {
-    display: inline-block;
-    border-radius: 2px;
-    margin: 0 10px;
-
-    &.sortable-chosen {
-        // Fix overflowing
-        max-width: max-content;
-    }
-}

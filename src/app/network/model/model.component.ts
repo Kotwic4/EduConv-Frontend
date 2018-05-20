@@ -12,13 +12,17 @@ import * as NetworkActions from '../store/network.actions';
     styleUrls: ['./model.component.scss']
 })
 export class ModelComponent implements OnInit, OnDestroy {
+    private subscription: Subscription;
+
     public network: UnlearnedNetwork;
     public loading: boolean;
     public saving = false;
-    private subscription: Subscription;
     public saveModel = function() {
         this.saving = true;
         this.store.dispatch(new NetworkActions.ModelNetwork());
+    }.bind(this);
+    public addLayer = function() {
+        this.store.dispatch(new NetworkActions.HiddenLayerAdd());
     }.bind(this);
 
     constructor(

@@ -24,9 +24,10 @@ const routes: Routes = [
             {
                 path: 'run/:id',
                 component: RunComponent
-            }
+            },
+            { path: '', redirectTo: 'home', pathMatch: 'full' }
         ]
-    }
+    },
 ];
 
 @NgModule({

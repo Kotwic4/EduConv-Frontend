@@ -13,7 +13,6 @@ import {InputImageComponent} from './shared/input-layer/input-image/input-image.
 import {ResultsComponent} from './shared/output-layer/results/results.component';
 import {HiddenLayerComponent} from './shared/hidden-layers/hidden-layer/hidden-layer.component';
 import {NeuroneComponent} from './shared/hidden-layers/hidden-layer/neurone/neurone.component';
-import {SortablejsModule} from 'angular-sortablejs';
 import { ModelComponent } from './model/model.component';
 import { LearnComponent } from './learn/learn.component';
 import { RunComponent } from './run/run.component';
@@ -21,17 +20,18 @@ import {RouterModule} from '@angular/router';
 import {NetworkRoutingModule} from './network-routing.module';
 import { HomeComponent } from './home/home.component';
 import {HttpClientModule} from '@angular/common/http';
+import {BrowserModule} from '@angular/platform-browser';
 
 @NgModule({
     imports: [
         CommonModule,
+        BrowserModule,
         BrowserAnimationsModule,
         MatTooltipModule,
         MatSelectModule,
-        SortablejsModule,
         RouterModule,
         NetworkRoutingModule,
-        HttpClientModule
+        HttpClientModule,
     ],
     declarations: [
         NetworkComponent,
