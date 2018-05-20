@@ -1,15 +1,14 @@
 import * as tf from '@tensorflow/tfjs';
 import {HiddenLayerType} from './hidden-layers/hidden-layer/hidden-layer-type.enum';
-import {element} from 'protractor';
 
 export class LearnedNetwork {
-    private _id;
+    private _id = 101;
     private _layers = [];
     private _labels = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+    private _inputShape = [-1, 28, 28, 1];
     private _input;
-    private _model;
+    private _model: tf.Sequential;
 
-    // TODO
     constructor() {
 
     }
@@ -46,75 +45,80 @@ export class LearnedNetwork {
         this._input = value;
     }
 
+    get inputShape(): number[] {
+        return this._inputShape;
+    }
+
+    set inputShape(value: number[]) {
+        this._inputShape = value;
+    }
+
+    static mapLayerNameToEnum(name): HiddenLayerType {
+        const trueName = name.split('_').slice(0, name.split('_').length - 1).join('');
+        switch (trueName) {
+            case 'conv2d':
+                return HiddenLayerType.Conv2D;
+            case 'maxpooling2d':
+                return HiddenLayerType.MaxPooling2D;
+            case 'dropout':
+                return HiddenLayerType.Dropout;
+            case 'flatten':
+                return HiddenLayerType.Flatten;
+            case 'dense':
+                return HiddenLayerType.Dense;
+        }
+        return HiddenLayerType.Dense;
+    }
+
+    static getLayerInfo(layer) {
+        const type = LearnedNetwork.mapLayerNameToEnum(layer.name);
+        let neurones = 0;
+        if (layer.output instanceof tf.SymbolicTensor) {
+            neurones = layer.output.shape.slice(-1)[0];
+        }
+        return {
+            type: type,
+            neurons: neurones
+        };
+    }
+
     loadModel() {
-        const model = tf.loadModel('http://192.168.8.104:5000/model/101/model.json');
-
-        return model.then(
-            (data) => {
-                this._model = data;
-                console.log(model);
-
-                this._layers = data.layers.map(
-                    (element) => {
-                        const name = element.name.split("_").slice(0, element.name.split("_").length-1).join("");
-                        let type: HiddenLayerType;
-                        let neurones: number;
-
-                        switch(name) {
-                            case "conv2d":
-                                type = HiddenLayerType.Conv2D;
-                                neurones = (<any>element).filters;
-                                break;
-
-                            case "maxpooling2d":
-                                type = HiddenLayerType.MaxPooling2D;
-                                neurones = 0;
-                                break;
-                            case "dropout":
-                                type = HiddenLayerType.Dropout;
-                                neurones = 0;
-                                break;
-                            case "flatten":
-                                type = HiddenLayerType.Flatten;
-                                neurones = 0;
-                                break;
-                            case "dense":
-                                type = HiddenLayerType.Dense;
-                                neurones = (<any>element).units;
-                                break;
-                        }
-
-                        return {
-                            type: type,
-                            neurons: neurones
-                        }
-                    }
-                );
-
+        const data = tf.loadModel('http://127.0.0.1:5000/model/' + this._id + '/model.json');
+        return data.then(
+            (model: tf.Sequential) => {
+                this._model = model;
+                this._layers = model.layers.map(LearnedNetwork.getLayerInfo);
                 return this;
             }
         );
     }
 
-    run() {
+    runModel() {
         const img = new Image();
         img.src = this.input;
+        const croppedImage = tf.fromPixels(img, 1);
+        const batchedImage = croppedImage.expandDims(0).toFloat();
+        const reshaped = batchedImage.reshape(this._inputShape);
+        let inp: any = reshaped;
+        let out: any = reshaped;
+        for (let i = 0; i < this._model.layers.length; i++) {
+            const layer = this._model.getLayer('', i);
+            out = layer.apply(inp);
+            inp = out;
+        }
+        return Array.from(out.dataSync());
+    }
 
-        const croppedImage = tf.fromPixels(img);
-        const batchedImage = croppedImage.toFloat().expandDims(0);
-
+    run() {
         return new Promise(
             (resolve, reject) => {
+                let result: any = null;
                 tf.tidy(
                     () => {
-                        const reshaped = batchedImage.reshape([-1, 28, 28, 1]);
-                        const output = this._model.predict(reshaped);
-                        const predictions = Array.from(output.dataSync());
-
-                        // TODO
-                        resolve(predictions.slice(0, 10));
+                        result = this.runModel();
                     }
                 );
+                resolve(result);
             }
         );
     }

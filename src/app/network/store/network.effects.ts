@@ -134,8 +134,6 @@ export class NetworkEffects {
             ),
             map(
                 (result) => {
-                    console.log(result);
-
                     return {
                         type: NetworkActions.START_RUNNING_NETWORK,
                         payload: result
@@ -157,9 +155,6 @@ export class NetworkEffects {
                         (result) => {
                             const output = new NetworkOutput();
                             output.classification = result;
-
-                            console.log("RESULT", result);
-
                             return output;
                         }
                     );
