@@ -11,6 +11,7 @@
                     [(value)]="layer.args.activation"
                     name="activation"
                     ngModel
+                    [disabled]="readonly"
                 >
                     <mat-option
                         *ngFor="let value of activation_types_values; let i = index;"
@@ -27,11 +28,12 @@
             <mat-checkbox
                 name="useBias"
                 ngModel
+                [disabled]="readonly"
             >Use bias</mat-checkbox>
         </div>
     </div>
 
-    <div class="row">
+    <div class="row" *ngIf="!readonly">
         <div class="col-sm-12">
             <div class="btn-group d-flex">
                 <button class="btn btn-success w-100" type="submit" [disabled]="f.invalid">Save</button>

@@ -5,7 +5,7 @@
         </div>
     </div>
 
-    <div class="row">
+    <div class="row" *ngIf="!readonly">
         <div class="col-sm-12">
             <div class="btn-group d-flex">
                 <button class="btn btn-success w-100" type="submit" [disabled]="f.invalid">Save</button>

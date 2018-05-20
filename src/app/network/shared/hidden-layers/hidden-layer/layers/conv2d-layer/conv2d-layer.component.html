@@ -11,6 +11,7 @@
                 min="0"
                 ngModel
                 required
+                [disabled]="readonly"
             >
         </div>
         <div class="col-sm-6 form-group">
@@ -21,6 +22,7 @@
                 min="0"
                 ngModel
                 required
+                [disabled]="readonly"
             >
         </div>
     </div>
@@ -35,6 +37,7 @@
                 name="strideX"
                 min="0"
                 ngModel
+                [disabled]="readonly"
             >
         </div>
         <div class="col-sm-6 form-group">
@@ -44,6 +47,7 @@
                 name="strideY"
                 min="0"
                 ngModel
+                [disabled]="readonly"
             >
         </div>
     </div>
@@ -60,6 +64,7 @@
                     [(value)]="layer.args.activation"
                     name="activation"
                     ngModel
+                    [disabled]="readonly"
                 >
                     <mat-option
                         *ngFor="let value of activation_types_values; let i = index;"
@@ -71,7 +76,7 @@
         </div>
     </div>
 
-    <div class="row">
+    <div class="row" *ngIf="!readonly">
         <div class="col-sm-12">
             <div class="btn-group d-flex">
                 <button class="btn btn-success w-100" type="submit" [disabled]="f.invalid">Save</button>

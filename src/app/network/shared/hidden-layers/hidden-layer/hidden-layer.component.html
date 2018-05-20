@@ -31,13 +31,14 @@
 
         <div class="hidden-layer__settings">
             <i
-                matTooltip="Layer settings"
-                matTooltipPosition="below"
                 class="fa fa-cog"
                 [ngbPopover]="getArgsComponent(types_names[layerType])"
+                [triggers]="readonly ? 'mouseenter:mouseleave' : 'click'"
                 #p="ngbPopover"
                 container="body"
                 placement="bottom"
+                matTooltip="Layer settings"
+                matTooltipPosition="above"
             ></i>
         </div>
     </div>

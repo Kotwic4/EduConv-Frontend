@@ -10,6 +10,7 @@
                 name="poolX"
                 min="0"
                 ngModel
+                [disabled]="readonly"
             >
         </div>
         <div class="col-sm-6 form-group">
@@ -19,6 +20,7 @@
                 name="poolY"
                 min="0"
                 ngModel
+                [disabled]="readonly"
             >
         </div>
     </div>
@@ -33,6 +35,7 @@
                 name="strideX"
                 min="0"
                 ngModel
+                [disabled]="readonly"
             >
         </div>
         <div class="col-sm-6 form-group">
@@ -42,11 +45,12 @@
                 name="strideY"
                 min="0"
                 ngModel
+                [disabled]="readonly"
             >
         </div>
     </div>
 
-    <div class="row">
+    <div class="row" *ngIf="!readonly">
         <div class="col-sm-12">
             <div class="btn-group d-flex">
                 <button class="btn btn-success w-100" type="submit" [disabled]="f.invalid">Save</button>
