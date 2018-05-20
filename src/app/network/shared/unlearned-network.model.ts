@@ -1,8 +1,9 @@
+import {HiddenLayer} from './hidden-layers/hidden-layer/hidden-layer.interface';
+
 export class UnlearnedNetwork {
     private _id;
-    private _layers;
+    private _layers: HiddenLayer[];
 
-    // TODO
     constructor() {
 
     }

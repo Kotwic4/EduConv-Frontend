@@ -15,31 +15,11 @@ import * as fromApp from '../../store/app.reducers';
 
 const unlearnedNetwork = new UnlearnedNetwork();
 unlearnedNetwork.id = 1;
-unlearnedNetwork.layers = [
-    {
-        type: 0,
-        neurons: 10
-    },
-
-    {
-        type: 1,
-        neurons: 9
-    },
-];
+unlearnedNetwork.layers = [];
 
 const learnedNetwork = new LearnedNetwork();
 learnedNetwork.id = 1;
-learnedNetwork.layers = [
-    {
-        type: 0,
-        neurons: 10
-    },
-
-    {
-        type: 1,
-        neurons: 9
-    },
-];
+learnedNetwork.layers = [];
 learnedNetwork.labels = [
     'label1',
     'label2'
