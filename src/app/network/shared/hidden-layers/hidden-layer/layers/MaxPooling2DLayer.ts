@@ -5,7 +5,7 @@ export interface MaxPooling2DLayerArgs {
     strides?: [number, number];
 }
 
-export class MaxPooling2DLayer implements HiddenLayer {
+export class MaxPooling2DLayer extends HiddenLayer {
     layer_name: String = 'MaxPooling2D';
     args: MaxPooling2DLayerArgs;
 }

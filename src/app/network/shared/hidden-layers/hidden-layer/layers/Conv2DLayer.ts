@@ -8,7 +8,20 @@ export interface Conv2DLayerArgs {
     activation?: HiddenLayerActivationType;
 }
 
-export class Conv2DLayer implements HiddenLayer {
+export class Conv2DLayer extends HiddenLayer {
     layer_name: String = 'Conv2D';
     args: Conv2DLayerArgs;
+
+
+    public getNeurons(): number {
+        return this.args.filters;
+    }
+
+    public setNeurons(number: number): void {
+        this.args.filters = number;
+    }
+
+    public haveNeurons(): boolean {
+        return true;
+    }
 }
