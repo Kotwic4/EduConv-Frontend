@@ -1,5 +1,5 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
-import { Store } from '@ngrx/store';
+import {Component, Input, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Store} from '@ngrx/store';
 import * as _ from 'lodash';
 
 import * as NetworkActions from '../../../store/network.actions';
@@ -9,6 +9,8 @@ import {Subscription} from 'rxjs/Subscription';
 import {animate, animateChild, group, query, state, style, transition, trigger} from '@angular/animations';
 import {HiddenLayersService} from '../hidden-layers.service';
 import {Conv2DLayer} from './layers/Conv2DLayer';
+import {HiddenLayer} from './hidden-layer.interface';
+import {HiddenLayerChangeArgs} from '../../../store/network.actions';
 
 @Component({
     selector: 'app-hidden-layer',
@@ -17,17 +19,17 @@ import {Conv2DLayer} from './layers/Conv2DLayer';
     animations: [
         trigger('collapsable', [
             state('inactive', style({
-                width: "0px"
+                width: '0px'
             })),
             state('active', style({
-                width: "*"
+                width: '*'
             })),
             transition('inactive <=> active', [
                 group([
                     query('@hiddable', [
                         animateChild()
                     ]),
-                    animate("200ms linear"),
+                    animate('200ms linear'),
                 ]),
             ]),
         ]),
@@ -39,39 +41,29 @@ import {Conv2DLayer} from './layers/Conv2DLayer';
                 opacity: 1
             })),
             transition('inactive <=> active', [
-                animate("200ms linear")
+                animate('200ms linear')
             ]),
         ]),
     ]
 })
-export class HiddenLayerComponent implements OnInit, OnDestroy {
+export class HiddenLayerComponent implements OnInit {
+    @ViewChild('p') popover;
     @Input() index: number;
+    @Input() layer: HiddenLayer;
     @Input() readonly;
-    layer: any;
     layerType: HiddenLayerType;
-    subscription: Subscription;
     types_names: string[];
     types_values: number[];
-    state = "active";
+    state = 'active';
 
-    constructor(
-        private store: Store<fromApp.AppState>,
-        private hiddenLayersService: HiddenLayersService
-    ) {
+    constructor(private store: Store<fromApp.AppState>,
+                private hiddenLayersService: HiddenLayersService) {
         this.types_names = Object.keys(HiddenLayerType).filter(k => typeof HiddenLayerType[k as any] === 'number');
         this.types_values = this.types_names.map(k => Number(HiddenLayerType[k as any]));
     }
 
     ngOnInit() {
-        console.log(this.index);
-        this.subscription = this.store.select('network')
-            .subscribe(
-                data => {
-                    this.layer = _.cloneDeep(data.networkInUsage.layers[this.index]);
-                    console.log(this.layer);
-                    this.layerType = this.hiddenLayersService.getType(this.layer);
-                }
-            );
+        this.layerType = this.hiddenLayersService.getType(this.layer);
     }
 
     range(i: number) {
@@ -93,11 +85,19 @@ export class HiddenLayerComponent implements OnInit, OnDestroy {
         }));
     }
 
-    ngOnDestroy() {
-        this.subscription.unsubscribe();
-    }
-
     toggleCollapsed() {
         this.state = this.state === 'active' ? 'inactive' : 'active';
+    }
+
+    onSave(args) {
+        this.store.dispatch(new HiddenLayerChangeArgs({
+            index: this.index,
+            args: args
+        }));
+        this.popover.close();
+    }
+
+    onCancel() {
+        this.popover.close();
     }
 }

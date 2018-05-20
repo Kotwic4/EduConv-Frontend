@@ -22,10 +22,10 @@
             <div
                 *ngIf="readonly"
                 class="hidden-layer__type-readonly-name"
-                [matTooltip]="types_names[layer.type]"
+                [matTooltip]="types_names[layerType]"
                 matTooltipPosition="below"
             >
-                {{ types_names[layer.type] }}
+                {{ types_names[layerType] }}
             </div>
         </div>
 
@@ -35,6 +35,7 @@
                 matTooltipPosition="below"
                 class="fa fa-cog"
                 [ngbPopover]="Conv2D"
+                #p="ngbPopover"
                 container="body"
                 placement="bottom"
             ></i>
@@ -66,5 +67,5 @@
 </div>
 
 <ng-template #Conv2D>
-    <app-conv2d-layer [index]="index" [readonly]="readonly"></app-conv2d-layer>
+    <app-conv2d-layer [index]="index" [layer]="layer" [readonly]="readonly" (onSave)="onSave($event)" (onCancel)="onCancel($event)"></app-conv2d-layer>
 </ng-template>
