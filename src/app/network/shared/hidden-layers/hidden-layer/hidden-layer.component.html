@@ -34,7 +34,7 @@
                 matTooltip="Layer settings"
                 matTooltipPosition="below"
                 class="fa fa-cog"
-                [ngbPopover]="Conv2D"
+                [ngbPopover]="getArgsComponent(types_names[layerType])"
                 #p="ngbPopover"
                 container="body"
                 placement="bottom"
@@ -69,3 +69,19 @@
 <ng-template #Conv2D>
     <app-conv2d-layer [index]="index" [layer]="layer" [readonly]="readonly" (onSave)="onSave($event)" (onCancel)="onCancel($event)"></app-conv2d-layer>
 </ng-template>
+
+<ng-template #Dense>
+    <app-dense-layer [index]="index" [layer]="layer" [readonly]="readonly" (onSave)="onSave($event)" (onCancel)="onCancel($event)"></app-dense-layer>
+</ng-template>
+
+<!--<ng-template #Dropout>-->
+    <!--<app-dropout-layer [index]="index" [layer]="layer" [readonly]="readonly" (onSave)="onSave($event)" (onCancel)="onCancel($event)"></app-dropout-layer>-->
+<!--</ng-template>-->
+
+<!--<ng-template #Flatten>-->
+    <!--<app-flatten-layer [index]="index" [layer]="layer" [readonly]="readonly" (onSave)="onSave($event)" (onCancel)="onCancel($event)"></app-flatten-layer>-->
+<!--</ng-template>-->
+
+<!--<ng-template #MaxPooling2D>-->
+    <!--<app-max-pooling2d-layer [index]="index" [layer]="layer" [readonly]="readonly" (onSave)="onSave($event)" (onCancel)="onCancel($event)"></app-max-pooling2d-layer>-->
+<!--</ng-template>-->

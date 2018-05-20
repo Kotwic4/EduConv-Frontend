@@ -15,7 +15,9 @@ export class DenseLayer extends HiddenLayer {
         super();
 
         this.args = {
-            units: 0
+            units: 0,
+            activation: null,
+            use_bias: false
         };
     }
 

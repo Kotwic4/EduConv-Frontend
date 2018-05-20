@@ -29,6 +29,7 @@ import { DropoutLayerComponent } from './shared/hidden-layers/hidden-layer/layer
 import { FlattenLayerComponent } from './shared/hidden-layers/hidden-layer/layers/flatten-layer/flatten-layer.component';
 import { MaxPooling2dLayerComponent } from './shared/hidden-layers/hidden-layer/layers/max-pooling2d-layer/max-pooling2d-layer.component';
 import {HiddenLayersService} from './shared/hidden-layers/hidden-layer/layers/hidden-layer.service';
+import {MatCheckboxModule} from '@angular/material';
 
 @NgModule({
     imports: [
@@ -37,6 +38,7 @@ import {HiddenLayersService} from './shared/hidden-layers/hidden-layer/layers/hi
         BrowserAnimationsModule,
         MatTooltipModule,
         MatSelectModule,
+        MatCheckboxModule,
         RouterModule,
         NetworkRoutingModule,
         HttpClientModule,
