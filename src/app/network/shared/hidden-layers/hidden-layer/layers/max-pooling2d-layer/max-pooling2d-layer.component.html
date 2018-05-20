@@ -1,3 +1,57 @@
-<p>
-  max-pooling2d-layer works!
-</p>
+<form (ngSubmit)="onSubmit(f)" #f="ngForm">
+    <div class="row">
+        <div class="col-sm-12">
+            <label>Pool size</label>
+        </div>
+        <div class="col-sm-6 form-group">
+            <input
+                type="number"
+                class="form-control"
+                name="poolX"
+                min="0"
+                ngModel
+            >
+        </div>
+        <div class="col-sm-6 form-group">
+            <input
+                type="number"
+                class="form-control"
+                name="poolY"
+                min="0"
+                ngModel
+            >
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <label>Strides</label>
+        </div>
+        <div class="col-sm-6 form-group">
+            <input
+                type="number"
+                class="form-control"
+                name="strideX"
+                min="0"
+                ngModel
+            >
+        </div>
+        <div class="col-sm-6 form-group">
+            <input
+                type="number"
+                class="form-control"
+                name="strideY"
+                min="0"
+                ngModel
+            >
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="btn-group d-flex">
+                <button class="btn btn-success w-100" type="submit" [disabled]="f.invalid">Save</button>
+                <button class="btn btn-secondary w-100" type="button" (click)="onCancel.emit()">Cancel</button>
+            </div>
+        </div>
+    </div>
+</form>
