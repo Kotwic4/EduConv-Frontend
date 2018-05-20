@@ -15,51 +15,11 @@ import * as fromApp from '../../store/app.reducers';
 
 const unlearnedNetwork = new UnlearnedNetwork();
 unlearnedNetwork.id = 1;
-unlearnedNetwork.layers = [
-    {
-        type: 0,
-        neurons: 10
-    },
-
-    {
-        type: 1,
-        neurons: 4
-    },
-
-    {
-        type: 2,
-        neurons: 6
-    },
-
-    {
-        type: 4,
-        neurons: 20
-    },
-];
+unlearnedNetwork.layers = [];
 
 const learnedNetwork = new LearnedNetwork();
 learnedNetwork.id = 1;
-learnedNetwork.layers = [
-    {
-        type: 0,
-        neurons: 10
-    },
-
-    {
-        type: 1,
-        neurons: 4
-    },
-
-    {
-        type: 2,
-        neurons: 6
-    },
-
-    {
-        type: 4,
-        neurons: 20
-    },
-];
+learnedNetwork.layers = [];
 learnedNetwork.labels = [
     'label1',
     'label2'
@@ -174,8 +134,6 @@ export class NetworkEffects {
             ),
             map(
                 (result) => {
-                    console.log(result);
-
                     return {
                         type: NetworkActions.START_RUNNING_NETWORK,
                         payload: result
@@ -197,9 +155,6 @@ export class NetworkEffects {
                         (result) => {
                             const output = new NetworkOutput();
                             output.classification = result;
-
-                            console.log("RESULT", result);
-
                             return output;
                         }
                     );
