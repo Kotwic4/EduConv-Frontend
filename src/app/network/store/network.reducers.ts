@@ -87,6 +87,14 @@ export function networkReducer(state = initialState, action: NetworkActions.Netw
                 ...state,
                 networkInUsage: networkInUsage
             };
+        case (NetworkActions.HIDDEN_LAYER_REMOVE):
+            networkInUsage = _.cloneDeep(<UnlearnedNetwork>state.networkInUsage);
+            networkInUsage.layers.splice(action.payload, 1);
+
+            return {
+                ...state,
+                networkInUsage: networkInUsage
+            };
         case (NetworkActions.HIDDEN_LAYER_CHANGE_TYPE):
             networkInUsage = _.cloneDeep(<UnlearnedNetwork>state.networkInUsage);
             networkInUsage.layers[action.payload.index] = action.payload.layer;

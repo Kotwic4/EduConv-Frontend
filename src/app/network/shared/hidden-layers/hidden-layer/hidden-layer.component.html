@@ -55,7 +55,9 @@
             *ngFor="let neurone of range(layer.getNeurons()); let i = index;"
             [index]="i"
         ></app-neurone>
-        <div *ngIf="readonly && state === 'inactive'" class="hidden-layer__neurons-amount">{{ layer.getNeurons() }} neurons</div>
+        <div *ngIf="readonly && state === 'inactive'" class="hidden-layer__neurons-amount">{{ layer.getNeurons() }}
+            neurons
+        </div>
     </ng-container>
 
     <div
@@ -67,21 +69,26 @@
 </div>
 
 <ng-template #Conv2D>
-    <app-conv2d-layer [index]="index" [layer]="layer" [readonly]="readonly" (onSave)="onSave($event)" (onCancel)="onCancel($event)"></app-conv2d-layer>
+    <app-conv2d-layer [index]="index" [layer]="layer" [readonly]="readonly" (onSave)="onSave($event)"
+                      (onCancel)="onCancel($event)" (onDelete)="onDelete($event)"></app-conv2d-layer>
 </ng-template>
 
 <ng-template #Dense>
-    <app-dense-layer [index]="index" [layer]="layer" [readonly]="readonly" (onSave)="onSave($event)" (onCancel)="onCancel($event)"></app-dense-layer>
+    <app-dense-layer [index]="index" [layer]="layer" [readonly]="readonly" (onSave)="onSave($event)"
+                     (onCancel)="onCancel($event)" (onDelete)="onDelete($event)"></app-dense-layer>
 </ng-template>
 
 <ng-template #Dropout>
-    <app-dropout-layer [index]="index" [layer]="layer" [readonly]="readonly" (onSave)="onSave($event)" (onCancel)="onCancel($event)"></app-dropout-layer>
+    <app-dropout-layer [index]="index" [layer]="layer" [readonly]="readonly" (onSave)="onSave($event)"
+                       (onCancel)="onCancel($event)" (onDelete)="onDelete($event)"></app-dropout-layer>
 </ng-template>
 
 <ng-template #Flatten>
-    <app-flatten-layer [index]="index" [layer]="layer" [readonly]="readonly" (onSave)="onSave($event)" (onCancel)="onCancel($event)"></app-flatten-layer>
+    <app-flatten-layer [index]="index" [layer]="layer" [readonly]="readonly" (onSave)="onSave($event)"
+                       (onCancel)="onCancel($event)" (onDelete)="onDelete($event)"></app-flatten-layer>
 </ng-template>
 
 <ng-template #MaxPooling2D>
-    <app-max-pooling2d-layer [index]="index" [layer]="layer" [readonly]="readonly" (onSave)="onSave($event)" (onCancel)="onCancel($event)"></app-max-pooling2d-layer>
+    <app-max-pooling2d-layer [index]="index" [layer]="layer" [readonly]="readonly" (onSave)="onSave($event)"
+                             (onCancel)="onCancel($event)" (onDelete)="onDelete($event)"></app-max-pooling2d-layer>
 </ng-template>

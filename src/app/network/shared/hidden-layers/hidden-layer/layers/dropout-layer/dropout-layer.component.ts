@@ -16,7 +16,7 @@ export class DropoutLayerComponent implements OnInit {
     @Input() readonly;
     @Output() onSave = new EventEmitter<any>();
     @Output() onCancel = new EventEmitter<any>();
-
+    @Output() onDelete = new EventEmitter<any>();
 
     constructor(private store: Store<fromApp.AppState>) {}
 

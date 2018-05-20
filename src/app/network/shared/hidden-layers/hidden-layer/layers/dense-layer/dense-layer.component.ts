@@ -18,6 +18,7 @@ export class DenseLayerComponent implements OnInit {
     @Input() readonly;
     @Output() onSave = new EventEmitter<any>();
     @Output() onCancel = new EventEmitter<any>();
+    @Output() onDelete = new EventEmitter<any>();
     activation_types_names: string[];
     activation_types_values: string[];
 

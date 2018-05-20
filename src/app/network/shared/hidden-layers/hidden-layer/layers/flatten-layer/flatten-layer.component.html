@@ -8,8 +8,9 @@
     <div class="row" *ngIf="!readonly">
         <div class="col-sm-12">
             <div class="btn-group d-flex">
-                <button class="btn btn-success w-100" type="submit" [disabled]="f.invalid">Save</button>
-                <button class="btn btn-secondary w-100" type="button" (click)="onCancel.emit()">Cancel</button>
+                <button class="btn btn-primary w-100" type="submit" [disabled]="f.invalid">Save</button>
+                <button class="btn btn-light w-100" type="button" (click)="onCancel.emit()">Cancel</button>
+                <button class="btn btn-danger w-100" type="button" (click)="onDelete.emit()">Delete</button>
             </div>
         </div>
     </div>

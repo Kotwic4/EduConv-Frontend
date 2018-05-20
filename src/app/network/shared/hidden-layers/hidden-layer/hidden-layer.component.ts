@@ -6,7 +6,7 @@ import * as NetworkActions from '../../../store/network.actions';
 import * as fromApp from '../../../../store/app.reducers';
 import {HiddenLayerType} from './layers/hidden-layer-type.enum';
 import {animate, animateChild, group, query, state, style, transition, trigger} from '@angular/animations';
-import {HiddenLayerChangeArgs} from '../../../store/network.actions';
+import {HiddenLayerChangeArgs, HiddenLayerRemove} from '../../../store/network.actions';
 import {HiddenLayer} from './layers/hidden-layer.model';
 import {HiddenLayersService} from './layers/hidden-layer.service';
 
@@ -106,6 +106,11 @@ export class HiddenLayerComponent implements OnInit {
 
     onCancel() {
         this.popover.close();
+    }
+
+    onDelete() {
+        this.popover.close();
+        this.store.dispatch(new HiddenLayerRemove(this.index));
     }
 
     getArgsComponent(name: string) {

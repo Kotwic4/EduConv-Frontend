@@ -10,6 +10,7 @@ export const NETWORK_START = 'NETWORK_START';
 export const NETWORK_UPLOAD = 'NETWORK_UPLOAD';
 export const NEURONE_CHANGE = 'NEURONE_CHANGE';
 export const HIDDEN_LAYER_ADD = 'HIDDEN_LAYER_ADD';
+export const HIDDEN_LAYER_REMOVE = 'HIDDEN_LAYER_REMOVE';
 export const HIDDEN_LAYER_CHANGE_TYPE = 'HIDDEN_LAYER_CHANGE_TYPE';
 export const HIDDEN_LAYER_CHANGE_ARGS = 'HIDDEN_LAYER_CHANGE_ARGS';
 
@@ -61,6 +62,12 @@ export class HiddenLayerAdd implements Action {
     readonly type = HIDDEN_LAYER_ADD;
 
     constructor(public payload: HiddenLayer) {}
+}
+
+export class HiddenLayerRemove implements Action {
+    readonly type = HIDDEN_LAYER_REMOVE;
+
+    constructor(public payload: number) {}
 }
 
 export class HiddenLayerChangeType implements Action {
@@ -141,6 +148,7 @@ export type NetworkActions =
     NetworkUpload |
     NeuroneChange |
     HiddenLayerAdd |
+    HiddenLayerRemove |
     HiddenLayerChangeType |
     HiddenLayerChangeArgs |
     StartModelingNetwork |
