@@ -74,14 +74,6 @@ export class HiddenLayerComponent implements OnInit {
         return new Array(i);
     }
 
-    onNeuroneAdd() {
-        this.store.dispatch(new NetworkActions.NeuroneAdd(this.index));
-    }
-
-    onNeuroneDelete(i: number) {
-        this.store.dispatch(new NetworkActions.NeuroneDelete(this.index));
-    }
-
     onTypeChange() {
         this.store.dispatch(new NetworkActions.HiddenLayerChangeType({
             index: this.index,
@@ -107,5 +99,12 @@ export class HiddenLayerComponent implements OnInit {
 
     getArgsComponent(name: string) {
         return this[name];
+    }
+
+    onAmountChange(value: number) {
+        this.store.dispatch(new NetworkActions.NeuroneChange({
+            index: this.index,
+            amount: value || 0
+        }));
     }
 }

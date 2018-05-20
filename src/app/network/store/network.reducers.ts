@@ -67,24 +67,12 @@ export function networkReducer(state = initialState, action: NetworkActions.Netw
         //         ...state,
         //         uploadedNetwork: action.payload
         //     };
-        case (NetworkActions.NEURONE_ADD):
+        case (NetworkActions.NEURONE_CHANGE):
             networkInUsage = _.cloneDeep(<UnlearnedNetwork>state.networkInUsage);
-            layer = networkInUsage.layers[action.payload];
+            layer = networkInUsage.layers[action.payload.index];
 
             if (layer.haveNeurons()) {
-                layer.setNeurons(layer.getNeurons() + 1);
-            }
-
-            return {
-                ...state,
-                networkInUsage: networkInUsage
-            };
-        case (NetworkActions.NEURONE_DELETE):
-            networkInUsage = _.cloneDeep(<UnlearnedNetwork>state.networkInUsage);
-            layer = networkInUsage.layers[action.payload];
-
-            if (layer.haveNeurons() && layer.getNeurons() > 0) {
-                layer.setNeurons(layer.getNeurons() - 1);
+                layer.setNeurons(action.payload.amount);
             }
 
             return {

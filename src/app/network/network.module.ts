@@ -30,6 +30,7 @@ import { FlattenLayerComponent } from './shared/hidden-layers/hidden-layer/layer
 import { MaxPooling2dLayerComponent } from './shared/hidden-layers/hidden-layer/layers/max-pooling2d-layer/max-pooling2d-layer.component';
 import {HiddenLayersService} from './shared/hidden-layers/hidden-layer/layers/hidden-layer.service';
 import {MatCheckboxModule} from '@angular/material';
+import { NeuronsCounterComponent } from './shared/hidden-layers/hidden-layer/neurons-counter/neurons-counter.component';
 
 @NgModule({
     imports: [
@@ -63,7 +64,8 @@ import {MatCheckboxModule} from '@angular/material';
         DenseLayerComponent,
         DropoutLayerComponent,
         FlattenLayerComponent,
-        MaxPooling2dLayerComponent
+        MaxPooling2dLayerComponent,
+        NeuronsCounterComponent
     ],
     providers: [
         HiddenLayersService

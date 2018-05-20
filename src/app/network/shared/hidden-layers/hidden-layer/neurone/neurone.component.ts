@@ -8,10 +8,6 @@ import {animate, state, style, transition, trigger} from '@angular/animations';
 })
 export class NeuroneComponent implements OnInit {
     @Input() index: number;
-    @Input() placeholder: boolean;
-    @Input() readonly;
-    @Output() add = new EventEmitter<any>();
-    @Output() delete = new EventEmitter<number>();
 
     constructor() {
     }
