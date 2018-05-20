@@ -1,10 +1,9 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs/Subscription';
+import * as _ from 'lodash';
 
 import * as fromApp from '../../../store/app.reducers';
-import * as NetworkActions from '../../store/network.actions';
-import {HiddenLayerChangePosition} from '../../store/network.actions';
 
 @Component({
     selector: 'app-hidden-layers',
@@ -24,7 +23,7 @@ export class HiddenLayersComponent implements OnInit, OnDestroy {
         this.subscription = this.store.select('network')
             .subscribe(
                 data => {
-                    this.hiddenLayers = data.networkInUsage.layers;
+                    this.hiddenLayers = _.cloneDeep(data.networkInUsage.layers);
                 }
             );
     }

@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs/Subscription';
 
 import * as fromApp from '../../../../store/app.reducers';
 import {LearnedNetwork} from '../../learned-network.model';
+import * as _ from 'lodash';
 
 @Component({
     selector: 'app-results',
@@ -22,7 +23,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
         this.subscription = this.store.select('network')
             .subscribe(
                 data => {
-                    this.labels = (<LearnedNetwork>data.networkInUsage).labels;
+                    this.labels = _.cloneDeep((<LearnedNetwork>data.networkInUsage).labels);
 
                     if (data.networkRunResult) {
                         this.results = data.networkRunResult.classification;

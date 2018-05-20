@@ -22,6 +22,9 @@ import { HomeComponent } from './home/home.component';
 import {HttpClientModule} from '@angular/common/http';
 import {BrowserModule} from '@angular/platform-browser';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {FormsModule} from '@angular/forms';
+import {HiddenLayersService} from './shared/hidden-layers/hidden-layers.service';
+import {Conv2dLayerComponent} from './shared/hidden-layers/hidden-layer/layers/conv2d-layer/conv2d-layer.component';
 
 @NgModule({
     imports: [
@@ -33,7 +36,8 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
         RouterModule,
         NetworkRoutingModule,
         HttpClientModule,
-        NgbModule
+        NgbModule,
+        FormsModule
     ],
     declarations: [
         NetworkComponent,
@@ -48,7 +52,11 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
         ModelComponent,
         LearnComponent,
         RunComponent,
-        HomeComponent
+        HomeComponent,
+        Conv2dLayerComponent
+    ],
+    providers: [
+        HiddenLayersService
     ]
 })
 export class NetworkModule {
