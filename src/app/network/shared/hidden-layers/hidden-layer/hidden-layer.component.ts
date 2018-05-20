@@ -48,7 +48,6 @@ export class HiddenLayerComponent implements OnInit, OnDestroy {
     subscription: Subscription;
     types_names: string[];
     types_values: number[];
-    collapsed = false;
     state = "active";
 
     constructor(private store: Store<fromApp.AppState>) {
@@ -99,6 +98,5 @@ export class HiddenLayerComponent implements OnInit, OnDestroy {
 
     toggleCollapsed() {
         this.state = this.state === 'active' ? 'inactive' : 'active';
-        this.collapsed = !this.collapsed;
     }
 }
