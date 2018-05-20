@@ -45,6 +45,7 @@
 
     <ng-container *ngIf="layer.haveNeurons()">
         <app-neurons-counter
+            [@centerable]="state"
             *ngIf="!readonly"
             [value]="layer.getNeurons()"
             (change)="onAmountChange($event)"
@@ -54,6 +55,7 @@
             *ngFor="let neurone of range(layer.getNeurons()); let i = index;"
             [index]="i"
         ></app-neurone>
+        <div *ngIf="readonly && state === 'inactive'" class="hidden-layer__neurons-amount">{{ layer.getNeurons() }} neurons</div>
     </ng-container>
 
     <div

@@ -41,6 +41,17 @@ import {HiddenLayersService} from './layers/hidden-layer.service';
             transition('inactive <=> active', [
                 animate('200ms linear')
             ]),
+        ]),
+        trigger('centerable', [
+            state('inactive', style({
+                position: "absolute"
+            })),
+            state('active', style({
+                position: "static"
+            })),
+            transition('inactive <=> active', [
+                animate('200ms linear')
+            ]),
         ])
     ]
 })
