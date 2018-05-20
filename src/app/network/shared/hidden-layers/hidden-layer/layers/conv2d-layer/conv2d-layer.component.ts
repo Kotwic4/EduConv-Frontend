@@ -2,11 +2,9 @@ import {Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild} fr
 import {Store} from '@ngrx/store';
 import * as fromApp from '../../../../../../store/app.reducers';
 import {Subscription} from 'rxjs/Subscription';
-import {HiddenLayerActivationType} from '../../hidden-layer-activation.enum';
-import * as _ from 'lodash';
+import {HiddenLayerActivationType} from '../hidden-layer-activation.enum';
 import {NgForm} from '@angular/forms';
-import {HiddenLayerChangeArgs} from '../../../../../store/network.actions';
-import {Conv2DLayerArgs} from '../Conv2DLayer';
+import {Conv2DLayerArgs} from './conv2d-layer.model';
 
 @Component({
     selector: 'app-conv2d-layer',
@@ -33,15 +31,13 @@ export class Conv2dLayerComponent implements OnInit {
     ngOnInit() {
         setTimeout(
             () => {
-                const values = {
+                this.confForm.setValue({
                     kernelX: this.layer.args.kernel_size[0],
                     kernelY: this.layer.args.kernel_size[1],
                     strideX: this.layer.args.strides[0],
                     strideY: this.layer.args.strides[1],
                     activation: this.layer.args.activation,
-                };
-
-                this.confForm.setValue(values);
+                });
             }
         );
     }

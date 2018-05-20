@@ -1,11 +1,11 @@
 import {Injectable} from '@angular/core';
-import {HiddenLayerType} from './hidden-layer/hidden-layer-type.enum';
-import {Conv2DLayer} from './hidden-layer/layers/Conv2DLayer';
-import {DenseLayer} from './hidden-layer/layers/DenseLayer';
-import {DropoutLayer} from './hidden-layer/layers/DropoutLayer';
-import {FlattenLayer} from './hidden-layer/layers/FlattenLayer';
-import {MaxPooling2DLayer} from './hidden-layer/layers/MaxPooling2DLayer';
-import {HiddenLayer} from './hidden-layer/hidden-layer.interface';
+import {HiddenLayerType} from './hidden-layer-type.enum';
+import {Conv2DLayer} from './conv2d-layer/conv2d-layer.model';
+import {DenseLayer} from './dense-layer/dense-layer.model';
+import {DropoutLayer} from './dropout-layer/dropout-layer.model';
+import {FlattenLayer} from './flatten-layer/flatten-layer.model';
+import {MaxPooling2DLayer} from './max-pooling2d-layer/max-pooling2d-layer.model';
+import {HiddenLayer} from './hidden-layer.model';
 
 @Injectable()
 export class HiddenLayersService {

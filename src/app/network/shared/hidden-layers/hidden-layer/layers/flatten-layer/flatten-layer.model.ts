@@ -1,5 +1,4 @@
-import {HiddenLayer} from '../hidden-layer.interface';
-import {Conv2DLayerArgs} from './Conv2DLayer';
+import {HiddenLayer} from '../hidden-layer.model';
 
 export class FlattenLayer extends HiddenLayer {
     layer_name: String = 'Flatten';

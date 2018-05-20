@@ -5,8 +5,8 @@ import {ActivatedRoute, Router} from '@angular/router';
 import * as fromApp from '../../store/app.reducers';
 import {Store} from '@ngrx/store';
 import * as NetworkActions from '../store/network.actions';
-import {Conv2DLayer} from '../shared/hidden-layers/hidden-layer/layers/Conv2DLayer';
 import * as _ from 'lodash';
+import {Conv2DLayer} from '../shared/hidden-layers/hidden-layer/layers/conv2d-layer/conv2d-layer.model';
 
 @Component({
     selector: 'app-model',

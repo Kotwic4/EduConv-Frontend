@@ -23,8 +23,12 @@ import {HttpClientModule} from '@angular/common/http';
 import {BrowserModule} from '@angular/platform-browser';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {FormsModule} from '@angular/forms';
-import {HiddenLayersService} from './shared/hidden-layers/hidden-layers.service';
 import {Conv2dLayerComponent} from './shared/hidden-layers/hidden-layer/layers/conv2d-layer/conv2d-layer.component';
+import { DenseLayerComponent } from './shared/hidden-layers/hidden-layer/layers/dense-layer/dense-layer.component';
+import { DropoutLayerComponent } from './shared/hidden-layers/hidden-layer/layers/dropout-layer/dropout-layer.component';
+import { FlattenLayerComponent } from './shared/hidden-layers/hidden-layer/layers/flatten-layer/flatten-layer.component';
+import { MaxPooling2dLayerComponent } from './shared/hidden-layers/hidden-layer/layers/max-pooling2d-layer/max-pooling2d-layer.component';
+import {HiddenLayersService} from './shared/hidden-layers/hidden-layer/layers/hidden-layer.service';
 
 @NgModule({
     imports: [
@@ -53,7 +57,11 @@ import {Conv2dLayerComponent} from './shared/hidden-layers/hidden-layer/layers/c
         LearnComponent,
         RunComponent,
         HomeComponent,
-        Conv2dLayerComponent
+        Conv2dLayerComponent,
+        DenseLayerComponent,
+        DropoutLayerComponent,
+        FlattenLayerComponent,
+        MaxPooling2dLayerComponent
     ],
     providers: [
         HiddenLayersService

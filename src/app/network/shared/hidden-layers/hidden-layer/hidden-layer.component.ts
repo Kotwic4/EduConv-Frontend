@@ -4,13 +4,11 @@ import * as _ from 'lodash';
 
 import * as NetworkActions from '../../../store/network.actions';
 import * as fromApp from '../../../../store/app.reducers';
-import {HiddenLayerType} from './hidden-layer-type.enum';
-import {Subscription} from 'rxjs/Subscription';
+import {HiddenLayerType} from './layers/hidden-layer-type.enum';
 import {animate, animateChild, group, query, state, style, transition, trigger} from '@angular/animations';
-import {HiddenLayersService} from '../hidden-layers.service';
-import {Conv2DLayer} from './layers/Conv2DLayer';
-import {HiddenLayer} from './hidden-layer.interface';
 import {HiddenLayerChangeArgs} from '../../../store/network.actions';
+import {HiddenLayer} from './layers/hidden-layer.model';
+import {HiddenLayersService} from './layers/hidden-layer.service';
 
 @Component({
     selector: 'app-hidden-layer',

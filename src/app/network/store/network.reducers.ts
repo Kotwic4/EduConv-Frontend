@@ -1,13 +1,10 @@
 import * as NetworkActions from './network.actions';
-import {HiddenLayerType} from '../shared/hidden-layers/hidden-layer/hidden-layer-type.enum';
-import {LearnNetwork} from './network.actions';
 import {UnlearnedNetwork} from '../shared/unlearned-network.model';
 import {NetworkOutput} from '../shared/network-output.model';
 import {LearnedNetwork} from '../shared/learned-network.model';
-import {FETCH_UNLEARNED_NETWORK} from './network.actions';
-import {Conv2DLayer} from '../shared/hidden-layers/hidden-layer/layers/Conv2DLayer';
-import {HiddenLayer} from '../shared/hidden-layers/hidden-layer/hidden-layer.interface';
 import * as _ from 'lodash';
+import {Conv2DLayer} from '../shared/hidden-layers/hidden-layer/layers/conv2d-layer/conv2d-layer.model';
+import {HiddenLayer} from '../shared/hidden-layers/hidden-layer/layers/hidden-layer.model';
 
 const network = new UnlearnedNetwork();
 network.id = 1;

@@ -1,6 +1,5 @@
-import {HiddenLayer} from '../hidden-layer.interface';
 import {HiddenLayerActivationType} from '../hidden-layer-activation.enum';
-import {Conv2DLayerArgs} from './Conv2DLayer';
+import {HiddenLayer} from '../hidden-layer.model';
 
 export interface DenseLayerArgs {
     units: number;

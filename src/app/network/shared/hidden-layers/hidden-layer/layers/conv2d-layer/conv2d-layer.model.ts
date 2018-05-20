@@ -1,6 +1,5 @@
-import {HiddenLayer} from '../hidden-layer.interface';
 import {HiddenLayerActivationType} from '../hidden-layer-activation.enum';
-import {HiddenLayerType} from '../hidden-layer-type.enum';
+import {HiddenLayer} from '../hidden-layer.model';
 
 export interface Conv2DLayerArgs {
     filters: number;

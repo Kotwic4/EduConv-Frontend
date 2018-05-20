@@ -2,7 +2,7 @@ import { Action } from '@ngrx/store';
 import {UnlearnedNetwork} from '../shared/unlearned-network.model';
 import {LearnedNetwork} from '../shared/learned-network.model';
 import {NetworkOutput} from '../shared/network-output.model';
-import {HiddenLayer} from '../shared/hidden-layers/hidden-layer/hidden-layer.interface';
+import {HiddenLayer} from '../shared/hidden-layers/hidden-layer/layers/hidden-layer.model';
 
 export const INPUT_IMAGE_UPLOAD = 'INPUT_IMAGE_UPLOAD';
 export const INPUT_IMAGE_DELETE = 'INPUT_IMAGE_DELETE';
