@@ -16,9 +16,9 @@ network.layers = [
     new Conv2DLayer(),
     new Conv2DLayer(),
     new DenseLayer(),
-    // new DropoutLayer(),
-    // new FlattenLayer(),
-    // new MaxPooling2DLayer()
+    new DropoutLayer(),
+    new FlattenLayer(),
+    new MaxPooling2DLayer()
 ];
 
 export interface State {
