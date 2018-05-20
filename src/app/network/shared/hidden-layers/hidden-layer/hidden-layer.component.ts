@@ -26,7 +26,7 @@ import {HiddenLayersService} from './layers/hidden-layer.service';
                 group([
                     query('@hiddable', [
                         animateChild()
-                    ]),
+                    ], { optional: true }),
                     animate('200ms linear'),
                 ]),
             ]),
@@ -41,7 +41,7 @@ import {HiddenLayersService} from './layers/hidden-layer.service';
             transition('inactive <=> active', [
                 animate('200ms linear')
             ]),
-        ]),
+        ])
     ]
 })
 export class HiddenLayerComponent implements OnInit {
