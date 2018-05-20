@@ -21,6 +21,7 @@ import {NetworkRoutingModule} from './network-routing.module';
 import { HomeComponent } from './home/home.component';
 import {HttpClientModule} from '@angular/common/http';
 import {BrowserModule} from '@angular/platform-browser';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
     imports: [
@@ -32,6 +33,7 @@ import {BrowserModule} from '@angular/platform-browser';
         RouterModule,
         NetworkRoutingModule,
         HttpClientModule,
+        NgbModule
     ],
     declarations: [
         NetworkComponent,

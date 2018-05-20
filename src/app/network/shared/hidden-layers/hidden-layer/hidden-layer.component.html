@@ -15,7 +15,8 @@
                     <mat-option
                         *ngFor="let value of types_values; let i = index;"
                         [value]="value"
-                    >{{ types_names[i] }}</mat-option>
+                    >{{ types_names[i] }}
+                    </mat-option>
                 </mat-select>
             </mat-form-field>
             <div
@@ -33,7 +34,9 @@
                 matTooltip="Layer settings"
                 matTooltipPosition="below"
                 class="fa fa-cog"
-                (click)="openSettings()"
+                [ngbPopover]="Conv2D"
+                container="body"
+                placement="bottom"
             ></i>
         </div>
     </div>
@@ -61,3 +64,23 @@
         matTooltipPosition="above"
     ></div>
 </div>
+
+
+<ng-template #Conv2D>
+    <div class="row">
+        <div class="col-sm-12">
+            <label>Kernel size</label>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <input type="number" class="form-control">
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <input type="number" class="form-control">
+            </div>
+        </div>
+    </div>
+</ng-template>
+
