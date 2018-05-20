@@ -78,9 +78,9 @@
     <app-dropout-layer [index]="index" [layer]="layer" [readonly]="readonly" (onSave)="onSave($event)" (onCancel)="onCancel($event)"></app-dropout-layer>
 </ng-template>
 
-<!--<ng-template #Flatten>-->
-    <!--<app-flatten-layer [index]="index" [layer]="layer" [readonly]="readonly" (onSave)="onSave($event)" (onCancel)="onCancel($event)"></app-flatten-layer>-->
-<!--</ng-template>-->
+<ng-template #Flatten>
+    <app-flatten-layer [index]="index" [layer]="layer" [readonly]="readonly" (onSave)="onSave($event)" (onCancel)="onCancel($event)"></app-flatten-layer>
+</ng-template>
 
 <!--<ng-template #MaxPooling2D>-->
     <!--<app-max-pooling2d-layer [index]="index" [layer]="layer" [readonly]="readonly" (onSave)="onSave($event)" (onCancel)="onCancel($event)"></app-max-pooling2d-layer>-->
