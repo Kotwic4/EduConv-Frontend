@@ -1,5 +1,5 @@
-import {HiddenLayer} from '../hidden-layer.interface';
-import {HiddenLayerActivationType} from '../hidden-layer-activation.type';
+import {HiddenLayerActivationType} from '../hidden-layer-activation.enum';
+import {HiddenLayer} from '../hidden-layer.model';
 
 export interface DenseLayerArgs {
     units: number;
@@ -10,6 +10,20 @@ export interface DenseLayerArgs {
 export class DenseLayer extends HiddenLayer {
     layer_name: String = 'Dense';
     args: DenseLayerArgs;
+
+    constructor() {
+        super();
+
+        this.args = {
+            units: 0,
+            activation: null,
+            use_bias: false
+        };
+    }
+
+    public setArgs(args: DenseLayerArgs) {
+        this.args = args;
+    }
 
     public getNeurons(): number {
         return this.args.units;

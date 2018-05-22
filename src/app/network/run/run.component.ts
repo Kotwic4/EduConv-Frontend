@@ -5,6 +5,7 @@ import * as fromApp from '../../store/app.reducers';
 import {Store} from '@ngrx/store';
 import {Subscription} from 'rxjs/Subscription';
 import {LearnedNetwork} from '../shared/learned-network.model';
+import * as _ from 'lodash';
 
 @Component({
     selector: 'app-run',
@@ -43,7 +44,7 @@ export class RunComponent implements OnInit, OnDestroy {
                             this.loading = data.fetchingNetwork;
 
                             if (!this.loading) {
-                                this.network = <LearnedNetwork>data.networkInUsage;
+                                this.network = _.cloneDeep(<LearnedNetwork>data.networkInUsage);
                             }
 
                             if ((<LearnedNetwork>data.networkInUsage).input) {

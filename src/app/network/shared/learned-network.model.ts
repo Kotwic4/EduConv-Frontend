@@ -1,5 +1,5 @@
 import * as tf from '@tensorflow/tfjs';
-import {HiddenLayerType} from './hidden-layers/hidden-layer/hidden-layer-type.enum';
+import {HiddenLayerType} from './hidden-layers/hidden-layer/layers/hidden-layer-type.enum';
 
 export class LearnedNetwork {
     private _id = 101;

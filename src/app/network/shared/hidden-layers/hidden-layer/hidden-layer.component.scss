@@ -14,25 +14,28 @@
     padding: #{20px + $tools-height} 10px 0 10px;
     border-radius: 2px;
     overflow: hidden;
+    border-width: 2px 0 0;
+    border-style: solid;
+    margin: 0 10px;
 
     &.hidden-layer__container--type-0 {
-        border-top: 2px solid yellow;
+        border-color: yellow;
     }
 
     &.hidden-layer__container--type-1 {
-        border-top: 2px solid green;
+        border-color: green;
     }
 
     &.hidden-layer__container--type-2 {
-        border-top: 2px solid blue;
+        border-color: blue;
     }
 
     &.hidden-layer__container--type-3 {
-        border-top: 2px solid red;
+        border-color: red;
     }
 
     &.hidden-layer__container--type-4 {
-        border-top: 2px solid orange;
+        border-color: orange;
     }
 
     .hidden-layer__index {
@@ -78,12 +81,19 @@
         }
     }
 
+    .hidden-layer__neurons-amount,
+    .hidden-layer__no-neurons-info {
+        font-size: 20px;
+        position: absolute;
+        margin-top: 20px;
+    }
+
     .hidden-layer__collapser {
         position: absolute;
-        top: 0;
+        top: -2px;
         left: 0;
         width: 100%;
-        height: 15px;
+        height: 17px;
         cursor: pointer;
     }
 }

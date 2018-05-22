@@ -1,0 +1,65 @@
+.counter__container {
+    width: 50px;
+    height: 50px;
+    overflow: hidden;
+    writing-mode: horizontal-tb;
+    margin: 5px;
+    position: relative;
+
+    .counter__btn {
+        height: 16px;
+        width: 100%;
+        float: left;
+        box-sizing: border-box;
+        cursor: pointer;
+        text-align: center;
+        font-size: 17px;
+        border: 1px solid;
+        user-select: none;
+
+        &.counter__btn--inc {
+            border-radius: 2px 2px 0 0;
+            line-height: 10px;
+        }
+
+        &.counter__btn--dec {
+            border-radius: 0 0 2px 2px;
+            line-height: 11px;
+        }
+
+        &.counter__btn--disabled {
+            cursor: default;
+            &:hover {
+                background-color: transparent;
+            }
+        }
+
+        &:hover {
+            background-color: lightgray;
+        }
+    }
+
+    .counter__amount {
+        width: 100%;
+        height: 18px;
+        border: none;
+        border-left: 1px solid;
+        border-right: 1px solid;
+        float: left;
+        text-align: center;
+        font-size: 14px;
+
+        &::-webkit-inner-spin-button,
+        &::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        &:focus {
+            border-left: 1px solid;
+            border-right: 1px solid;
+            padding: 0 2px;
+            outline: none;
+        }
+    }
+}

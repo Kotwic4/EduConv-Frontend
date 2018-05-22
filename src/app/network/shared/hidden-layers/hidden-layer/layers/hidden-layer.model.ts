@@ -12,4 +12,8 @@ export abstract class HiddenLayer {
     public haveNeurons(): boolean {
         return false;
     }
+
+    public setArgs(args: any) {
+
+    }
 }

@@ -1,0 +1,9 @@
+<div class="counter__container">
+    <div class="counter__btn counter__btn--inc" (click)="inc()">+</div>
+    <input class="counter__amount" type="number" [(ngModel)]="value">
+    <div
+        class="counter__btn counter__btn--dec"
+        (click)="(value != 0) && dec()"
+        [ngClass]="(value == 0) ? 'counter__btn--disabled' : ''"
+    >-</div>
+</div>
