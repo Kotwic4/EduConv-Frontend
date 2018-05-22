@@ -2,17 +2,16 @@ import { Action } from '@ngrx/store';
 import {UnlearnedNetwork} from '../shared/unlearned-network.model';
 import {LearnedNetwork} from '../shared/learned-network.model';
 import {NetworkOutput} from '../shared/network-output.model';
-import {HiddenLayer} from '../shared/hidden-layers/hidden-layer/layers/hidden-layer.model';
 
 export const INPUT_IMAGE_UPLOAD = 'INPUT_IMAGE_UPLOAD';
 export const INPUT_IMAGE_DELETE = 'INPUT_IMAGE_DELETE';
 export const NETWORK_START = 'NETWORK_START';
 export const NETWORK_UPLOAD = 'NETWORK_UPLOAD';
-export const NEURONE_CHANGE = 'NEURONE_CHANGE';
+export const NEURONE_ADD = 'NEURONE_ADD';
+export const NEURONE_DELETE = 'NEURONE_DELETE';
 export const HIDDEN_LAYER_ADD = 'HIDDEN_LAYER_ADD';
-export const HIDDEN_LAYER_REMOVE = 'HIDDEN_LAYER_REMOVE';
 export const HIDDEN_LAYER_CHANGE_TYPE = 'HIDDEN_LAYER_CHANGE_TYPE';
-export const HIDDEN_LAYER_CHANGE_ARGS = 'HIDDEN_LAYER_CHANGE_ARGS';
+export const HIDDEN_LAYER_CHANGE_POSITION = 'HIDDEN_LAYER_CHANGE_POSITION';
 
 export const START_MODELING_NETWORK = 'START_MODELING_NETWORK';
 export const MODEL_NETWORK = 'MODEL_NETWORK';
@@ -52,34 +51,34 @@ export class NetworkUpload implements Action {
     constructor(public payload: String) {}
 }
 
-export class NeuroneChange implements Action {
-    readonly type = NEURONE_CHANGE;
+export class NeuroneAdd implements Action {
+    readonly type = NEURONE_ADD;
 
-    constructor(public payload: {index: number, amount: number}) {}
+    constructor(public payload: number) {}
+}
+
+export class NeuroneDelete implements Action {
+    readonly type = NEURONE_DELETE;
+
+    constructor(public payload: { layer: number, neurone: number }) {}
 }
 
 export class HiddenLayerAdd implements Action {
     readonly type = HIDDEN_LAYER_ADD;
 
-    constructor(public payload: HiddenLayer) {}
-}
-
-export class HiddenLayerRemove implements Action {
-    readonly type = HIDDEN_LAYER_REMOVE;
-
-    constructor(public payload: number) {}
+    constructor() {}
 }
 
 export class HiddenLayerChangeType implements Action {
     readonly type = HIDDEN_LAYER_CHANGE_TYPE;
 
-    constructor(public payload: { index: number, layer: HiddenLayer }) {}
+    constructor(public payload: { index: number, type: HiddenLayerChangeType }) {}
 }
 
-export class HiddenLayerChangeArgs implements Action {
-    readonly type = HIDDEN_LAYER_CHANGE_ARGS;
+export class HiddenLayerChangePosition implements Action {
+    readonly type = HIDDEN_LAYER_CHANGE_POSITION;
 
-    constructor(public payload: { index: number, args: any }) {}
+    constructor(public payload: { oldIndex: number, newIndex: number }) {}
 }
 
 export class StartModelingNetwork implements Action {
@@ -146,11 +145,11 @@ export type NetworkActions =
     InputImageUpload |
     InputImageDelete |
     NetworkUpload |
-    NeuroneChange |
+    NeuroneAdd |
+    NeuroneDelete |
     HiddenLayerAdd |
-    HiddenLayerRemove |
     HiddenLayerChangeType |
-    HiddenLayerChangeArgs |
+    HiddenLayerChangePosition |
     StartModelingNetwork |
     ModelNetwork |
     EndModelingNetwork |

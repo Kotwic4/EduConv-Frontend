@@ -1,14 +1,11 @@
-import {Component, Input, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {Store} from '@ngrx/store';
-import * as _ from 'lodash';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import { Store } from '@ngrx/store';
 
 import * as NetworkActions from '../../../store/network.actions';
 import * as fromApp from '../../../../store/app.reducers';
-import {HiddenLayerType} from './layers/hidden-layer-type.enum';
+import {HiddenLayerType} from './hidden-layer-type.enum';
+import {Subscription} from 'rxjs/Subscription';
 import {animate, animateChild, group, query, state, style, transition, trigger} from '@angular/animations';
-import {HiddenLayerChangeArgs, HiddenLayerRemove} from '../../../store/network.actions';
-import {HiddenLayer} from './layers/hidden-layer.model';
-import {HiddenLayersService} from './layers/hidden-layer.service';
 
 @Component({
     selector: 'app-hidden-layer',
@@ -17,17 +14,17 @@ import {HiddenLayersService} from './layers/hidden-layer.service';
     animations: [
         trigger('collapsable', [
             state('inactive', style({
-                width: '0px'
+                width: "0px"
             })),
             state('active', style({
-                width: '*'
+                width: "*"
             })),
             transition('inactive <=> active', [
                 group([
                     query('@hiddable', [
                         animateChild()
-                    ], { optional: true }),
-                    animate('200ms linear'),
+                    ]),
+                    animate("200ms linear"),
                 ]),
             ]),
         ]),
@@ -39,88 +36,67 @@ import {HiddenLayersService} from './layers/hidden-layer.service';
                 opacity: 1
             })),
             transition('inactive <=> active', [
-                animate('200ms linear')
+                animate("200ms linear")
             ]),
         ]),
-        trigger('centerable', [
-            state('inactive', style({
-                position: "absolute"
-            })),
-            state('active', style({
-                position: "static"
-            })),
-            transition('inactive <=> active', [
-                animate('200ms linear')
-            ]),
-        ])
     ]
 })
-export class HiddenLayerComponent implements OnInit {
-    @ViewChild('p') popover;
-    @ViewChild("Conv2D") Conv2D;
-    @ViewChild("Dense") Dense;
-    @ViewChild("Dropout") Dropout;
-    @ViewChild("Flatten") Flatten;
-    @ViewChild("MaxPooling2D") MaxPooling2D;
-
+export class HiddenLayerComponent implements OnInit, OnDestroy {
     @Input() index: number;
-    @Input() layer: HiddenLayer;
     @Input() readonly;
-    layerType: HiddenLayerType;
+    layer: any;
+    subscription: Subscription;
     types_names: string[];
     types_values: number[];
-    state = 'active';
+    state = "active";
 
-    constructor(private store: Store<fromApp.AppState>,
-                private hiddenLayersService: HiddenLayersService) {
+    constructor(private store: Store<fromApp.AppState>) {
         this.types_names = Object.keys(HiddenLayerType).filter(k => typeof HiddenLayerType[k as any] === 'number');
         this.types_values = this.types_names.map(k => Number(HiddenLayerType[k as any]));
     }
 
     ngOnInit() {
-        this.layerType = this.hiddenLayersService.getType(this.layer);
+        this.subscription = this.store.select('network')
+            .subscribe(
+                data => {
+                    this.layer = {
+                        ...data.networkInUsage.layers[this.index]
+                    };
+                }
+            );
     }
 
     range(i: number) {
         return new Array(i);
     }
 
+    onNeuroneAdd() {
+        this.store.dispatch(new NetworkActions.NeuroneAdd(this.index));
+    }
+
+    onNeuroneDelete(i: number) {
+        this.store.dispatch(new NetworkActions.NeuroneDelete({
+            layer: this.index,
+            neurone: i
+        }));
+    }
+
     onTypeChange() {
         this.store.dispatch(new NetworkActions.HiddenLayerChangeType({
             index: this.index,
-            layer: this.hiddenLayersService.getInstance(this.layerType)
+            type: this.layer.type
         }));
+    }
+
+    openSettings() {
+        console.log('Opening settings...');
+    }
+
+    ngOnDestroy() {
+        this.subscription.unsubscribe();
     }
 
     toggleCollapsed() {
         this.state = this.state === 'active' ? 'inactive' : 'active';
-    }
-
-    onSave(args) {
-        this.store.dispatch(new HiddenLayerChangeArgs({
-            index: this.index,
-            args: args
-        }));
-        this.popover.close();
-    }
-
-    onCancel() {
-        this.popover.close();
-    }
-
-    onDelete() {
-        this.popover.close();
-        this.store.dispatch(new HiddenLayerRemove(this.index));
-    }
-
-    getArgsComponent(name: string) {
-        return this[name];
-    }
-
-    onAmountChange(value: number) {
-        this.store.dispatch(new NetworkActions.NeuroneChange({
-            index: this.index,
-            amount: value || 0
-        }));
     }
 }

@@ -5,8 +5,6 @@ import {ActivatedRoute, Router} from '@angular/router';
 import * as fromApp from '../../store/app.reducers';
 import {Store} from '@ngrx/store';
 import * as NetworkActions from '../store/network.actions';
-import * as _ from 'lodash';
-import {Conv2DLayer} from '../shared/hidden-layers/hidden-layer/layers/conv2d-layer/conv2d-layer.model';
 
 @Component({
     selector: 'app-model',
@@ -24,7 +22,7 @@ export class ModelComponent implements OnInit, OnDestroy {
         this.store.dispatch(new NetworkActions.ModelNetwork());
     }.bind(this);
     public addLayer = function() {
-        this.store.dispatch(new NetworkActions.HiddenLayerAdd(new Conv2DLayer()));
+        this.store.dispatch(new NetworkActions.HiddenLayerAdd());
     }.bind(this);
 
     constructor(
@@ -39,7 +37,7 @@ export class ModelComponent implements OnInit, OnDestroy {
         this.subscription = this.store.select('network')
             .subscribe(
                 data => {
-                    this.network = _.cloneDeep(<UnlearnedNetwork>data.networkInUsage);
+                    this.network = <UnlearnedNetwork>data.networkInUsage;
 
                     this.loading = data.savingNetwork;
 

@@ -12,33 +12,14 @@ import {NetworkOutput} from '../shared/network-output.model';
 import {LearnedNetwork} from '../shared/learned-network.model';
 import {FetchUnlearnedNetwork} from './network.actions';
 import * as fromApp from '../../store/app.reducers';
-import {DenseLayer} from '../shared/hidden-layers/hidden-layer/layers/dense-layer/dense-layer.model';
-import {FlattenLayer} from '../shared/hidden-layers/hidden-layer/layers/flatten-layer/flatten-layer.model';
-import {DropoutLayer} from '../shared/hidden-layers/hidden-layer/layers/dropout-layer/dropout-layer.model';
-import {MaxPooling2DLayer} from '../shared/hidden-layers/hidden-layer/layers/max-pooling2d-layer/max-pooling2d-layer.model';
-import {Conv2DLayer} from '../shared/hidden-layers/hidden-layer/layers/conv2d-layer/conv2d-layer.model';
 
 const unlearnedNetwork = new UnlearnedNetwork();
 unlearnedNetwork.id = 1;
-unlearnedNetwork.layers = [
-    new Conv2DLayer(),
-    new Conv2DLayer(),
-    new DenseLayer(),
-    new DropoutLayer(),
-    new FlattenLayer(),
-    new MaxPooling2DLayer()
-];
+unlearnedNetwork.layers = [];
 
 const learnedNetwork = new LearnedNetwork();
 learnedNetwork.id = 1;
-learnedNetwork.layers = [
-    new Conv2DLayer(),
-    new Conv2DLayer(),
-    new DenseLayer(),
-    new DropoutLayer(),
-    new FlattenLayer(),
-    new MaxPooling2DLayer()
-];
+learnedNetwork.layers = [];
 learnedNetwork.labels = [
     'label1',
     'label2'
@@ -59,7 +40,7 @@ export class NetworkEffects {
                     return Observable.create(
                         (observer) => {
                             observer.next(
-                                networkInUsage
+                                unlearnedNetwork
                             );
                         }
                     );

@@ -5,7 +5,6 @@ import { Subscription } from 'rxjs/Subscription';
 import * as fromApp from '../../../../store/app.reducers';
 import * as NetworkActions from '../../../store/network.actions';
 import {LearnedNetwork} from '../../learned-network.model';
-import * as _ from 'lodash';
 
 @Component({
     selector: 'app-input-image',
@@ -24,7 +23,7 @@ export class InputImageComponent implements OnInit, OnDestroy {
         this.subscription = this.store.select('network')
             .subscribe(
                 (data) => {
-                    this.inputImage = _.cloneDeep((<LearnedNetwork>data.networkInUsage).input);
+                    this.inputImage = (<LearnedNetwork>data.networkInUsage).input;
 
                     if (this.submitted && !data.runningNetwork) {
                         console.log('End of running');

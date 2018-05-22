@@ -6,9 +6,9 @@ import {NetworkModule} from './network/network.module';
 import {AppRoutingModule} from './app-routing-module';
 import {AppComponent} from './app.component';
 import {reducers} from './store/app.reducers';
+import {SortablejsModule} from 'angular-sortablejs';
 import {EffectsModule} from '@ngrx/effects';
 import {NetworkEffects} from './network/store/network.effects';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -22,8 +22,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
         StoreModule.forRoot(reducers),
         EffectsModule.forRoot([
             NetworkEffects
-        ]),
-        NgbModule.forRoot()
+        ])
     ],
     providers: [],
     bootstrap: [AppComponent]

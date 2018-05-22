@@ -1,5 +1,5 @@
-import {HiddenLayerActivationType} from '../hidden-layer-activation.enum';
-import {HiddenLayer} from '../hidden-layer.model';
+import {HiddenLayer} from '../hidden-layer.interface';
+import {HiddenLayerActivationType} from '../hidden-layer-activation.type';
 
 export interface Conv2DLayerArgs {
     filters: number;
@@ -12,20 +12,6 @@ export class Conv2DLayer extends HiddenLayer {
     layer_name: String = 'Conv2D';
     args: Conv2DLayerArgs;
 
-    constructor() {
-        super();
-
-        this.args = {
-            filters: 0,
-            kernel_size: [0, 0],
-            strides: [null, null],
-            activation: null
-        };
-    }
-
-    public setArgs(args: Conv2DLayerArgs) {
-        this.args = args;
-    }
 
     public getNeurons(): number {
         return this.args.filters;

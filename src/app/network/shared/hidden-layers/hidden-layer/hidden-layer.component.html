@@ -1,5 +1,5 @@
 <div
-    [ngClass]="['hidden-layer__container', 'hidden-layer__container--type-' + layerType]"
+    [ngClass]="['hidden-layer__container', 'hidden-layer__container--type-' + layer.type]"
     [@collapsable]="state"
 >
     <span class="hidden-layer__index">{{ index+1 }}.</span>
@@ -11,57 +11,48 @@
                 matTooltip="Layer type"
                 matTooltipPosition="below"
             >
-                <mat-select [(value)]="layerType" (change)="onTypeChange()">
+                <mat-select [(value)]="layer.type" (change)="onTypeChange()">
                     <mat-option
                         *ngFor="let value of types_values; let i = index;"
                         [value]="value"
-                    >{{ types_names[i] }}
-                    </mat-option>
+                    >{{ types_names[i] }}</mat-option>
                 </mat-select>
             </mat-form-field>
             <div
                 *ngIf="readonly"
                 class="hidden-layer__type-readonly-name"
-                [matTooltip]="types_names[layerType]"
+                [matTooltip]="types_names[layer.type]"
                 matTooltipPosition="below"
             >
-                {{ types_names[layerType] }}
+                {{ types_names[layer.type] }}
             </div>
         </div>
 
         <div class="hidden-layer__settings">
             <i
-                class="fa fa-cog"
-                [ngbPopover]="getArgsComponent(types_names[layerType])"
-                [triggers]="readonly ? 'mouseenter:mouseleave' : 'click'"
-                #p="ngbPopover"
-                container="body"
-                placement="bottom"
                 matTooltip="Layer settings"
-                matTooltipPosition="above"
+                matTooltipPosition="below"
+                class="fa fa-cog"
+                (click)="openSettings()"
             ></i>
         </div>
     </div>
 
-    <ng-container *ngIf="layer.haveNeurons()">
-        <app-neurons-counter
-            [@centerable]="state"
-            *ngIf="!readonly"
-            [value]="layer.getNeurons()"
-            (change)="onAmountChange($event)"
-        ></app-neurons-counter>
+    <ng-container>
         <app-neurone
             [@hiddable]="state"
-            *ngFor="let neurone of range(layer.getNeurons()); let i = index;"
-            [index]="i"
+            *ngIf="!readonly"
+            [placeholder]="true"
+            (add)="onNeuroneAdd()"
         ></app-neurone>
-        <div *ngIf="readonly && state === 'inactive'" class="hidden-layer__neurons-amount">
-            {{ layer.getNeurons() }}neurons
-        </div>
+        <app-neurone
+            [@hiddable]="state"
+            [readonly]="readonly"
+            *ngFor="let neurone of range(layer.neurons); let i = index;"
+            [index]="i"
+            (delete)="onNeuroneDelete($event)"
+        ></app-neurone>
     </ng-container>
-    <div *ngIf="!layer.haveNeurons()" class="hidden-layer__no-neurons-info">
-        No neurons
-    </div>
 
     <div
         class="hidden-layer__collapser"
@@ -70,28 +61,3 @@
         matTooltipPosition="above"
     ></div>
 </div>
-
-<ng-template #Conv2D>
-    <app-conv2d-layer [index]="index" [layer]="layer" [readonly]="readonly" (onSave)="onSave($event)"
-                      (onCancel)="onCancel($event)" (onDelete)="onDelete($event)"></app-conv2d-layer>
-</ng-template>
-
-<ng-template #Dense>
-    <app-dense-layer [index]="index" [layer]="layer" [readonly]="readonly" (onSave)="onSave($event)"
-                     (onCancel)="onCancel($event)" (onDelete)="onDelete($event)"></app-dense-layer>
-</ng-template>
-
-<ng-template #Dropout>
-    <app-dropout-layer [index]="index" [layer]="layer" [readonly]="readonly" (onSave)="onSave($event)"
-                       (onCancel)="onCancel($event)" (onDelete)="onDelete($event)"></app-dropout-layer>
-</ng-template>
-
-<ng-template #Flatten>
-    <app-flatten-layer [index]="index" [layer]="layer" [readonly]="readonly" (onSave)="onSave($event)"
-                       (onCancel)="onCancel($event)" (onDelete)="onDelete($event)"></app-flatten-layer>
-</ng-template>
-
-<ng-template #MaxPooling2D>
-    <app-max-pooling2d-layer [index]="index" [layer]="layer" [readonly]="readonly" (onSave)="onSave($event)"
-                             (onCancel)="onCancel($event)" (onDelete)="onDelete($event)"></app-max-pooling2d-layer>
-</ng-template>

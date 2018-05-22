@@ -1,4 +1,4 @@
-import {HiddenLayer} from './hidden-layers/hidden-layer/layers/hidden-layer.model';
+import {HiddenLayer} from './hidden-layers/hidden-layer/hidden-layer.interface';
 
 export class UnlearnedNetwork {
     private _id;
