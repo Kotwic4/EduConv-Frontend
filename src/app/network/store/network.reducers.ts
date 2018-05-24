@@ -47,15 +47,15 @@ export function networkReducer(state = initialState, action: NetworkActions.Netw
 
     switch (action.type) {
         case (NetworkActions.INPUT_IMAGE_UPLOAD):
-            networkInUsage = _.cloneDeep(<LearnedNetwork>state.networkInUsage);
-            networkInUsage.input = _.cloneDeep(action.payload);
+            networkInUsage = <LearnedNetwork>state.networkInUsage;
+            networkInUsage.input = action.payload;
 
             return {
                 ...state,
                 networkInUsage: networkInUsage
             };
         case (NetworkActions.INPUT_IMAGE_DELETE):
-            networkInUsage = _.cloneDeep(<LearnedNetwork>state.networkInUsage);
+            networkInUsage = <LearnedNetwork>state.networkInUsage;
             networkInUsage.input = null;
 
             return {
