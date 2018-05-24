@@ -5,12 +5,11 @@ export interface DropoutLayerArgs {
 }
 
 export class DropoutLayer extends HiddenLayer {
-    layer_name: String = 'Dropout';
     args: DropoutLayerArgs;
 
     constructor() {
         super();
-
+        this.layer_name = 'Dropout';
         this.args = {
             rate: 0
         };

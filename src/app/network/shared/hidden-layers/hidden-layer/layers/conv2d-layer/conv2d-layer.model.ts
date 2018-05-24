@@ -9,33 +9,27 @@ export interface Conv2DLayerArgs {
 }
 
 export class Conv2DLayer extends HiddenLayer {
-    layer_name: String = 'Conv2D';
     args: Conv2DLayerArgs;
 
     constructor() {
         super();
-
+        this.layer_name = 'Conv2D';
         this.args = {
             filters: 0,
             kernel_size: [0, 0],
             strides: [null, null],
             activation: null
         };
+        this.setHaveNeurons(true);
     }
 
     public setArgs(args: Conv2DLayerArgs) {
         this.args = args;
-    }
-
-    public getNeurons(): number {
-        return this.args.filters;
+        super.setNeurons(args.filters);
     }
 
     public setNeurons(number: number): void {
         this.args.filters = number;
-    }
-
-    public haveNeurons(): boolean {
-        return true;
+        super.setNeurons(number);
     }
 }

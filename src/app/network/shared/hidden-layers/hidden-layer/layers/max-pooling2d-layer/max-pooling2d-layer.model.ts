@@ -6,12 +6,11 @@ export interface MaxPooling2DLayerArgs {
 }
 
 export class MaxPooling2DLayer extends HiddenLayer {
-    layer_name: String = 'MaxPooling2D';
     args: MaxPooling2DLayerArgs;
 
     constructor() {
         super();
-
+        this.layer_name = 'MaxPooling2D';
         this.args = {
             pool_size: [null, null],
             strides: [null, null]

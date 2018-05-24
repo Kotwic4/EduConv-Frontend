@@ -1,5 +1,6 @@
 import * as tf from '@tensorflow/tfjs';
 import {HiddenLayerType} from './hidden-layers/hidden-layer/layers/hidden-layer-type.enum';
+import {HiddenLayersService} from './hidden-layers/hidden-layer/layers/hidden-layer.service';
 
 export class LearnedNetwork {
     private _id = 101;
@@ -76,10 +77,11 @@ export class LearnedNetwork {
         if (layer.output instanceof tf.SymbolicTensor) {
             neurones = layer.output.shape.slice(-1)[0];
         }
-        return {
-            type: type,
-            neurons: neurones
-        };
+        const service = new HiddenLayersService();
+        const modalLayer = service.getInstance(type);
+        modalLayer.setNeurons(neurones);
+        modalLayer.setHaveNeurons(true);
+        return modalLayer;
     }
 
     loadModel() {
