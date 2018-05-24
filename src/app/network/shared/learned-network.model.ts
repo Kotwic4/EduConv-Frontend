@@ -103,15 +103,13 @@ export class LearnedNetwork {
         const result = [];
         const shape = out.shape;
         const data = Array.from(out.dataSync());
-        console.log(out.dataSync());
-        console.log(data);
         const _min: any = Math.min.apply(null, data);
         const _max: any = Math.max.apply(null, data);
-        const conf = (_max - _min);
+        const conf = (_max - _min) / 255;
         if (shape.length === 2) {
             for (let i = 0; i < shape[1]; i++) {
                 const value: any = data[i];
-                const color = 255 * (value - _min) / conf;
+                const color = (value - _min) / conf;
                 canvas.width  = 1;
                 canvas.height = 1;
                 ctx.fillStyle = `rgb(${color},${color},${color})`;
@@ -128,7 +126,7 @@ export class LearnedNetwork {
                     for (let j = 0; j < y; j++) {
                         const index = n * ( x * y ) + i * y + j ;
                         const value: any = data[index];
-                        const color = 255 * (value - _min) / conf;
+                        const color = (value - _min) / conf;
                         ctx.fillStyle = `rgb(${color},${color},${color})`;
                         ctx.fillRect(i, j, i + 1, j + 1);
                     }
@@ -136,7 +134,6 @@ export class LearnedNetwork {
                 result.push(canvas.toDataURL());
             }
         }
-        console.log(result);
         return result;
     }
 
