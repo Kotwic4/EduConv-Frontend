@@ -65,6 +65,7 @@ export class HiddenLayerComponent implements OnInit {
 
     @Input() index: number;
     @Input() layer: HiddenLayer;
+    @Input() images: string[];
     @Input() readonly;
     layerType: HiddenLayerType;
     types_names: string[];

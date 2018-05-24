@@ -11,20 +11,24 @@
     box-sizing: border-box;
     position: relative;
 
-    .neurone__delete {
-        position: absolute;
-        top: 2px;
-        right: 2px;
-        font-size: 13px;
-        transition: color .2s;
-        cursor: pointer;
-    }
-
     .neurone__index {
         position: absolute;
         bottom: 2px;
         left: 4px;
         font-size: 13px;
+
+        &.neurone__index--white {
+            color: white;
+        }
+    }
+
+    .neurone__image {
+        $image-margin: 3px;
+        width: #{$neurone-size - 2*$image-margin - 2};
+        height: #{$neurone-size - 2*$image-margin - 2};
+        margin-top: $image-margin;
+        margin-left: $image-margin;
+        border-radius: 2px;
     }
 }
 

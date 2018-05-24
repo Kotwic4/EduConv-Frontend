@@ -54,9 +54,10 @@
             [@hiddable]="state"
             *ngFor="let neurone of range(layer.getNeurons()); let i = index;"
             [index]="i"
+            [image]="images ? images[i] : null"
         ></app-neurone>
         <div *ngIf="readonly && state === 'inactive'" class="hidden-layer__neurons-amount">
-            {{ layer.getNeurons() }}neurons
+            {{ layer.getNeurons() }} neurons
         </div>
     </ng-container>
     <div *ngIf="!layer.haveNeurons()" class="hidden-layer__no-neurons-info">

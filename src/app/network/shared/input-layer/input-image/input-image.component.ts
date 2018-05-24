@@ -52,12 +52,6 @@ export class InputImageComponent implements OnInit, OnDestroy {
         event.stopPropagation();
     }
 
-    onNetworkStart(event) {
-        this.submitted = true;
-        this.store.dispatch(new NetworkActions.RunNetwork());
-        event.stopPropagation();
-    }
-
     ngOnDestroy() {
         this.subscription.unsubscribe();
     }
