@@ -5,6 +5,7 @@ import {ActivatedRoute, Params, Router} from '@angular/router';
 import {UnlearnedNetwork} from '../shared/unlearned-network.model';
 import {Subscription} from 'rxjs/Subscription';
 import * as NetworkActions from '../store/network.actions';
+import * as _ from 'lodash';
 
 @Component({
     selector: 'app-learn',
@@ -43,7 +44,7 @@ export class LearnComponent implements OnInit, OnDestroy {
                             this.learning = data.learningNetwork;
 
                             if (!this.loading) {
-                                this.network = <UnlearnedNetwork>data.networkInUsage;
+                                this.network = _.cloneDeep(<UnlearnedNetwork>data.networkInUsage);
                             }
 
                             if (!this.learning && this.submitted) {
