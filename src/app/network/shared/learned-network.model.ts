@@ -11,7 +11,6 @@ export class LearnedNetwork {
     private _images = [];
 
     constructor() {
-
     }
 
     get id() {
@@ -99,33 +98,44 @@ export class LearnedNetwork {
     }
 
     generateImage(out) {
+        const canvas = <HTMLCanvasElement>document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
         const result = [];
         const shape = out.shape;
         const data = Array.from(out.dataSync());
+        console.log(out.dataSync());
+        console.log(data);
+        const _min: any = Math.min.apply(null, data);
+        const _max: any = Math.max.apply(null, data);
+        const conf = (_max - _min);
         if (shape.length === 2) {
             for (let i = 0; i < shape[1]; i++) {
-                // create image 1x1 of element data[i]
-                result.push(data[i]);
+                const value: any = data[i];
+                const color = 255 * (value - _min) / conf;
+                canvas.width  = 1;
+                canvas.height = 1;
+                ctx.fillStyle = `rgb(${color},${color},${color})`;
+                ctx.fillRect(0, 0, 1, 1);
+                result.push(canvas.toDataURL());
             }
         } else {
             const x = shape[1];
             const y = shape[2];
-            for (let n = 0; n < shape[1]; n++) {
-                const image = [];
-                // create image X x Y
+            for (let n = 0; n < shape[3]; n++) {
+                canvas.width  = x;
+                canvas.height = y;
                 for (let i = 0; i < x; i++) {
-                    const row = [];
                     for (let j = 0; j < y; j++) {
-                        // crete rectangle from (i,j) to (i+1,j+1)
-                        const index = i * n + j;
-                        row.push(data[index]);
+                        const index = n * ( x * y ) + i * y + j ;
+                        const value: any = data[index];
+                        const color = 255 * (value - _min) / conf;
+                        ctx.fillStyle = `rgb(${color},${color},${color})`;
+                        ctx.fillRect(i, j, i + 1, j + 1);
                     }
-                    image.push(row);
                 }
-                result.push(image);
+                result.push(canvas.toDataURL());
             }
         }
-
         console.log(result);
         return result;
     }
