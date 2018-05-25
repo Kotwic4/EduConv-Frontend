@@ -1,6 +1,5 @@
 <div
-    [ngClass]="['hidden-layer__container', 'hidden-layer__container--type-' + layerType]"
-    [@collapsable]="state"
+    [ngClass]="['hidden-layer__container', 'hidden-layer__container--type-' + layerType, collapsed ? 'hidden-layer__container--collapsed' : '']"
 >
     <span class="hidden-layer__index">{{ index+1 }}.</span>
 
@@ -45,18 +44,18 @@
 
     <ng-container *ngIf="layer.haveNeurons()">
         <app-neurons-counter
-            [@centerable]="state"
             *ngIf="!readonly"
             [value]="layer.getNeurons()"
             (change)="onAmountChange($event)"
         ></app-neurons-counter>
-        <app-neurone
-            [@hiddable]="state"
-            *ngFor="let neurone of range(layer.getNeurons()); let i = index;"
-            [index]="i"
-            [image]="images ? images[i] : null"
-        ></app-neurone>
-        <div *ngIf="readonly && state === 'inactive'" class="hidden-layer__neurons-amount">
+        <ng-container *ngIf="!collapsed">
+            <app-neurone
+                *ngFor="let neurone of range(layer.getNeurons()); let i = index;"
+                [index]="i"
+                [image]="images ? images[i] : null"
+            ></app-neurone>
+        </ng-container>
+        <div *ngIf="readonly && collapsed" class="hidden-layer__neurons-amount">
             {{ layer.getNeurons() }} neurons
         </div>
     </ng-container>

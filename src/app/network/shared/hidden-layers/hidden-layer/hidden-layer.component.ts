@@ -1,11 +1,10 @@
-import {Component, Input, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {Store} from '@ngrx/store';
 import * as _ from 'lodash';
 
 import * as NetworkActions from '../../../store/network.actions';
 import * as fromApp from '../../../../store/app.reducers';
 import {HiddenLayerType} from './layers/hidden-layer-type.enum';
-import {animate, animateChild, group, query, state, style, transition, trigger} from '@angular/animations';
 import {HiddenLayerChangeArgs, HiddenLayerRemove} from '../../../store/network.actions';
 import {HiddenLayer} from './layers/hidden-layer.model';
 import {HiddenLayersService} from './layers/hidden-layer.service';
@@ -13,47 +12,7 @@ import {HiddenLayersService} from './layers/hidden-layer.service';
 @Component({
     selector: 'app-hidden-layer',
     templateUrl: './hidden-layer.component.html',
-    styleUrls: ['./hidden-layer.component.scss'],
-    animations: [
-        trigger('collapsable', [
-            state('inactive', style({
-                width: '0px'
-            })),
-            state('active', style({
-                width: '*'
-            })),
-            transition('inactive <=> active', [
-                group([
-                    query('@hiddable', [
-                        animateChild()
-                    ], { optional: true }),
-                    animate('200ms linear'),
-                ]),
-            ]),
-        ]),
-        trigger('hiddable', [
-            state('inactive', style({
-                opacity: 0
-            })),
-            state('active', style({
-                opacity: 1
-            })),
-            transition('inactive <=> active', [
-                animate('200ms linear')
-            ]),
-        ]),
-        trigger('centerable', [
-            state('inactive', style({
-                position: "absolute"
-            })),
-            state('active', style({
-                position: "static"
-            })),
-            transition('inactive <=> active', [
-                animate('200ms linear')
-            ]),
-        ])
-    ]
+    styleUrls: ['./hidden-layer.component.scss']
 })
 export class HiddenLayerComponent implements OnInit {
     @ViewChild('p') popover;
@@ -70,7 +29,7 @@ export class HiddenLayerComponent implements OnInit {
     layerType: HiddenLayerType;
     types_names: string[];
     types_values: number[];
-    state = 'active';
+    collapsed = true;
 
     constructor(private store: Store<fromApp.AppState>,
                 private hiddenLayersService: HiddenLayersService) {
@@ -80,6 +39,7 @@ export class HiddenLayerComponent implements OnInit {
 
     ngOnInit() {
         this.layerType = this.hiddenLayersService.getType(this.layer);
+        this.collapsed = this.readonly;
     }
 
     range(i: number) {
@@ -94,7 +54,7 @@ export class HiddenLayerComponent implements OnInit {
     }
 
     toggleCollapsed() {
-        this.state = this.state === 'active' ? 'inactive' : 'active';
+        this.collapsed = !this.collapsed;
     }
 
     onSave(args) {

@@ -18,6 +18,14 @@
     border-style: solid;
     margin: 0 10px;
 
+    &.hidden-layer__container--collapsed {
+        width: 0;
+
+        app-neurons-counter {
+            position: absolute;
+        }
+    }
+
     &.hidden-layer__container--type-0 {
         border-color: yellow;
     }
