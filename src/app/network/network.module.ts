@@ -32,7 +32,6 @@ import {HiddenLayersService} from './shared/hidden-layers/hidden-layer/layers/hi
 import {MatCheckboxModule} from '@angular/material';
 import { NeuronsCounterComponent } from './shared/hidden-layers/hidden-layer/neurons-counter/neurons-counter.component';
 import { LoaderComponent } from './shared/loader/loader.component';
-import { LazyLoadImagesModule } from 'ngx-lazy-load-images';
 
 @NgModule({
     imports: [
@@ -46,8 +45,7 @@ import { LazyLoadImagesModule } from 'ngx-lazy-load-images';
         NetworkRoutingModule,
         HttpClientModule,
         NgbModule,
-        FormsModule,
-        LazyLoadImagesModule
+        FormsModule
     ],
     declarations: [
         NetworkComponent,
