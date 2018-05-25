@@ -24,7 +24,11 @@ export class InputImageComponent implements OnInit, OnDestroy {
         this.subscription = this.store.select('network')
             .subscribe(
                 (data) => {
-                    this.inputImage = _.cloneDeep((<LearnedNetwork>data.networkInUsage).input);
+                    const network = (<LearnedNetwork>data.networkInUsage);
+
+                    if (network) {
+                        this.inputImage = _.cloneDeep(network.input);
+                    }
 
                     if (this.submitted && !data.runningNetwork) {
                         console.log('End of running');

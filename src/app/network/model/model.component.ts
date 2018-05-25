@@ -39,12 +39,14 @@ export class ModelComponent implements OnInit, OnDestroy {
         this.subscription = this.store.select('network')
             .subscribe(
                 data => {
-                    this.network = _.cloneDeep(<UnlearnedNetwork>data.networkInUsage);
+                    const network = _.cloneDeep(<UnlearnedNetwork>data.networkInUsage);
+                    if (network) {
+                        this.network = network;
+                    }
 
                     this.loading = data.savingNetwork;
 
                     if (!this.loading && this.saving) {
-                        console.log(data.networkInUsageID);
                         this.router.navigate(['/learn', data.networkInUsageID]);
                     }
                 }

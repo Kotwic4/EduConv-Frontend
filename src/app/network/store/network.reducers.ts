@@ -3,23 +3,7 @@ import {UnlearnedNetwork} from '../shared/unlearned-network.model';
 import {NetworkOutput} from '../shared/network-output.model';
 import {LearnedNetwork} from '../shared/learned-network.model';
 import * as _ from 'lodash';
-import {Conv2DLayer} from '../shared/hidden-layers/hidden-layer/layers/conv2d-layer/conv2d-layer.model';
 import {HiddenLayer} from '../shared/hidden-layers/hidden-layer/layers/hidden-layer.model';
-import {DenseLayer} from '../shared/hidden-layers/hidden-layer/layers/dense-layer/dense-layer.model';
-import {DropoutLayer} from '../shared/hidden-layers/hidden-layer/layers/dropout-layer/dropout-layer.model';
-import {FlattenLayer} from '../shared/hidden-layers/hidden-layer/layers/flatten-layer/flatten-layer.model';
-import {MaxPooling2DLayer} from '../shared/hidden-layers/hidden-layer/layers/max-pooling2d-layer/max-pooling2d-layer.model';
-
-const network = new UnlearnedNetwork();
-// network.id = 1;
-network.layers = [
-    // new Conv2DLayer(),
-    // new Conv2DLayer(),
-    // new DenseLayer(),
-    // new DropoutLayer(),
-    // new FlattenLayer(),
-    // new MaxPooling2DLayer()
-];
 
 export interface State {
     uploadedNetwork: String;
@@ -48,22 +32,6 @@ export function networkReducer(state = initialState, action: NetworkActions.Netw
     let layer: HiddenLayer;
 
     switch (action.type) {
-        case (NetworkActions.INPUT_IMAGE_UPLOAD):
-            networkInUsage = <LearnedNetwork>state.networkInUsage;
-            networkInUsage.input = action.payload;
-
-            return {
-                ...state,
-                networkInUsage: networkInUsage
-            };
-        case (NetworkActions.INPUT_IMAGE_DELETE):
-            networkInUsage = <LearnedNetwork>state.networkInUsage;
-            networkInUsage.input = null;
-
-            return {
-                ...state,
-                networkInUsage: networkInUsage
-            };
         // case (NetworkActions.NETWORK_UPLOAD):
         //     return {
         //         ...state,
@@ -118,7 +86,8 @@ export function networkReducer(state = initialState, action: NetworkActions.Netw
             };
         case (NetworkActions.START_MODELING_NETWORK):
             return {
-                ...state
+                ...state,
+                networkInUsage: new UnlearnedNetwork()
             };
         case (NetworkActions.MODEL_NETWORK):
             return {
@@ -172,6 +141,22 @@ export function networkReducer(state = initialState, action: NetworkActions.Netw
                 ...state,
                 networkRunResult: action.payload,
                 runningNetwork: false
+            };
+        case (NetworkActions.INPUT_IMAGE_UPLOAD):
+            networkInUsage = <LearnedNetwork>state.networkInUsage;
+            networkInUsage.input = action.payload;
+
+            return {
+                ...state,
+                networkInUsage: networkInUsage
+            };
+        case (NetworkActions.INPUT_IMAGE_DELETE):
+            networkInUsage = <LearnedNetwork>state.networkInUsage;
+            networkInUsage.input = null;
+
+            return {
+                ...state,
+                networkInUsage: networkInUsage
             };
         default:
             return state;

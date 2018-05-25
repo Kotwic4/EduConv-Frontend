@@ -1,16 +1,13 @@
 import {HiddenLayer} from './hidden-layers/hidden-layer/layers/hidden-layer.model';
-import {LearnedNetwork} from './learned-network.model';
 import {HiddenLayersService} from './hidden-layers/hidden-layer/layers/hidden-layer.service';
-import * as tf from '@tensorflow/tfjs';
 import {HiddenLayerType} from './hidden-layers/hidden-layer/layers/hidden-layer-type.enum';
 import {hasOwnProperty} from 'tslint/lib/utils';
 
 export class UnlearnedNetwork {
     private _id;
-    private _layers: HiddenLayer[];
+    private _layers: HiddenLayer[] = [];
 
     constructor() {
-
     }
 
     get id() {
@@ -30,7 +27,6 @@ export class UnlearnedNetwork {
     }
 
     static mapLayerNameToEnum(name): HiddenLayerType {
-        // const trueName = name.split('_').slice(0, name.split('_').length - 1).join('');
         switch (name.toLowerCase()) {
             case 'conv2d':
                 return HiddenLayerType.Conv2D;
@@ -97,12 +93,12 @@ export class UnlearnedNetwork {
                 return {
                     layer_name: layer.layer_name,
                     args: args
-                }
+                };
             }
         );
 
         if (layers.length > 0) {
-            layers[0].args["input_shape"] = [
+            layers[0].args['input_shape'] = [
                 28,
                 28,
                 1
