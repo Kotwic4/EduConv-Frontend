@@ -31,6 +31,8 @@ import { MaxPooling2dLayerComponent } from './shared/hidden-layers/hidden-layer/
 import {HiddenLayersService} from './shared/hidden-layers/hidden-layer/layers/hidden-layer.service';
 import {MatCheckboxModule} from '@angular/material';
 import { NeuronsCounterComponent } from './shared/hidden-layers/hidden-layer/neurons-counter/neurons-counter.component';
+import { LoaderComponent } from './shared/loader/loader.component';
+import { LazyLoadImagesModule } from 'ngx-lazy-load-images';
 
 @NgModule({
     imports: [
@@ -44,7 +46,8 @@ import { NeuronsCounterComponent } from './shared/hidden-layers/hidden-layer/neu
         NetworkRoutingModule,
         HttpClientModule,
         NgbModule,
-        FormsModule
+        FormsModule,
+        LazyLoadImagesModule
     ],
     declarations: [
         NetworkComponent,
@@ -65,7 +68,8 @@ import { NeuronsCounterComponent } from './shared/hidden-layers/hidden-layer/neu
         DropoutLayerComponent,
         FlattenLayerComponent,
         MaxPooling2dLayerComponent,
-        NeuronsCounterComponent
+        NeuronsCounterComponent,
+        LoaderComponent
     ],
     providers: [
         HiddenLayersService
