@@ -11,14 +11,14 @@ import {FlattenLayer} from '../shared/hidden-layers/hidden-layer/layers/flatten-
 import {MaxPooling2DLayer} from '../shared/hidden-layers/hidden-layer/layers/max-pooling2d-layer/max-pooling2d-layer.model';
 
 const network = new UnlearnedNetwork();
-network.id = 1;
+// network.id = 1;
 network.layers = [
-    new Conv2DLayer(),
-    new Conv2DLayer(),
-    new DenseLayer(),
-    new DropoutLayer(),
-    new FlattenLayer(),
-    new MaxPooling2DLayer()
+    // new Conv2DLayer(),
+    // new Conv2DLayer(),
+    // new DenseLayer(),
+    // new DropoutLayer(),
+    // new FlattenLayer(),
+    // new MaxPooling2DLayer()
 ];
 
 export interface State {
@@ -28,6 +28,7 @@ export interface State {
     learningNetwork: boolean;
     runningNetwork: boolean;
     networkInUsage: UnlearnedNetwork | LearnedNetwork;
+    networkInUsageID: number;
     networkRunResult: NetworkOutput;
 }
 
@@ -37,7 +38,8 @@ const initialState: State = {
     savingNetwork: false,
     learningNetwork: false,
     runningNetwork: false,
-    networkInUsage: network,
+    networkInUsage: null,
+    networkInUsageID: null,
     networkRunResult: null
 };
 
@@ -126,7 +128,7 @@ export function networkReducer(state = initialState, action: NetworkActions.Netw
         case (NetworkActions.END_MODELING_NETWORK):
             return {
                 ...state,
-                networkInUsage: action.payload,
+                networkInUsageID: action.payload,
                 savingNetwork: false
             };
         case (NetworkActions.FETCH_UNLEARNED_NETWORK):
@@ -135,11 +137,16 @@ export function networkReducer(state = initialState, action: NetworkActions.Netw
                 fetchingNetwork: true
             };
         case (NetworkActions.START_LEARNING_NETWORK):
+            const unlearnedNetwork = new UnlearnedNetwork();
+            unlearnedNetwork.setLayers(action.payload.layers);
+
             return {
                 ...state,
+                networkInUsage: unlearnedNetwork,
                 fetchingNetwork: false
             };
         case (NetworkActions.END_LEARNING_NETWORK):
+            console.log("LEARNED", action.payload);
             return {
                 ...state,
                 networkInUsage: action.payload

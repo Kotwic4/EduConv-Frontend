@@ -44,7 +44,8 @@ export class ModelComponent implements OnInit, OnDestroy {
                     this.loading = data.savingNetwork;
 
                     if (!this.loading && this.saving) {
-                        this.router.navigate(['/learn', this.network.id]);
+                        console.log(data.networkInUsageID);
+                        this.router.navigate(['/learn', data.networkInUsageID]);
                     }
                 }
             );

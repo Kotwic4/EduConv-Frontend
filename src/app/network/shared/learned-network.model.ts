@@ -1,6 +1,7 @@
 import * as tf from '@tensorflow/tfjs';
 import {HiddenLayerType} from './hidden-layers/hidden-layer/layers/hidden-layer-type.enum';
 import {HiddenLayersService} from './hidden-layers/hidden-layer/layers/hidden-layer.service';
+import {API_URL} from '../network.consts';
 
 export class LearnedNetwork {
     private _id = 101;
@@ -89,7 +90,7 @@ export class LearnedNetwork {
     }
 
     loadModel() {
-        const data = tf.loadModel('http://127.0.0.1:5000/model/' + this._id + '/model.json');
+        const data = tf.loadModel(API_URL + 'model/' + this._id + '/model.json');
         return data.then(
             (model: tf.Sequential) => {
                 this._model = model;
