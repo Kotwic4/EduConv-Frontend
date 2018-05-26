@@ -1,9 +1,11 @@
 .header__container-fluid {
+    $header-height: 75px;
+
     box-shadow: 0 0 20px lightgray;
     background-color: white;
 
     .header__container {
-        height: 75px;
+        height: $header-height;
         position: relative;
 
         .header__controls-container {
@@ -11,7 +13,8 @@
             top: 0;
             right: 0;
             font-size: 30px;
-            line-height: 75px;
+            height: $header-height;
+            line-height: $header-height;
 
             .header__control-btn {
                 margin-left: 20px;
@@ -29,7 +32,7 @@
         }
 
         .header__logo {
-            line-height: 75px;
+            line-height: $header-height;
             text-align: center;
             margin: 0 auto;
             display: block;
