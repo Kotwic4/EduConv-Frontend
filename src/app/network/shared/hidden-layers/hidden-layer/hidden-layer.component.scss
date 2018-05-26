@@ -3,7 +3,7 @@
     $tools-min-width: 100px;
     $tools-settings-width: 20px;
 
-    height: 500px;
+    height: calc(100% - 67px);
     min-width: $tools-min-width;
     display: inline-flex;
     writing-mode: vertical-lr;
