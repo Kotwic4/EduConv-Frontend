@@ -1,7 +1,7 @@
 .hidden-layer__container {
     $tools-height: 30px;
     $tools-min-width: 100px;
-    $tools-settings-width: 30px;
+    $tools-settings-width: 20px;
 
     height: 500px;
     min-width: $tools-min-width;
@@ -17,6 +17,14 @@
     border-width: 2px 0 0;
     border-style: solid;
     margin: 0 10px;
+
+    &.hidden-layer__container--collapsed {
+        width: 0;
+
+        app-neurons-counter {
+            position: absolute;
+        }
+    }
 
     &.hidden-layer__container--type-0 {
         border-color: yellow;
@@ -69,6 +77,7 @@
                 overflow: hidden;
                 text-overflow: ellipsis;
                 white-space: nowrap;
+                text-align: center;
             }
         }
 
@@ -77,7 +86,8 @@
             width: $tools-settings-width;
             text-align: center;
             cursor: pointer;
-            margin-top: -5px;
+            margin-top: -2px;
+            font-size: 14px;
         }
     }
 

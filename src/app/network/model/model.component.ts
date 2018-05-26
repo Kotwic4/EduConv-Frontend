@@ -39,7 +39,8 @@ export class ModelComponent implements OnInit, OnDestroy {
         this.subscription = this.store.select('network')
             .subscribe(
                 data => {
-                    const network = _.cloneDeep(<UnlearnedNetwork>data.networkInUsage);
+                    const network = <UnlearnedNetwork>data.networkInUsage;
+                  
                     if (network) {
                         this.network = network;
                     }
