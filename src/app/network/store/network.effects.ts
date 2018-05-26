@@ -82,9 +82,9 @@ export class NetworkEffects {
         .pipe(
             switchMap(
                 (action: NetworkActions.FetchLearnedNetwork) => {
-                    console.log(action.payload);
                     const learnedNetwork2 = new LearnedNetwork();
                     learnedNetwork2.id = action.payload;
+
                     return learnedNetwork2.loadModel();
                 }
             ),

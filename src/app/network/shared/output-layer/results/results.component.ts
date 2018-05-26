@@ -26,7 +26,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
                     const network = (<LearnedNetwork>data.networkInUsage);
 
                     if (network) {
-                        this.labels = _.cloneDeep(network.labels);
+                        this.labels = network.labels;
                     }
 
                     if (data.networkRunResult) {

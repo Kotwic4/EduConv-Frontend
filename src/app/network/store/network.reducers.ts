@@ -116,7 +116,6 @@ export function networkReducer(state = initialState, action: NetworkActions.Netw
                 fetchingNetwork: false
             };
         case (NetworkActions.END_LEARNING_NETWORK):
-            console.log("LEARNED", action.payload);
             return {
                 ...state,
                 networkInUsage: action.payload
