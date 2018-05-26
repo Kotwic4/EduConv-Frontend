@@ -1,22 +1,31 @@
 .header__container-fluid {
-    box-shadow: 0 0 5px lightgray;
+    box-shadow: 0 0 20px lightgray;
     background-color: white;
 
     .header__container {
         height: 75px;
+        position: relative;
 
-        .header__control-btn {
+        .header__controls-container {
+            position: absolute;
+            top: 0;
+            right: 0;
             font-size: 30px;
-            cursor: pointer;
             line-height: 75px;
 
-            &.pull-right {
+            .header__control-btn {
                 margin-left: 20px;
-            }
-        }
+                cursor: pointer;
+                user-select: none;
 
-        .input-image__networkInput {
-            display: none;
+                &:first-child {
+                    margin-left: 0;
+                }
+            }
+
+            .input-image__networkInput {
+                display: none;
+            }
         }
 
         .header__logo {
@@ -24,8 +33,8 @@
             text-align: center;
             margin: 0 auto;
             display: block;
-            font-size: 40px;
-            font-family: "Comic Sans MS";
+            font-size: 50px;
+            font-family: "Brush Script MT", "Times New Roman";
             text-shadow: 0 0 10px white;
             user-select: none;
             cursor: pointer;

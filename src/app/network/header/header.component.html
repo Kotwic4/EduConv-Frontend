@@ -1,87 +1,74 @@
 <div class="container-fluid header__container-fluid">
     <div class="container header__container">
-        <!--<span-->
-            <!--*ngIf="controls?.upload"-->
-            <!--class="header__upload pull-right"-->
-            <!--(click)="networkInput.click()"-->
-        <!--&gt;-->
-            <!--<i-->
-                <!--matTooltip="Upload model"-->
-                <!--matTooltipPosition="below"-->
-                <!--matTooltipClass="header__tooltip"-->
-                <!--class="fa fa-cloud-upload"></i>-->
-        <!--</span>-->
-
-        <!--<input-->
-            <!--*ngIf="controls?.upload"-->
-            <!--type="file"-->
-            <!--class="input-image__networkInput"-->
-            <!--(change)="onNetworkChange($event)"-->
-            <!--#networkInput-->
-        <!--&gt;-->
-
-        <!--<span-->
-            <!--*ngIf="controls?.download"-->
-            <!--class="header__download pull-right"-->
-            <!--(click)="downloadNetwork()"-->
-        <!--&gt;-->
-            <!--<i-->
-                <!--matTooltip="Download model"-->
-                <!--matTooltipPosition="below"-->
-                <!--matTooltipClass="header__tooltip"-->
-                <!--class="fa fa-cloud-download"></i>-->
-        <!--</span>-->
-
-        <span
-            *ngIf="controls?.onSave"
-            class="header__control-btn header__control-btn--save pull-right"
-            (click)="controls?.onSave()"
-        >
+        <div class="header__controls-container">
             <i
-                matTooltip="Save model"
-                matTooltipPosition="below"
-                class="fa fa-floppy-o"></i>
-        </span>
-
-        <span
-            *ngIf="controls?.onLayerAdd"
-            class="header__control-btn header__control-btn--add-layer pull-right"
-            (click)="controls?.onLayerAdd()"
-        >
-            <i
+                *ngIf="controls?.onLayerAdd"
+                (click)="controls?.onLayerAdd()"
                 matTooltip="Add layer"
                 matTooltipPosition="below"
-                class="fa fa-plus-square-o"></i>
-        </span>
-
-        <span
-            *ngIf="controls?.onLearn"
-            class="header__control-btn header__control-btn--learn pull-right"
-            (click)="controls?.onLearn()"
-        >
+                class="fa fa-plus-square-o header__control-btn"
+            ></i>
             <i
+                *ngIf="controls?.onSave"
+                (click)="controls?.onSave()"
+                matTooltip="Save model"
+                matTooltipPosition="below"
+                class="fa fa-floppy-o header__control-btn"
+            ></i>
+
+            <i
+                *ngIf="controls?.onLearn"
+                (click)="controls?.onLearn()"
                 matTooltip="Learn network"
                 matTooltipPosition="below"
-                class="fa fa-leanpub"
+                class="fa fa-leanpub header__control-btn"
             ></i>
-        </span>
 
-        <span
-            *ngIf="controls?.onRun"
-            class="header__control-btn header__control-btn--run pull-right"
-            (click)="controls?.onRun()"
-        >
             <i
+                *ngIf="controls?.onRun"
+                (click)="controls?.onRun()"
                 matTooltip="Run network"
                 matTooltipPosition="below"
-                class="fa fa-play"
+                class="fa fa-play header__control-btn"
             ></i>
-        </span>
+        </div>
 
         <span class="header__logo">
-            <a routerLink="/home" class="header__logo-link">
+            <a routerLink="/home" class="header__logo header__logo-link">
                 <span class="header__logo--edu">Edu</span><span class="header__logo--conv">Conv</span>
             </a>
         </span>
+
+        <!--<span-->
+        <!--*ngIf="controls?.upload"-->
+        <!--class="header__upload"-->
+        <!--(click)="networkInput.click()"-->
+        <!--&gt;-->
+        <!--<i-->
+        <!--matTooltip="Upload model"-->
+        <!--matTooltipPosition="below"-->
+        <!--matTooltipClass="header__tooltip"-->
+        <!--class="fa fa-cloud-upload"></i>-->
+        <!--</span>-->
+
+        <!--<input-->
+        <!--*ngIf="controls?.upload"-->
+        <!--type="file"-->
+        <!--class="input-image__networkInput"-->
+        <!--(change)="onNetworkChange($event)"-->
+        <!--#networkInput-->
+        <!--&gt;-->
+
+        <!--<span-->
+        <!--*ngIf="controls?.download"-->
+        <!--class="header__download"-->
+        <!--(click)="downloadNetwork()"-->
+        <!--&gt;-->
+        <!--<i-->
+        <!--matTooltip="Download model"-->
+        <!--matTooltipPosition="below"-->
+        <!--matTooltipClass="header__tooltip"-->
+        <!--class="fa fa-cloud-download"></i>-->
+        <!--</span>-->
     </div>
 </div>
