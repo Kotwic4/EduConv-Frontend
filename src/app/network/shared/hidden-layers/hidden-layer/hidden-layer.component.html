@@ -28,7 +28,7 @@
             </div>
         </div>
 
-        <div class="hidden-layer__settings">
+        <div class="hidden-layer__settings" *ngIf="!readonly">
             <i
                 class="fa fa-cog"
                 [ngbPopover]="getArgsComponent(types_names[layerType])"
