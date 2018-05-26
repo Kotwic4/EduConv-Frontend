@@ -61,24 +61,18 @@ export class UnlearnedNetwork {
             (layer) => {
                 const args = {};
 
-                for (let i in layer.args) {
-                    if (hasOwnProperty(layer.args, i)) {
+                Object.keys(layer.args).forEach(
+                    (i) => {
                         const arg = layer.args[i];
 
                         if (Array.isArray(arg)) {
-                            console.log(arg);
-                            let empty = true;
-
-                            arg.forEach(
-                                (element) => {
-                                    if (element || element === 0) {
-                                        empty = false;
-                                        return false;
-                                    }
+                            const notEmpty = arg.some(
+                                (element, index) => {
+                                    return (element || element === 0);
                                 }
                             );
 
-                            if (!empty) {
+                            if (notEmpty) {
                                 args[i] = arg;
                             }
                         }
@@ -88,7 +82,7 @@ export class UnlearnedNetwork {
                             }
                         }
                     }
-                }
+                );
 
                 return {
                     layer_name: layer.layer_name,
