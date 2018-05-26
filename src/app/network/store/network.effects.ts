@@ -4,45 +4,13 @@ import {switchMap, withLatestFrom, map} from 'rxjs/operators';
 import {Store} from '@ngrx/store';
 import {HttpClient} from '@angular/common/http';
 
-import * as NetworkActions from './network.actions';
-import * as fromNetwork from './network.reducers';
-import {Observable} from 'rxjs/Observable';
+import * as NetworkActions from './network.actions';;
 import {UnlearnedNetwork} from '../shared/unlearned-network.model';
 import {NetworkOutput} from '../shared/network-output.model';
 import {LearnedNetwork} from '../shared/learned-network.model';
-import {FetchUnlearnedNetwork} from './network.actions';
 import * as fromApp from '../../store/app.reducers';
-import {DenseLayer} from '../shared/hidden-layers/hidden-layer/layers/dense-layer/dense-layer.model';
-import {FlattenLayer} from '../shared/hidden-layers/hidden-layer/layers/flatten-layer/flatten-layer.model';
-import {DropoutLayer} from '../shared/hidden-layers/hidden-layer/layers/dropout-layer/dropout-layer.model';
-import {MaxPooling2DLayer} from '../shared/hidden-layers/hidden-layer/layers/max-pooling2d-layer/max-pooling2d-layer.model';
-import {Conv2DLayer} from '../shared/hidden-layers/hidden-layer/layers/conv2d-layer/conv2d-layer.model';
-
-const unlearnedNetwork = new UnlearnedNetwork();
-unlearnedNetwork.id = 1;
-unlearnedNetwork.layers = [
-    new Conv2DLayer(),
-    new Conv2DLayer(),
-    new DenseLayer(),
-    new DropoutLayer(),
-    new FlattenLayer(),
-    new MaxPooling2DLayer()
-];
-
-const learnedNetwork = new LearnedNetwork();
-learnedNetwork.id = 1;
-learnedNetwork.layers = [
-    new Conv2DLayer(),
-    new Conv2DLayer(),
-    new DenseLayer(),
-    new DropoutLayer(),
-    new FlattenLayer(),
-    new MaxPooling2DLayer()
-];
-learnedNetwork.labels = [
-    'label1',
-    'label2'
-];
+import {API_URL} from '../network.consts';
+import {LearnNetwork} from './network.actions';
 
 @Injectable()
 export class NetworkEffects {
@@ -53,16 +21,11 @@ export class NetworkEffects {
             withLatestFrom(this.store.select('network')),
             switchMap(
                 ([action, network]) => {
-                    // TODO Wysłanie sieci na serwer
-                    const networkInUsage = network.networkInUsage;
+                    const layers = (<UnlearnedNetwork>network.networkInUsage).getRawLayers();
 
-                    return Observable.create(
-                        (observer) => {
-                            observer.next(
-                                networkInUsage
-                            );
-                        }
-                    );
+                    return this.httpClient.post<any>(API_URL + "model", {
+                        layers
+                    });
                 }
             ),
             map(
@@ -81,14 +44,7 @@ export class NetworkEffects {
         .pipe(
             switchMap(
                 (action: NetworkActions.FetchUnlearnedNetwork) => {
-                    // TODO Pobranie niewyuczonej sieci o ID action.payload
-                    return Observable.create(
-                        (observer) => {
-                            observer.next(
-                                unlearnedNetwork
-                            );
-                        }
-                    );
+                    return this.httpClient.get<any>(API_URL + `model/${action.payload}/input.json`);
                 }
             ),
             map(
@@ -105,20 +61,9 @@ export class NetworkEffects {
     learnNetwork = this.actions$
         .ofType(NetworkActions.LEARN_NETWORK)
         .pipe(
-            withLatestFrom(this.store.select('network')),
             switchMap(
-                ([action, network]: [NetworkActions.FetchLearnedNetwork, any]) => {
-                    // TODO Wysłanie sieci do nauki na serwer
-                    const networkInUsage = network.networkInUsage;
-                    console.log(networkInUsage);
-
-                    return Observable.create(
-                        (observer) => {
-                            observer.next(
-                                learnedNetwork
-                            );
-                        }
-                    );
+                (action: LearnNetwork) => {
+                    return this.httpClient.post<any>(API_URL + `model/${action.payload}/train`, {});
                 }
             ),
             map(
@@ -137,18 +82,10 @@ export class NetworkEffects {
         .pipe(
             switchMap(
                 (action: NetworkActions.FetchLearnedNetwork) => {
-                    // TODO Pobranie wyuczonej sieci o ID action.payload
-
+                    console.log(action.payload);
                     const learnedNetwork2 = new LearnedNetwork();
+                    learnedNetwork2.id = action.payload;
                     return learnedNetwork2.loadModel();
-
-                    // return Observable.create(
-                    //     (observer) => {
-                    //         observer.next(
-                    //             learnedNetwork
-                    //         );
-                    //     }
-                    // );
                 }
             ),
             map(
@@ -168,7 +105,6 @@ export class NetworkEffects {
             withLatestFrom(this.store.select('network')),
             switchMap(
                 ([action, network]) => {
-                    // TODO Asynchroniczne uruchomienie sieci
                     const networkInUsage = <LearnedNetwork>network.networkInUsage;
                     return networkInUsage.run().then(
                         (result) => {

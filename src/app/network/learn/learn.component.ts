@@ -44,11 +44,11 @@ export class LearnComponent implements OnInit, OnDestroy {
                             this.learning = data.learningNetwork;
 
                             if (!this.loading) {
-                                this.network = <UnlearnedNetwork>data.networkInUsage;
+                                // this.network = <UnlearnedNetwork>data.networkInUsage;
                             }
 
                             if (!this.learning && this.submitted) {
-                                this.router.navigate(['/run', this.network.id]);
+                                this.router.navigate(['/run', this.id]);
                             }
                         }
                     );

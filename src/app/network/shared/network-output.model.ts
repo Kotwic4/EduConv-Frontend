@@ -2,7 +2,6 @@ export class NetworkOutput {
     private _neurones;
     private _classification;
 
-    // TODO rezultat uruchomienia sieci
     constructor() {
 
     }

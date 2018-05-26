@@ -23,7 +23,11 @@ export class ResultsComponent implements OnInit, OnDestroy {
         this.subscription = this.store.select('network')
             .subscribe(
                 data => {
-                    this.labels = _.cloneDeep((<LearnedNetwork>data.networkInUsage).labels);
+                    const network = (<LearnedNetwork>data.networkInUsage);
+
+                    if (network) {
+                        this.labels = _.cloneDeep(network.labels);
+                    }
 
                     if (data.networkRunResult) {
                         this.results = data.networkRunResult.classification;

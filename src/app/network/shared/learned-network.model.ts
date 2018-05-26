@@ -1,10 +1,12 @@
 import * as tf from '@tensorflow/tfjs';
 import {HiddenLayerType} from './hidden-layers/hidden-layer/layers/hidden-layer-type.enum';
 import {HiddenLayersService} from './hidden-layers/hidden-layer/layers/hidden-layer.service';
+import {API_URL} from '../network.consts';
+import {HiddenLayer} from './hidden-layers/hidden-layer/layers/hidden-layer.model';
 
 export class LearnedNetwork {
-    private _id = 101;
-    private _layers = [];
+    private _id;
+    private _layers: HiddenLayer[] = [];
     private _labels = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
     private _inputShape = [-1, 28, 28, 1];
     private _input;
@@ -89,7 +91,7 @@ export class LearnedNetwork {
     }
 
     loadModel() {
-        const data = tf.loadModel('http://127.0.0.1:5000/model/' + this._id + '/model.json');
+        const data = tf.loadModel(API_URL + 'model/' + this._id + '/model.json');
         return data.then(
             (model: tf.Sequential) => {
                 this._model = model;
