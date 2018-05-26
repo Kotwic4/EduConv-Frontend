@@ -1,6 +1,12 @@
 <h4 class="text-center layer-header">Hidden layers</h4>
 
 <div class="hidden-layers__container">
-    <app-hidden-layer [readonly]="readonly" *ngFor="let layer of hiddenLayers; let i = index;" [index]="i" [layer]="layer"></app-hidden-layer>
+    <app-hidden-layer
+        *ngFor="let layer of hiddenLayers; let i = index;"
+        [readonly]="readonly"
+        [index]="i"
+        [layer]="layer"
+        [images]="images ? images[i] : null"
+    ></app-hidden-layer>
 </div>
 

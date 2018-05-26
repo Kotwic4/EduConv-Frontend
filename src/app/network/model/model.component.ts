@@ -39,7 +39,7 @@ export class ModelComponent implements OnInit, OnDestroy {
         this.subscription = this.store.select('network')
             .subscribe(
                 data => {
-                    this.network = _.cloneDeep(<UnlearnedNetwork>data.networkInUsage);
+                    this.network = <UnlearnedNetwork>data.networkInUsage;
 
                     this.loading = data.savingNetwork;
 

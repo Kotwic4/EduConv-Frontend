@@ -18,6 +18,7 @@ export class RunComponent implements OnInit, OnDestroy {
     public id: number;
     public network: LearnedNetwork;
     public loading: boolean;
+    public running: boolean;
     public imageLoaded: boolean;
     public run = function() {
         if (this.imageLoaded) {
@@ -42,9 +43,10 @@ export class RunComponent implements OnInit, OnDestroy {
                     .subscribe(
                         data => {
                             this.loading = data.fetchingNetwork;
+                            this.running = data.runningNetwork;
 
                             if (!this.loading) {
-                                this.network = _.cloneDeep(<LearnedNetwork>data.networkInUsage);
+                                // this.network = _.cloneDeep(<LearnedNetwork>data.networkInUsage);
                             }
 
                             if ((<LearnedNetwork>data.networkInUsage).input) {

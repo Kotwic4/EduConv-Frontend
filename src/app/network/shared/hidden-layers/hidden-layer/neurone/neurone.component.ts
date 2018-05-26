@@ -8,6 +8,7 @@ import {animate, state, style, transition, trigger} from '@angular/animations';
 })
 export class NeuroneComponent implements OnInit {
     @Input() index: number;
+    @Input() image: string;
 
     constructor() {
     }
