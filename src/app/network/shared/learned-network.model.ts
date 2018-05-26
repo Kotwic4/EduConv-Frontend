@@ -121,12 +121,14 @@ export class LearnedNetwork {
         } else {
             const x = shape[1];
             const y = shape[2];
-            for (let n = 0; n < shape[3]; n++) {
+            const z = shape[3];
+
+            for (let n = 0; n < z; n++) {
                 canvas.width  = x;
                 canvas.height = y;
                 for (let i = 0; i < x; i++) {
                     for (let j = 0; j < y; j++) {
-                        const index = n * ( x * y ) + i * y + j ;
+                        const index = n + (i*z) + (j*z*x);
                         const value: any = data[index];
                         const color = (value - _min) / conf;
                         ctx.fillStyle = `rgb(${color},${color},${color})`;
