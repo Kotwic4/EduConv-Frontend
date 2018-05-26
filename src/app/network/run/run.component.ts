@@ -47,14 +47,14 @@ export class RunComponent implements OnInit, OnDestroy {
                             this.running = data.runningNetwork;
 
                             if (!this.loading) {
-                                // this.network = <LearnedNetwork>data.networkInUsage;
-                            }
+                                this.network = <LearnedNetwork>data.networkInUsage;
 
-                            if (this.network.input) {
-                                this.imageLoaded = true;
-                            }
-                            else {
-                                this.imageLoaded = false;
+                                if (this.network && this.network.input) {
+                                    this.imageLoaded = true;
+                                }
+                                else {
+                                    this.imageLoaded = false;
+                                }
                             }
                         }
                     );
