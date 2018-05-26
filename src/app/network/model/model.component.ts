@@ -7,6 +7,7 @@ import {Store} from '@ngrx/store';
 import * as NetworkActions from '../store/network.actions';
 import * as _ from 'lodash';
 import {Conv2DLayer} from '../shared/hidden-layers/hidden-layer/layers/conv2d-layer/conv2d-layer.model';
+import {ToasterService} from 'angular2-toaster';
 
 @Component({
     selector: 'app-model',
@@ -30,7 +31,8 @@ export class ModelComponent implements OnInit, OnDestroy {
     constructor(
         private store: Store<fromApp.AppState>,
         private route: ActivatedRoute,
-        private router: Router
+        private router: Router,
+        private toasterService: ToasterService
     ) {}
 
     ngOnInit() {
@@ -40,7 +42,7 @@ export class ModelComponent implements OnInit, OnDestroy {
             .subscribe(
                 data => {
                     const network = <UnlearnedNetwork>data.networkInUsage;
-                  
+
                     if (network) {
                         this.network = network;
                     }
@@ -48,6 +50,8 @@ export class ModelComponent implements OnInit, OnDestroy {
                     this.loading = data.savingNetwork;
 
                     if (!this.loading && this.saving) {
+                        this.toasterService.pop('success', '', 'Model successfully saved');
+
                         this.router.navigate(['/learn', data.networkInUsageID]);
                     }
                 }
