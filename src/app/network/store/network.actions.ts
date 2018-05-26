@@ -93,7 +93,7 @@ export class ModelNetwork implements Action {
 export class EndModelingNetwork implements Action {
     readonly type = END_MODELING_NETWORK;
 
-    constructor(public payload: UnlearnedNetwork) {}
+    constructor(public payload: number) {}
 }
 
 export class FetchUnlearnedNetwork implements Action {

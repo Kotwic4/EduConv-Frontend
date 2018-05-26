@@ -17,7 +17,7 @@ export interface State {
 }
 
 const initialState: State = {
-    uploadedNetwork: '',
+    uploadedNetwork: null,
     fetchingNetwork: false,
     savingNetwork: false,
     learningNetwork: false,
@@ -26,6 +26,7 @@ const initialState: State = {
     networkInUsageID: null,
     networkRunResult: null
 };
+
 
 export function networkReducer(state = initialState, action: NetworkActions.NetworkActions) {
     let networkInUsage;

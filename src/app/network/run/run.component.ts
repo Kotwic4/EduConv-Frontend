@@ -20,7 +20,7 @@ export class RunComponent implements OnInit, OnDestroy {
     public loading: boolean;
     public imageLoaded = false;
     public running: boolean;
-    public run = function() {
+    public run = function () {
         if (this.imageLoaded) {
             this.store.dispatch(new NetworkActions.RunNetwork());
         }
@@ -30,7 +30,8 @@ export class RunComponent implements OnInit, OnDestroy {
         private store: Store<fromApp.AppState>,
         private route: ActivatedRoute,
         private router: Router
-    ) {}
+    ) {
+    }
 
     ngOnInit() {
         this.route.params.subscribe(
@@ -49,12 +50,11 @@ export class RunComponent implements OnInit, OnDestroy {
                                 // this.network = <LearnedNetwork>data.networkInUsage;
                             }
 
-                                if (this.network.input) {
-                                    this.imageLoaded = true;
-                                }
-                                else {
-                                    this.imageLoaded = false;
-                                }
+                            if (this.network.input) {
+                                this.imageLoaded = true;
+                            }
+                            else {
+                                this.imageLoaded = false;
                             }
                         }
                     );
