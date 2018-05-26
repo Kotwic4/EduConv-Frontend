@@ -1,5 +1,6 @@
 .hidden-layers__container {
     white-space: nowrap;
-    overflow: hidden;
-    height: calc(100vh - 75px);
+    overflow-y: hidden;
+    overflow-x: auto;
+    height: calc(100vh - 75px - 67px);
 }

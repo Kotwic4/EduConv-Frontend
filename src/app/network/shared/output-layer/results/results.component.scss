@@ -1,6 +1,6 @@
 .results {
-    height: 500px;
     overflow: auto;
+    height: calc(100% - 20px);
 
     .results__item {
         $item-height: 30px;

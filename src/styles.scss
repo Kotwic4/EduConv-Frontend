@@ -1,6 +1,10 @@
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
 /* You can add global styles to this file, and also import other style files */
+body {
+    min-width: 400px;
+}
+
 h4.layer-header {
     padding: 15px 0;
     overflow: hidden;
