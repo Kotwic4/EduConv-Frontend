@@ -1,6 +1,8 @@
+@import "../../../../variables.scss";
+
 .hidden-layers__container {
     white-space: nowrap;
     overflow-y: hidden;
     overflow-x: auto;
-    height: calc(100vh - 75px - 67px);
+    height: calc(100vh - #{$header-height} - #{$layer-header-height});
 }

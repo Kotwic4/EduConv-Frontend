@@ -1,6 +1,6 @@
-.header__container-fluid {
-    $header-height: 75px;
+@import "../../../variables.scss";
 
+.header__container-fluid {
     box-shadow: 0 0 20px lightgray;
     background-color: white;
 
