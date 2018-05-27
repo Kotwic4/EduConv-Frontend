@@ -39,7 +39,6 @@ export class HiddenLayerComponent implements OnInit {
 
     ngOnInit() {
         this.layerType = this.hiddenLayersService.getType(this.layer);
-        this.collapsed = this.readonly;
     }
 
     range(i: number) {

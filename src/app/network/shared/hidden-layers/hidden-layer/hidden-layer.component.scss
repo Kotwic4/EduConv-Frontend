@@ -17,9 +17,11 @@
     border-width: 2px 0 0;
     border-style: solid;
     margin: 0 10px;
+    transition: opacity .2s;
 
     &.hidden-layer__container--collapsed {
         width: 0;
+        opacity: .66;
 
         app-neurons-counter {
             position: absolute;
