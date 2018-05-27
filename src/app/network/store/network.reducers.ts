@@ -123,7 +123,8 @@ export function networkReducer(state = initialState, action: NetworkActions.Netw
         case (NetworkActions.FETCH_LEARNED_NETWORK):
             return {
                 ...state,
-                processing: true
+                processing: true,
+                networkRunResult: null
             };
         case (NetworkActions.START_RUNNING_NETWORK):
             return {
