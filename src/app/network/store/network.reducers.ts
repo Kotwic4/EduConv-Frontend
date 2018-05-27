@@ -35,7 +35,7 @@ export function networkReducer(state = initialState, action: NetworkActions.Netw
         //         uploadedNetwork: action.payload
         //     };
         case (NetworkActions.NEURONE_CHANGE):
-            networkInUsage = _.cloneDeep(<UnlearnedNetwork>state.networkInUsage);
+            networkInUsage = <UnlearnedNetwork>state.networkInUsage;
             layer = networkInUsage.layers[action.payload.index];
 
             if (layer.haveNeurons()) {
@@ -47,7 +47,7 @@ export function networkReducer(state = initialState, action: NetworkActions.Netw
                 networkInUsage: networkInUsage
             };
         case (NetworkActions.HIDDEN_LAYER_ADD):
-            networkInUsage = _.cloneDeep(<UnlearnedNetwork>state.networkInUsage);
+            networkInUsage = <UnlearnedNetwork>state.networkInUsage;
             networkInUsage.layers.push(action.payload);
 
             return {
@@ -55,7 +55,7 @@ export function networkReducer(state = initialState, action: NetworkActions.Netw
                 networkInUsage: networkInUsage
             };
         case (NetworkActions.HIDDEN_LAYER_REMOVE):
-            networkInUsage = _.cloneDeep(<UnlearnedNetwork>state.networkInUsage);
+            networkInUsage = <UnlearnedNetwork>state.networkInUsage;
             networkInUsage.layers.splice(action.payload, 1);
 
             return {
@@ -63,7 +63,7 @@ export function networkReducer(state = initialState, action: NetworkActions.Netw
                 networkInUsage: networkInUsage
             };
         case (NetworkActions.HIDDEN_LAYER_CHANGE_TYPE):
-            networkInUsage = _.cloneDeep(<UnlearnedNetwork>state.networkInUsage);
+            networkInUsage = <UnlearnedNetwork>state.networkInUsage;
             networkInUsage.layers[action.payload.index] = action.payload.layer;
 
             return {
@@ -71,7 +71,7 @@ export function networkReducer(state = initialState, action: NetworkActions.Netw
                 networkInUsage: networkInUsage
             };
         case (NetworkActions.HIDDEN_LAYER_CHANGE_ARGS):
-            networkInUsage = _.cloneDeep(<UnlearnedNetwork>state.networkInUsage);
+            networkInUsage = <UnlearnedNetwork>state.networkInUsage;
             layer = networkInUsage.layers[action.payload.index];
             layer.setArgs({
                 ...action.payload.args

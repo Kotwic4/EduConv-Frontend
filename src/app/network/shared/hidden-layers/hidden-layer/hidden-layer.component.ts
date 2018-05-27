@@ -29,7 +29,7 @@ export class HiddenLayerComponent implements OnInit {
     layerType: HiddenLayerType;
     types_names: string[];
     types_values: number[];
-    collapsed = true;
+    collapsed: boolean;
 
     constructor(private store: Store<fromApp.AppState>,
                 private hiddenLayersService: HiddenLayersService) {
@@ -39,6 +39,7 @@ export class HiddenLayerComponent implements OnInit {
 
     ngOnInit() {
         this.layerType = this.hiddenLayersService.getType(this.layer);
+        this.collapsed = this.readonly;
     }
 
     range(i: number) {
