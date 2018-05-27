@@ -64,7 +64,7 @@ export class NetworkEffects {
             switchMap(
                 (action: LearnNetwork) => {
                     return this.httpClient.post<any>(API_URL + `model/${action.payload}/train`, {}).pipe(
-                        map((result) => new NetworkActions.EndLearningNetwork(result)),
+                        map(() => new NetworkActions.EndLearningNetwork()),
                         catchError((error) => {
                             this.defaultErrorStrategy(error.message);
                             return of(new NetworkActions.EffectError(error));

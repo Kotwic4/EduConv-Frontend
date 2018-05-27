@@ -118,8 +118,6 @@ export class LearnNetwork implements Action {
 
 export class EndLearningNetwork implements Action {
     readonly type = END_LEARNING_NETWORK;
-
-    constructor(public payload: LearnedNetwork) {}
 }
 
 export class FetchLearnedNetwork implements Action {

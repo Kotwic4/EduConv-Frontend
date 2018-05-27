@@ -122,7 +122,7 @@ export function networkReducer(state = initialState, action: NetworkActions.Netw
         case (NetworkActions.END_LEARNING_NETWORK):
             return {
                 ...state,
-                networkInUsage: action.payload,
+                networkInUsage: null,
                 processing: false
             };
         case (NetworkActions.FETCH_LEARNED_NETWORK):
