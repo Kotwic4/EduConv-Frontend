@@ -156,7 +156,8 @@ export function networkReducer(state = initialState, action: NetworkActions.Netw
 
             return {
                 ...state,
-                networkInUsage: networkInUsage
+                networkInUsage: networkInUsage,
+                networkRunResult: null
             };
         case (NetworkActions.EFFECT_ERROR):
             return {
