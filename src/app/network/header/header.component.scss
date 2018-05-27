@@ -3,6 +3,8 @@
 .header__container-fluid {
     box-shadow: 0 0 20px lightgray;
     background-color: white;
+    position: relative;
+    z-index: 2;
 
     .header__container {
         height: $header-height;

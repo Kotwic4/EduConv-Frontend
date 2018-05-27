@@ -2,5 +2,5 @@
 
 .input-layer__container {
     overflow: hidden;
-    height: calc(100vh - #{$header-height} - #{$layer-header-height});
+    height: calc(100% - #{$layer-header-height});
 }

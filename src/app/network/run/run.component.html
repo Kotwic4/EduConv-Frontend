@@ -1,6 +1,6 @@
 <app-header [controls]="{ onRun: run }"></app-header>
 <div class="container">
-    <div class="row">
+    <div class="row run__row">
         <div class="col-sm-3">
             <app-input-layer></app-input-layer>
         </div>
@@ -9,7 +9,7 @@
             <app-hidden-layers *ngIf="!loading" [readonly]="true"></app-hidden-layers>
         </div>
         <div class="col-sm-3">
-            <app-loader *ngIf="loading"></app-loader>
+            <app-loader *ngIf="loading || running"></app-loader>
             <app-output-layer *ngIf="!loading"></app-output-layer>
         </div>
     </div>
