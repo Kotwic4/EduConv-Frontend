@@ -2,8 +2,8 @@
 <div class="container">
     <div class="row learn__row">
         <div class="col-sm-8">
-            <app-loader *ngIf="loading || learning"></app-loader>
-            <app-hidden-layers *ngIf="!loading" [readonly]="true"></app-hidden-layers>
+            <app-loader *ngIf="processing"></app-loader>
+            <app-hidden-layers *ngIf="!processing || learning" [readonly]="true"></app-hidden-layers>
         </div>
         <div class="col-sm-4">
             Choose data set...

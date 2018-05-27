@@ -14,14 +14,15 @@ import * as _ from 'lodash';
 })
 export class RunComponent implements OnInit, OnDestroy {
     private subscription: Subscription;
-
     public id: number;
     public network: LearnedNetwork;
-    public loading: boolean;
+    public processing: boolean;
+    public running = false;
     public imageLoaded = false;
-    public running: boolean;
+
     public run = function () {
         if (this.imageLoaded) {
+            this.running = true;
             this.store.dispatch(new NetworkActions.RunNetwork());
         }
     }.bind(this);
@@ -43,10 +44,9 @@ export class RunComponent implements OnInit, OnDestroy {
                 this.subscription = this.store.select('network')
                     .subscribe(
                         data => {
-                            this.loading = data.fetchingNetwork;
-                            this.running = data.runningNetwork;
+                            this.processing = data.processing;
 
-                            if (!this.loading) {
+                            if (!this.processing && !this.running) {
                                 this.network = <LearnedNetwork>data.networkInUsage;
 
                                 if (this.network && this.network.input) {

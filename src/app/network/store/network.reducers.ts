@@ -7,24 +7,18 @@ import {HiddenLayer} from '../shared/hidden-layers/hidden-layer/layers/hidden-la
 
 export interface State {
     uploadedNetwork: String;
-    fetchingNetwork: boolean;
-    savingNetwork: boolean;
-    learningNetwork: boolean;
-    runningNetwork: boolean;
     networkInUsage: UnlearnedNetwork | LearnedNetwork;
     networkInUsageID: number;
     networkRunResult: NetworkOutput;
+    processing: boolean;
 }
 
 const initialState: State = {
     uploadedNetwork: null,
-    fetchingNetwork: false,
-    savingNetwork: false,
-    learningNetwork: false,
-    runningNetwork: false,
     networkInUsage: null,
     networkInUsageID: null,
-    networkRunResult: null
+    networkRunResult: null,
+    processing: false
 };
 
 
@@ -93,18 +87,18 @@ export function networkReducer(state = initialState, action: NetworkActions.Netw
         case (NetworkActions.MODEL_NETWORK):
             return {
                 ...state,
-                savingNetwork: true
+                processing: true
             };
         case (NetworkActions.END_MODELING_NETWORK):
             return {
                 ...state,
                 networkInUsageID: action.payload,
-                savingNetwork: false
+                processing: false
             };
         case (NetworkActions.FETCH_UNLEARNED_NETWORK):
             return {
                 ...state,
-                fetchingNetwork: true
+                processing: true
             };
         case (NetworkActions.START_LEARNING_NETWORK):
             const unlearnedNetwork = new UnlearnedNetwork();
@@ -113,34 +107,40 @@ export function networkReducer(state = initialState, action: NetworkActions.Netw
             return {
                 ...state,
                 networkInUsage: unlearnedNetwork,
-                fetchingNetwork: false
+                processing: false
+            };
+        case (NetworkActions.LEARN_NETWORK):
+            return {
+                ...state,
+                processing: true
             };
         case (NetworkActions.END_LEARNING_NETWORK):
             return {
                 ...state,
-                networkInUsage: action.payload
+                networkInUsage: action.payload,
+                processing: false
             };
         case (NetworkActions.FETCH_LEARNED_NETWORK):
             return {
                 ...state,
-                fetchingNetwork: false
+                processing: true
             };
         case (NetworkActions.START_RUNNING_NETWORK):
             return {
                 ...state,
                 networkInUsage: action.payload,
-                fetchingNetwork: false
+                processing: false
             };
         case (NetworkActions.RUN_NETWORK):
             return {
                 ...state,
-                runningNetwork: true
+                processing: true
             };
         case (NetworkActions.END_RUNNING_NETWORK):
             return {
                 ...state,
                 networkRunResult: action.payload,
-                runningNetwork: false
+                processing: false
             };
         case (NetworkActions.INPUT_IMAGE_UPLOAD):
             networkInUsage = <LearnedNetwork>state.networkInUsage;
@@ -161,10 +161,7 @@ export function networkReducer(state = initialState, action: NetworkActions.Netw
         case (NetworkActions.EFFECT_ERROR):
             return {
                 ...state,
-                fetchingNetwork: false,
-                savingNetwork: false,
-                learningNetwork: false,
-                runningNetwork: false,
+                processing: false
             };
         default:
             return state;

@@ -5,12 +5,12 @@
             <app-input-layer></app-input-layer>
         </div>
         <div class="col-sm-6">
-            <app-loader *ngIf="loading"></app-loader>
-            <app-hidden-layers *ngIf="!loading" [readonly]="true"></app-hidden-layers>
+            <app-loader *ngIf="processing && !running"></app-loader>
+            <app-hidden-layers *ngIf="!processing || running" [readonly]="true"></app-hidden-layers>
         </div>
         <div class="col-sm-3">
-            <app-loader *ngIf="loading || running"></app-loader>
-            <app-output-layer *ngIf="!loading"></app-output-layer>
+            <app-loader *ngIf="processing"></app-loader>
+            <app-output-layer *ngIf="!processing || running"></app-output-layer>
         </div>
     </div>
 </div>
