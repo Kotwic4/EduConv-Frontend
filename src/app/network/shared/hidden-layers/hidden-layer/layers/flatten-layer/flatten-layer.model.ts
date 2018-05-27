@@ -1,8 +1,13 @@
 import {HiddenLayer} from '../hidden-layer.model';
 
 export class FlattenLayer extends HiddenLayer {
-    layer_name: String = 'Flatten';
     args: {};
+
+    constructor() {
+        super();
+        this.layer_name = 'Flatten';
+        this.args = {};
+    }
 
     public setArgs(args: {}) {
         this.args = args;
