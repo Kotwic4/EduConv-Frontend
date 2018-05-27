@@ -1,6 +1,6 @@
-<h4 class="text-center layer-header" *ngIf="hiddenLayers.length > 0">Hidden layers</h4>
+<h4 class="text-center layer-header">Hidden layers</h4>
 <div class="hidden-layers__container">
-    <ng-container *ngIf="hiddenLayers.length > 0">
+    <ng-container>
         <app-hidden-layer
             *ngFor="let layer of hiddenLayers; let i = index;"
             [readonly]="readonly"
@@ -9,6 +9,5 @@
             [images]="images[i]"
         ></app-hidden-layer>
     </ng-container>
-    <app-hidden-layers-placeholder *ngIf="hiddenLayers.length === 0 && !readonly"></app-hidden-layers-placeholder>
 </div>
 

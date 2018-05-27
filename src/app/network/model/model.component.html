@@ -4,7 +4,8 @@
     <div class="row model__row">
         <div class="col-sm-12">
             <app-loader *ngIf="processing"></app-loader>
-            <app-hidden-layers></app-hidden-layers>
+            <app-hidden-layers *ngIf="hiddenLayers.length > 0"></app-hidden-layers>
+            <app-hidden-layers-placeholder *ngIf="hiddenLayers.length === 0"></app-hidden-layers-placeholder>
         </div>
     </div>
 </div>

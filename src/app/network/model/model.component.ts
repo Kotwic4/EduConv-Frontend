@@ -19,6 +19,7 @@ export class ModelComponent implements OnInit, OnDestroy {
     public processing: boolean;
     public saving = false;
     public network: UnlearnedNetwork;
+    public hiddenLayers = [];
 
     public controls: HeaderControl[] = [
         {
@@ -59,6 +60,11 @@ export class ModelComponent implements OnInit, OnDestroy {
             .subscribe(
                 data => {
                     this.network = <UnlearnedNetwork>data.networkInUsage;
+
+                    if (this.network) {
+                        this.hiddenLayers = this.network.layers;
+                    }
+
                     this.processing = data.processing;
 
                     if (!this.processing && this.saving) {
