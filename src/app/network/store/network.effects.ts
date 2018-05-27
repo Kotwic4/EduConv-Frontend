@@ -103,14 +103,8 @@ export class NetworkEffects {
                 ([action, network]) => {
                     const networkInUsage = <LearnedNetwork>network.networkInUsage;
 
-                    return fromPromise(networkInUsage.run().then(
-                        (result) => {
-                            const output = new NetworkOutput();
-                            output.classification = result;
-                            return output;
-                        }
-                    )).pipe(
-                        map((result) => new NetworkActions.EndRunningNetwork(result)),
+                    return fromPromise(networkInUsage.run()).pipe(
+                        map((result: NetworkOutput) => new NetworkActions.EndRunningNetwork(result)),
                         catchError((error) => {
                             this.defaultErrorStrategy(error);
                             return of(new NetworkActions.EffectError());

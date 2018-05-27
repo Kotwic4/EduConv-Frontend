@@ -5,7 +5,6 @@ import { Subscription } from 'rxjs/Subscription';
 import * as fromApp from '../../../../store/app.reducers';
 import * as NetworkActions from '../../../store/network.actions';
 import {LearnedNetwork} from '../../learned-network.model';
-import * as _ from 'lodash';
 
 @Component({
     selector: 'app-input-image',
@@ -16,7 +15,6 @@ export class InputImageComponent implements OnInit, OnDestroy {
     @ViewChild('imageInput') imageInput;
     inputImage: String;
     subscription: Subscription;
-    private submitted = false;
 
     constructor(private store: Store<fromApp.AppState>) {}
 
@@ -27,11 +25,7 @@ export class InputImageComponent implements OnInit, OnDestroy {
                     const network = (<LearnedNetwork>data.networkInUsage);
 
                     if (network) {
-                        this.inputImage = _.cloneDeep(network.input);
-                    }
-
-                    if (this.submitted && !data.runningNetwork) {
-                        console.log('End of running');
+                        this.inputImage = network.input;
                     }
                 }
             );

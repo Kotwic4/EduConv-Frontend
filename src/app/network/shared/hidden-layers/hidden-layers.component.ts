@@ -29,11 +29,15 @@ export class HiddenLayersComponent implements OnInit, OnDestroy {
 
                     if (network) {
                         this.hiddenLayers = data.networkInUsage.layers;
-                        const images = (<LearnedNetwork>data.networkInUsage).images;
+                    }
 
-                        if (images) {
-                            this.images = images;
-                        }
+                    const result = data.networkRunResult;
+
+                    if (result) {
+                        this.images = result.neurons;
+                    }
+                    else {
+                        this.images = [];
                     }
                 }
             );

@@ -6,7 +6,7 @@
             [readonly]="readonly"
             [index]="i"
             [layer]="layer"
-            [images]="images ? images[i] : null"
+            [images]="images[i]"
         ></app-hidden-layer>
     </ng-container>
     <app-hidden-layers-placeholder *ngIf="hiddenLayers.length === 0 && !readonly"></app-hidden-layers-placeholder>
