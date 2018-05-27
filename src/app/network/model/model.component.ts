@@ -18,30 +18,29 @@ export class ModelComponent implements OnInit, OnDestroy {
     private subscription: Subscription;
     public processing: boolean;
     public saving = false;
-    public network: UnlearnedNetwork;
-    public hiddenLayers = [];
+    public layers = [];
 
     public controls: HeaderControl[] = [
         {
-            callback: function() {
+            callback: function () {
                 this.store.dispatch(new NetworkActions.HiddenLayerAdd(new Conv2DLayer()));
             }.bind(this),
-            tooltip: "Add layer",
-            icon: "fa-plus-square-o",
+            tooltip: 'Add layer',
+            icon: 'fa-plus-square-o',
             disabled: () => {
                 return this.processing;
             }
         },
 
         {
-            callback: function() {
+            callback: function () {
                 this.saving = true;
                 this.store.dispatch(new NetworkActions.ModelNetwork());
             }.bind(this),
-            tooltip: "Save",
-            icon: "fa-floppy-o",
+            tooltip: 'Save',
+            icon: 'fa-floppy-o',
             disabled: () => {
-                return this.processing || (!this.network || this.network.layers.length === 0);
+                return (this.processing || this.layers.length === 0);
             }
         }
     ];
@@ -51,7 +50,8 @@ export class ModelComponent implements OnInit, OnDestroy {
         private route: ActivatedRoute,
         private router: Router,
         private toasterService: ToasterService
-    ) {}
+    ) {
+    }
 
     ngOnInit() {
         this.store.dispatch(new NetworkActions.StartModelingNetwork());
@@ -59,13 +59,12 @@ export class ModelComponent implements OnInit, OnDestroy {
         this.subscription = this.store.select('network')
             .subscribe(
                 data => {
-                    this.network = <UnlearnedNetwork>data.networkInUsage;
-
-                    if (this.network) {
-                        this.hiddenLayers = this.network.layers;
-                    }
-
                     this.processing = data.processing;
+
+                    const network = <UnlearnedNetwork>data.networkInUsage;
+                    if (network) {
+                        this.layers = network.layers;
+                    }
 
                     if (!this.processing && this.saving) {
                         this.toasterService.pop('success', '', 'Model successfully saved');

@@ -1,49 +1,12 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
-import { Store } from '@ngrx/store';
-import { Subscription } from 'rxjs/Subscription';
-import * as _ from 'lodash';
-
-import * as fromApp from '../../../store/app.reducers';
-import {LearnedNetwork} from '../learned-network.model';
+import {Component, Input} from '@angular/core';
 
 @Component({
     selector: 'app-hidden-layers',
     templateUrl: './hidden-layers.component.html',
     styleUrls: ['./hidden-layers.component.scss']
 })
-export class HiddenLayersComponent implements OnInit, OnDestroy {
+export class HiddenLayersComponent {
+    @Input() layers;
+    @Input() images;
     @Input() readonly;
-    subscription: Subscription;
-    hiddenLayers = [];
-    images = [];
-
-    constructor(
-        private store: Store<fromApp.AppState>
-    ) {}
-
-    ngOnInit() {
-        this.subscription = this.store.select('network')
-            .subscribe(
-                data => {
-                    const network = data.networkInUsage;
-
-                    if (network) {
-                        this.hiddenLayers = data.networkInUsage.layers;
-                    }
-
-                    const result = data.networkRunResult;
-
-                    if (result) {
-                        this.images = result.neurons;
-                    }
-                    else {
-                        this.images = [];
-                    }
-                }
-            );
-    }
-
-    ngOnDestroy() {
-        this.subscription.unsubscribe();
-    }
 }

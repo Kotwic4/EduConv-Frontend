@@ -3,15 +3,24 @@
 <div class="container">
     <div class="row run__row">
         <div class="col-sm-3">
-            <app-input-layer></app-input-layer>
+            <app-input-layer [image]="image"></app-input-layer>
         </div>
         <div class="col-sm-6">
             <app-loader *ngIf="processing && !running"></app-loader>
-            <app-hidden-layers *ngIf="!processing || running" [readonly]="true"></app-hidden-layers>
+            <app-hidden-layers
+                *ngIf="!processing || running"
+                [readonly]="true"
+                [layers]="layers"
+                [images]="results?.neurons"
+            ></app-hidden-layers>
         </div>
         <div class="col-sm-3">
             <app-loader *ngIf="processing"></app-loader>
-            <app-output-layer *ngIf="!processing || running"></app-output-layer>
+            <app-output-layer
+                *ngIf="(!processing || running) && labels"
+                [results]="results?.classification"
+                [labels]="labels"
+            ></app-output-layer>
         </div>
     </div>
 </div>

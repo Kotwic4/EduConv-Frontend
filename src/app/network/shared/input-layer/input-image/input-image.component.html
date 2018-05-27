@@ -1,16 +1,16 @@
 <div
     class="input-image d-flex justify-content-center align-items-center"
 >
-    <div class="input-image__image-container" *ngIf="inputImage">
+    <div class="input-image__image-container" *ngIf="image">
         <img
             class="input-image__image"
-            [src]="inputImage"
+            [src]="image"
         >
 
         <i
             class="fa fa-times input-image__delete-image"
             (click)="onImageDelete($event)"
-            *ngIf="inputImage"
+            *ngIf="image"
             matTooltip="Delete image"
             matTooltipPosition="below"
         ></i>
@@ -24,7 +24,7 @@
     >
 
     <div
-        *ngIf="!inputImage"
+        *ngIf="!image"
         class="input-image__placeholder d-flex justify-content-center align-items-center"
         (click)="imageInput.click()"
     >

@@ -5,11 +5,11 @@
             *ngFor="let label of labels; let i = index"
         >
             <div class="results__label">
-                {{ label }} {{ results[i] ? '(' + (results[i] * 100 | number:'1.0-2') + '%)' : '' }}
+                {{ label }} {{ results ? '(' + (results[i] * 100 | number:'1.0-2') + '%)' : '' }}
             </div>
             <div
                 class="results__progress-bar"
-                [ngStyle]="{ 'width': (results[i] ? (results[i] * 100) + '%' : '0%') }"
+                [ngStyle]="{ 'width': (results ? (results[i] * 100) + '%' : '0%') }"
             ></div>
         </div>
     </div>

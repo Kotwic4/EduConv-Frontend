@@ -4,8 +4,8 @@ import {Store} from '@ngrx/store';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {Subscription} from 'rxjs/Subscription';
 import * as NetworkActions from '../store/network.actions';
-import * as _ from 'lodash';
 import {HeaderControl} from '../header/header-control.interface';
+import {UnlearnedNetwork} from '../shared/unlearned-network.model';
 
 @Component({
     selector: 'app-learn',
@@ -16,6 +16,7 @@ export class LearnComponent implements OnInit, OnDestroy {
     public id: number;
     public processing;
     public learning = false;
+    public layers = [];
     private subscription: Subscription;
 
     public controls: HeaderControl[] = [
@@ -49,6 +50,11 @@ export class LearnComponent implements OnInit, OnDestroy {
                     .subscribe(
                         data => {
                             this.processing = data.processing;
+
+                            const network = <UnlearnedNetwork>data.networkInUsage;
+                            if (network) {
+                                this.layers = network.layers;
+                            }
 
                             if (!this.processing && this.learning && !data.processingError) {
                                 this.router.navigate(['/run', this.id]);

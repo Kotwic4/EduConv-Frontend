@@ -2,11 +2,11 @@
 <div class="hidden-layers__container">
     <ng-container>
         <app-hidden-layer
-            *ngFor="let layer of hiddenLayers; let i = index;"
+            *ngFor="let layer of layers; let i = index;"
             [readonly]="readonly"
             [index]="i"
             [layer]="layer"
-            [images]="images[i]"
+            [images]="images ? images[i] : null"
         ></app-hidden-layer>
     </ng-container>
 </div>

@@ -5,8 +5,9 @@ import * as fromApp from '../../store/app.reducers';
 import {Store} from '@ngrx/store';
 import {Subscription} from 'rxjs/Subscription';
 import {LearnedNetwork} from '../shared/learned-network.model';
-import * as _ from 'lodash';
 import {HeaderControl} from '../header/header-control.interface';
+import {NetworkOutput} from '../shared/network-output.model';
+import {HiddenLayer} from '../shared/hidden-layers/hidden-layer/layers/hidden-layer.model';
 
 @Component({
     selector: 'app-run',
@@ -18,7 +19,10 @@ export class RunComponent implements OnInit, OnDestroy {
     public id: number;
     public processing: boolean;
     public running = false;
-    public imageLoaded = false;
+    public image: string;
+    public layers: HiddenLayer[];
+    public results: NetworkOutput;
+    public labels: string[];
 
     public controls: HeaderControl[] = [
         {
@@ -26,10 +30,10 @@ export class RunComponent implements OnInit, OnDestroy {
                 this.running = true;
                 this.store.dispatch(new NetworkActions.RunNetwork());
             }.bind(this),
-            tooltip: "Run",
-            icon: "fa-play",
+            tooltip: 'Run',
+            icon: 'fa-play',
             disabled: () => {
-                return (this.processing || !this.imageLoaded);
+                return (this.processing || !this.image);
             }
         }
     ];
@@ -58,12 +62,18 @@ export class RunComponent implements OnInit, OnDestroy {
                             }
 
                             const network = <LearnedNetwork>data.networkInUsage;
+                            if (network) {
+                                this.layers = network.layers;
+                                this.image = network.input;
+                                this.labels = network.labels;
+                            }
 
-                            if (network && network.input) {
-                                this.imageLoaded = true;
+                            const results = data.networkRunResult;
+                            if (results) {
+                                this.results = results;
                             }
                             else {
-                                this.imageLoaded = false;
+                                this.results = null;
                             }
                         }
                     );
