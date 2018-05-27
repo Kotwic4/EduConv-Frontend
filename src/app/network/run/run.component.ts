@@ -6,6 +6,7 @@ import {Store} from '@ngrx/store';
 import {Subscription} from 'rxjs/Subscription';
 import {LearnedNetwork} from '../shared/learned-network.model';
 import * as _ from 'lodash';
+import {HeaderControl} from '../header/header-control.interface';
 
 @Component({
     selector: 'app-run',
@@ -19,10 +20,19 @@ export class RunComponent implements OnInit, OnDestroy {
     public running = false;
     public imageLoaded = false;
 
-    public run = function () {
-        this.running = true;
-        this.store.dispatch(new NetworkActions.RunNetwork());
-    }.bind(this);
+    public controls: HeaderControl[] = [
+        {
+            callback: function () {
+                this.running = true;
+                this.store.dispatch(new NetworkActions.RunNetwork());
+            }.bind(this),
+            tooltip: "Run",
+            icon: "fa-play",
+            disabled: () => {
+                return (this.processing || !this.imageLoaded);
+            }
+        }
+    ];
 
     constructor(
         private store: Store<fromApp.AppState>,

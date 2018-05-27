@@ -6,6 +6,8 @@ import {Store} from '@ngrx/store';
 import * as NetworkActions from '../store/network.actions';
 import {Conv2DLayer} from '../shared/hidden-layers/hidden-layer/layers/conv2d-layer/conv2d-layer.model';
 import {ToasterService} from 'angular2-toaster';
+import {HeaderControl} from '../header/header-control.interface';
+import {UnlearnedNetwork} from '../shared/unlearned-network.model';
 
 @Component({
     selector: 'app-model',
@@ -16,15 +18,32 @@ export class ModelComponent implements OnInit, OnDestroy {
     private subscription: Subscription;
     public processing: boolean;
     public saving = false;
+    public network: UnlearnedNetwork;
 
-    public saveModel = function() {
-        this.saving = true;
-        this.store.dispatch(new NetworkActions.ModelNetwork());
-    }.bind(this);
+    public controls: HeaderControl[] = [
+        {
+            callback: function() {
+                this.store.dispatch(new NetworkActions.HiddenLayerAdd(new Conv2DLayer()));
+            }.bind(this),
+            tooltip: "Add layer",
+            icon: "fa-plus-square-o",
+            disabled: () => {
+                return this.processing;
+            }
+        },
 
-    public addLayer = function() {
-        this.store.dispatch(new NetworkActions.HiddenLayerAdd(new Conv2DLayer()));
-    }.bind(this);
+        {
+            callback: function() {
+                this.saving = true;
+                this.store.dispatch(new NetworkActions.ModelNetwork());
+            }.bind(this),
+            tooltip: "Save",
+            icon: "fa-floppy-o",
+            disabled: () => {
+                return this.processing || (!this.network || this.network.layers.length === 0);
+            }
+        }
+    ];
 
     constructor(
         private store: Store<fromApp.AppState>,
@@ -39,6 +58,7 @@ export class ModelComponent implements OnInit, OnDestroy {
         this.subscription = this.store.select('network')
             .subscribe(
                 data => {
+                    this.network = <UnlearnedNetwork>data.networkInUsage;
                     this.processing = data.processing;
 
                     if (!this.processing && this.saving) {

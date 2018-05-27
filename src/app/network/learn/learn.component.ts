@@ -5,6 +5,7 @@ import {ActivatedRoute, Params, Router} from '@angular/router';
 import {Subscription} from 'rxjs/Subscription';
 import * as NetworkActions from '../store/network.actions';
 import * as _ from 'lodash';
+import {HeaderControl} from '../header/header-control.interface';
 
 @Component({
     selector: 'app-learn',
@@ -17,10 +18,19 @@ export class LearnComponent implements OnInit, OnDestroy {
     public learning = false;
     private subscription: Subscription;
 
-    public learnModel = function() {
-        this.learning = true;
-        this.store.dispatch(new NetworkActions.LearnNetwork(this.id));
-    }.bind(this);
+    public controls: HeaderControl[] = [
+        {
+            callback: function() {
+                this.learning = true;
+                this.store.dispatch(new NetworkActions.LearnNetwork(this.id));
+            }.bind(this),
+            tooltip: "Learn",
+            icon: "fa-leanpub",
+            disabled: () => {
+                return this.processing;
+            }
+        }
+    ];
 
     constructor(
         private store: Store<fromApp.AppState>,
