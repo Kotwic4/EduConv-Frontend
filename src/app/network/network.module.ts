@@ -19,7 +19,7 @@ import { RunComponent } from './run/run.component';
 import {RouterModule} from '@angular/router';
 import {NetworkRoutingModule} from './network-routing.module';
 import { HomeComponent } from './home/home.component';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {BrowserModule} from '@angular/platform-browser';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {FormsModule} from '@angular/forms';
@@ -72,7 +72,7 @@ import { HiddenLayersPlaceholderComponent } from './shared/hidden-layers/hidden-
         HiddenLayersPlaceholderComponent
     ],
     providers: [
-        HiddenLayersService
+        HiddenLayersService,
     ]
 })
 export class NetworkModule {

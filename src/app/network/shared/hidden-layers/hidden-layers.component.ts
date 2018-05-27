@@ -25,11 +25,15 @@ export class HiddenLayersComponent implements OnInit, OnDestroy {
         this.subscription = this.store.select('network')
             .subscribe(
                 data => {
-                    this.hiddenLayers = data.networkInUsage.layers;
-                    const images = (<LearnedNetwork>data.networkInUsage).images;
+                    const network = data.networkInUsage;
 
-                    if (images) {
-                        this.images = images;
+                    if (network) {
+                        this.hiddenLayers = data.networkInUsage.layers;
+                        const images = (<LearnedNetwork>data.networkInUsage).images;
+
+                        if (images) {
+                            this.images = images;
+                        }
                     }
                 }
             );

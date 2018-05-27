@@ -1,16 +1,20 @@
 import {Injectable} from '@angular/core';
 import {Actions, Effect} from '@ngrx/effects';
-import {switchMap, withLatestFrom, map} from 'rxjs/operators';
+import {switchMap, withLatestFrom, map, catchError} from 'rxjs/operators';
 import {Store} from '@ngrx/store';
 import {HttpClient} from '@angular/common/http';
 
-import * as NetworkActions from './network.actions';;
+import * as NetworkActions from './network.actions';
 import {UnlearnedNetwork} from '../shared/unlearned-network.model';
 import {NetworkOutput} from '../shared/network-output.model';
 import {LearnedNetwork} from '../shared/learned-network.model';
 import * as fromApp from '../../store/app.reducers';
 import {API_URL} from '../network.consts';
 import {LearnNetwork} from './network.actions';
+import {of} from 'rxjs/observable/of';
+import {fromPromise} from 'rxjs/observable/fromPromise';
+import {ToasterService} from 'angular2-toaster';
+import {Router} from '@angular/router';
 
 @Injectable()
 export class NetworkEffects {
@@ -25,15 +29,13 @@ export class NetworkEffects {
 
                     return this.httpClient.post<any>(API_URL + "model", {
                         layers
-                    });
-                }
-            ),
-            map(
-                (result) => {
-                    return {
-                        type: NetworkActions.END_MODELING_NETWORK,
-                        payload: result
-                    };
+                    }).pipe(
+                        map((result) => new NetworkActions.EndModelingNetwork(result)),
+                        catchError((error) => {
+                            this.defaultErrorStrategy(error.message);
+                            return of(new NetworkActions.EffectError());
+                        })
+                    );
                 }
             )
         );
@@ -44,17 +46,15 @@ export class NetworkEffects {
         .pipe(
             switchMap(
                 (action: NetworkActions.FetchUnlearnedNetwork) => {
-                    return this.httpClient.get<any>(API_URL + `model/${action.payload}/input.json`);
+                    return this.httpClient.get<any>(API_URL + `model/${action.payload}/input.json`).pipe(
+                        map((result) => new NetworkActions.StartLearningNetwork(result)),
+                        catchError((error) => {
+                            this.defaultErrorStrategy("Model does not exist", true);
+                            return of(new NetworkActions.EffectError());
+                        })
+                    );
                 }
             ),
-            map(
-                (result) => {
-                    return {
-                        type: NetworkActions.START_LEARNING_NETWORK,
-                        payload: result
-                    };
-                }
-            )
         );
 
     @Effect()
@@ -63,15 +63,13 @@ export class NetworkEffects {
         .pipe(
             switchMap(
                 (action: LearnNetwork) => {
-                    return this.httpClient.post<any>(API_URL + `model/${action.payload}/train`, {});
-                }
-            ),
-            map(
-                (result) => {
-                    return {
-                        type: NetworkActions.END_LEARNING_NETWORK,
-                        payload: result
-                    };
+                    return this.httpClient.post<any>(API_URL + `model/${action.payload}/train`, {}).pipe(
+                        map((result) => new NetworkActions.EndLearningNetwork(result)),
+                        catchError((error) => {
+                            this.defaultErrorStrategy(error.message);
+                            return of(new NetworkActions.EffectError());
+                        })
+                    );
                 }
             )
         );
@@ -85,15 +83,13 @@ export class NetworkEffects {
                     const learnedNetwork2 = new LearnedNetwork();
                     learnedNetwork2.id = action.payload;
 
-                    return learnedNetwork2.loadModel();
-                }
-            ),
-            map(
-                (result) => {
-                    return {
-                        type: NetworkActions.START_RUNNING_NETWORK,
-                        payload: result
-                    };
+                    return fromPromise(learnedNetwork2.loadModel()).pipe(
+                        map((result) => new NetworkActions.StartRunningNetwork(result)),
+                        catchError((error) => {
+                            this.defaultErrorStrategy("Network does not exist", true);
+                            return of(new NetworkActions.EffectError());
+                        })
+                    );
                 }
             )
         );
@@ -106,27 +102,36 @@ export class NetworkEffects {
             switchMap(
                 ([action, network]) => {
                     const networkInUsage = <LearnedNetwork>network.networkInUsage;
-                    return networkInUsage.run().then(
+
+                    return fromPromise(networkInUsage.run().then(
                         (result) => {
                             const output = new NetworkOutput();
                             output.classification = result;
                             return output;
                         }
+                    )).pipe(
+                        map((result) => new NetworkActions.EndRunningNetwork(result)),
+                        catchError((error) => {
+                            this.defaultErrorStrategy(error);
+                            return of(new NetworkActions.EffectError());
+                        })
                     );
-                }
-            ),
-            map(
-                (result) => {
-                    return {
-                        type: NetworkActions.END_RUNNING_NETWORK,
-                        payload: result
-                    };
                 }
             )
         );
 
     constructor(private actions$: Actions,
                 private httpClient: HttpClient,
-                private store: Store<fromApp.AppState>
+                private store: Store<fromApp.AppState>,
+                private router: Router,
+                private toasterService: ToasterService,
     ) {}
+
+    private defaultErrorStrategy(message, redirect = false) {
+        this.toasterService.pop('error', '', message);
+
+        if (redirect) {
+            this.router.navigate(['']);
+        }
+    }
 }

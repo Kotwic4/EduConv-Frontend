@@ -28,6 +28,8 @@ export const START_RUNNING_NETWORK = 'START_RUNNING_NETWORK';
 export const RUN_NETWORK = 'RUN_NETWORK';
 export const END_RUNNING_NETWORK = 'END_RUNNING_NETWORK';
 
+export const EFFECT_ERROR = 'EFFECT_ERROR';
+
 export class InputImageUpload implements Action {
     readonly type = INPUT_IMAGE_UPLOAD;
 
@@ -129,7 +131,7 @@ export class FetchLearnedNetwork implements Action {
 export class StartRunningNetwork implements Action {
     readonly type = START_RUNNING_NETWORK;
 
-    constructor(public payload: UnlearnedNetwork) {}
+    constructor(public payload: LearnedNetwork) {}
 }
 
 export class RunNetwork implements Action {
@@ -140,6 +142,10 @@ export class EndRunningNetwork implements Action {
     readonly type = END_RUNNING_NETWORK;
 
     constructor(public payload: NetworkOutput) {}
+}
+
+export class EffectError implements Action {
+    readonly type = EFFECT_ERROR;
 }
 
 export type NetworkActions =
@@ -161,5 +167,6 @@ export type NetworkActions =
     FetchLearnedNetwork |
     StartRunningNetwork |
     RunNetwork |
-    EndRunningNetwork;
+    EndRunningNetwork |
+    EffectError;
 
