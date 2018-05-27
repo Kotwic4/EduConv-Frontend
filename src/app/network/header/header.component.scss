@@ -26,6 +26,11 @@
                 &:first-child {
                     margin-left: 0;
                 }
+
+                &.header__control-btn--disabled {
+                    color: lightgrey;
+                    cursor: default;
+                }
             }
 
             .input-image__networkInput {

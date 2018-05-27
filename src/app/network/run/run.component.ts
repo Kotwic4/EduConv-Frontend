@@ -15,16 +15,13 @@ import * as _ from 'lodash';
 export class RunComponent implements OnInit, OnDestroy {
     private subscription: Subscription;
     public id: number;
-    public network: LearnedNetwork;
     public processing: boolean;
     public running = false;
     public imageLoaded = false;
 
     public run = function () {
-        if (this.imageLoaded) {
-            this.running = true;
-            this.store.dispatch(new NetworkActions.RunNetwork());
-        }
+        this.running = true;
+        this.store.dispatch(new NetworkActions.RunNetwork());
     }.bind(this);
 
     constructor(
@@ -46,15 +43,17 @@ export class RunComponent implements OnInit, OnDestroy {
                         data => {
                             this.processing = data.processing;
 
-                            if (!this.processing && !this.running) {
-                                this.network = <LearnedNetwork>data.networkInUsage;
+                            if (!this.processing && this.running) {
+                                this.running = false;
+                            }
 
-                                if (this.network && this.network.input) {
-                                    this.imageLoaded = true;
-                                }
-                                else {
-                                    this.imageLoaded = false;
-                                }
+                            const network = <LearnedNetwork>data.networkInUsage;
+
+                            if (network && network.input) {
+                                this.imageLoaded = true;
+                            }
+                            else {
+                                this.imageLoaded = false;
                             }
                         }
                     );

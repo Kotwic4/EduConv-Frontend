@@ -1,4 +1,4 @@
-<app-header [controls]="{ onSave: saveModel, onLayerAdd: addLayer }"></app-header>
+<app-header [controls]="{ onSave: saveModel, onLayerAdd: addLayer, saveDisabled: processing, layerAddDisabled: processing }"></app-header>
 <div class="container">
     <div class="row model__row">
         <div class="col-sm-12">
