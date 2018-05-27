@@ -50,7 +50,7 @@ export class LearnComponent implements OnInit, OnDestroy {
                         data => {
                             this.processing = data.processing;
 
-                            if (!this.processing && this.learning) {
+                            if (!this.processing && this.learning && !data.processingError) {
                                 this.router.navigate(['/run', this.id]);
                             }
                         }

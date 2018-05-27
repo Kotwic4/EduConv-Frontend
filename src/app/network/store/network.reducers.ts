@@ -11,6 +11,7 @@ export interface State {
     networkInUsageID: number;
     networkRunResult: NetworkOutput;
     processing: boolean;
+    processingError: any;
 }
 
 const initialState: State = {
@@ -18,7 +19,8 @@ const initialState: State = {
     networkInUsage: null,
     networkInUsageID: null,
     networkRunResult: null,
-    processing: false
+    processing: false,
+    processingError: null
 };
 
 
@@ -87,7 +89,8 @@ export function networkReducer(state = initialState, action: NetworkActions.Netw
         case (NetworkActions.MODEL_NETWORK):
             return {
                 ...state,
-                processing: true
+                processing: true,
+                processingError: null
             };
         case (NetworkActions.END_MODELING_NETWORK):
             return {
@@ -98,7 +101,8 @@ export function networkReducer(state = initialState, action: NetworkActions.Netw
         case (NetworkActions.FETCH_UNLEARNED_NETWORK):
             return {
                 ...state,
-                processing: true
+                processing: true,
+                processingError: null
             };
         case (NetworkActions.START_LEARNING_NETWORK):
             const unlearnedNetwork = new UnlearnedNetwork();
@@ -112,7 +116,8 @@ export function networkReducer(state = initialState, action: NetworkActions.Netw
         case (NetworkActions.LEARN_NETWORK):
             return {
                 ...state,
-                processing: true
+                processing: true,
+                processingError: null
             };
         case (NetworkActions.END_LEARNING_NETWORK):
             return {
@@ -124,6 +129,7 @@ export function networkReducer(state = initialState, action: NetworkActions.Netw
             return {
                 ...state,
                 processing: true,
+                processingError: null,
                 networkRunResult: null
             };
         case (NetworkActions.START_RUNNING_NETWORK):
@@ -135,7 +141,8 @@ export function networkReducer(state = initialState, action: NetworkActions.Netw
         case (NetworkActions.RUN_NETWORK):
             return {
                 ...state,
-                processing: true
+                processing: true,
+                processingError: null
             };
         case (NetworkActions.END_RUNNING_NETWORK):
             return {
@@ -163,7 +170,8 @@ export function networkReducer(state = initialState, action: NetworkActions.Netw
         case (NetworkActions.EFFECT_ERROR):
             return {
                 ...state,
-                processing: false
+                processing: false,
+                processingError: action.payload
             };
         default:
             return state;

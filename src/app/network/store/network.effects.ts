@@ -33,7 +33,7 @@ export class NetworkEffects {
                         map((result) => new NetworkActions.EndModelingNetwork(result)),
                         catchError((error) => {
                             this.defaultErrorStrategy(error.message);
-                            return of(new NetworkActions.EffectError());
+                            return of(new NetworkActions.EffectError(error));
                         })
                     );
                 }
@@ -50,7 +50,7 @@ export class NetworkEffects {
                         map((result) => new NetworkActions.StartLearningNetwork(result)),
                         catchError((error) => {
                             this.defaultErrorStrategy("Model does not exist", true);
-                            return of(new NetworkActions.EffectError());
+                            return of(new NetworkActions.EffectError(error));
                         })
                     );
                 }
@@ -67,7 +67,7 @@ export class NetworkEffects {
                         map((result) => new NetworkActions.EndLearningNetwork(result)),
                         catchError((error) => {
                             this.defaultErrorStrategy(error.message);
-                            return of(new NetworkActions.EffectError());
+                            return of(new NetworkActions.EffectError(error));
                         })
                     );
                 }
@@ -87,7 +87,7 @@ export class NetworkEffects {
                         map((result) => new NetworkActions.StartRunningNetwork(result)),
                         catchError((error) => {
                             this.defaultErrorStrategy("Network does not exist", true);
-                            return of(new NetworkActions.EffectError());
+                            return of(new NetworkActions.EffectError(error));
                         })
                     );
                 }
@@ -107,7 +107,7 @@ export class NetworkEffects {
                         map((result: NetworkOutput) => new NetworkActions.EndRunningNetwork(result)),
                         catchError((error) => {
                             this.defaultErrorStrategy(error);
-                            return of(new NetworkActions.EffectError());
+                            return of(new NetworkActions.EffectError(error));
                         })
                     );
                 }

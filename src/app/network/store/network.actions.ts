@@ -146,6 +146,8 @@ export class EndRunningNetwork implements Action {
 
 export class EffectError implements Action {
     readonly type = EFFECT_ERROR;
+
+    constructor(public payload: any) {}
 }
 
 export type NetworkActions =
