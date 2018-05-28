@@ -106,7 +106,7 @@ export function networkReducer(state = initialState, action: NetworkActions.Netw
             };
         case (NetworkActions.START_LEARNING_NETWORK):
             const unlearnedNetwork = new UnlearnedNetwork();
-            unlearnedNetwork.setLayers(action.payload.layers);
+            unlearnedNetwork.setRawLayers(action.payload.layers);
 
             return {
                 ...state,

@@ -1,13 +1,13 @@
 import {HiddenLayer} from './hidden-layers/hidden-layer/layers/hidden-layer.model';
 import {HiddenLayersService} from './hidden-layers/hidden-layer/layers/hidden-layer.service';
-import {HiddenLayerType} from './hidden-layers/hidden-layer/layers/hidden-layer-type.enum';
-import {hasOwnProperty} from 'tslint/lib/utils';
 
 export class UnlearnedNetwork {
     private _id;
     private _layers: HiddenLayer[] = [];
+    private hiddenLayersService: HiddenLayersService;
 
     constructor() {
+        this.hiddenLayersService = new HiddenLayersService();
     }
 
     get id() {
@@ -26,34 +26,8 @@ export class UnlearnedNetwork {
         this._layers = value;
     }
 
-    static mapLayerNameToEnum(name): HiddenLayerType {
-        switch (name.toLowerCase()) {
-            case 'conv2d':
-                return HiddenLayerType.Conv2D;
-            case 'maxpooling2d':
-                return HiddenLayerType.MaxPooling2D;
-            case 'dropout':
-                return HiddenLayerType.Dropout;
-            case 'flatten':
-                return HiddenLayerType.Flatten;
-            case 'dense':
-                return HiddenLayerType.Dense;
-        }
-        return HiddenLayerType.Dense;
-    }
-
-    static getLayerInfo(layer) {
-        const type = UnlearnedNetwork.mapLayerNameToEnum(layer.layer_name);
-
-        const service = new HiddenLayersService();
-        const modalLayer = service.getInstance(type);
-        modalLayer.setArgs(layer.args);
-
-        return modalLayer;
-    }
-
-    setLayers(layers) {
-        this._layers = layers.map(UnlearnedNetwork.getLayerInfo);
+    setRawLayers(layers) {
+        this._layers = layers.map(this._getLayerInfo.bind(this));
     }
 
     getRawLayers() {
@@ -100,5 +74,18 @@ export class UnlearnedNetwork {
         }
 
         return layers;
+    }
+
+    private _getLayerInfo(layer) {
+        const type = this.hiddenLayersService.getTypeByName(layer.layer_name);
+
+        if (type === null) {
+            throw new Error("Unrecognized layer type.");
+        }
+
+        const layerInfo = this.hiddenLayersService.getInstance(type);
+        layerInfo.setArgs(layer.args);
+
+        return layerInfo;
     }
 }

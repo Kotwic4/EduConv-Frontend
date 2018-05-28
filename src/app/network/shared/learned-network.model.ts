@@ -1,5 +1,4 @@
 import * as tf from '@tensorflow/tfjs';
-import {HiddenLayerType} from './hidden-layers/hidden-layer/layers/hidden-layer-type.enum';
 import {HiddenLayersService} from './hidden-layers/hidden-layer/layers/hidden-layer.service';
 import {API_URL} from '../network.consts';
 import {HiddenLayer} from './hidden-layers/hidden-layer/layers/hidden-layer.model';
@@ -12,8 +11,10 @@ export class LearnedNetwork {
     private _inputShape = [-1, 28, 28, 1];
     private _input;
     private _model: tf.Sequential;
+    private hiddenLayersService: HiddenLayersService;
 
     constructor() {
+        this.hiddenLayersService = new HiddenLayersService();
     }
 
     get id() {
@@ -56,42 +57,14 @@ export class LearnedNetwork {
         this._inputShape = value;
     }
 
-    static mapLayerNameToEnum(name): HiddenLayerType {
-        const trueName = name.split('_').slice(0, name.split('_').length - 1).join('');
-        switch (trueName) {
-            case 'conv2d':
-                return HiddenLayerType.Conv2D;
-            case 'maxpooling2d':
-                return HiddenLayerType.MaxPooling2D;
-            case 'dropout':
-                return HiddenLayerType.Dropout;
-            case 'flatten':
-                return HiddenLayerType.Flatten;
-            case 'dense':
-                return HiddenLayerType.Dense;
-        }
-        return HiddenLayerType.Dense;
-    }
-
-    static getLayerInfo(layer) {
-        const type = LearnedNetwork.mapLayerNameToEnum(layer.name);
-        let neurones = 0;
-        if (layer.output instanceof tf.SymbolicTensor) {
-            neurones = layer.output.shape.slice(-1)[0];
-        }
-        const service = new HiddenLayersService();
-        const modalLayer = service.getInstance(type);
-        modalLayer.setNeurons(neurones);
-        modalLayer.setHaveNeurons(true);
-        return modalLayer;
-    }
-
     loadModel() {
         const data = tf.loadModel(API_URL + 'model/' + this._id + '/model.json');
+
         return data.then(
             (model: tf.Sequential) => {
                 this._model = model;
-                this._layers = model.layers.map(LearnedNetwork.getLayerInfo);
+                this._layers = model.layers.map(this._getLayerInfo.bind(this));
+
                 return this;
             }
         );
@@ -106,17 +79,20 @@ export class LearnedNetwork {
         const _min: any = Math.min.apply(null, data);
         const _max: any = Math.max.apply(null, data);
         const conf = (_max - _min) / 255;
+
         if (shape.length === 2) {
             for (let i = 0; i < shape[1]; i++) {
                 const value: any = data[i];
                 const color = (value - _min) / conf;
+
                 canvas.width  = 1;
                 canvas.height = 1;
                 ctx.fillStyle = `rgb(${color},${color},${color})`;
                 ctx.fillRect(0, 0, 1, 1);
                 result.push(canvas.toDataURL());
             }
-        } else {
+        }
+        else {
             const x = shape[1];
             const y = shape[2];
             const z = shape[3];
@@ -124,6 +100,7 @@ export class LearnedNetwork {
             for (let n = 0; n < z; n++) {
                 canvas.width  = x;
                 canvas.height = y;
+
                 for (let i = 0; i < x; i++) {
                     for (let j = 0; j < y; j++) {
                         const index = n + (i*z) + (j*z*x);
@@ -133,28 +110,32 @@ export class LearnedNetwork {
                         ctx.fillRect(i, j, i + 1, j + 1);
                     }
                 }
+
                 result.push(canvas.toDataURL());
             }
         }
+
         return result;
     }
 
     runModel(): NetworkOutput {
         const img = new Image();
         img.src = this.input;
+
         const images = [];
         const croppedImage = tf.fromPixels(img, 1);
         const batchedImage = croppedImage.expandDims(0).toFloat();
         const reshaped = batchedImage.reshape(this._inputShape);
         let inp: any = reshaped;
         let out: any = reshaped;
+
         for (let i = 0; i < this._model.layers.length; i++) {
             const layer = this._model.getLayer('', i);
             out = layer.apply(inp);
             images.push(this.generateImage(out));
             inp = out;
         }
-
+      
         return new NetworkOutput(
             images,
             Array.from(out.dataSync())
@@ -171,5 +152,25 @@ export class LearnedNetwork {
                 );
             }
         );
+    }
+
+    private _getLayerInfo(layer) {
+        const trueName = layer.name.split('_').slice(0, layer.name.split('_').length - 1).join('');
+        const type = this.hiddenLayersService.getTypeByName(trueName);
+
+        if (type === null) {
+            throw new Error("Unrecognized layer type.");
+        }
+
+        let neurones = 0;
+        if (layer.output instanceof tf.SymbolicTensor) {
+            neurones = layer.output.shape.slice(-1)[0];
+        }
+
+        const layerInfo = this.hiddenLayersService.getInstance(type);
+        layerInfo.setNeurons(neurones);
+        layerInfo.setHaveNeurons(true);
+
+        return layerInfo;
     }
 }

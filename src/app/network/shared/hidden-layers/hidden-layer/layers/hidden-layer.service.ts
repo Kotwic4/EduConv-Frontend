@@ -54,4 +54,21 @@ export class HiddenLayersService {
             return null;
         }
     }
+
+    getTypeByName(name: string): HiddenLayerType {
+        switch (name.toLowerCase()) {
+            case 'conv2d':
+                return HiddenLayerType.Conv2D;
+            case 'maxpooling2d':
+                return HiddenLayerType.MaxPooling2D;
+            case 'dropout':
+                return HiddenLayerType.Dropout;
+            case 'flatten':
+                return HiddenLayerType.Flatten;
+            case 'dense':
+                return HiddenLayerType.Dense;
+            default:
+                return null;
+        }
+    }
 }
