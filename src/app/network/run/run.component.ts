@@ -5,7 +5,9 @@ import * as fromApp from '../../store/app.reducers';
 import {Store} from '@ngrx/store';
 import {Subscription} from 'rxjs/Subscription';
 import {LearnedNetwork} from '../shared/learned-network.model';
-import * as _ from 'lodash';
+import {HeaderControl} from '../header/header-control.interface';
+import {NetworkOutput} from '../shared/network-output.model';
+import {HiddenLayer} from '../shared/hidden-layers/hidden-layer/layers/hidden-layer.model';
 
 @Component({
     selector: 'app-run',
@@ -14,17 +16,27 @@ import * as _ from 'lodash';
 })
 export class RunComponent implements OnInit, OnDestroy {
     private subscription: Subscription;
-
     public id: number;
-    public network: LearnedNetwork;
-    public loading: boolean;
-    public imageLoaded = false;
-    public running: boolean;
-    public run = function () {
-        if (this.imageLoaded) {
-            this.store.dispatch(new NetworkActions.RunNetwork());
+    public processing: boolean;
+    public running = false;
+    public image: string;
+    public layers: HiddenLayer[];
+    public results: NetworkOutput;
+    public labels: string[];
+
+    public controls: HeaderControl[] = [
+        {
+            callback: function () {
+                this.running = true;
+                this.store.dispatch(new NetworkActions.RunNetwork());
+            }.bind(this),
+            tooltip: 'Run',
+            icon: 'fa-play',
+            disabled: () => {
+                return (this.processing || !this.image);
+            }
         }
-    }.bind(this);
+    ];
 
     constructor(
         private store: Store<fromApp.AppState>,
@@ -43,18 +55,25 @@ export class RunComponent implements OnInit, OnDestroy {
                 this.subscription = this.store.select('network')
                     .subscribe(
                         data => {
-                            this.loading = data.fetchingNetwork;
-                            this.running = data.runningNetwork;
+                            this.processing = data.processing;
 
-                            if (!this.loading) {
-                                this.network = <LearnedNetwork>data.networkInUsage;
+                            if (!this.processing && this.running) {
+                                this.running = false;
+                            }
 
-                                if (this.network && this.network.input) {
-                                    this.imageLoaded = true;
-                                }
-                                else {
-                                    this.imageLoaded = false;
-                                }
+                            const network = <LearnedNetwork>data.networkInUsage;
+                            if (network) {
+                                this.layers = network.layers;
+                                this.image = network.input;
+                                this.labels = network.labels;
+                            }
+
+                            const results = data.networkRunResult;
+                            if (results) {
+                                this.results = results;
+                            }
+                            else {
+                                this.results = null;
                             }
                         }
                     );

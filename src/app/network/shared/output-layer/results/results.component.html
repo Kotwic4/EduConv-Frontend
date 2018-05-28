@@ -1,16 +1,16 @@
-<div class="results d-flex flex-column align-items-center justify-content-center">
-    <div
-        class="results__item p-2"
-        *ngFor="let label of labels; let i = index"
-    >
-        <div class="results__label">
-            {{ label }} {{ results[i] ? '(' + (results[i] * 100) + '%)' : '' }}
-        </div>
+<div class="results__container d-flex flex-column">
+    <div class="results__wrapper">
         <div
-            class="results__progress-bar"
-            *ngIf="results[i]"
-            [ngStyle]="{ 'width': (results[i] * 100) + '%' }"
-        ></div>
+            class="results__item"
+            *ngFor="let label of labels; let i = index"
+        >
+            <div class="results__label">
+                {{ label }} {{ results ? '(' + (results[i] * 100 | number:'1.0-2') + '%)' : '' }}
+            </div>
+            <div
+                class="results__progress-bar"
+                [ngStyle]="{ 'width': (results ? (results[i] * 100) + '%' : '0%') }"
+            ></div>
+        </div>
     </div>
-
 </div>

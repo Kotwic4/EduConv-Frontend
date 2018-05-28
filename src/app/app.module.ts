@@ -9,6 +9,7 @@ import {reducers} from './store/app.reducers';
 import {EffectsModule} from '@ngrx/effects';
 import {NetworkEffects} from './network/store/network.effects';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {ToasterModule} from 'angular2-toaster';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
         EffectsModule.forRoot([
             NetworkEffects
         ]),
-        NgbModule.forRoot()
+        NgbModule.forRoot(),
+        ToasterModule.forRoot()
     ],
     providers: [],
     bootstrap: [AppComponent]

@@ -46,7 +46,7 @@
         <app-neurons-counter
             *ngIf="!readonly"
             [value]="layer.getNeurons()"
-            (change)="onAmountChange($event)"
+            (onChange)="onAmountChange($event)"
         ></app-neurons-counter>
         <ng-container *ngIf="!collapsed">
             <app-neurone

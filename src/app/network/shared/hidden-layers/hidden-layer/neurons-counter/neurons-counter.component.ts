@@ -12,7 +12,7 @@ import 'rxjs/add/operator/map';
     styleUrls: ['./neurons-counter.component.scss']
 })
 export class NeuronsCounterComponent implements OnInit {
-    @Output() change: EventEmitter<number> = new EventEmitter();
+    @Output() onChange: EventEmitter<number> = new EventEmitter();
     @Input() value: number;
     private delay = 500;
     private debouncer;
@@ -23,7 +23,9 @@ export class NeuronsCounterComponent implements OnInit {
             .debounceTime(this.delay)
             .distinctUntilChanged();
 
-        eventStream.subscribe(input => this.change.emit(input));
+        eventStream.subscribe(input => {
+            this.onChange.emit(this.value)
+        });
     }
 
     ngOnInit() {
@@ -58,7 +60,7 @@ export class NeuronsCounterComponent implements OnInit {
 
         this.debouncer = setTimeout(
             () => {
-                this.change.emit(this.value);
+                this.onChange.emit(this.value);
             },
             this.delay
         )

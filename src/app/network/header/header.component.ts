@@ -3,6 +3,7 @@ import { Store } from '@ngrx/store';
 
 import * as NetworkActions from '../store/network.actions';
 import * as fromApp from '../../store/app.reducers';
+import {HeaderControl} from './header-control.interface';
 
 @Component({
     selector: 'app-header',
@@ -10,7 +11,7 @@ import * as fromApp from '../../store/app.reducers';
     styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-    @Input() controls;
+    @Input() controls: HeaderControl[];
     position = 'below';
     message = 'Here is the tooltip';
     disabled = false;

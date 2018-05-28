@@ -2,6 +2,7 @@ import * as tf from '@tensorflow/tfjs';
 import {HiddenLayersService} from './hidden-layers/hidden-layer/layers/hidden-layer.service';
 import {API_URL} from '../network.consts';
 import {HiddenLayer} from './hidden-layers/hidden-layer/layers/hidden-layer.model';
+import {NetworkOutput} from './network-output.model';
 
 export class LearnedNetwork {
     private _id;
@@ -10,7 +11,6 @@ export class LearnedNetwork {
     private _inputShape = [-1, 28, 28, 1];
     private _input;
     private _model: tf.Sequential;
-    private _images = [];
     private hiddenLayersService: HiddenLayersService;
 
     constructor() {
@@ -55,10 +55,6 @@ export class LearnedNetwork {
 
     set inputShape(value: number[]) {
         this._inputShape = value;
-    }
-
-    get images(): any[] {
-        return this._images;
     }
 
     loadModel() {
@@ -122,7 +118,7 @@ export class LearnedNetwork {
         return result;
     }
 
-    runModel() {
+    runModel(): NetworkOutput {
         const img = new Image();
         img.src = this.input;
 
@@ -139,22 +135,21 @@ export class LearnedNetwork {
             images.push(this.generateImage(out));
             inp = out;
         }
-
-        this._images = images;
-
-        return Array.from(out.dataSync());
+      
+        return new NetworkOutput(
+            images,
+            Array.from(out.dataSync())
+        );
     }
 
-    run() {
+    run(): Promise<NetworkOutput> {
         return new Promise(
             (resolve, reject) => {
-                let result: any = null;
                 tf.tidy(
                     () => {
-                        result = this.runModel();
+                        resolve(this.runModel());
                     }
                 );
-                resolve(result);
             }
         );
     }

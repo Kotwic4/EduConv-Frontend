@@ -1,8 +1,14 @@
-<app-header [controls]="{ onLearn: learnModel }"></app-header>
+<app-header [controls]="controls"></app-header>
+
 <div class="container">
-    <div class="row">
+    <div class="row learn__row">
         <div class="col-sm-8">
-            <app-hidden-layers [readonly]="true"></app-hidden-layers>
+            <app-loader *ngIf="processing"></app-loader>
+            <app-hidden-layers
+                *ngIf="!processing || learning"
+                [layers]="layers"
+                [readonly]="true"
+            ></app-hidden-layers>
         </div>
         <div class="col-sm-4">
             Choose data set...

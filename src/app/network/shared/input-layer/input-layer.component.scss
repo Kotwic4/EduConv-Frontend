@@ -1,0 +1,6 @@
+@import "../../../../variables.scss";
+
+.input-layer__container {
+    overflow: hidden;
+    height: calc(100% - #{$layer-header-height});
+}

@@ -2,10 +2,10 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import * as fromApp from '../../store/app.reducers';
 import {Store} from '@ngrx/store';
 import {ActivatedRoute, Params, Router} from '@angular/router';
-import {UnlearnedNetwork} from '../shared/unlearned-network.model';
 import {Subscription} from 'rxjs/Subscription';
 import * as NetworkActions from '../store/network.actions';
-import * as _ from 'lodash';
+import {HeaderControl} from '../header/header-control.interface';
+import {UnlearnedNetwork} from '../shared/unlearned-network.model';
 
 @Component({
     selector: 'app-learn',
@@ -14,15 +14,24 @@ import * as _ from 'lodash';
 })
 export class LearnComponent implements OnInit, OnDestroy {
     public id: number;
-    public network: UnlearnedNetwork;
-    public loading: boolean;
+    public processing;
     public learning = false;
-    public submitted = false;
+    public layers = [];
     private subscription: Subscription;
-    public learnModel = function() {
-        this.submitted = true;
-        this.store.dispatch(new NetworkActions.LearnNetwork(this.id));
-    }.bind(this);
+
+    public controls: HeaderControl[] = [
+        {
+            callback: function() {
+                this.learning = true;
+                this.store.dispatch(new NetworkActions.LearnNetwork(this.id));
+            }.bind(this),
+            tooltip: "Learn",
+            icon: "fa-leanpub",
+            disabled: () => {
+                return this.processing;
+            }
+        }
+    ];
 
     constructor(
         private store: Store<fromApp.AppState>,
@@ -40,14 +49,14 @@ export class LearnComponent implements OnInit, OnDestroy {
                 this.subscription = this.store.select('network')
                     .subscribe(
                         data => {
-                            this.loading = data.fetchingNetwork;
-                            this.learning = data.learningNetwork;
+                            this.processing = data.processing;
 
-                            if (!this.loading) {
-                                // this.network = <UnlearnedNetwork>data.networkInUsage;
+                            const network = <UnlearnedNetwork>data.networkInUsage;
+                            if (network) {
+                                this.layers = network.layers;
                             }
 
-                            if (!this.learning && this.submitted) {
+                            if (!this.processing && this.learning && !data.processingError) {
                                 this.router.navigate(['/run', this.id]);
                             }
                         }

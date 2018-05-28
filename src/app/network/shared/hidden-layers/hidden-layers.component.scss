@@ -1,12 +1,8 @@
+@import "../../../../variables.scss";
+
 .hidden-layers__container {
     white-space: nowrap;
-    overflow: auto;
-}
-
-.hidden-layers__add {
-    position: absolute;
-    top: 20px;
-    right: 15px;
-    font-size: 20px;
-    cursor: pointer;
+    overflow-y: hidden;
+    overflow-x: auto;
+    height: calc(100vh - #{$header-height} - #{$layer-header-height});
 }

@@ -1,0 +1,5 @@
+@import "../../../variables.scss";
+
+.learn__row {
+    height: calc(100vh - #{$header-height});
+}

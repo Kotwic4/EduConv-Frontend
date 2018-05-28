@@ -1,11 +1,17 @@
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import '../node_modules/angular2-toaster/src/toaster';
 
 /* You can add global styles to this file, and also import other style files */
+body {
+    min-width: 400px;
+}
+
 h4.layer-header {
     padding: 15px 0;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    font-family: "Brush Script MT", "Times New Roman";
 }
 
 .popover {

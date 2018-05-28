@@ -1,7 +1,7 @@
 .input-image {
-    height: 500px;
     overflow: hidden;
     position: relative;
+    height: calc(100% - 20px);
 
     .input-image__image-container {
         position: relative;
@@ -21,7 +21,8 @@
             right: 3px;
             cursor: pointer;
             font-size: 14px;
-            color: #c50f0f;
+            mix-blend-mode: difference;
+            color: white;
         }
     }
 

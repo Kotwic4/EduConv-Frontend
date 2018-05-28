@@ -1,16 +1,26 @@
-<app-header [controls]="{ onRun: run }"></app-header>
+<app-header [controls]="controls"></app-header>
+
 <div class="container">
-    <div class="row">
+    <div class="row run__row">
         <div class="col-sm-3">
-            <app-input-layer></app-input-layer>
+            <app-input-layer [image]="image"></app-input-layer>
         </div>
         <div class="col-sm-6">
-            <app-loader *ngIf="loading"></app-loader>
-            <app-hidden-layers *ngIf="!loading" [readonly]="true"></app-hidden-layers>
+            <app-loader *ngIf="processing && !running"></app-loader>
+            <app-hidden-layers
+                *ngIf="!processing || running"
+                [readonly]="true"
+                [layers]="layers"
+                [images]="results?.neurons"
+            ></app-hidden-layers>
         </div>
         <div class="col-sm-3">
-            <app-loader *ngIf="loading"></app-loader>
-            <app-output-layer *ngIf="!loading"></app-output-layer>
+            <app-loader *ngIf="processing"></app-loader>
+            <app-output-layer
+                *ngIf="(!processing || running) && labels"
+                [results]="results?.classification"
+                [labels]="labels"
+            ></app-output-layer>
         </div>
     </div>
 </div>

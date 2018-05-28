@@ -3,7 +3,7 @@
     $tools-min-width: 100px;
     $tools-settings-width: 20px;
 
-    height: 500px;
+    height: calc(100% - 20px);
     min-width: $tools-min-width;
     display: inline-flex;
     writing-mode: vertical-lr;
@@ -17,12 +17,18 @@
     border-width: 2px 0 0;
     border-style: solid;
     margin: 0 10px;
+    transition: opacity .2s;
 
     &.hidden-layer__container--collapsed {
         width: 0;
+        opacity: .66;
 
         app-neurons-counter {
             position: absolute;
+        }
+
+        .hidden-layer__type-readonly-name {
+            text-align: center;
         }
     }
 
@@ -77,7 +83,6 @@
                 overflow: hidden;
                 text-overflow: ellipsis;
                 white-space: nowrap;
-                text-align: center;
             }
         }
 

@@ -19,7 +19,7 @@ import { RunComponent } from './run/run.component';
 import {RouterModule} from '@angular/router';
 import {NetworkRoutingModule} from './network-routing.module';
 import { HomeComponent } from './home/home.component';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {BrowserModule} from '@angular/platform-browser';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {FormsModule} from '@angular/forms';
@@ -32,6 +32,7 @@ import {HiddenLayersService} from './shared/hidden-layers/hidden-layer/layers/hi
 import {MatCheckboxModule} from '@angular/material';
 import { NeuronsCounterComponent } from './shared/hidden-layers/hidden-layer/neurons-counter/neurons-counter.component';
 import { LoaderComponent } from './shared/loader/loader.component';
+import { HiddenLayersPlaceholderComponent } from './shared/hidden-layers/hidden-layers-placeholder/hidden-layers-placeholder.component';
 
 @NgModule({
     imports: [
@@ -67,10 +68,11 @@ import { LoaderComponent } from './shared/loader/loader.component';
         FlattenLayerComponent,
         MaxPooling2dLayerComponent,
         NeuronsCounterComponent,
-        LoaderComponent
+        LoaderComponent,
+        HiddenLayersPlaceholderComponent
     ],
     providers: [
-        HiddenLayersService
+        HiddenLayersService,
     ]
 })
 export class NetworkModule {

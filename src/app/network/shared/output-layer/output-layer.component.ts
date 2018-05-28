@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
     selector: 'app-output-layer',
@@ -6,6 +6,8 @@ import {Component, OnInit} from '@angular/core';
     styleUrls: ['./output-layer.component.scss']
 })
 export class OutputLayerComponent implements OnInit {
+    @Input() results;
+    @Input() labels;
 
     constructor() {
     }

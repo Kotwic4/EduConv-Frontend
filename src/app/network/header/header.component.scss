@@ -1,44 +1,62 @@
+@import "../../../variables.scss";
+
 .header__container-fluid {
-    box-shadow: 0 0 5px lightgray;
+    box-shadow: 0 0 20px lightgray;
     background-color: white;
+    position: relative;
+    z-index: 2;
 
     .header__container {
-        height: 75px;
+        height: $header-height;
+        position: relative;
 
-        .header__control-btn {
+        .header__controls-container {
+            position: absolute;
+            top: 0;
+            right: 0;
             font-size: 30px;
-            cursor: pointer;
-            line-height: 75px;
+            height: $header-height;
+            line-height: $header-height;
 
-            &.pull-right {
+            .header__control-btn {
                 margin-left: 20px;
+                cursor: pointer;
+                user-select: none;
+
+                &:first-child {
+                    margin-left: 0;
+                }
+
+                &.header__control-btn--disabled {
+                    color: lightgrey;
+                    cursor: default;
+                }
+            }
+
+            .input-image__networkInput {
+                display: none;
             }
         }
 
-        .input-image__networkInput {
-            display: none;
-        }
-
-        .header__logo {
-            line-height: 75px;
+        .logo__container {
+            line-height: $header-height;
             text-align: center;
             margin: 0 auto;
-            display: block;
-            font-size: 40px;
-            font-family: "Comic Sans MS";
+            font-size: 50px;
+            font-family: "Brush Script MT", "Times New Roman";
             text-shadow: 0 0 10px white;
             user-select: none;
-            cursor: pointer;
 
-            .header__logo-link {
+            .logo__link {
                 text-decoration: none;
+                cursor: pointer;
 
-                .header__logo--edu {
+                .logo__edu {
                     color: #f0642a;
                     text-shadow: 1px 1px 4px #f0642a;
                 }
 
-                .header__logo--conv {
+                .logo__conv {
                     color: #a5a9ab;
                     text-shadow: 1px 1px 4px #a5a9ab;
                 }

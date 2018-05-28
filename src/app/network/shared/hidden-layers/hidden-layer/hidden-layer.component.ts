@@ -29,7 +29,7 @@ export class HiddenLayerComponent implements OnInit {
     layerType: HiddenLayerType;
     types_names: string[];
     types_values: number[];
-    collapsed = true;
+    collapsed: boolean;
 
     constructor(private store: Store<fromApp.AppState>,
                 private hiddenLayersService: HiddenLayersService) {
