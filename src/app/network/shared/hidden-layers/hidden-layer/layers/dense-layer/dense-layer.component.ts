@@ -41,7 +41,7 @@ export class DenseLayerComponent implements OnInit {
 
     onSubmit(form: NgForm) {
         const args: DenseLayerArgs = {
-            units: this.layer.units,
+            units: this.layer.args.units,
             use_bias: form.value.useBias,
             activation: form.value.activation
         };

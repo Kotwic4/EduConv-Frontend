@@ -10,7 +10,9 @@
                 name="poolX"
                 min="0"
                 ngModel
+                [required]="!!(poolY.value && poolY.value !== '')"
                 [disabled]="readonly"
+                #poolX
             >
         </div>
         <div class="col-sm-6 form-group">
@@ -20,7 +22,9 @@
                 name="poolY"
                 min="0"
                 ngModel
+                [required]="!!(poolX.value && poolX.value !== '')"
                 [disabled]="readonly"
+                #poolY
             >
         </div>
     </div>
@@ -35,7 +39,9 @@
                 name="strideX"
                 min="0"
                 ngModel
+                [required]="!!(strideY.value && strideY.value !== '')"
                 [disabled]="readonly"
+                #strideX
             >
         </div>
         <div class="col-sm-6 form-group">
@@ -45,7 +51,9 @@
                 name="strideY"
                 min="0"
                 ngModel
+                [required]="!!(strideX.value && strideX.value !== '')"
                 [disabled]="readonly"
+                #strideY
             >
         </div>
     </div>
