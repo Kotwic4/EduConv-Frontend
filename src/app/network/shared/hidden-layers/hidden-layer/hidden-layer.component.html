@@ -27,14 +27,17 @@
             <div
                 *ngIf="readonly"
                 class="hidden-layer__type-readonly-name"
-                [matTooltip]="types_names[layerType]"
-                matTooltipPosition="above"
             >
                 {{ types_names[layerType] }}
             </div>
         </div>
 
-        <div class="hidden-layer__settings" *ngIf="!readonly">
+        <div
+            *ngIf="!readonly"
+            class="hidden-layer__settings"
+            matTooltip="Layer settings"
+            matTooltipPosition="above"
+        >
             <i
                 class="fa fa-cog"
                 [ngbPopover]="getArgsComponent(types_names[layerType])"
@@ -42,8 +45,6 @@
                 #p="ngbPopover"
                 container="body"
                 placement="bottom"
-                matTooltip="Layer settings"
-                matTooltipPosition="above"
             ></i>
         </div>
     </div>
