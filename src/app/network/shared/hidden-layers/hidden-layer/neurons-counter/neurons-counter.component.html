@@ -1,4 +1,7 @@
-<div class="counter__container">
+<div
+    class="counter__container"
+    (click)="$event.stopPropagation()"
+>
     <div class="counter__btn counter__btn--inc" (click)="inc()">+</div>
     <input class="counter__amount" type="number" [(ngModel)]="value">
     <div

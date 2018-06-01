@@ -1,14 +1,20 @@
 <div
     [ngClass]="['hidden-layer__container', 'hidden-layer__container--type-' + layerType, collapsed ? 'hidden-layer__container--collapsed' : '']"
+    (click)="toggleCollapsed()"
 >
     <span class="hidden-layer__index">{{ index+1 }}.</span>
 
-    <div class="hidden-layer__tools">
-        <div class="hidden-layer__type">
+    <div
+        class="hidden-layer__tools"
+        (click)="$event.stopPropagation()"
+    >
+        <div
+            class="hidden-layer__type"
+            [matTooltip]="types_names[layerType]"
+            matTooltipPosition="above"
+        >
             <mat-form-field
                 *ngIf="!readonly"
-                matTooltip="Layer type"
-                matTooltipPosition="below"
             >
                 <mat-select [(value)]="layerType" (change)="onTypeChange()">
                     <mat-option
@@ -21,14 +27,17 @@
             <div
                 *ngIf="readonly"
                 class="hidden-layer__type-readonly-name"
-                [matTooltip]="types_names[layerType]"
-                matTooltipPosition="below"
             >
                 {{ types_names[layerType] }}
             </div>
         </div>
 
-        <div class="hidden-layer__settings" *ngIf="!readonly">
+        <div
+            *ngIf="!readonly"
+            class="hidden-layer__settings"
+            matTooltip="Layer settings"
+            matTooltipPosition="above"
+        >
             <i
                 class="fa fa-cog"
                 [ngbPopover]="getArgsComponent(types_names[layerType])"
@@ -36,8 +45,6 @@
                 #p="ngbPopover"
                 container="body"
                 placement="bottom"
-                matTooltip="Layer settings"
-                matTooltipPosition="above"
             ></i>
         </div>
     </div>
@@ -56,17 +63,12 @@
             ></app-neurone>
         </ng-container>
         <div *ngIf="readonly && collapsed" class="hidden-layer__neurons-amount">
-            {{ layer.getNeurons() }} neurons
+            <span class="hidden-layer__neurons-amount-digits">{{ layer.getNeurons() | number }}</span> neurons
         </div>
     </ng-container>
     <div *ngIf="!layer.haveNeurons()" class="hidden-layer__no-neurons-info">
         No neurons
     </div>
-
-    <div
-        class="hidden-layer__collapser"
-        (click)="toggleCollapsed()"
-    ></div>
 </div>
 
 <ng-template #Conv2D>

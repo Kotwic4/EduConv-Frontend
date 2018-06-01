@@ -1,4 +1,4 @@
-import {Component, Input, ViewChild} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import { Store } from '@ngrx/store';
 
 import * as fromApp from '../../../../store/app.reducers';
@@ -11,25 +11,20 @@ import * as NetworkActions from '../../../store/network.actions';
 })
 export class InputImageComponent {
     @Input() image;
-    @ViewChild('imageInput') imageInput;
 
-    constructor(private store: Store<fromApp.AppState>) {}
+    constructor(
+        private store: Store<fromApp.AppState>
+    ) {}
 
-    onImageChange(fileInput) {
-        if (fileInput.target.files && fileInput.target.files[0]) {
-            const self = this;
-            const reader = new FileReader();
-
-            reader.onload = function(e: any) {
-                self.store.dispatch(new NetworkActions.InputImageUpload(e.target.result));
-            };
-
-            reader.readAsDataURL(fileInput.target.files[0]);
+    onImageChange(event, input) {
+        if (event.target.files && event.target.files[0]) {
+            this.store.dispatch(new NetworkActions.InputImageUpload(event.target.files[0]));
+            input.value = '';
         }
     }
 
-    onImageDelete(event) {
-        this.imageInput.nativeElement.value = '';
+    onImageDelete(event, input) {
+        input.value = '';
         this.store.dispatch(new NetworkActions.InputImageDelete());
         event.stopPropagation();
     }
