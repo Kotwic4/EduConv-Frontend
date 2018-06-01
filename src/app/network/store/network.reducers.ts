@@ -151,6 +151,10 @@ export function networkReducer(state = initialState, action: NetworkActions.Netw
                 processing: false
             };
         case (NetworkActions.INPUT_IMAGE_UPLOAD):
+            return {
+                ...state
+            };
+        case (NetworkActions.INPUT_IMAGE_UPLOAD_SUCCESS):
             networkInUsage = <LearnedNetwork>state.networkInUsage;
             networkInUsage.input = action.payload;
 

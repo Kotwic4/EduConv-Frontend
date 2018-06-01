@@ -9,7 +9,7 @@
 
         <i
             class="fa fa-times input-image__delete-image"
-            (click)="onImageDelete($event)"
+            (click)="onImageDelete($event, imageInput)"
             *ngIf="image"
             matTooltip="Delete image"
             matTooltipPosition="below"
@@ -19,8 +19,9 @@
     <input
         type="file"
         class="input-image__imageInput"
-        (change)="onImageChange($event)"
+        (change)="onImageChange($event, imageInput)"
         #imageInput
+        accept="image/*"
     >
 
     <div

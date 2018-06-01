@@ -19,6 +19,48 @@ import {Router} from '@angular/router';
 @Injectable()
 export class NetworkEffects {
     @Effect()
+    uploadImage = this.actions$
+        .ofType(NetworkActions.INPUT_IMAGE_UPLOAD)
+        .pipe(
+            switchMap(
+                (action: NetworkActions.InputImageUpload) => {
+                    const promise = new Promise<string>(
+                        (resolve, reject) => {
+                            const reader = new FileReader();
+
+                            reader.onload = function(e: any) {
+                                const src = e.target.result;
+
+                                // Testing img and also preloading
+                                const img = new Image();
+                                img.src = src;
+
+                                img.onload = function() {
+                                    resolve(src);
+                                };
+
+                                img.onerror = function() {
+                                    reject("Broken image");
+                                };
+                            };
+
+                            reader.readAsDataURL(action.payload);
+                        }
+                    );
+
+
+                    return fromPromise(promise).pipe(
+                        map((result) => new NetworkActions.InputImageUploadSuccess(result)),
+                        catchError((error) => {
+                            this.defaultErrorStrategy(error);
+                            return of(new NetworkActions.EffectError(error));
+                        })
+                    );
+                }
+            )
+        );
+
+    @Effect()
     modelNetwork = this.actions$
         .ofType(NetworkActions.MODEL_NETWORK)
         .pipe(

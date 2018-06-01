@@ -5,7 +5,9 @@ import {NetworkOutput} from '../shared/network-output.model';
 import {HiddenLayer} from '../shared/hidden-layers/hidden-layer/layers/hidden-layer.model';
 
 export const INPUT_IMAGE_UPLOAD = 'INPUT_IMAGE_UPLOAD';
+export const INPUT_IMAGE_UPLOAD_SUCCESS = 'INPUT_IMAGE_UPLOAD_SUCCESS';
 export const INPUT_IMAGE_DELETE = 'INPUT_IMAGE_DELETE';
+
 export const NETWORK_START = 'NETWORK_START';
 export const NETWORK_UPLOAD = 'NETWORK_UPLOAD';
 export const NEURONE_CHANGE = 'NEURONE_CHANGE';
@@ -33,7 +35,13 @@ export const EFFECT_ERROR = 'EFFECT_ERROR';
 export class InputImageUpload implements Action {
     readonly type = INPUT_IMAGE_UPLOAD;
 
-    constructor(public payload: String) {}
+    constructor(public payload: any) {}
+}
+
+export class InputImageUploadSuccess implements Action {
+    readonly type = INPUT_IMAGE_UPLOAD_SUCCESS;
+
+    constructor(public payload: string) {}
 }
 
 export class InputImageDelete implements Action {
@@ -150,6 +158,7 @@ export class EffectError implements Action {
 
 export type NetworkActions =
     InputImageUpload |
+    InputImageUploadSuccess |
     InputImageDelete |
     NetworkUpload |
     NeuroneChange |
