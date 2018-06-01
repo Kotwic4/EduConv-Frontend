@@ -1,3 +1,5 @@
+@import "../../../../../variables.scss";
+
 .input-image {
     overflow: hidden;
     position: relative;
@@ -9,10 +11,10 @@
         .input-image__image {
             height: auto;
             width: auto;
-            max-width: 100%;
-            max-height: 100%;
             min-width: 100px;
             min-height: 100px;
+            max-width: 100%;
+            max-height: calc(100vh - #{$header-height} - #{$layer-header-height} - 20px);
             background-color: lightgray;
             border-radius: 2px;
         }
