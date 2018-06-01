@@ -1,5 +1,5 @@
 .hidden-layer__container {
-    $tools-height: 30px;
+    $tools-height: 25px;
     $tools-min-width: 100px;
     $tools-settings-width: 20px;
 
@@ -11,13 +11,14 @@
     align-content: flex-start;
     align-items: center;
     position: relative;
-    padding: #{20px + $tools-height} 10px 0 10px;
+    padding: #{20px + $tools-height + 5px} 10px 0 10px;
     border-radius: 2px;
     overflow: hidden;
     border-width: 2px 0 0;
     border-style: solid;
     margin: 0 10px;
     transition: opacity .2s;
+    cursor: default;
 
     &.hidden-layer__container--collapsed {
         width: 0;
@@ -63,6 +64,7 @@
     .hidden-layer__tools {
         width: calc(100% - 20px);
         height: $tools-height;
+        overflow: hidden;
 
         writing-mode: horizontal-tb;
         position: absolute;
@@ -71,11 +73,13 @@
 
         .hidden-layer__type {
             float: left;
-            margin-top: -20px;
+            margin-top: -4px;
             width: calc(100% - #{$tools-settings-width});
+            height: $tools-height;
 
             mat-form-field {
                 width: 100%;
+                margin-top: -20px;
             }
 
             .hidden-layer__type-readonly-name {

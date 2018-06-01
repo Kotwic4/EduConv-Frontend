@@ -1,14 +1,20 @@
 <div
     [ngClass]="['hidden-layer__container', 'hidden-layer__container--type-' + layerType, collapsed ? 'hidden-layer__container--collapsed' : '']"
+    (click)="toggleCollapsed()"
 >
     <span class="hidden-layer__index">{{ index+1 }}.</span>
 
-    <div class="hidden-layer__tools">
-        <div class="hidden-layer__type">
+    <div
+        class="hidden-layer__tools"
+        (click)="$event.stopPropagation()"
+    >
+        <div
+            class="hidden-layer__type"
+            [matTooltip]="types_names[layerType]"
+            matTooltipPosition="above"
+        >
             <mat-form-field
                 *ngIf="!readonly"
-                matTooltip="Layer type"
-                matTooltipPosition="below"
             >
                 <mat-select [(value)]="layerType" (change)="onTypeChange()">
                     <mat-option
@@ -22,7 +28,7 @@
                 *ngIf="readonly"
                 class="hidden-layer__type-readonly-name"
                 [matTooltip]="types_names[layerType]"
-                matTooltipPosition="below"
+                matTooltipPosition="above"
             >
                 {{ types_names[layerType] }}
             </div>
@@ -63,10 +69,10 @@
         No neurons
     </div>
 
-    <div
-        class="hidden-layer__collapser"
-        (click)="toggleCollapsed()"
-    ></div>
+    <!--<div-->
+        <!--class="hidden-layer__collapser"-->
+        <!--(click)="toggleCollapsed()"-->
+    <!--&gt;</div>-->
 </div>
 
 <ng-template #Conv2D>
