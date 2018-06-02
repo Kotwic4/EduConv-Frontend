@@ -33,6 +33,7 @@ import {MatCheckboxModule} from '@angular/material';
 import { NeuronsCounterComponent } from './shared/hidden-layers/hidden-layer/neurons-counter/neurons-counter.component';
 import { LoaderComponent } from './shared/loader/loader.component';
 import { HiddenLayersPlaceholderComponent } from './shared/hidden-layers/hidden-layers-placeholder/hidden-layers-placeholder.component';
+import {Ng2ImgToolsModule} from 'ng2-img-tools';
 
 @NgModule({
     imports: [
@@ -46,7 +47,8 @@ import { HiddenLayersPlaceholderComponent } from './shared/hidden-layers/hidden-
         NetworkRoutingModule,
         HttpClientModule,
         NgbModule,
-        FormsModule
+        FormsModule,
+        Ng2ImgToolsModule
     ],
     declarations: [
         NetworkComponent,
