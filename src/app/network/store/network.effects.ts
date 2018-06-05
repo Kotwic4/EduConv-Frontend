@@ -15,6 +15,7 @@ import {of} from 'rxjs/observable/of';
 import {fromPromise} from 'rxjs/observable/fromPromise';
 import {ToasterService} from 'angular2-toaster';
 import {Router} from '@angular/router';
+import {Ng2ImgToolsService} from 'ng2-img-tools';
 
 @Injectable()
 export class NetworkEffects {
@@ -26,6 +27,7 @@ export class NetworkEffects {
                 (action: NetworkActions.InputImageUpload) => {
                     const promise = new Promise<string>(
                         (resolve, reject) => {
+                            const self = this;
                             const reader = new FileReader();
 
                             reader.onload = function(e: any) {
@@ -36,7 +38,14 @@ export class NetworkEffects {
                                 img.src = src;
 
                                 img.onload = function() {
-                                    resolve(src);
+                                    self.ng2ImgToolsService.getEXIFOrientedImage(img).then(
+                                        result => {
+                                            resolve(result.src);
+                                        },
+                                        error => {
+                                            reject(error);
+                                        }
+                                    );
                                 };
 
                                 img.onerror = function() {
@@ -47,7 +56,6 @@ export class NetworkEffects {
                             reader.readAsDataURL(action.payload);
                         }
                     );
-
 
                     return fromPromise(promise).pipe(
                         map((result) => new NetworkActions.InputImageUploadSuccess(result)),
@@ -161,6 +169,7 @@ export class NetworkEffects {
                 private store: Store<fromApp.AppState>,
                 private router: Router,
                 private toasterService: ToasterService,
+                private ng2ImgToolsService: Ng2ImgToolsService
     ) {}
 
     private defaultErrorStrategy(message, redirect = false) {
