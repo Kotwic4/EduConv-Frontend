@@ -26,7 +26,7 @@ const initialState: State = {
     processingError: null,
     id: null,
     datasets: null,
-    learnSettings: new LearnSettings(null, 1, 128),
+    learnSettings: new LearnSettings("mnist", 1, 128),
 };
 
 
