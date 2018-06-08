@@ -1,7 +1,9 @@
+@import "../../../../variables.scss";
+
 .learn-settings__container {
     padding: 15px;
     overflow: auto;
-    height: 100%;
+    height: calc(100% - #{$layer-header-height});
 
     .learn-settings__wrapper {
         margin: auto;
