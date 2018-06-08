@@ -18,30 +18,25 @@ export class RunComponent implements OnInit, OnDestroy {
     private subscription: Subscription;
     public id: number;
     public processing: boolean;
-    public running = false;
-    public image: string;
-    public layers: HiddenLayer[];
     public results: NetworkOutput;
-    public labels: string[];
+    public network: LearnedNetwork;
 
     public controls: HeaderControl[] = [
         {
             callback: function () {
-                this.running = true;
                 this.store.dispatch(new NetworkActions.RunNetwork());
             }.bind(this),
             tooltip: 'Run',
             icon: 'fa-play',
             disabled: () => {
-                return (this.processing || !this.image);
+                return (this.processing || !this.network || !this.network.input);
             }
         }
     ];
 
     constructor(
         private store: Store<fromApp.AppState>,
-        private route: ActivatedRoute,
-        private router: Router
+        private route: ActivatedRoute
     ) {
     }
 
@@ -56,25 +51,8 @@ export class RunComponent implements OnInit, OnDestroy {
                     .subscribe(
                         data => {
                             this.processing = data.processing;
-
-                            if (!this.processing && this.running) {
-                                this.running = false;
-                            }
-
-                            const network = <LearnedNetwork>data.networkInUsage;
-                            if (network) {
-                                this.layers = network.layers;
-                                this.image = network.input;
-                                this.labels = network.labels;
-                            }
-
-                            const results = data.networkRunResult;
-                            if (results) {
-                                this.results = results;
-                            }
-                            else {
-                                this.results = null;
-                            }
+                            this.network = <LearnedNetwork>data.networkInUsage;
+                            this.results = data.networkRunResult;
                         }
                     );
             }
