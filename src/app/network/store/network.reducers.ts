@@ -2,8 +2,8 @@ import * as NetworkActions from './network.actions';
 import {UnlearnedNetwork} from '../shared/unlearned-network.model';
 import {NetworkOutput} from '../shared/network-output.model';
 import {LearnedNetwork} from '../shared/learned-network.model';
-import * as _ from 'lodash';
 import {HiddenLayer} from '../shared/hidden-layers/hidden-layer/layers/hidden-layer.model';
+import {LearnSettings} from '../learn/learn-settings/learn-settings.model';
 
 export interface State {
     uploadedNetwork: String;
@@ -12,6 +12,9 @@ export interface State {
     networkRunResult: NetworkOutput;
     processing: boolean;
     processingError: any;
+    id: number;
+    datasets: string[];
+    learnSettings: LearnSettings;
 }
 
 const initialState: State = {
@@ -20,7 +23,10 @@ const initialState: State = {
     networkInUsageID: null,
     networkRunResult: null,
     processing: false,
-    processingError: null
+    processingError: null,
+    id: null,
+    datasets: null,
+    learnSettings: new LearnSettings(null, 1, 128),
 };
 
 
@@ -100,18 +106,22 @@ export function networkReducer(state = initialState, action: NetworkActions.Netw
             };
         case (NetworkActions.FETCH_UNLEARNED_NETWORK):
             return {
-                ...state,
-                processing: true,
-                processingError: null
+                ...state
             };
         case (NetworkActions.START_LEARNING_NETWORK):
             const unlearnedNetwork = new UnlearnedNetwork();
-            unlearnedNetwork.setRawLayers(action.payload.layers);
+            unlearnedNetwork.setRawLayers(action.payload);
 
             return {
                 ...state,
                 networkInUsage: unlearnedNetwork,
-                processing: false
+                processing: false,
+                id: null,
+            };
+        case (NetworkActions.SET_LEARN_SETTINGS):
+            return {
+                ...state,
+                learnSettings: action.payload,
             };
         case (NetworkActions.LEARN_NETWORK):
             return {
@@ -123,20 +133,19 @@ export function networkReducer(state = initialState, action: NetworkActions.Netw
             return {
                 ...state,
                 networkInUsage: null,
-                processing: false
+                processing: false,
+                processingError: null,
+                id: action.payload
             };
         case (NetworkActions.FETCH_LEARNED_NETWORK):
             return {
                 ...state,
-                processing: true,
-                processingError: null,
                 networkRunResult: null
             };
         case (NetworkActions.START_RUNNING_NETWORK):
             return {
                 ...state,
-                networkInUsage: action.payload,
-                processing: false
+                networkInUsage: action.payload
             };
         case (NetworkActions.RUN_NETWORK):
             return {
@@ -170,6 +179,16 @@ export function networkReducer(state = initialState, action: NetworkActions.Netw
                 ...state,
                 networkInUsage: networkInUsage,
                 networkRunResult: null
+            };
+        case (NetworkActions.FETCH_DATASETS):
+            return {
+                ...state,
+                datasets: null,
+            };
+        case (NetworkActions.FETCH_DATASETS_SUCCESS):
+            return {
+                ...state,
+                datasets: action.payload
             };
         case (NetworkActions.EFFECT_ERROR):
             return {

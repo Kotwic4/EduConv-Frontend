@@ -65,14 +65,6 @@ export class UnlearnedNetwork {
             }
         );
 
-        if (layers.length > 0) {
-            layers[0].args['input_shape'] = [
-                28,
-                28,
-                1
-            ];
-        }
-
         return layers;
     }
 
