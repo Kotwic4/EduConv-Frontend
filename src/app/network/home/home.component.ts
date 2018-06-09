@@ -33,9 +33,6 @@ export class HomeComponent implements OnInit {
                 data => {
                     this.unlearnedNetworks = data.unlearnedNetworks;
                     this.learnedNetworks = data.learnedNetworks;
-
-                    console.log("UNLEARNED_NETWORKS", this.unlearnedNetworks);
-                    console.log("   LEARNED_NETWORKS", this.learnedNetworks);
                 }
             );
     }
