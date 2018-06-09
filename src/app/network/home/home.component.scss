@@ -1,0 +1,93 @@
+@import "../../../variables.scss";
+
+.home__container {
+    padding-top: 15px;
+
+    .square-wrapper {
+        margin-top: 15px;
+        margin-bottom: 15px;
+    }
+
+    .square {
+        $square-padding: 5px;
+
+        position: relative;
+        box-sizing: border-box;
+        opacity: .7;
+        transition: all .3s ease-in;
+        width: 100%;
+        padding-bottom: 100%;
+        border: 1px solid grey;
+        border-radius: 2px;
+
+        &:hover {
+            opacity: 1;
+            box-shadow: 0 0 10px lightgrey;
+            transform: scale(1.1);
+        }
+
+        .square__content {
+            position: absolute;
+            width: calc(100% - #{2*$square-padding});
+            height: calc(100% - #{2*$square-padding});
+            background-color: $color-blue;
+            border-radius: 2px;
+            top: $square-padding;
+            left: $square-padding;
+            overflow: auto;
+
+            .square__link {
+                display: flex;
+                width: 100%;
+                height: 100%;
+                justify-content: center;
+                align-items: center;
+                text-decoration: none;
+                color: white;
+                text-align: center;
+                font-size: 3vh;
+                user-select: none;
+
+                &.square__link--disabled {
+                    cursor: default;
+                    pointer-events: none;
+                }
+
+                .square__dataset {
+                    position: absolute;
+                    top: 0;
+                    left: 5px;
+                    font-size: 1.3vw;
+                }
+
+                .square__epochs {
+                    position: absolute;
+                    bottom: 3px;
+                    left: 5px;
+                    font-size: 1.3vw;
+                }
+
+                .square__epochs-indicator {
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+                    height: 4px;
+                    background-color: $color-red;
+                }
+            }
+
+            &.square__content--learning {
+                background-color: $color-orange;
+            }
+
+            &.square__content--learned {
+                background-color: $color-green;
+            }
+        }
+    }
+
+    .unlearned-container {
+        padding-top: 15px;
+        padding-bottom: 15px;
+    }
+}

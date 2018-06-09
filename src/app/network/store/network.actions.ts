@@ -3,6 +3,7 @@ import {UnlearnedNetwork} from '../shared/unlearned-network.model';
 import {LearnedNetwork} from '../shared/learned-network.model';
 import {NetworkOutput} from '../shared/network-output.model';
 import {HiddenLayer} from '../shared/hidden-layers/hidden-layer/layers/hidden-layer.model';
+import {LearnedNetworkInfo} from '../shared/learned-network-info.model';
 
 export const INPUT_IMAGE_UPLOAD = 'INPUT_IMAGE_UPLOAD';
 export const INPUT_IMAGE_UPLOAD_SUCCESS = 'INPUT_IMAGE_UPLOAD_SUCCESS';
@@ -29,6 +30,12 @@ export const FETCH_LEARNED_NETWORK = 'FETCH_LEARNED_NETWORK';
 export const START_RUNNING_NETWORK = 'START_RUNNING_NETWORK';
 export const RUN_NETWORK = 'RUN_NETWORK';
 export const END_RUNNING_NETWORK = 'END_RUNNING_NETWORK';
+
+export const FETCH_ALL_UNLEARNED_NETWORKS = 'FETCH_ALL_UNLEARNED_NETWORKS';
+export const FETCH_ALL_UNLEARNED_NETWORKS_SUCCESS = 'FETCH_ALL_UNLEARNED_NETWORKS_SUCCESS';
+
+export const FETCH_ALL_LEARNED_NETWORKS = 'FETCH_ALL_LEARNED_NETWORKS';
+export const FETCH_ALL_LEARNED_NETWORKS_SUCCESS = 'FETCH_ALL_LEARNED_NETWORKS_SUCCESS';
 
 export const EFFECT_ERROR = 'EFFECT_ERROR';
 
@@ -150,6 +157,26 @@ export class EndRunningNetwork implements Action {
     constructor(public payload: NetworkOutput) {}
 }
 
+export class FetchAllUnlearnedNetworks implements Action {
+    readonly type = FETCH_ALL_UNLEARNED_NETWORKS;
+}
+
+export class FetchAllUnlearnedNetworksSuccess implements Action {
+    readonly type = FETCH_ALL_UNLEARNED_NETWORKS_SUCCESS;
+
+    constructor(public payload: UnlearnedNetwork[]) {}
+}
+
+export class FetchAllLearnedNetworks implements Action {
+    readonly type = FETCH_ALL_LEARNED_NETWORKS;
+}
+
+export class FetchAllLearnedNetworksSuccess implements Action {
+    readonly type = FETCH_ALL_LEARNED_NETWORKS_SUCCESS;
+
+    constructor(public payload: LearnedNetworkInfo[]) {}
+}
+
 export class EffectError implements Action {
     readonly type = EFFECT_ERROR;
 
@@ -177,5 +204,9 @@ export type NetworkActions =
     StartRunningNetwork |
     RunNetwork |
     EndRunningNetwork |
+    FetchAllUnlearnedNetworks |
+    FetchAllUnlearnedNetworksSuccess |
+    FetchAllLearnedNetworks |
+    FetchAllLearnedNetworksSuccess |
     EffectError;
 
