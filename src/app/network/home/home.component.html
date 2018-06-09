@@ -38,10 +38,12 @@
                             class="col-6 col-sm-4 col-md-3 col-lg-2 square-wrapper"
                             *ngFor="let network of learnedNetworks"
                         >
-                            <div class="square">
+                            <div
+                                class="square"
+                                [ngClass]="[(network.epochsLearnt === network.epochsToLearn) ? 'square--learned' : 'square--learning']"
+                            >
                                 <div
                                     class="square__content"
-                                    [ngClass]="[(network.epochsLearnt === network.epochsToLearn) ? 'square__content--learned' : 'square__content--learning']"
                                 >
                                     <a
                                         class="square__link"
