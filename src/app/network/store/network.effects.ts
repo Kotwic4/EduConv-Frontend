@@ -16,6 +16,7 @@ import {fromPromise} from 'rxjs/observable/fromPromise';
 import {ToasterService} from 'angular2-toaster';
 import {Router} from '@angular/router';
 import {Ng2ImgToolsService} from 'ng2-img-tools';
+import {LearnedNetworkInfo} from '../shared/learned-network-info.model';
 
 @Injectable()
 export class NetworkEffects {
@@ -157,6 +158,65 @@ export class NetworkEffects {
                         map((result: NetworkOutput) => new NetworkActions.EndRunningNetwork(result)),
                         catchError((error) => {
                             this.defaultErrorStrategy(error);
+                            return of(new NetworkActions.EffectError(error));
+                        })
+                    );
+                }
+            )
+        );
+
+    @Effect()
+    fetchAllUnlearnedNetwork = this.actions$
+        .ofType(NetworkActions.FETCH_ALL_UNLEARNED_NETWORKS)
+        .pipe(
+            switchMap(
+                (action: NetworkActions.FetchAllUnlearnedNetworks) => {
+                    return this.httpClient.get<any[]>(API_URL + `scheme`).pipe(
+                        map((results) => {
+                            let networks = results.map(
+                                (network) => {
+                                    const unlearnedNetwork = new UnlearnedNetwork();
+                                    unlearnedNetwork.setRawLayers(network.scheme_json.layers);
+                                    unlearnedNetwork.id = network.id;
+
+                                    return unlearnedNetwork;
+                                }
+                            );
+
+                            return new NetworkActions.FetchAllUnlearnedNetworksSuccess(networks);
+                        }),
+                        catchError((error) => {
+                            this.defaultErrorStrategy(error.message);
+                            return of(new NetworkActions.EffectError(error));
+                        })
+                    );
+                }
+            )
+        );
+
+    @Effect()
+    fetchAllLearnedNetwork = this.actions$
+        .ofType(NetworkActions.FETCH_ALL_LEARNED_NETWORKS)
+        .pipe(
+            switchMap(
+                (action: NetworkActions.FetchAllLearnedNetworks) => {
+                    return this.httpClient.get<any[]>(API_URL + `model`).pipe(
+                        map((results) => {
+                            let infos = results.map(
+                                (network) => {
+                                    return new LearnedNetworkInfo(
+                                        network.id,
+                                        network.dataset,
+                                        network.epochs_learnt,
+                                        network.epochs_to_learn,
+                                    );
+                                }
+                            );
+
+                            return new NetworkActions.FetchAllLearnedNetworksSuccess(infos);
+                        }),
+                        catchError((error) => {
+                            this.defaultErrorStrategy(error.message);
                             return of(new NetworkActions.EffectError(error));
                         })
                     );
