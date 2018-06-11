@@ -1,0 +1,36 @@
+@import "../../../../variables.scss";
+
+.learn-settings__container {
+    padding: 15px;
+    overflow: auto;
+    height: calc(100% - #{$layer-header-height});
+
+    .learn-settings__wrapper {
+        margin: auto;
+        width: 100%;
+
+        .form-control {
+            border: none;
+            padding: 0;
+        }
+
+        mat-slider {
+            margin-top: 10px;
+        }
+    }
+
+    ::ng-deep {
+        .mat-slider-thumb-label {
+            transform: rotate(45deg) !important;
+            border-radius: 50% 50% 0 !important;
+        }
+
+        .mat-slider-thumb {
+            transform: scale(0) !important;
+        }
+
+        .mat-slider-thumb-label-text {
+            opacity: 1 !important;
+        }
+    }
+}

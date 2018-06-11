@@ -1,0 +1,60 @@
+<h4 class="text-center layer-header">Settings</h4>
+<div class="learn-settings__container d-flex flex-column">
+    <div class="learn-settings__wrapper">
+        <form #f="ngForm">
+            <div class="row">
+                <div class="col-sm-12 form-group">
+                    <label>Dataset</label>
+                    <mat-form-field class="form-control">
+                        <mat-select
+                            [value]="settings.dataset"
+                            name="dataset"
+                            required
+                            ngModel
+                        >
+                            <mat-option
+                                *ngFor="let dataset of datasets"
+                                [value]="dataset"
+                            >{{ dataset }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12 form-group">
+                    <label>Epochs</label>
+                    <mat-slider
+                        min="1"
+                        max="10"
+                        step="1"
+                        [thumbLabel]="true"
+                        color="primary"
+                        class="form-control"
+                        name="epochs"
+                        ngModel
+                        required
+                    ></mat-slider>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12 form-group">
+                    <label>Batch size</label>
+                    <mat-slider
+                        min="1"
+                        max="256"
+                        step="1"
+                        [thumbLabel]="true"
+                        color="primary"
+                        class="form-control"
+                        name="batchSize"
+                        ngModel
+                        required
+                    ></mat-slider>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

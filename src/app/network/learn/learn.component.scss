@@ -2,4 +2,19 @@
 
 .learn__row {
     height: calc(100vh - #{$header-height});
+    position: relative;
+
+    & > div:nth-of-type(1) {
+        overflow: auto;
+    }
+
+    @media only screen and (min-width: 992px) {
+        & > div:nth-of-type(1) {
+            flex-grow: 1;
+            max-width: unset !important;
+        }
+        & > div:nth-of-type(2) {
+            max-width: 248px;
+        }
+    }
 }

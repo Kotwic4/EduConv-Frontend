@@ -14,11 +14,11 @@ const routes: Routes = [
                 component: HomeComponent,
             },
             {
-                path: 'model',
+                path: 'scheme',
                 component: ModelComponent,
             },
             {
-                path: 'learn/:id',
+                path: 'train/:id',
                 component: LearnComponent
             },
             {

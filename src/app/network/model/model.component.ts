@@ -69,7 +69,7 @@ export class ModelComponent implements OnInit, OnDestroy {
                     if (!this.processing && this.saving) {
                         this.toasterService.pop('success', '', 'Model successfully saved');
 
-                        this.router.navigate(['/learn', data.networkInUsageID]);
+                        this.router.navigate(['/train', data.networkInUsageID]);
                     }
                 }
             );

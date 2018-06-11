@@ -3,23 +3,23 @@
 <div class="container-fluid">
     <div class="row run__row">
         <div class="col-sm-3">
-            <app-input-layer [image]="image"></app-input-layer>
+            <app-input-layer [image]="network?.input"></app-input-layer>
         </div>
         <div class="col-sm-6">
-            <app-loader *ngIf="processing && !running"></app-loader>
+            <app-loader *ngIf="processing || !network"></app-loader>
             <app-hidden-layers
-                *ngIf="!processing || running"
+                *ngIf="network"
                 [readonly]="true"
-                [layers]="layers"
+                [layers]="network?.layers"
                 [images]="results?.neurons"
             ></app-hidden-layers>
         </div>
         <div class="col-sm-3">
-            <app-loader *ngIf="processing"></app-loader>
+            <app-loader *ngIf="processing || !network"></app-loader>
             <app-output-layer
-                *ngIf="(!processing || running) && labels"
+                *ngIf="network"
                 [results]="results?.classification"
-                [labels]="labels"
+                [labels]="network?.labels"
             ></app-output-layer>
         </div>
     </div>

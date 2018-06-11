@@ -3,15 +3,23 @@
 <div class="container-fluid">
     <div class="row learn__row">
         <div class="col-sm-8">
-            <app-loader *ngIf="processing"></app-loader>
+            <app-loader *ngIf="!layers"></app-loader>
             <app-hidden-layers
-                *ngIf="!processing || learning"
+                *ngIf="layers"
                 [layers]="layers"
                 [readonly]="true"
             ></app-hidden-layers>
         </div>
         <div class="col-sm-4">
-            Choose data set...
+            <app-loader *ngIf="!datasets || !learnSettings"></app-loader>
+            <app-learn-settings
+                *ngIf="datasets && learnSettings"
+                [datasets]="datasets"
+                [settings]="learnSettings"
+                (status)="onSettingsStatusChange($event)"
+                #learnSettingsComponent
+            ></app-learn-settings>
         </div>
+        <app-loader *ngIf="processing"></app-loader>
     </div>
 </div>

@@ -29,11 +29,12 @@ import { DropoutLayerComponent } from './shared/hidden-layers/hidden-layer/layer
 import { FlattenLayerComponent } from './shared/hidden-layers/hidden-layer/layers/flatten-layer/flatten-layer.component';
 import { MaxPooling2dLayerComponent } from './shared/hidden-layers/hidden-layer/layers/max-pooling2d-layer/max-pooling2d-layer.component';
 import {HiddenLayersService} from './shared/hidden-layers/hidden-layer/layers/hidden-layer.service';
-import {MatCheckboxModule, MatTabsModule} from '@angular/material';
+import {MatCheckboxModule, MatTabsModule, MatSliderModule} from '@angular/material';
 import { NeuronsCounterComponent } from './shared/hidden-layers/hidden-layer/neurons-counter/neurons-counter.component';
 import { LoaderComponent } from './shared/loader/loader.component';
 import { HiddenLayersPlaceholderComponent } from './shared/hidden-layers/hidden-layers-placeholder/hidden-layers-placeholder.component';
 import {Ng2ImgToolsModule} from 'ng2-img-tools';
+import { LearnSettingsComponent } from './learn/learn-settings/learn-settings.component';
 
 @NgModule({
     imports: [
@@ -49,7 +50,8 @@ import {Ng2ImgToolsModule} from 'ng2-img-tools';
         HttpClientModule,
         NgbModule,
         FormsModule,
-        Ng2ImgToolsModule
+        Ng2ImgToolsModule,
+        MatSliderModule
     ],
     declarations: [
         NetworkComponent,
@@ -72,7 +74,8 @@ import {Ng2ImgToolsModule} from 'ng2-img-tools';
         MaxPooling2dLayerComponent,
         NeuronsCounterComponent,
         LoaderComponent,
-        HiddenLayersPlaceholderComponent
+        HiddenLayersPlaceholderComponent,
+        LearnSettingsComponent
     ],
     providers: [
         HiddenLayersService,

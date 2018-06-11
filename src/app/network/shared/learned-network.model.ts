@@ -58,7 +58,7 @@ export class LearnedNetwork {
     }
 
     loadModel() {
-        const data = tf.loadModel(API_URL + 'model/' + this._id + '/model.json');
+        const data = tf.loadModel(API_URL + 'model/' + this._id + '/file/model.json');
 
         return data.then(
             (model: tf.Sequential) => {
@@ -135,7 +135,7 @@ export class LearnedNetwork {
             images.push(this.generateImage(out));
             inp = out;
         }
-      
+
         return new NetworkOutput(
             images,
             Array.from(out.dataSync())
