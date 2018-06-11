@@ -10,13 +10,12 @@ import {NetworkOutput} from '../shared/network-output.model';
 import {LearnedNetwork} from '../shared/learned-network.model';
 import * as fromApp from '../../store/app.reducers';
 import {API_URL} from '../network.consts';
-import {LearnNetwork} from './network.actions';
 import {of} from 'rxjs/observable/of';
 import {fromPromise} from 'rxjs/observable/fromPromise';
-import {ToasterService} from 'angular2-toaster';
 import {Router} from '@angular/router';
 import {Ng2ImgToolsService} from 'ng2-img-tools';
 import {LearnedNetworkInfo} from '../shared/learned-network-info.model';
+import {SnackBarService, SnackBarType} from '../shared/snack-bar.service';
 
 @Injectable()
 export class NetworkEffects {
@@ -251,12 +250,12 @@ export class NetworkEffects {
                 private httpClient: HttpClient,
                 private store: Store<fromApp.AppState>,
                 private router: Router,
-                private toasterService: ToasterService,
-                private ng2ImgToolsService: Ng2ImgToolsService
+                private ng2ImgToolsService: Ng2ImgToolsService,
+                private snackBarService: SnackBarService
     ) {}
 
     private defaultErrorStrategy(message, redirect = false) {
-        this.toasterService.pop('error', '', message);
+        this.snackBarService.open(SnackBarType.ERROR, message);
 
         if (redirect) {
             this.router.navigate(['']);

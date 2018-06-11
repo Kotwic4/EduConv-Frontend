@@ -1,13 +1,13 @@
-import {ChangeDetectionStrategy, Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Subscription} from 'rxjs/Subscription';
 import {ActivatedRoute, Router} from '@angular/router';
 import * as fromApp from '../../store/app.reducers';
 import {Store} from '@ngrx/store';
 import * as NetworkActions from '../store/network.actions';
 import {Conv2DLayer} from '../shared/hidden-layers/hidden-layer/layers/conv2d-layer/conv2d-layer.model';
-import {ToasterService} from 'angular2-toaster';
 import {HeaderControl} from '../header/header-control.interface';
 import {UnlearnedNetwork} from '../shared/unlearned-network.model';
+import {SnackBarService, SnackBarType} from '../shared/snack-bar.service';
 
 @Component({
     selector: 'app-model',
@@ -49,7 +49,7 @@ export class ModelComponent implements OnInit, OnDestroy {
         private store: Store<fromApp.AppState>,
         private route: ActivatedRoute,
         private router: Router,
-        private toasterService: ToasterService
+        private snackBarService: SnackBarService
     ) {
     }
 
@@ -67,7 +67,7 @@ export class ModelComponent implements OnInit, OnDestroy {
                     }
 
                     if (!this.processing && this.saving) {
-                        this.toasterService.pop('success', '', 'Model successfully saved');
+                        this.snackBarService.open(SnackBarType.SUCCESS, 'Model successfully saved');
 
                         this.router.navigate(['/train', data.networkInUsageID]);
                     }
