@@ -100,6 +100,18 @@
                 box-shadow: 0 0 10px $color-green;
             }
         }
+
+        &.square--unlearned {
+            border-color: $color-yellow;
+
+            .square__content {
+                background-color: $color-yellow;
+            }
+
+            &:hover {
+                box-shadow: 0 0 10px $color-yellow;
+            }
+        }
     }
 
     .unlearned-container {
