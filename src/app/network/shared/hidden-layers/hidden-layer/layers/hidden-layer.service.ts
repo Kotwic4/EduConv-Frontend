@@ -14,19 +14,19 @@ export class HiddenLayersService {
     }
 
     getInstance(type: HiddenLayerType) {
-        if (type == HiddenLayerType.Conv2D) {
+        if (type === HiddenLayerType.Conv2D) {
             return new Conv2DLayer();
         }
-        else if (type == HiddenLayerType.Dense) {
+        else if (type === HiddenLayerType.Dense) {
             return new DenseLayer();
         }
-        else if (type == HiddenLayerType.Dropout) {
+        else if (type === HiddenLayerType.Dropout) {
             return new DropoutLayer();
         }
-        else if (type == HiddenLayerType.Flatten) {
+        else if (type === HiddenLayerType.Flatten) {
             return new FlattenLayer();
         }
-        else if (type == HiddenLayerType.MaxPooling2D) {
+        else if (type === HiddenLayerType.MaxPooling2D) {
             return new MaxPooling2DLayer();
         }
         else {

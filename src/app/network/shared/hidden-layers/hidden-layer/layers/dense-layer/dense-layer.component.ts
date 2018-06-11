@@ -1,6 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {HiddenLayerActivationType} from '../hidden-layer-activation.enum';
-import {Conv2DLayerArgs} from '../conv2d-layer/conv2d-layer.model';
 import {NgForm} from '@angular/forms';
 import {Store} from '@ngrx/store';
 import * as fromApp from '../../../../../../store/app.reducers';
@@ -24,7 +23,8 @@ export class DenseLayerComponent implements OnInit {
 
 
     constructor(private store: Store<fromApp.AppState>) {
-        this.activation_types_names = Object.keys(HiddenLayerActivationType).filter(k => typeof HiddenLayerActivationType[k as any] === 'string');
+        this.activation_types_names =
+            Object.keys(HiddenLayerActivationType).filter(k => typeof HiddenLayerActivationType[k as any] === 'string');
         this.activation_types_values = this.activation_types_names.map(k => HiddenLayerActivationType[k as any]);
     }
 

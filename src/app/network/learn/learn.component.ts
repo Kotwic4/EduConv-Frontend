@@ -30,8 +30,8 @@ export class LearnComponent implements OnInit, OnDestroy {
                 this.learning = true;
                 this.store.dispatch(new NetworkActions.LearnNetwork(this.id));
             }.bind(this),
-            tooltip: "Learn",
-            icon: "fa-leanpub",
+            tooltip: 'Learn',
+            icon: 'fa-leanpub',
             disabled: () => {
                 return !this.learnSettingsValid || this.processing;
             }
@@ -74,7 +74,7 @@ export class LearnComponent implements OnInit, OnDestroy {
     }
 
     onSettingsStatusChange(status: string) {
-        this.learnSettingsValid = status === "VALID";
+        this.learnSettingsValid = status === 'VALID';
     }
 
     ngOnDestroy() {

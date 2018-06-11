@@ -72,7 +72,7 @@ export class UnlearnedNetwork {
         const type = this.hiddenLayersService.getTypeByName(layer.layer_name);
 
         if (type === null) {
-            throw new Error("Unrecognized layer type.");
+            throw new Error('Unrecognized layer type.');
         }
 
         const layerInfo = this.hiddenLayersService.getInstance(type);
