@@ -24,7 +24,8 @@ export class Conv2dLayerComponent implements OnInit {
 
 
     constructor(private store: Store<fromApp.AppState>) {
-        this.activation_types_names = Object.keys(HiddenLayerActivationType).filter(k => typeof HiddenLayerActivationType[k as any] === 'string');
+        this.activation_types_names =
+            Object.keys(HiddenLayerActivationType).filter(k => typeof HiddenLayerActivationType[k as any] === 'string');
         this.activation_types_values = this.activation_types_names.map(k => HiddenLayerActivationType[k as any]);
     }
 

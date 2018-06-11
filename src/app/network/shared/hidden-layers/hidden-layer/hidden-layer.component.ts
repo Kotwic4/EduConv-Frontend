@@ -16,11 +16,11 @@ import {HiddenLayersService} from './layers/hidden-layer.service';
 })
 export class HiddenLayerComponent implements OnInit {
     @ViewChild('p') popover;
-    @ViewChild("Conv2D") Conv2D;
-    @ViewChild("Dense") Dense;
-    @ViewChild("Dropout") Dropout;
-    @ViewChild("Flatten") Flatten;
-    @ViewChild("MaxPooling2D") MaxPooling2D;
+    @ViewChild('Conv2D') Conv2D;
+    @ViewChild('Dense') Dense;
+    @ViewChild('Dropout') Dropout;
+    @ViewChild('Flatten') Flatten;
+    @ViewChild('MaxPooling2D') MaxPooling2D;
 
     @Input() index: number;
     @Input() layer: HiddenLayer;

@@ -1,7 +1,6 @@
 import {Component, ElementRef, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import { Subject } from "rxjs/Subject";
-import "rxjs/add/operator/debounceTime";
-import "rxjs/add/operator/distinctUntilChanged";
+import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/distinctUntilChanged';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/observable/fromEvent';
 import 'rxjs/add/operator/map';
@@ -24,7 +23,7 @@ export class NeuronsCounterComponent implements OnInit {
             .distinctUntilChanged();
 
         eventStream.subscribe(input => {
-            this.onChange.emit(this.value)
+            this.onChange.emit(this.value);
         });
     }
 
@@ -32,7 +31,7 @@ export class NeuronsCounterComponent implements OnInit {
     }
 
     inc() {
-        if (!this.value && this.value != 0) {
+        if (!this.value && this.value !== 0) {
             this.value = 0;
         }
         else {
@@ -43,7 +42,7 @@ export class NeuronsCounterComponent implements OnInit {
     }
 
     dec() {
-        if (!this.value && this.value != 0) {
+        if (!this.value && this.value !== 0) {
             this.value = 0;
         }
         else {
@@ -63,6 +62,6 @@ export class NeuronsCounterComponent implements OnInit {
                 this.onChange.emit(this.value);
             },
             this.delay
-        )
+        );
     }
 }

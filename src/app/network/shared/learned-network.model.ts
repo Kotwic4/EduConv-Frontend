@@ -103,7 +103,7 @@ export class LearnedNetwork {
 
                 for (let i = 0; i < x; i++) {
                     for (let j = 0; j < y; j++) {
-                        const index = n + (i*z) + (j*z*x);
+                        const index = n + (i * z) + (j * z * x);
                         const value: any = data[index];
                         const color = (value - _min) / conf;
                         ctx.fillStyle = `rgb(${color},${color},${color})`;
@@ -159,7 +159,7 @@ export class LearnedNetwork {
         const type = this.hiddenLayersService.getTypeByName(trueName);
 
         if (type === null) {
-            throw new Error("Unrecognized layer type.");
+            throw new Error('Unrecognized layer type.');
         }
 
         let neurones = 0;

@@ -1,6 +1,6 @@
 export interface HeaderControl {
-    callback: Function,
-    icon: string,
-    tooltip?: string,
-    disabled?: Function,
+    callback: Function;
+    icon: string;
+    tooltip?: string;
+    disabled?: Function;
 }

@@ -50,7 +50,7 @@ export class NetworkEffects {
                                 };
 
                                 img.onerror = function() {
-                                    reject("Broken image");
+                                    reject('Broken image');
                                 };
                             };
 
@@ -78,7 +78,7 @@ export class NetworkEffects {
                 ([action, network]) => {
                     const layers = (<UnlearnedNetwork>network.networkInUsage).getRawLayers();
 
-                    return this.httpClient.post<{ id: number }>(API_URL + "scheme", {
+                    return this.httpClient.post<{ id: number }>(API_URL + 'scheme', {
                         layers
                     }).pipe(
                         map((result) => new NetworkActions.EndModelingNetwork(result.id)),
@@ -100,7 +100,7 @@ export class NetworkEffects {
                     return this.httpClient.get<any>(API_URL + `scheme/${action.payload}`).pipe(
                         map((result) => new NetworkActions.StartLearningNetwork(result.scheme_json.layers)),
                         catchError((error) => {
-                            this.defaultErrorStrategy("Model does not exist", true);
+                            this.defaultErrorStrategy('Model does not exist', true);
                             return of(new NetworkActions.EffectError(error));
                         })
                     );
@@ -143,7 +143,7 @@ export class NetworkEffects {
                     return fromPromise(learnedNetwork2.loadModel()).pipe(
                         map((result) => new NetworkActions.StartRunningNetwork(result)),
                         catchError((error) => {
-                            this.defaultErrorStrategy("Network does not exist", true);
+                            this.defaultErrorStrategy('Network does not exist', true);
                             return of(new NetworkActions.EffectError(error));
                         })
                     );
@@ -187,7 +187,7 @@ export class NetworkEffects {
                 }
             )
         );
-    
+
     @Effect()
     fetchAllUnlearnedNetwork = this.actions$
         .ofType(NetworkActions.FETCH_ALL_UNLEARNED_NETWORKS)
@@ -196,7 +196,7 @@ export class NetworkEffects {
                 (action: NetworkActions.FetchAllUnlearnedNetworks) => {
                     return this.httpClient.get<any[]>(API_URL + `scheme`).pipe(
                         map((results) => {
-                            let networks = results.map(
+                            const networks = results.map(
                                 (network) => {
                                     const unlearnedNetwork = new UnlearnedNetwork();
                                     unlearnedNetwork.setRawLayers(network.scheme_json.layers);
@@ -225,7 +225,7 @@ export class NetworkEffects {
                 (action: NetworkActions.FetchAllLearnedNetworks) => {
                     return this.httpClient.get<any[]>(API_URL + `model`).pipe(
                         map((results) => {
-                            let infos = results.map(
+                            const infos = results.map(
                                 (network) => {
                                     return new LearnedNetworkInfo(
                                         network.id,
