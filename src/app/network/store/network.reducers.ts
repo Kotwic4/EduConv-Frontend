@@ -194,6 +194,7 @@ export function networkReducer(state = initialState, action: NetworkActions.Netw
             return {
                 ...state,
                 datasets: action.payload
+            };
         case (NetworkActions.FETCH_ALL_UNLEARNED_NETWORKS):
             return {
                 ...state,
