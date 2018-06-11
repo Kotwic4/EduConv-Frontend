@@ -4,11 +4,6 @@ import {HiddenLayersService} from './hidden-layers/hidden-layer/layers/hidden-la
 export class UnlearnedNetwork {
     private _id;
     private _layers: HiddenLayer[] = [];
-    private hiddenLayersService: HiddenLayersService;
-
-    constructor() {
-        this.hiddenLayersService = new HiddenLayersService();
-    }
 
     get id() {
         return this._id;
@@ -69,13 +64,13 @@ export class UnlearnedNetwork {
     }
 
     private _getLayerInfo(layer) {
-        const type = this.hiddenLayersService.getTypeByName(layer.layer_name);
+        const type = HiddenLayersService.getTypeByName(layer.layer_name);
 
         if (type === null) {
             throw new Error('Unrecognized layer type.');
         }
 
-        const layerInfo = this.hiddenLayersService.getInstance(type);
+        const layerInfo = HiddenLayersService.getInstance(type);
         layerInfo.setArgs(layer.args);
 
         return layerInfo;

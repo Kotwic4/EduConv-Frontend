@@ -31,14 +31,13 @@ export class HiddenLayerComponent implements OnInit {
     types_values: number[];
     collapsed: boolean;
 
-    constructor(private store: Store<fromApp.AppState>,
-                private hiddenLayersService: HiddenLayersService) {
+    constructor(private store: Store<fromApp.AppState>) {
         this.types_names = Object.keys(HiddenLayerType).filter(k => typeof HiddenLayerType[k as any] === 'number');
         this.types_values = this.types_names.map(k => Number(HiddenLayerType[k as any]));
     }
 
     ngOnInit() {
-        this.layerType = this.hiddenLayersService.getType(this.layer);
+        this.layerType = HiddenLayersService.getType(this.layer);
         this.collapsed = this.readonly;
     }
 
@@ -49,7 +48,7 @@ export class HiddenLayerComponent implements OnInit {
     onTypeChange() {
         this.store.dispatch(new NetworkActions.HiddenLayerChangeType({
             index: this.index,
-            layer: this.hiddenLayersService.getInstance(this.layerType)
+            layer: HiddenLayersService.getInstance(this.layerType)
         }));
     }
 

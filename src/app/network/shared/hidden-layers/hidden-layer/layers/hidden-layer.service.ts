@@ -9,11 +9,7 @@ import {HiddenLayer} from './hidden-layer.model';
 
 @Injectable()
 export class HiddenLayersService {
-    constructor() {
-
-    }
-
-    getInstance(type: HiddenLayerType) {
+    static getInstance(type: HiddenLayerType) {
         if (type === HiddenLayerType.Conv2D) {
             return new Conv2DLayer();
         }
@@ -34,7 +30,7 @@ export class HiddenLayersService {
         }
     }
 
-    getType(layer: HiddenLayer): HiddenLayerType {
+    static getType(layer: HiddenLayer): HiddenLayerType {
         if (layer instanceof Conv2DLayer) {
             return HiddenLayerType.Conv2D;
         }
@@ -55,7 +51,7 @@ export class HiddenLayersService {
         }
     }
 
-    getTypeByName(name: string): HiddenLayerType {
+    static getTypeByName(name: string): HiddenLayerType {
         switch (name.toLowerCase()) {
             case 'conv2d':
                 return HiddenLayerType.Conv2D;
