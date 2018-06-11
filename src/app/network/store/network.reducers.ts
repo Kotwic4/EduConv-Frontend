@@ -4,6 +4,7 @@ import {NetworkOutput} from '../shared/network-output.model';
 import {LearnedNetwork} from '../shared/learned-network.model';
 import {HiddenLayer} from '../shared/hidden-layers/hidden-layer/layers/hidden-layer.model';
 import {LearnSettings} from '../learn/learn-settings/learn-settings.model';
+import {LearnedNetworkInfo} from '../shared/learned-network-info.model';
 
 export interface State {
     uploadedNetwork: String;
@@ -15,6 +16,8 @@ export interface State {
     id: number;
     datasets: string[];
     learnSettings: LearnSettings;
+    unlearnedNetworks: UnlearnedNetwork[];
+    learnedNetworks: LearnedNetworkInfo[];
 }
 
 const initialState: State = {
@@ -27,6 +30,8 @@ const initialState: State = {
     id: null,
     datasets: null,
     learnSettings: new LearnSettings("mnist", 1, 128),
+    unlearnedNetworks: null,
+    learnedNetworks: null,
 };
 
 
@@ -189,6 +194,25 @@ export function networkReducer(state = initialState, action: NetworkActions.Netw
             return {
                 ...state,
                 datasets: action.payload
+        case (NetworkActions.FETCH_ALL_UNLEARNED_NETWORKS):
+            return {
+                ...state,
+                unlearnedNetworks: null,
+            };
+        case (NetworkActions.FETCH_ALL_UNLEARNED_NETWORKS_SUCCESS):
+            return {
+                ...state,
+                unlearnedNetworks: action.payload,
+            };
+        case (NetworkActions.FETCH_ALL_LEARNED_NETWORKS):
+            return {
+                ...state,
+                learnedNetworks: null,
+            };
+        case (NetworkActions.FETCH_ALL_LEARNED_NETWORKS_SUCCESS):
+            return {
+                ...state,
+                learnedNetworks: action.payload,
             };
         case (NetworkActions.EFFECT_ERROR):
             return {
