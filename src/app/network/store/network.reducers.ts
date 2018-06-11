@@ -15,14 +15,13 @@ export interface State {
     processingError?: any;
     id?: number;
     datasets?: string[];
-    learnSettings: LearnSettings;
+    learnSettings?: LearnSettings;
     unlearnedNetworks?: UnlearnedNetwork[];
     learnedNetworks?: LearnedNetworkInfo[];
 }
 
 const initialState: State = {
     processing: false,
-    learnSettings: new LearnSettings('mnist', 1, 128),
 };
 
 
@@ -113,6 +112,7 @@ export function networkReducer(state = initialState, action: NetworkActions.Netw
                 networkInUsage: unlearnedNetwork,
                 processing: false,
                 id: null,
+                learnSettings: new LearnSettings('mnist', 1, 128),
             };
         case (NetworkActions.SET_LEARN_SETTINGS):
             return {
