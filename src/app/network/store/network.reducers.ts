@@ -7,31 +7,22 @@ import {LearnSettings} from '../learn/learn-settings/learn-settings.model';
 import {LearnedNetworkInfo} from '../shared/learned-network-info.model';
 
 export interface State {
-    uploadedNetwork: String;
-    networkInUsage: UnlearnedNetwork | LearnedNetwork;
-    networkInUsageID: number;
-    networkRunResult: NetworkOutput;
+    uploadedNetwork?: String;
+    networkInUsage?: UnlearnedNetwork | LearnedNetwork;
+    networkInUsageID?: number;
+    networkRunResult?: NetworkOutput;
     processing: boolean;
-    processingError: any;
-    id: number;
-    datasets: string[];
+    processingError?: any;
+    id?: number;
+    datasets?: string[];
     learnSettings: LearnSettings;
-    unlearnedNetworks: UnlearnedNetwork[];
-    learnedNetworks: LearnedNetworkInfo[];
+    unlearnedNetworks?: UnlearnedNetwork[];
+    learnedNetworks?: LearnedNetworkInfo[];
 }
 
 const initialState: State = {
-    uploadedNetwork: null,
-    networkInUsage: null,
-    networkInUsageID: null,
-    networkRunResult: null,
     processing: false,
-    processingError: null,
-    id: null,
-    datasets: null,
     learnSettings: new LearnSettings('mnist', 1, 128),
-    unlearnedNetworks: null,
-    learnedNetworks: null,
 };
 
 
