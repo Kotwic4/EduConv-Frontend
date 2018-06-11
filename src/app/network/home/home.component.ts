@@ -19,8 +19,7 @@ export class HomeComponent implements OnInit {
     public learnedNetworks: LearnedNetworkInfo[];
 
     constructor(
-        private store: Store<fromApp.AppState>,
-        private route: ActivatedRoute
+        private store: Store<fromApp.AppState>
     ) {
     }
 
