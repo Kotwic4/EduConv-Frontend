@@ -9,7 +9,7 @@ import {animate, state, style, transition, trigger} from '@angular/animations';
 @Component({
     selector: 'app-schemes',
     templateUrl: './schemes.component.html',
-    styleUrls: ['./schemes.component.scss', '../square.scss'],
+    styleUrls: ['./schemes.component.scss'],
     animations: [
         trigger('fadeInOut', [
             state('*' , style({ opacity: 1 })),

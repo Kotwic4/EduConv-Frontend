@@ -46,6 +46,7 @@ import {SnackBarService} from './shared/snack-bar.service';
 import { DeletionConfirmComponent } from './shared/hidden-layers/hidden-layer/layers/deletion-confirm/deletion-confirm.component';
 import { SchemesComponent } from './home/schemes/schemes.component';
 import { ModelsComponent } from './home/models/models.component';
+import { SquareComponent } from './home/square/square.component';
 
 @NgModule({
     imports: [
@@ -93,7 +94,8 @@ import { ModelsComponent } from './home/models/models.component';
         LearnSettingsComponent,
         DeletionConfirmComponent,
         SchemesComponent,
-        ModelsComponent
+        ModelsComponent,
+        SquareComponent
     ],
     providers: [
         HiddenLayersService,

@@ -3,33 +3,21 @@
     *ngIf="learnedNetworks"
     @fadeInOut
 >
-    <div
-        class="col-6 col-sm-4 col-md-3 col-lg-2 square-wrapper"
+    <app-square
         *ngFor="let network of learnedNetworks"
+        class="col-6 col-sm-4 col-md-3 col-lg-2"
+        [link]="['/run', network.id]"
+        [disabled]="network.epochsLearnt !== network.epochsToLearn"
+        [extraClass]="(network.epochsLearnt === network.epochsToLearn) ? 'square--learned' : 'square--learning'"
     >
-        <div
-            class="square"
-            [ngClass]="[(network.epochsLearnt === network.epochsToLearn) ? 'square--learned' : 'square--learning']"
-        >
-            <div
-                class="square__content"
-            >
-                <a
-                    class="square__link"
-                    [routerLink]="['/run', network.id]"
-                    [class.square__link--disabled]="network.epochsLearnt !== network.epochsToLearn"
-                >
-                    <span class="square__id">{{ network.id }}</span>
-                    <span class="square__dataset">{{ network.dataset }}</span>
-                    <span class="square__epochs">{{ network.epochsLearnt }} / {{ network.epochsToLearn }}</span>
-                    <span
-                        class="square__epochs-indicator"
-                        [style.width]="(network.epochsLearnt / network.epochsToLearn)*100 + '%'"
-                    ></span>
-                </a>
-            </div>
-        </div>
-    </div>
+        <span class="square__id">{{ network.id }}</span>
+        <span class="square__dataset">{{ network.dataset }}</span>
+        <span class="square__epochs">{{ network.epochsLearnt }} / {{ network.epochsToLearn }}</span>
+        <span
+            class="square__epochs-indicator"
+            [style.width]="(network.epochsLearnt / network.epochsToLearn)*100 + '%'"
+        ></span>
+    </app-square>
 </div>
 <app-loader
     *ngIf="!learnedNetworks"

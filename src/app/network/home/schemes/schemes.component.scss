@@ -1,0 +1,5 @@
+@import "../../../../variables.scss";
+
+::ng-deep .square--unlearned {
+    --square-color: #{$color-yellow + '!important'};
+}

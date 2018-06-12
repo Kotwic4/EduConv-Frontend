@@ -9,7 +9,7 @@ import {animate, state, style, transition, trigger} from '@angular/animations';
 @Component({
     selector: 'app-models',
     templateUrl: './models.component.html',
-    styleUrls: ['./models.component.scss', '../square.scss'],
+    styleUrls: ['./models.component.scss'],
     animations: [
         trigger('fadeInOut', [
             state('*' , style({ opacity: 1 })),

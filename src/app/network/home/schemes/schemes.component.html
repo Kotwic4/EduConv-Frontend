@@ -3,30 +3,23 @@
     *ngIf="unlearnedNetworks"
     @fadeInOut
 >
-    <div class="col-6 col-sm-4 col-md-3 col-lg-2 square-wrapper">
-        <div class="square">
-            <div class="square__content">
-                <a routerLink="/scheme" class="square__link">
-                    <span>
-                        <i class="fa fa-plus"></i>
-                    </span>
-                </a>
-            </div>
-        </div>
-    </div>
-
-    <div
-        class="col-6 col-sm-4 col-md-3 col-lg-2 square-wrapper"
-        *ngFor="let network of unlearnedNetworks"
+    <app-square
+        class="col-6 col-sm-4 col-md-3 col-lg-2"
+        [link]="['/scheme']"
     >
-        <div class="square square--unlearned">
-            <div class="square__content">
-                <a [routerLink]="['/train', network.id]" class="square__link">
-                    <span>{{ network.id }}</span>
-                </a>
-            </div>
-        </div>
-    </div>
+        <span>
+            <i class="fa fa-plus"></i>
+        </span>
+    </app-square>
+
+    <app-square
+        *ngFor="let network of unlearnedNetworks"
+        class="col-6 col-sm-4 col-md-3 col-lg-2 square-wrapper"
+        [link]="['/train', network.id]"
+        extraClass="square--unlearned"
+    >
+        <span>{{ network.id }}</span>
+    </app-square>
 </div>
 <app-loader
     *ngIf="!unlearnedNetworks"

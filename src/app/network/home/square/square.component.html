@@ -1,0 +1,14 @@
+<div
+    class="square"
+    [ngClass]="extraClass || ''"
+>
+    <div class="square__content">
+        <a
+            [routerLink]="link"
+            class="square__link"
+            [class.square__link--disabled]="disabled"
+        >
+            <ng-content></ng-content>
+        </a>
+    </div>
+</div>
