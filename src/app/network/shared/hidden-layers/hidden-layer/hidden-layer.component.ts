@@ -8,6 +8,8 @@ import {HiddenLayerType} from './layers/hidden-layer-type.enum';
 import {HiddenLayerChangeArgs, HiddenLayerRemove} from '../../../store/network.actions';
 import {HiddenLayer} from './layers/hidden-layer.model';
 import {HiddenLayersService} from './layers/hidden-layer.service';
+import {MatDialog} from '@angular/material';
+import {DeletionConfirmComponent} from './layers/deletion-confirm/deletion-confirm.component';
 
 @Component({
     selector: 'app-hidden-layer',
@@ -31,7 +33,10 @@ export class HiddenLayerComponent implements OnInit {
     types_values: number[];
     collapsed: boolean;
 
-    constructor(private store: Store<fromApp.AppState>) {
+    constructor(
+        private store: Store<fromApp.AppState>,
+        public dialog: MatDialog
+    ) {
         this.types_names = Object.keys(HiddenLayerType).filter(k => typeof HiddenLayerType[k as any] === 'number');
         this.types_values = this.types_names.map(k => Number(HiddenLayerType[k as any]));
     }
@@ -69,8 +74,16 @@ export class HiddenLayerComponent implements OnInit {
     }
 
     onDelete() {
-        this.popover.close();
-        this.store.dispatch(new HiddenLayerRemove(this.index));
+        const dialogRef = this.dialog.open(DeletionConfirmComponent, {
+            hasBackdrop: true
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+            if (result) {
+                this.popover.close();
+                this.store.dispatch(new HiddenLayerRemove(this.index));
+            }
+        });
     }
 
     getArgsComponent(name: string) {

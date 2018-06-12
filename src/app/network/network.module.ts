@@ -29,13 +29,21 @@ import { DropoutLayerComponent } from './shared/hidden-layers/hidden-layer/layer
 import { FlattenLayerComponent } from './shared/hidden-layers/hidden-layer/layers/flatten-layer/flatten-layer.component';
 import { MaxPooling2dLayerComponent } from './shared/hidden-layers/hidden-layer/layers/max-pooling2d-layer/max-pooling2d-layer.component';
 import {HiddenLayersService} from './shared/hidden-layers/hidden-layer/layers/hidden-layer.service';
-import {MatCheckboxModule, MatTabsModule, MatSliderModule, MatProgressSpinnerModule, MatSnackBarModule} from '@angular/material';
+import {
+    MatCheckboxModule,
+    MatTabsModule,
+    MatSliderModule,
+    MatProgressSpinnerModule,
+    MatSnackBarModule,
+    MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS, MatButtonModule
+} from '@angular/material';
 import { NeuronsCounterComponent } from './shared/hidden-layers/hidden-layer/neurons-counter/neurons-counter.component';
 import { LoaderComponent } from './shared/loader/loader.component';
 import { HiddenLayersPlaceholderComponent } from './shared/hidden-layers/hidden-layers-placeholder/hidden-layers-placeholder.component';
 import {Ng2ImgToolsModule} from 'ng2-img-tools';
 import { LearnSettingsComponent } from './learn/learn-settings/learn-settings.component';
 import {SnackBarService} from './shared/snack-bar.service';
+import { DeletionConfirmComponent } from './shared/hidden-layers/hidden-layer/layers/deletion-confirm/deletion-confirm.component';
 
 @NgModule({
     imports: [
@@ -54,7 +62,9 @@ import {SnackBarService} from './shared/snack-bar.service';
         NgbModule,
         FormsModule,
         Ng2ImgToolsModule,
-        MatSliderModule
+        MatSliderModule,
+        MatDialogModule,
+        MatButtonModule
     ],
     declarations: [
         NetworkComponent,
@@ -78,12 +88,15 @@ import {SnackBarService} from './shared/snack-bar.service';
         NeuronsCounterComponent,
         LoaderComponent,
         HiddenLayersPlaceholderComponent,
-        LearnSettingsComponent
+        LearnSettingsComponent,
+        DeletionConfirmComponent
     ],
     providers: [
         HiddenLayersService,
         SnackBarService,
-    ]
+        { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false} }
+    ],
+    entryComponents: [ DeletionConfirmComponent ],
 })
 export class NetworkModule {
 }
