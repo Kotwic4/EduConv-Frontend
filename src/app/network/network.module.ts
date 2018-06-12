@@ -44,6 +44,8 @@ import {Ng2ImgToolsModule} from 'ng2-img-tools';
 import { LearnSettingsComponent } from './learn/learn-settings/learn-settings.component';
 import {SnackBarService} from './shared/snack-bar.service';
 import { DeletionConfirmComponent } from './shared/hidden-layers/hidden-layer/layers/deletion-confirm/deletion-confirm.component';
+import { SchemesComponent } from './home/schemes/schemes.component';
+import { ModelsComponent } from './home/models/models.component';
 
 @NgModule({
     imports: [
@@ -89,7 +91,9 @@ import { DeletionConfirmComponent } from './shared/hidden-layers/hidden-layer/la
         LoaderComponent,
         HiddenLayersPlaceholderComponent,
         LearnSettingsComponent,
-        DeletionConfirmComponent
+        DeletionConfirmComponent,
+        SchemesComponent,
+        ModelsComponent
     ],
     providers: [
         HiddenLayersService,

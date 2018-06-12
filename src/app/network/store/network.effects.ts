@@ -99,7 +99,7 @@ export class NetworkEffects {
                     return this.httpClient.get<any>(API_URL + `scheme/${action.payload}`).pipe(
                         map((result) => new NetworkActions.StartLearningNetwork(result.scheme_json.layers)),
                         catchError((error) => {
-                            this.defaultErrorStrategy('Model does not exist', true);
+                            this.defaultErrorStrategy('Scheme does not exist', true, '/home/schemes');
                             return of(new NetworkActions.EffectError(error));
                         })
                     );
@@ -142,7 +142,7 @@ export class NetworkEffects {
                     return fromPromise(learnedNetwork2.loadModel()).pipe(
                         map((result) => new NetworkActions.StartRunningNetwork(result)),
                         catchError((error) => {
-                            this.defaultErrorStrategy('Network does not exist', true);
+                            this.defaultErrorStrategy('Model does not exist', true, '/home/models');
                             return of(new NetworkActions.EffectError(error));
                         })
                     );
@@ -254,11 +254,11 @@ export class NetworkEffects {
                 private snackBarService: SnackBarService
     ) {}
 
-    private defaultErrorStrategy(message, redirect = false) {
+    private defaultErrorStrategy(message, redirect = false, url = '') {
         this.snackBarService.open(SnackBarType.ERROR, message);
 
         if (redirect) {
-            this.router.navigate(['']);
+            this.router.navigate([url]);
         }
     }
 }

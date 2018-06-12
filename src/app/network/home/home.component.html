@@ -1,85 +1,19 @@
 <app-header></app-header>
 <div class="container-fluid home__container">
     <div class="row">
-        <mat-tab-group class="col-12" [dynamicHeight]="true">
-            <mat-tab label="Schemes">
-                <div
-                    class="container-fluid unlearned-container"
-                    *ngIf="unlearnedNetworks"
+        <div class="col-12">
+            <nav mat-tab-nav-bar>
+                <a
+                    mat-tab-link
+                    *ngFor="let link of LINKS"
+                    [routerLink]="link.path"
+                    routerLinkActive #rla="routerLinkActive"
+                    [active]="rla.isActive"
                 >
-                    <div class="row">
-                        <div class="col-6 col-sm-4 col-md-3 col-lg-2 square-wrapper">
-                            <div class="square">
-                                <div class="square__content">
-                                    <a routerLink="/scheme" class="square__link">
-                                        <span>
-                                            <i class="fa fa-plus"></i>
-                                        </span>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div
-                            class="col-6 col-sm-4 col-md-3 col-lg-2 square-wrapper"
-                            *ngFor="let network of unlearnedNetworks"
-                        >
-                            <div class="square square--unlearned">
-                                <div class="square__content">
-                                    <a [routerLink]="['/train', network.id]" class="square__link">
-                                        <span>{{ network.id }}</span>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <app-loader
-                    *ngIf="!unlearnedNetworks"
-                    [relative]="true"
-                ></app-loader>
-            </mat-tab>
-
-            <mat-tab label="Models">
-                <div
-                    class="container-fluid unlearned-container"
-                    *ngIf="learnedNetworks"
-                >
-                    <div class="row">
-                        <div
-                            class="col-6 col-sm-4 col-md-3 col-lg-2 square-wrapper"
-                            *ngFor="let network of learnedNetworks"
-                        >
-                            <div
-                                class="square"
-                                [ngClass]="[(network.epochsLearnt === network.epochsToLearn) ? 'square--learned' : 'square--learning']"
-                            >
-                                <div
-                                    class="square__content"
-                                >
-                                    <a
-                                        class="square__link"
-                                        [routerLink]="['/run', network.id]"
-                                        [class.square__link--disabled]="network.epochsLearnt !== network.epochsToLearn"
-                                    >
-                                        <span class="square__id">{{ network.id }}</span>
-                                        <span class="square__dataset">{{ network.dataset }}</span>
-                                        <span class="square__epochs">{{ network.epochsLearnt }} / {{ network.epochsToLearn }}</span>
-                                        <span
-                                            class="square__epochs-indicator"
-                                            [style.width]="(network.epochsLearnt / network.epochsToLearn)*100 + '%'"
-                                        ></span>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <app-loader
-                    *ngIf="!learnedNetworks"
-                    [relative]="true"
-                ></app-loader>
-            </mat-tab>
-        </mat-tab-group>
+                    {{link.label}}
+                </a>
+            </nav>
+            <router-outlet></router-outlet>
+        </div>
     </div>
 </div>

@@ -1,6 +1,7 @@
 <div
     class="loader__container"
     [ngClass]="relative ? 'loader__container--relative' : ''"
+    @fadeInOut
 >
     <mat-spinner [diameter]="64"></mat-spinner>
 </div>
