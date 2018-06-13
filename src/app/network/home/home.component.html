@@ -1,18 +1,19 @@
 <app-header></app-header>
-<div class="container-fluid home__container">
+
+<nav mat-tab-nav-bar>
+    <a
+        mat-tab-link
+        *ngFor="let link of LINKS"
+        [routerLink]="link.path"
+        routerLinkActive #rla="routerLinkActive"
+        [active]="rla.isActive"
+    >
+        {{link.label}}
+    </a>
+</nav>
+<div class="container-fluid">
     <div class="row">
         <div class="col-12">
-            <nav mat-tab-nav-bar>
-                <a
-                    mat-tab-link
-                    *ngFor="let link of LINKS"
-                    [routerLink]="link.path"
-                    routerLinkActive #rla="routerLinkActive"
-                    [active]="rla.isActive"
-                >
-                    {{link.label}}
-                </a>
-            </nav>
             <router-outlet></router-outlet>
         </div>
     </div>

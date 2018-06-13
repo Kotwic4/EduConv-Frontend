@@ -3,11 +3,12 @@
 .header__container-fluid {
     box-shadow: 0 0 20px lightgray;
     background-color: white;
-    position: relative;
+    position: fixed;
+    top: 0;
+    left: 0;
     z-index: 2;
 
     height: $header-height;
-    position: relative;
 
     .header__controls-container {
         position: absolute;

@@ -1,14 +1,18 @@
-.home__container {
-    nav {
-        margin-top: 15px;
-        margin-bottom: 15px;
+@import "../../../variables.scss";
 
-        a {
-            text-decoration: none;
-        }
-    }
+nav {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    position: sticky;
+    top: #{$header-height - 1px};
+    background-color: white;
+    z-index: 1;
 
-    ::ng-deep .mat-tab-header-pagination {
-        display: none !important;
+    a {
+        text-decoration: none;
     }
+}
+
+::ng-deep .mat-tab-header-pagination {
+    display: none !important;
 }
