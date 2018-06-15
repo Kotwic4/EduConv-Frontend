@@ -8,6 +8,7 @@ import {Conv2DLayer} from '../shared/hidden-layers/hidden-layer/layers/conv2d-la
 import {HeaderControl} from '../header/header-control.interface';
 import {UnlearnedNetwork} from '../shared/unlearned-network.model';
 import {SnackBarService, SnackBarType} from '../shared/snack-bar.service';
+import {HiddenLayer} from '../shared/hidden-layers/hidden-layer/layers/hidden-layer.model';
 
 @Component({
     selector: 'app-model',
@@ -18,7 +19,8 @@ export class ModelComponent implements OnInit, OnDestroy {
     private subscription: Subscription;
     public processing: boolean;
     public saving = false;
-    public layers = [];
+    public layers: HiddenLayer[];
+    public id: number;
 
     public controls: HeaderControl[] = [
         {
@@ -40,7 +42,7 @@ export class ModelComponent implements OnInit, OnDestroy {
             tooltip: 'Save',
             icon: 'fa-floppy-o',
             disabled: () => {
-                return (this.processing || this.layers.length === 0);
+                return (this.processing || !this.layers || this.layers.length === 0);
             }
         }
     ];
@@ -54,25 +56,42 @@ export class ModelComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.store.dispatch(new NetworkActions.StartModelingNetwork());
+        this.route.params.subscribe(
+            (params) => {
+                const id = Number(params['id']);
+                this.id = id;
 
-        this.subscription = this.store.select('network')
-            .subscribe(
-                data => {
-                    this.processing = data.processing;
+                if (id) {
+                    this.store.dispatch(new NetworkActions.FetchUnlearnedNetwork(id));
 
-                    const network = <UnlearnedNetwork>data.networkInUsage;
-                    if (network) {
-                        this.layers = network.layers;
-                    }
-
-                    if (!this.processing && this.saving) {
-                        this.snackBarService.open(SnackBarType.SUCCESS, 'Model successfully saved');
-
-                        this.router.navigate(['/train', data.networkInUsageID]);
-                    }
                 }
-            );
+                else {
+                    this.store.dispatch(new NetworkActions.StartModelingNetwork(new UnlearnedNetwork()));
+                }
+
+                this.subscription = this.store.select('network')
+                    .subscribe(
+                        data => {
+                            this.processing = data.processing;
+
+                            if (id && data.unlearnedNetwork && !data.networkInUsage) {
+                                this.store.dispatch(new NetworkActions.StartModelingNetwork(data.unlearnedNetwork));
+                            }
+
+                            const network = <UnlearnedNetwork>data.networkInUsage;
+                            if (network) {
+                                this.layers = network.layers;
+                            }
+
+                            if (!this.processing && this.saving) {
+                                this.snackBarService.open(SnackBarType.SUCCESS, 'Model successfully saved');
+
+                                this.router.navigate(['/train', data.networkInUsageID]);
+                            }
+                        }
+                    );
+            }
+        );
     }
 
     ngOnDestroy() {

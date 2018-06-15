@@ -5,6 +5,7 @@ import * as NetworkActions from '../../store/network.actions';
 import {UnlearnedNetwork} from '../../shared/unlearned-network.model';
 import {Subscription} from 'rxjs/Subscription';
 import {animate, state, style, transition, trigger} from '@angular/animations';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'app-schemes',
@@ -23,7 +24,8 @@ export class SchemesComponent implements OnInit {
     public unlearnedNetworks: UnlearnedNetwork[];
 
     constructor(
-        private store: Store<fromApp.AppState>
+        private store: Store<fromApp.AppState>,
+        private router: Router,
     ) {
     }
 
@@ -38,4 +40,9 @@ export class SchemesComponent implements OnInit {
             );
     }
 
+    addBaseOn(event, id: number) {
+        this.router.navigate(['/scheme', id]);
+
+        event.stopPropagation();
+    }
 }

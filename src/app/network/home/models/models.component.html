@@ -10,12 +10,13 @@
         [disabled]="network.epochsLearnt !== network.epochsToLearn"
         [extraClass]="(network.epochsLearnt === network.epochsToLearn) ? 'square--learned' : 'square--learning'"
     >
-        <span class="square__id">{{ network.id }}</span>
-        <span class="square__dataset">{{ network.dataset }}</span>
-        <span class="square__epochs">{{ network.epochsLearnt }} / {{ network.epochsToLearn }}</span>
+        <span class="square__id" square-link>{{ network.id }}</span>
+        <span class="square__dataset" square-link>{{ network.dataset }}</span>
+        <span class="square__epochs" square-link>{{ network.epochsLearnt }} / {{ network.epochsToLearn }}</span>
         <span
             class="square__epochs-indicator"
             [style.width]="(network.epochsLearnt / network.epochsToLearn)*100 + '%'"
+            square-link
         ></span>
     </app-square>
 </div>

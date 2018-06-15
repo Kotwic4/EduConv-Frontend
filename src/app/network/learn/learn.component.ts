@@ -59,6 +59,10 @@ export class LearnComponent implements OnInit, OnDestroy {
                             this.datasets = data.datasets;
                             this.learnSettings = data.learnSettings;
 
+                            if (data.unlearnedNetwork && !data.networkInUsage) {
+                                this.store.dispatch(new NetworkActions.StartLearningNetwork(data.unlearnedNetwork));
+                            }
+
                             const network = <UnlearnedNetwork>data.networkInUsage;
                             if (network) {
                                 this.layers = network.layers;

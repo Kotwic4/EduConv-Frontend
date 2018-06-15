@@ -31,6 +31,10 @@ const routes: Routes = [
                 component: ModelComponent,
             },
             {
+                path: 'scheme/:id',
+                component: ModelComponent,
+            },
+            {
                 path: 'train/:id',
                 component: LearnComponent
             },

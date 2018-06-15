@@ -8,9 +8,7 @@
         [link]="['/scheme']"
         extraClass="square--new-scheme"
     >
-        <span>
-            <i class="fa fa-plus"></i>
-        </span>
+        <span square-link><i class="fa fa-plus"></i></span>
     </app-square>
 
     <app-square
@@ -19,7 +17,18 @@
         [link]="['/train', network.id]"
         extraClass="square--unlearned"
     >
-        <span>{{ network.id }}</span>
+        <span square-link>{{ network.id }}</span>
+        <a
+            [routerLink]="['/scheme', network.id]"
+            class="square__duplicate"
+            matTooltip="Add on base"
+            square-action
+        >
+            <i
+                class="fa fa-pencil-square-o"
+                aria-hidden="true"
+            ></i>
+        </a>
     </app-square>
 </div>
 <app-loader

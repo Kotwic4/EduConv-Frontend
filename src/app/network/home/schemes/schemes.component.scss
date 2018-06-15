@@ -1,5 +1,15 @@
 @import "../../../../variables.scss";
 
+.square__duplicate {
+    position: absolute;
+    top: 0;
+    right: 5px;
+    font-size: 1.3vw;
+    cursor: pointer;
+    text-decoration: none;
+    color: white;
+}
+
 ::ng-deep .square--unlearned {
     #{--square-color}: $color-yellow !important;
 }
