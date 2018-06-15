@@ -33,7 +33,6 @@
 
         .hidden-layer__type-readonly-name {
             text-align: center;
-            font-size: 23px;
         }
     }
 
@@ -96,6 +95,7 @@
                 overflow: hidden;
                 text-overflow: ellipsis;
                 white-space: nowrap;
+                font-size: 23px;
             }
         }
 
