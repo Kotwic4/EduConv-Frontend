@@ -19,6 +19,8 @@ h4.layer-header {
 
 .popover {
     z-index: 999 !important;
+    font-family: $font-family !important;
+    font-size: 21px !important;
 
     &.bs-popover-bottom {
         margin-left: -3px;
