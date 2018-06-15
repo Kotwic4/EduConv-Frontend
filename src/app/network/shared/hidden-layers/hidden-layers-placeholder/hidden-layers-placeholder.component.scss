@@ -1,11 +1,13 @@
+@import './../../../../../variables.scss';
+
 .hidden-layers-placeholder__container {
     height: 100%;
     font-size: 25px;
     color: grey;
     text-shadow: 1px 1px 1px lightgrey;
-    font-family: "Brush Script MT", "Times New Roman";
 
     .fa {
         margin: 0 5px 0;
+        font-size: 17px;
     }
 }

@@ -23,9 +23,9 @@
 }
 
 ::ng-deep .square--learning {
-    --square-color: #{$color-orange + '!important'};
+    #{--square-color}: $color-orange !important;
 }
 
 ::ng-deep .square--learned {
-    --square-color: #{$color-green + '!important'};
+    #{--square-color}: $color-green !important;
 }

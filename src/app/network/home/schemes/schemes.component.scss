@@ -1,5 +1,9 @@
 @import "../../../../variables.scss";
 
 ::ng-deep .square--unlearned {
-    --square-color: #{$color-yellow + '!important'};
+    #{--square-color}: $color-yellow !important;
+}
+
+::ng-deep .square--new-scheme {
+    font-size: 2vw !important;
 }
