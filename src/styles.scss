@@ -17,6 +17,11 @@ h4.layer-header {
 
 .popover {
     z-index: 999 !important;
+
+    &.bs-popover-bottom {
+        margin-left: -3px;
+        margin-top: 13px;
+    }
 }
 
 .snack-bar--success {
