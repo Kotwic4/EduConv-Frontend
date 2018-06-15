@@ -101,7 +101,8 @@ export function networkReducer(state = initialState, action: NetworkActions.Netw
             };
         case (NetworkActions.FETCH_UNLEARNED_NETWORK):
             return {
-                ...state
+                ...state,
+                networkInUsage: null,
             };
         case (NetworkActions.START_LEARNING_NETWORK):
             const unlearnedNetwork = new UnlearnedNetwork();
