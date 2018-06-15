@@ -30,5 +30,9 @@
         .mat-slider-thumb-label-text {
             opacity: 1 !important;
         }
+
+        .mat-form-field-infix {
+            border-top: none !important;
+        }
     }
 }
