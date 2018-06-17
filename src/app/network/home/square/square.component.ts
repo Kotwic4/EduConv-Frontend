@@ -10,10 +10,6 @@ export class SquareComponent implements OnInit {
     @Input() public disabled: boolean;
     @Input() public extraClass: string | string[];
 
-
-    constructor() {
-    }
-
     ngOnInit() {
     }
 }

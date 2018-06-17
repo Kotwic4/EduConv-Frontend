@@ -103,21 +103,16 @@ export function networkReducer(state = initialState, action: NetworkActions.Netw
         case (NetworkActions.FETCH_UNLEARNED_NETWORK):
             return {
                 ...state,
-                unlearnedNetwork: null,
                 networkInUsage: null,
             };
         case (NetworkActions.FETCH_UNLEARNED_NETWORK_SUCCESS):
-            const unlearnedNetwork = new UnlearnedNetwork();
-            unlearnedNetwork.setRawLayers(action.payload);
-
             return {
                 ...state,
-                unlearnedNetwork: unlearnedNetwork,
+                networkInUsage: action.payload,
             };
         case (NetworkActions.START_LEARNING_NETWORK):
             return {
                 ...state,
-                networkInUsage: action.payload,
                 id: null,
                 learnSettings: new LearnSettings('mnist', 1, 128),
             };

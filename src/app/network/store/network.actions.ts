@@ -131,13 +131,11 @@ export class FetchUnlearnedNetwork implements Action {
 export class FetchUnlearnedNetworkSuccess implements Action {
     readonly type = FETCH_UNLEARNED_NETWORK_SUCCESS;
 
-    constructor(public payload: any[]) {}
+    constructor(public payload: UnlearnedNetwork) {}
 }
 
 export class StartLearningNetwork implements Action {
     readonly type = START_LEARNING_NETWORK;
-
-    constructor(public payload: UnlearnedNetwork) {}
 }
 
 export class SetLearnSettings implements Action {

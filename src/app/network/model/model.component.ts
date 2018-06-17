@@ -66,7 +66,7 @@ export class ModelComponent implements OnInit, OnDestroy {
 
                 }
                 else {
-                    this.store.dispatch(new NetworkActions.StartModelingNetwork(new UnlearnedNetwork()));
+                    this.store.dispatch(new NetworkActions.FetchUnlearnedNetworkSuccess(new UnlearnedNetwork()));
                 }
 
                 this.subscription = this.store.select('network')

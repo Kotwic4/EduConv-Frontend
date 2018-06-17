@@ -97,7 +97,12 @@ export class NetworkEffects {
             switchMap(
                 (action: NetworkActions.FetchUnlearnedNetwork) => {
                     return this.httpClient.get<any>(API_URL + `scheme/${action.payload}`).pipe(
-                        map((result) => new NetworkActions.FetchUnlearnedNetworkSuccess(result.scheme_json.layers)),
+                        map((result) => {
+                            const unlearnedNetwork = new UnlearnedNetwork();
+                            unlearnedNetwork.setRawLayers(result.scheme_json.layers);
+
+                            return new NetworkActions.FetchUnlearnedNetworkSuccess(unlearnedNetwork);
+                        }),
                         catchError((error) => {
                             this.defaultErrorStrategy('Scheme does not exist', true, '/home/schemes');
                             return of(new NetworkActions.EffectError(error));

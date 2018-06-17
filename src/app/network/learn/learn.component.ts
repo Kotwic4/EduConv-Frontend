@@ -51,6 +51,7 @@ export class LearnComponent implements OnInit, OnDestroy {
 
                 this.store.dispatch(new NetworkActions.FetchUnlearnedNetwork(this.id));
                 this.store.dispatch(new NetworkActions.FetchDatasets());
+                this.store.dispatch(new NetworkActions.StartLearningNetwork());
 
                 this.subscription = this.store.select('network')
                     .subscribe(
@@ -58,10 +59,6 @@ export class LearnComponent implements OnInit, OnDestroy {
                             this.processing = data.processing;
                             this.datasets = data.datasets;
                             this.learnSettings = data.learnSettings;
-
-                            if (data.unlearnedNetwork && !data.networkInUsage) {
-                                this.store.dispatch(new NetworkActions.StartLearningNetwork(data.unlearnedNetwork));
-                            }
 
                             const network = <UnlearnedNetwork>data.networkInUsage;
                             if (network) {
