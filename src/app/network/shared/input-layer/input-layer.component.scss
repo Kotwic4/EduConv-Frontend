@@ -2,5 +2,7 @@
 
 .input-layer__container {
     overflow: hidden;
-    height: calc(100% - #{$layer-header-height});
+    height: 100%;
+    padding-top: 15px;
+    padding-bottom: 15px;
 }

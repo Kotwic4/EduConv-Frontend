@@ -23,6 +23,8 @@ export const MODEL_NETWORK = 'MODEL_NETWORK';
 export const END_MODELING_NETWORK = 'END_MODELING_NETWORK';
 
 export const FETCH_UNLEARNED_NETWORK = 'FETCH_UNLEARNED_NETWORK';
+export const FETCH_UNLEARNED_NETWORK_SUCCESS = 'FETCH_UNLEARNED_NETWORK_SUCCESS';
+
 export const START_LEARNING_NETWORK = 'START_LEARNING_NETWORK';
 export const SET_LEARN_SETTINGS = 'SET_LEARN_SETTINGS';
 export const LEARN_NETWORK = 'LEARN_NETWORK';
@@ -106,6 +108,8 @@ export class HiddenLayerChangeArgs implements Action {
 
 export class StartModelingNetwork implements Action {
     readonly type = START_MODELING_NETWORK;
+
+    constructor(public payload: UnlearnedNetwork) {}
 }
 
 export class ModelNetwork implements Action {
@@ -124,10 +128,14 @@ export class FetchUnlearnedNetwork implements Action {
     constructor(public payload: number) {}
 }
 
+export class FetchUnlearnedNetworkSuccess implements Action {
+    readonly type = FETCH_UNLEARNED_NETWORK_SUCCESS;
+
+    constructor(public payload: UnlearnedNetwork) {}
+}
+
 export class StartLearningNetwork implements Action {
     readonly type = START_LEARNING_NETWORK;
-
-    constructor(public payload: {}[]) {}
 }
 
 export class SetLearnSettings implements Action {
@@ -220,6 +228,7 @@ export type NetworkActions =
     ModelNetwork |
     EndModelingNetwork |
     FetchUnlearnedNetwork |
+    FetchUnlearnedNetworkSuccess |
     StartLearningNetwork |
     SetLearnSettings |
     LearnNetwork |

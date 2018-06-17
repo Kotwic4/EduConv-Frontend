@@ -1,3 +1,5 @@
+@import '../../../../../../variables.scss';
+
 .neurone__container {
     $neurone-size: 50px;
 
@@ -13,9 +15,9 @@
 
     .neurone__index {
         position: absolute;
-        bottom: 2px;
+        bottom: 0;
         left: 5px;
-        font-size: 13px;
+        font-size: 16px;
 
         &.neurone__index--white {
             color: white;

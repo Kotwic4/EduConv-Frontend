@@ -1,0 +1,37 @@
+<div
+    class="row"
+    *ngIf="unlearnedNetworks"
+    @fadeInOut
+>
+    <app-square
+        class="col-6 col-sm-4 col-md-3 col-lg-2"
+        [link]="['/scheme']"
+        extraClass="square--new-scheme"
+    >
+        <span square-link><i class="fa fa-plus"></i></span>
+    </app-square>
+
+    <app-square
+        *ngFor="let network of unlearnedNetworks"
+        class="col-6 col-sm-4 col-md-3 col-lg-2 square-wrapper"
+        [link]="['/train', network.id]"
+        extraClass="square--unlearned"
+    >
+        <span square-link>{{ network.id }}</span>
+        <a
+            [routerLink]="['/scheme', network.id]"
+            class="square__duplicate"
+            matTooltip="Add on base"
+            square-action
+        >
+            <i
+                class="fa fa-pencil-square-o"
+                aria-hidden="true"
+            ></i>
+        </a>
+    </app-square>
+</div>
+<app-loader
+    *ngIf="!unlearnedNetworks"
+    [relative]="true"
+></app-loader>

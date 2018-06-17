@@ -51,6 +51,7 @@ export class LearnComponent implements OnInit, OnDestroy {
 
                 this.store.dispatch(new NetworkActions.FetchUnlearnedNetwork(this.id));
                 this.store.dispatch(new NetworkActions.FetchDatasets());
+                this.store.dispatch(new NetworkActions.StartLearningNetwork());
 
                 this.subscription = this.store.select('network')
                     .subscribe(

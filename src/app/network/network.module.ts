@@ -19,7 +19,7 @@ import { RunComponent } from './run/run.component';
 import {RouterModule} from '@angular/router';
 import {NetworkRoutingModule} from './network-routing.module';
 import { HomeComponent } from './home/home.component';
-import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import {HttpClientModule} from '@angular/common/http';
 import {BrowserModule} from '@angular/platform-browser';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {FormsModule} from '@angular/forms';
@@ -29,12 +29,24 @@ import { DropoutLayerComponent } from './shared/hidden-layers/hidden-layer/layer
 import { FlattenLayerComponent } from './shared/hidden-layers/hidden-layer/layers/flatten-layer/flatten-layer.component';
 import { MaxPooling2dLayerComponent } from './shared/hidden-layers/hidden-layer/layers/max-pooling2d-layer/max-pooling2d-layer.component';
 import {HiddenLayersService} from './shared/hidden-layers/hidden-layer/layers/hidden-layer.service';
-import {MatCheckboxModule, MatTabsModule, MatSliderModule} from '@angular/material';
+import {
+    MatCheckboxModule,
+    MatTabsModule,
+    MatSliderModule,
+    MatProgressSpinnerModule,
+    MatSnackBarModule,
+    MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS, MatButtonModule
+} from '@angular/material';
 import { NeuronsCounterComponent } from './shared/hidden-layers/hidden-layer/neurons-counter/neurons-counter.component';
 import { LoaderComponent } from './shared/loader/loader.component';
 import { HiddenLayersPlaceholderComponent } from './shared/hidden-layers/hidden-layers-placeholder/hidden-layers-placeholder.component';
 import {Ng2ImgToolsModule} from 'ng2-img-tools';
 import { LearnSettingsComponent } from './learn/learn-settings/learn-settings.component';
+import {SnackBarService} from './shared/snack-bar.service';
+import { DeletionConfirmComponent } from './shared/hidden-layers/hidden-layer/layers/deletion-confirm/deletion-confirm.component';
+import { SchemesComponent } from './home/schemes/schemes.component';
+import { ModelsComponent } from './home/models/models.component';
+import { SquareComponent } from './home/square/square.component';
 
 @NgModule({
     imports: [
@@ -45,13 +57,17 @@ import { LearnSettingsComponent } from './learn/learn-settings/learn-settings.co
         MatSelectModule,
         MatCheckboxModule,
         MatTabsModule,
+        MatProgressSpinnerModule,
+        MatSnackBarModule,
         RouterModule,
         NetworkRoutingModule,
         HttpClientModule,
         NgbModule,
         FormsModule,
         Ng2ImgToolsModule,
-        MatSliderModule
+        MatSliderModule,
+        MatDialogModule,
+        MatButtonModule
     ],
     declarations: [
         NetworkComponent,
@@ -75,11 +91,18 @@ import { LearnSettingsComponent } from './learn/learn-settings/learn-settings.co
         NeuronsCounterComponent,
         LoaderComponent,
         HiddenLayersPlaceholderComponent,
-        LearnSettingsComponent
+        LearnSettingsComponent,
+        DeletionConfirmComponent,
+        SchemesComponent,
+        ModelsComponent,
+        SquareComponent
     ],
     providers: [
         HiddenLayersService,
-    ]
+        SnackBarService,
+        { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false} }
+    ],
+    entryComponents: [ DeletionConfirmComponent ],
 })
 export class NetworkModule {
 }

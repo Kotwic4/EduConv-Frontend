@@ -3,12 +3,12 @@
 <div class="container-fluid">
     <div class="row model__row">
         <div class="col-sm-12">
-            <app-loader *ngIf="processing"></app-loader>
+            <app-loader *ngIf="processing || (id && !layers)"></app-loader>
             <app-hidden-layers
-                *ngIf="layers.length > 0"
+                *ngIf="layers && layers.length > 0"
                 [layers]="layers"
             ></app-hidden-layers>
-            <app-hidden-layers-placeholder *ngIf="layers.length === 0"></app-hidden-layers-placeholder>
+            <app-hidden-layers-placeholder *ngIf="layers && layers.length === 0"></app-hidden-layers-placeholder>
         </div>
     </div>
 </div>

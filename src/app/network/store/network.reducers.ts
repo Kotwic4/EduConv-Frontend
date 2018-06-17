@@ -7,31 +7,21 @@ import {LearnSettings} from '../learn/learn-settings/learn-settings.model';
 import {LearnedNetworkInfo} from '../shared/learned-network-info.model';
 
 export interface State {
-    uploadedNetwork: String;
-    networkInUsage: UnlearnedNetwork | LearnedNetwork;
-    networkInUsageID: number;
-    networkRunResult: NetworkOutput;
+    uploadedNetwork?: String;
+    networkInUsage?: UnlearnedNetwork | LearnedNetwork;
+    networkInUsageID?: number;
+    networkRunResult?: NetworkOutput;
     processing: boolean;
-    processingError: any;
-    id: number;
-    datasets: string[];
-    learnSettings: LearnSettings;
-    unlearnedNetworks: UnlearnedNetwork[];
-    learnedNetworks: LearnedNetworkInfo[];
+    processingError?: any;
+    id?: number;
+    datasets?: string[];
+    learnSettings?: LearnSettings;
+    unlearnedNetworks?: UnlearnedNetwork[];
+    learnedNetworks?: LearnedNetworkInfo[];
 }
 
 const initialState: State = {
-    uploadedNetwork: null,
-    networkInUsage: null,
-    networkInUsageID: null,
-    networkRunResult: null,
     processing: false,
-    processingError: null,
-    id: null,
-    datasets: null,
-    learnSettings: new LearnSettings('mnist', 1, 128),
-    unlearnedNetworks: null,
-    learnedNetworks: null,
 };
 
 
@@ -40,11 +30,6 @@ export function networkReducer(state = initialState, action: NetworkActions.Netw
     let layer: HiddenLayer;
 
     switch (action.type) {
-        // case (NetworkActions.NETWORK_UPLOAD):
-        //     return {
-        //         ...state,
-        //         uploadedNetwork: action.payload
-        //     };
         case (NetworkActions.NEURONE_CHANGE):
             networkInUsage = <UnlearnedNetwork>state.networkInUsage;
             layer = networkInUsage.layers[action.payload.index];
@@ -95,7 +80,7 @@ export function networkReducer(state = initialState, action: NetworkActions.Netw
         case (NetworkActions.START_MODELING_NETWORK):
             return {
                 ...state,
-                networkInUsage: new UnlearnedNetwork()
+                networkInUsage: action.payload,
             };
         case (NetworkActions.MODEL_NETWORK):
             return {
@@ -111,17 +96,19 @@ export function networkReducer(state = initialState, action: NetworkActions.Netw
             };
         case (NetworkActions.FETCH_UNLEARNED_NETWORK):
             return {
-                ...state
+                ...state,
+                networkInUsage: null,
             };
-        case (NetworkActions.START_LEARNING_NETWORK):
-            const unlearnedNetwork = new UnlearnedNetwork();
-            unlearnedNetwork.setRawLayers(action.payload);
-
+        case (NetworkActions.FETCH_UNLEARNED_NETWORK_SUCCESS):
             return {
                 ...state,
-                networkInUsage: unlearnedNetwork,
-                processing: false,
+                networkInUsage: action.payload,
+            };
+        case (NetworkActions.START_LEARNING_NETWORK):
+            return {
+                ...state,
                 id: null,
+                learnSettings: new LearnSettings('mnist', 1, 128),
             };
         case (NetworkActions.SET_LEARN_SETTINGS):
             return {

@@ -1,3 +1,5 @@
+@import '../../../../../variables.scss';
+
 .hidden-layer__container {
     $tools-height: 25px;
     $tools-min-width: 140px;
@@ -59,7 +61,7 @@
         position: absolute;
         top: 0;
         left: 2px;
-        font-size: 13px;
+        font-size: 16px;
     }
 
     .hidden-layer__tools {
@@ -87,6 +89,7 @@
                 overflow: hidden;
                 text-overflow: ellipsis;
                 white-space: nowrap;
+                font-size: 20px;
             }
         }
 
@@ -95,14 +98,13 @@
             width: $tools-settings-width;
             text-align: center;
             cursor: pointer;
-            margin-top: -2px;
             font-size: 14px;
         }
     }
 
     .hidden-layer__neurons-amount,
     .hidden-layer__no-neurons-info {
-        font-size: 16px;
+        font-size: 19px;
         position: absolute;
         margin-top: 20px;
 

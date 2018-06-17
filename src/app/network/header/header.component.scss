@@ -3,63 +3,62 @@
 .header__container-fluid {
     box-shadow: 0 0 20px lightgray;
     background-color: white;
-    position: relative;
+    position: fixed;
+    top: 0;
+    left: 0;
     z-index: 2;
 
-    .header__container {
+    height: $header-height;
+
+    .header__controls-container {
+        position: absolute;
+        top: 0;
+        right: 20px;
+        font-size: 30px;
         height: $header-height;
-        position: relative;
+        line-height: $header-height;
 
-        .header__controls-container {
-            position: absolute;
-            top: 0;
-            right: 0;
-            font-size: 30px;
-            height: $header-height;
-            line-height: $header-height;
+        .header__control-btn {
+            margin-left: 20px;
+            cursor: pointer;
+            user-select: none;
 
-            .header__control-btn {
-                margin-left: 20px;
-                cursor: pointer;
-                user-select: none;
-
-                &:first-child {
-                    margin-left: 0;
-                }
-
-                &.header__control-btn--disabled {
-                    color: lightgrey;
-                    cursor: default;
-                }
+            &:first-child {
+                margin-left: 0;
             }
 
-            .input-image__networkInput {
-                display: none;
+            &.header__control-btn--disabled {
+                color: lightgrey;
+                cursor: default;
             }
         }
 
-        .logo__container {
-            line-height: $header-height;
-            text-align: center;
-            margin: 0 auto;
-            font-size: 50px;
-            font-family: "Brush Script MT", "Times New Roman";
-            text-shadow: 0 0 10px white;
-            user-select: none;
+        .input-image__networkInput {
+            display: none;
+        }
+    }
 
-            .logo__link {
-                text-decoration: none;
-                cursor: pointer;
+    .logo__container {
+        line-height: $header-height;
+        text-align: center;
+        margin: 0 auto;
+        font-size: 70px;
+        text-shadow: 0 0 10px white;
+        user-select: none;
+        font-family: $font-family-logo;
 
-                .logo__edu {
-                    color: #f0642a;
-                    text-shadow: 1px 1px 4px #f0642a;
-                }
+        .logo__link {
+            text-decoration: none;
+            cursor: pointer;
 
-                .logo__conv {
-                    color: #a5a9ab;
-                    text-shadow: 1px 1px 4px #a5a9ab;
-                }
+            .logo__edu {
+                color: #f0642a;
+                text-shadow: 1px 1px 4px #f0642a;
+            }
+
+            .logo__conv {
+                color: #a5a9ab;
+                text-shadow: 1px 1px 4px #a5a9ab;
             }
         }
     }

@@ -1,0 +1,26 @@
+<div
+    class="row"
+    *ngIf="learnedNetworks"
+    @fadeInOut
+>
+    <app-square
+        *ngFor="let network of learnedNetworks"
+        class="col-6 col-sm-4 col-md-3 col-lg-2"
+        [link]="['/run', network.id]"
+        [disabled]="network.epochsLearnt !== network.epochsToLearn"
+        [extraClass]="(network.epochsLearnt === network.epochsToLearn) ? 'square--learned' : 'square--learning'"
+    >
+        <span class="square__id" square-link>{{ network.id }}</span>
+        <span class="square__dataset" square-link>{{ network.dataset }}</span>
+        <span class="square__epochs" square-link>{{ network.epochsLearnt }} / {{ network.epochsToLearn }}</span>
+        <span
+            class="square__epochs-indicator"
+            [style.width]="(network.epochsLearnt / network.epochsToLearn)*100 + '%'"
+            square-link
+        ></span>
+    </app-square>
+</div>
+<app-loader
+    *ngIf="!learnedNetworks"
+    [relative]="true"
+></app-loader>

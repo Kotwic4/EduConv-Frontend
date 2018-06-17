@@ -1,90 +1,21 @@
 <div class="container-fluid header__container-fluid">
-    <div class="container header__container">
-        <div class="header__controls-container">
-            <i
-                *ngFor="let control of controls"
-                (click)="(!control.disabled || !control.disabled()) && control.callback()"
-                [matTooltip]="control.tooltip"
-                matTooltipPosition="below"
-                class="fa header__control-btn"
-                [ngClass]="[
-                    control.icon,
-                    (control.disabled && control.disabled()) ? 'header__control-btn--disabled': ''
-                ]"
-            ></i>
+    <div class="header__controls-container">
+        <i
+            *ngFor="let control of controls"
+            (click)="(!control.disabled || !control.disabled()) && control.callback()"
+            [matTooltip]="control.tooltip"
+            matTooltipPosition="below"
+            class="fa header__control-btn"
+            [ngClass]="[
+                control.icon,
+                (control.disabled && control.disabled()) ? 'header__control-btn--disabled': ''
+            ]"
+        ></i>
+    </div>
 
-            <!--<i-->
-                <!--*ngIf="controls?.onLayerAdd"-->
-                <!--(click)="!controls?.layerAddDisabled && controls?.onLayerAdd()"-->
-                <!--matTooltip="Add layer"-->
-                <!--matTooltipPosition="below"-->
-                <!--class="fa fa-plus-square-o header__control-btn"-->
-                <!--[ngClass]="controls?.layerAddDisabled ? 'header__control-btn&#45;&#45;disabled' : ''"-->
-            <!--&gt;</i>-->
-            <!--<i-->
-                <!--*ngIf="controls?.onSave"-->
-                <!--(click)="!controls?.saveDisabled && controls?.onSave()"-->
-                <!--matTooltip="Save"-->
-                <!--matTooltipPosition="below"-->
-                <!--class="fa fa-floppy-o header__control-btn"-->
-                <!--[ngClass]="controls?.saveDisabled ? 'header__control-btn&#45;&#45;disabled' : ''"-->
-            <!--&gt;</i>-->
-
-            <!--<i-->
-                <!--*ngIf="controls?.onLearn"-->
-                <!--(click)="!controls?.learnDisabled && controls?.onLearn()"-->
-                <!--matTooltip="Learn"-->
-                <!--matTooltipPosition="below"-->
-                <!--class="fa fa-leanpub header__control-btn"-->
-                <!--[ngClass]="controls?.learnDisabled ? 'header__control-btn&#45;&#45;disabled' : ''"-->
-            <!--&gt;</i>-->
-
-            <!--<i-->
-                <!--*ngIf="controls?.onRun"-->
-                <!--(click)="!controls?.runDisabled && controls?.onRun()"-->
-                <!--matTooltip="Run"-->
-                <!--matTooltipPosition="below"-->
-                <!--class="fa fa-play header__control-btn"-->
-                <!--[ngClass]="controls?.runDisabled ? 'header__control-btn&#45;&#45;disabled' : ''"-->
-            <!--&gt;</i>-->
-        </div>
-
-        <div class="logo__container">
-            <a routerLink="/home" class="logo__link">
-                <span class="logo__edu">Edu</span><span class="logo__conv">Conv</span>
-            </a>
-        </div>
-
-        <!--<span-->
-        <!--*ngIf="controls?.upload"-->
-        <!--class="header__upload"-->
-        <!--(click)="networkInput.click()"-->
-        <!--&gt;-->
-        <!--<i-->
-        <!--matTooltip="Upload model"-->
-        <!--matTooltipPosition="below"-->
-        <!--matTooltipClass="header__tooltip"-->
-        <!--class="fa fa-cloud-upload"></i>-->
-        <!--</span>-->
-
-        <!--<input-->
-        <!--*ngIf="controls?.upload"-->
-        <!--type="file"-->
-        <!--class="input-image__networkInput"-->
-        <!--(change)="onNetworkChange($event)"-->
-        <!--#networkInput-->
-        <!--&gt;-->
-
-        <!--<span-->
-        <!--*ngIf="controls?.download"-->
-        <!--class="header__download"-->
-        <!--(click)="downloadNetwork()"-->
-        <!--&gt;-->
-        <!--<i-->
-        <!--matTooltip="Download model"-->
-        <!--matTooltipPosition="below"-->
-        <!--matTooltipClass="header__tooltip"-->
-        <!--class="fa fa-cloud-download"></i>-->
-        <!--</span>-->
+    <div class="logo__container">
+        <a routerLink="/home" class="logo__link">
+            <span class="logo__edu">Edu</span><span class="logo__conv">Conv</span>
+        </a>
     </div>
 </div>

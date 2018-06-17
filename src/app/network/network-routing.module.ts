@@ -5,6 +5,8 @@ import {LearnComponent} from './learn/learn.component';
 import {RunComponent} from './run/run.component';
 import {HomeComponent} from './home/home.component';
 import {NetworkComponent} from './network.component';
+import {ModelsComponent} from './home/models/models.component';
+import {SchemesComponent} from './home/schemes/schemes.component';
 
 const routes: Routes = [
     {
@@ -12,9 +14,24 @@ const routes: Routes = [
             {
                 path: 'home',
                 component: HomeComponent,
+                children: [
+                    {
+                        path: 'schemes',
+                        component: SchemesComponent
+                    },
+                    {
+                        path: 'models',
+                        component: ModelsComponent
+                    },
+                    { path: '', redirectTo: 'schemes', pathMatch: 'full' }
+                ]
             },
             {
                 path: 'scheme',
+                component: ModelComponent,
+            },
+            {
+                path: 'scheme/:id',
                 component: ModelComponent,
             },
             {

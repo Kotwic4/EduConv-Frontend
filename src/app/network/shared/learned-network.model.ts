@@ -11,11 +11,6 @@ export class LearnedNetwork {
     private _inputShape = [-1, 28, 28, 1];
     private _input;
     private _model: tf.Sequential;
-    private hiddenLayersService: HiddenLayersService;
-
-    constructor() {
-        this.hiddenLayersService = new HiddenLayersService();
-    }
 
     get id() {
         return this._id;
@@ -156,7 +151,7 @@ export class LearnedNetwork {
 
     private _getLayerInfo(layer) {
         const trueName = layer.name.split('_').slice(0, layer.name.split('_').length - 1).join('');
-        const type = this.hiddenLayersService.getTypeByName(trueName);
+        const type = HiddenLayersService.getTypeByName(trueName);
 
         if (type === null) {
             throw new Error('Unrecognized layer type.');
@@ -167,7 +162,7 @@ export class LearnedNetwork {
             neurones = layer.output.shape.slice(-1)[0];
         }
 
-        const layerInfo = this.hiddenLayersService.getInstance(type);
+        const layerInfo = HiddenLayersService.getInstance(type);
         layerInfo.setNeurons(neurones);
         layerInfo.setHaveNeurons(true);
 

@@ -4,5 +4,7 @@
     white-space: nowrap;
     overflow-y: hidden;
     overflow-x: auto;
-    height: calc(100vh - #{$header-height} - #{$layer-header-height});
+    height: calc(100vh - #{$header-height});
+    padding-top: 15px;
+    padding-bottom: 15px;
 }

@@ -10,13 +10,12 @@ import {NetworkOutput} from '../shared/network-output.model';
 import {LearnedNetwork} from '../shared/learned-network.model';
 import * as fromApp from '../../store/app.reducers';
 import {API_URL} from '../network.consts';
-import {LearnNetwork} from './network.actions';
 import {of} from 'rxjs/observable/of';
 import {fromPromise} from 'rxjs/observable/fromPromise';
-import {ToasterService} from 'angular2-toaster';
 import {Router} from '@angular/router';
 import {Ng2ImgToolsService} from 'ng2-img-tools';
 import {LearnedNetworkInfo} from '../shared/learned-network-info.model';
+import {SnackBarService, SnackBarType} from '../shared/snack-bar.service';
 
 @Injectable()
 export class NetworkEffects {
@@ -98,9 +97,14 @@ export class NetworkEffects {
             switchMap(
                 (action: NetworkActions.FetchUnlearnedNetwork) => {
                     return this.httpClient.get<any>(API_URL + `scheme/${action.payload}`).pipe(
-                        map((result) => new NetworkActions.StartLearningNetwork(result.scheme_json.layers)),
+                        map((result) => {
+                            const unlearnedNetwork = new UnlearnedNetwork();
+                            unlearnedNetwork.setRawLayers(result.scheme_json.layers);
+
+                            return new NetworkActions.FetchUnlearnedNetworkSuccess(unlearnedNetwork);
+                        }),
                         catchError((error) => {
-                            this.defaultErrorStrategy('Model does not exist', true);
+                            this.defaultErrorStrategy('Scheme does not exist', true, '/home/schemes');
                             return of(new NetworkActions.EffectError(error));
                         })
                     );
@@ -143,7 +147,7 @@ export class NetworkEffects {
                     return fromPromise(learnedNetwork2.loadModel()).pipe(
                         map((result) => new NetworkActions.StartRunningNetwork(result)),
                         catchError((error) => {
-                            this.defaultErrorStrategy('Network does not exist', true);
+                            this.defaultErrorStrategy('Model does not exist', true, '/home/models');
                             return of(new NetworkActions.EffectError(error));
                         })
                     );
@@ -251,15 +255,15 @@ export class NetworkEffects {
                 private httpClient: HttpClient,
                 private store: Store<fromApp.AppState>,
                 private router: Router,
-                private toasterService: ToasterService,
-                private ng2ImgToolsService: Ng2ImgToolsService
+                private ng2ImgToolsService: Ng2ImgToolsService,
+                private snackBarService: SnackBarService
     ) {}
 
-    private defaultErrorStrategy(message, redirect = false) {
-        this.toasterService.pop('error', '', message);
+    private defaultErrorStrategy(message, redirect = false, url = '') {
+        this.snackBarService.open(SnackBarType.ERROR, message);
 
         if (redirect) {
-            this.router.navigate(['']);
+            this.router.navigate([url]);
         }
     }
 }

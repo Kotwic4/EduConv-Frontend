@@ -1,3 +1,5 @@
+@import '../../../../../../variables.scss';
+
 .counter__container {
     width: 50px;
     height: 50px;
@@ -19,7 +21,7 @@
 
         &.counter__btn--inc {
             border-radius: 2px 2px 0 0;
-            line-height: 10px;
+            line-height: 13px;
         }
 
         &.counter__btn--dec {
@@ -47,7 +49,7 @@
         border-right: 1px solid;
         float: left;
         text-align: center;
-        font-size: 14px;
+        font-size: 16px;
 
         &::-webkit-inner-spin-button,
         &::-webkit-outer-spin-button {

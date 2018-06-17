@@ -1,9 +1,12 @@
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
-@import '../node_modules/angular2-toaster/src/toaster';
+@import 'variables.scss';
+@import url('https://fonts.googleapis.com/css?family=Nanum+Brush+Script');
 
 /* You can add global styles to this file, and also import other style files */
 body {
     min-width: 400px;
+    padding-top: $header-height;
+    font-family: $font-family !important;
 }
 
 h4.layer-header {
@@ -11,9 +14,35 @@ h4.layer-header {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    font-family: "Brush Script MT", "Times New Roman";
 }
 
 .popover {
     z-index: 999 !important;
+    font-family: $font-family !important;
+
+    &.bs-popover-bottom {
+        margin-left: -3px;
+        margin-top: 13px;
+    }
+}
+
+.snack-bar--success {
+    background-color: $color-green;
+}
+
+.snack-bar--warning {
+    background-color: $color-yellow;
+}
+
+.snack-bar--error {
+    background-color: $color-red;
+}
+
+.snack-bar--info {
+    background-color: $color-blue;
+}
+
+mat-select,
+mat-option {
+    font-family: $font-family !important;
 }
