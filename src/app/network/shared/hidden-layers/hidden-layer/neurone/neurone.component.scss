@@ -22,12 +22,6 @@
         &.neurone__index--white {
             color: white;
         }
-
-        &:after {
-            content: '.';
-            top: -3px;
-            position: absolute;
-        }
     }
 
     .neurone__image {

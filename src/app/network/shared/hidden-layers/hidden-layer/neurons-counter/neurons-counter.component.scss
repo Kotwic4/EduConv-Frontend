@@ -18,14 +18,15 @@
         font-size: 17px;
         border: 1px solid;
         user-select: none;
-        line-height: 13px;
 
         &.counter__btn--inc {
             border-radius: 2px 2px 0 0;
+            line-height: 13px;
         }
 
         &.counter__btn--dec {
             border-radius: 0 0 2px 2px;
+            line-height: 11px;
         }
 
         &.counter__btn--disabled {
