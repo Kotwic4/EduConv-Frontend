@@ -74,9 +74,9 @@ export class ModelComponent implements OnInit, OnDestroy {
                         data => {
                             this.processing = data.processing;
 
-                            if (id && data.unlearnedNetwork && !data.networkInUsage) {
-                                this.store.dispatch(new NetworkActions.StartModelingNetwork(data.unlearnedNetwork));
-                            }
+                            // if (id && data.unlearnedNetwork && !data.networkInUsage) {
+                            //     this.store.dispatch(new NetworkActions.StartModelingNetwork(data.unlearnedNetwork));
+                            // }
 
                             const network = <UnlearnedNetwork>data.networkInUsage;
                             if (network) {

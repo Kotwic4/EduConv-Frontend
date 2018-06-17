@@ -17,7 +17,6 @@ export interface State {
     datasets?: string[];
     learnSettings?: LearnSettings;
     unlearnedNetworks?: UnlearnedNetwork[];
-    unlearnedNetwork?: UnlearnedNetwork;
     learnedNetworks?: LearnedNetworkInfo[];
 }
 
@@ -31,11 +30,6 @@ export function networkReducer(state = initialState, action: NetworkActions.Netw
     let layer: HiddenLayer;
 
     switch (action.type) {
-        // case (NetworkActions.NETWORK_UPLOAD):
-        //     return {
-        //         ...state,
-        //         uploadedNetwork: action.payload
-        //     };
         case (NetworkActions.NEURONE_CHANGE):
             networkInUsage = <UnlearnedNetwork>state.networkInUsage;
             layer = networkInUsage.layers[action.payload.index];
