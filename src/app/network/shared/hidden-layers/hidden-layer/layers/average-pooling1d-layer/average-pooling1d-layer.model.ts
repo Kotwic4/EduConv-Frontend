@@ -1,4 +1,4 @@
-import {HiddenLayer} from './hidden-layer.model';
+import {HiddenLayer} from '../hidden-layer.model';
 
 export interface AveragePooling1DLayerArgs {
     pool_size?: number;
