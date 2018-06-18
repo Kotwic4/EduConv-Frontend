@@ -28,6 +28,8 @@ export class HiddenLayerComponent implements OnInit {
     @Input() layer: HiddenLayer;
     @Input() images: string[];
     @Input() readonly;
+    @Input() beforeFlatten: boolean;
+
     layerType: HiddenLayerType;
     types_names: string[];
     types_values: number[];
@@ -95,5 +97,9 @@ export class HiddenLayerComponent implements OnInit {
             index: this.index,
             amount: value || 0
         }));
+    }
+
+    getNeuronsName() {
+        return this.beforeFlatten ? 'volumens' : 'neurons';
     }
 }

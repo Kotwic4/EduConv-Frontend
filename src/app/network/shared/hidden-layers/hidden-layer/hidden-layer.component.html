@@ -63,11 +63,12 @@
             ></app-neurone>
         </ng-container>
         <div *ngIf="readonly && collapsed" class="hidden-layer__neurons-amount">
-            <span class="hidden-layer__neurons-amount-digits">{{ layer.getNeurons() | number }}</span> neurons
+            <span class="hidden-layer__neurons-amount-digits">{{ layer.getNeurons() | number }}</span>
+            {{ getNeuronsName() }}
         </div>
     </ng-container>
     <div *ngIf="!layer.haveNeurons()" class="hidden-layer__no-neurons-info">
-        No neurons
+        No {{ getNeuronsName() }}
     </div>
 </div>
 
