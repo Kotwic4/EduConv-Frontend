@@ -1,4 +1,4 @@
-import {Component, DoCheck, Input, IterableDiffers, OnChanges, OnInit, SimpleChange, SimpleChanges} from '@angular/core';
+import {Component, DoCheck, Input, IterableDiffers} from '@angular/core';
 import {HiddenLayersService} from './hidden-layer/layers/hidden-layer.service';
 import {HiddenLayerType} from './hidden-layer/layers/hidden-layer-type.enum';
 
