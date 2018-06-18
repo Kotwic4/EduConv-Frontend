@@ -25,7 +25,8 @@ export class InputLayerComponent implements OnInit {
             () => {
                 this.confForm.setValue({
                     input_shapeX: this.layer.args.input_shape[0],
-                    input_shapeY: this.layer.args.input_shape[1]
+                    input_shapeY: this.layer.args.input_shape[1],
+                    input_shapeZ: this.layer.args.input_shape[2]
                 });
             }
         );
@@ -33,7 +34,7 @@ export class InputLayerComponent implements OnInit {
 
     onSubmit(form: NgForm) {
         const args: InputLayerArgs = {
-            input_shape: [form.value.input_shapeX, form.value.input_shapeY],
+            input_shape: [form.value.input_shapeX, form.value.input_shapeY, form.value.input_shapeZ],
         };
 
         this.onSave.emit(args);

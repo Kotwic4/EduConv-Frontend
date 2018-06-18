@@ -27,6 +27,18 @@
                 #input_shapeY
             >
         </div>
+        <div class="col-sm-6 form-group">
+            <input
+                type="number"
+                class="form-control"
+                name="input_shapeZ"
+                min="0"
+                ngModel
+                [required]="!!(input_shapeX.value && input_shapeX.value !== '')"
+                [disabled]="readonly"
+                #input_shapeZ
+            >
+        </div>
     </div>
 
     <div class="row" *ngIf="!readonly">
