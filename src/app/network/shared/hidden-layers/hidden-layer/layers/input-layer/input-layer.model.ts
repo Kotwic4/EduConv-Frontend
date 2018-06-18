@@ -1,4 +1,4 @@
-import {HiddenLayer} from './hidden-layer.model';
+import {HiddenLayer} from '../hidden-layer.model';
 
 export interface InputLayerArgs {
     input_shape?: [number, number, number];

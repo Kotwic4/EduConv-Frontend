@@ -1,0 +1,41 @@
+<form (ngSubmit)="onSubmit(f)" #f="ngForm">
+    <div class="row">
+        <div class="col-sm-12">
+            <label>Input Shape</label>
+        </div>
+        <div class="col-sm-6 form-group">
+            <input
+                type="number"
+                class="form-control"
+                name="input_shapeX"
+                min="0"
+                ngModel
+                [required]="!!(input_shapeY.value && input_shapeY.value !== '')"
+                [disabled]="readonly"
+                #poolX
+            >
+        </div>
+        <div class="col-sm-6 form-group">
+            <input
+                type="number"
+                class="form-control"
+                name="input_shapeY"
+                min="0"
+                ngModel
+                [required]="!!(input_shapeX.value && input_shapeX.value !== '')"
+                [disabled]="readonly"
+                #poolY
+            >
+        </div>
+    </div>
+
+    <div class="row" *ngIf="!readonly">
+        <div class="col-sm-12">
+            <div class="btn-group d-flex">
+                <button class="btn btn-primary w-100" type="submit" [disabled]="f.invalid">Save</button>
+                <button class="btn btn-light w-100" type="button" (click)="onCancel.emit()">Cancel</button>
+                <button class="btn btn-danger w-100" type="button" (click)="onDelete.emit()">Delete</button>
+            </div>
+        </div>
+    </div>
+</form>
