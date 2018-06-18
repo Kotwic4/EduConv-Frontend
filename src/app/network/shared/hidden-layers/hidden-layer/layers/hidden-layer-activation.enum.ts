@@ -3,6 +3,5 @@ export enum HiddenLayerActivationType {
     RELU = 'relu',
     ELU = 'elu',
     TANH = 'tanh',
-    LINEAR = 'linear',
-    NONE = 'None'
+    LINEAR = 'linear'
 }
