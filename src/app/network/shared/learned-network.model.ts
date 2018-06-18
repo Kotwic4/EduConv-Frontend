@@ -52,6 +52,12 @@ export class LearnedNetwork {
         this._inputShape = value;
     }
 
+    setModelInfo(model) {
+        this._id = model.id;
+        this._inputShape = [-1, model.dataset.img_width, model.dataset.img_height, model.dataset.img_depth];
+        this._labels = model.dataset.labels;
+    }
+
     loadModel() {
         const data = tf.loadModel(API_URL + 'model/' + this._id + '/file/model.json');
 

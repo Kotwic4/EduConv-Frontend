@@ -141,16 +141,27 @@ export class NetworkEffects {
         .pipe(
             switchMap(
                 (action: NetworkActions.FetchLearnedNetwork) => {
-                    const learnedNetwork2 = new LearnedNetwork();
-                    learnedNetwork2.id = action.payload;
 
-                    return fromPromise(learnedNetwork2.loadModel()).pipe(
-                        map((result) => new NetworkActions.StartRunningNetwork(result)),
+                    return this.httpClient.get<any>(API_URL + `model/${action.payload}`).pipe(
+                        map((result) => {
+                            const learnedNetwork2 = new LearnedNetwork();
+
+                            learnedNetwork2.setModelInfo(result);
+
+                            return fromPromise(learnedNetwork2.loadModel()).pipe(
+                                map((result2) => new NetworkActions.StartRunningNetwork(result2)),
+                                catchError((error) => {
+                                    this.defaultErrorStrategy('Model does not exist', true, '/home/models');
+                                    return of(new NetworkActions.EffectError(error));
+                                })
+                            );
+                        }),
                         catchError((error) => {
                             this.defaultErrorStrategy('Model does not exist', true, '/home/models');
                             return of(new NetworkActions.EffectError(error));
                         })
                     );
+
                 }
             )
         );
