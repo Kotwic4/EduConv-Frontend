@@ -1,7 +1,9 @@
-import {HiddenLayer} from './hidden-layer.model';
+import {HiddenLayer} from '../hidden-layer.model';
 
 export interface BatchNormalizationLayerArgs {
     axis?: number;
+    momentum?: number;
+    epsilon?: number;
 }
 
 export class BatchNormalizationLayer extends HiddenLayer {
