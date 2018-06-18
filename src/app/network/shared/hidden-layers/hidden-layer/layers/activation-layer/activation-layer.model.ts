@@ -1,8 +1,8 @@
-import {HiddenLayerActivationType} from './hidden-layer-activation.enum';
-import {HiddenLayer} from './hidden-layer.model';
+import {HiddenLayerActivationType} from '../hidden-layer-activation.enum';
+import {HiddenLayer} from '../hidden-layer.model';
 
 export interface ActivationLayerArgs {
-    activation?: HiddenLayerActivationType;
+    activation: HiddenLayerActivationType;
 }
 
 export class ActivationLayer extends HiddenLayer {
@@ -11,7 +11,7 @@ export class ActivationLayer extends HiddenLayer {
     constructor() {
         super();
         this.layer_name = 'Activation';
-        this.args = {};
+        this.args = { activation: HiddenLayerActivationType.LINEAR };
     }
 
     public setArgs(args: ActivationLayerArgs) {
