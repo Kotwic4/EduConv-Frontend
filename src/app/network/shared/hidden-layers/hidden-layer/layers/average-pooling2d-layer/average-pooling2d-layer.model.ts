@@ -1,4 +1,4 @@
-import {HiddenLayer} from './hidden-layer.model';
+import {HiddenLayer} from '../hidden-layer.model';
 
 
 export interface AveragePooling2DLayerArgs {
@@ -12,10 +12,7 @@ export class AveragePooling2DLayer extends HiddenLayer {
     constructor() {
         super();
         this.layer_name = 'AveragePooling2D';
-        this.args = {
-            pool_size: [null, null],
-            strides: [null, null]
-        };
+        this.args = {};
     }
 
     public setArgs(args: AveragePooling2DLayerArgs) {

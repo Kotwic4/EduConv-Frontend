@@ -1,0 +1,70 @@
+<form (ngSubmit)="onSubmit(f)" #f="ngForm">
+    <div class="row">
+        <div class="col-sm-12">
+            <label>Pool size</label>
+        </div>
+        <div class="col-sm-6 form-group">
+            <input
+                type="number"
+                class="form-control"
+                name="poolX"
+                min="0"
+                ngModel
+                [required]="!!(poolY.value && poolY.value !== '')"
+                [disabled]="readonly"
+                #poolX
+            >
+        </div>
+        <div class="col-sm-6 form-group">
+            <input
+                type="number"
+                class="form-control"
+                name="poolY"
+                min="0"
+                ngModel
+                [required]="!!(poolX.value && poolX.value !== '')"
+                [disabled]="readonly"
+                #poolY
+            >
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <label>Strides</label>
+        </div>
+        <div class="col-sm-6 form-group">
+            <input
+                type="number"
+                class="form-control"
+                name="strideX"
+                min="0"
+                ngModel
+                [required]="!!(strideY.value && strideY.value !== '')"
+                [disabled]="readonly"
+                #strideX
+            >
+        </div>
+        <div class="col-sm-6 form-group">
+            <input
+                type="number"
+                class="form-control"
+                name="strideY"
+                min="0"
+                ngModel
+                [required]="!!(strideX.value && strideX.value !== '')"
+                [disabled]="readonly"
+                #strideY
+            >
+        </div>
+    </div>
+
+    <div class="row" *ngIf="!readonly">
+        <div class="col-sm-12">
+            <div class="btn-group d-flex">
+                <button class="btn btn-primary w-100" type="submit" [disabled]="f.invalid">Save</button>
+                <button class="btn btn-light w-100" type="button" (click)="onCancel.emit()">Cancel</button>
+                <button class="btn btn-danger w-100" type="button" (click)="onDelete.emit()">Delete</button>
+            </div>
+        </div>
+    </div>
+</form>
