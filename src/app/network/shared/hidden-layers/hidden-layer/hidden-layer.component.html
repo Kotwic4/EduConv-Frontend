@@ -1,5 +1,5 @@
 <div
-    [ngClass]="['hidden-layer__container', 'hidden-layer__container--type-' + layerType, collapsed ? 'hidden-layer__container--collapsed' : '']"
+    [ngClass]="['hidden-layer__container', 'hidden-layer__container--type-' + layerType, collapsed && layer.haveNeurons() ? 'hidden-layer__container--collapsed' : '']"
     (click)="layer.haveNeurons() && toggleCollapsed()"
 >
     <span class="hidden-layer__index">{{ index+1 }}.</span>
