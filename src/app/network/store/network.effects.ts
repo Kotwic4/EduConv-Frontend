@@ -16,6 +16,7 @@ import {Router} from '@angular/router';
 import {Ng2ImgToolsService} from 'ng2-img-tools';
 import {LearnedNetworkInfo} from '../shared/learned-network-info.model';
 import {SnackBarService, SnackBarType} from '../shared/snack-bar.service';
+import {DatasetInfo} from '../shared/dataset-info.model';
 
 @Injectable()
 export class NetworkEffects {
@@ -143,10 +144,30 @@ export class NetworkEffects {
                 (action: NetworkActions.FetchLearnedNetwork) => {
 
                     return this.httpClient.get<any>(API_URL + `model/${action.payload}`).pipe(
-                        map((result) => {
+                        switchMap((network) => {
+
+                            const dataset = network.dataset;
+                            const datasetInfo = new DatasetInfo(
+                                dataset.id,
+                                dataset.name,
+                                dataset.train_images_count,
+                                dataset.test_images_count,
+                                dataset.img_width,
+                                dataset.img_height,
+                                dataset.img_depth,
+                                dataset.labels,
+                            );
+                            const modelInfo = new LearnedNetworkInfo(
+                                network.id,
+                                datasetInfo,
+                                network.epochs_learnt,
+                                network.epochs_to_learn,
+                            );
+
+
                             const learnedNetwork2 = new LearnedNetwork();
 
-                            learnedNetwork2.setModelInfo(result);
+                            learnedNetwork2.setModelInfo(modelInfo);
 
                             return fromPromise(learnedNetwork2.loadModel()).pipe(
                                 map((result2) => new NetworkActions.StartRunningNetwork(result2)),
@@ -242,9 +263,21 @@ export class NetworkEffects {
                         map((results) => {
                             const infos = results.map(
                                 (network) => {
+                                    const dataset = network.dataset;
+                                    const datasetInfo = new DatasetInfo(
+                                        dataset.id,
+                                        dataset.name,
+                                        dataset.train_images_count,
+                                        dataset.test_images_count,
+                                        dataset.img_width,
+                                        dataset.img_height,
+                                        dataset.img_depth,
+                                        dataset.labels,
+                                    );
+                                    console.log(datasetInfo);
                                     return new LearnedNetworkInfo(
                                         network.id,
-                                        network.dataset,
+                                        datasetInfo,
                                         network.epochs_learnt,
                                         network.epochs_to_learn,
                                     );
