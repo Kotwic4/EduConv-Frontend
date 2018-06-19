@@ -12,7 +12,11 @@ export class BatchNormalizationLayer extends HiddenLayer {
     constructor() {
         super();
         this.layer_name = 'BatchNormalization';
-        this.args = {};
+        this.args = {
+            axis: null,
+            momentum: null,
+            epsilon: null,
+        };
     }
 
     public setArgs(args: BatchNormalizationLayerArgs) {

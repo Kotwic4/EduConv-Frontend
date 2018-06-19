@@ -11,7 +11,10 @@ export class MaxPooling1DLayer extends HiddenLayer {
     constructor() {
         super();
         this.layer_name = 'MaxPooling1D';
-        this.args = {};
+        this.args = {
+            pool_size: null,
+            strides: null,
+        };
     }
 
     public setArgs(args: MaxPooling1DLayerArgs) {

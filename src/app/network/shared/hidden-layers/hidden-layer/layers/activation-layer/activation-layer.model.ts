@@ -11,7 +11,9 @@ export class ActivationLayer extends HiddenLayer {
     constructor() {
         super();
         this.layer_name = 'Activation';
-        this.args = { activation: HiddenLayerActivationType.LINEAR };
+        this.args = {
+            activation: HiddenLayerActivationType.LINEAR,
+        };
     }
 
     public setArgs(args: ActivationLayerArgs) {

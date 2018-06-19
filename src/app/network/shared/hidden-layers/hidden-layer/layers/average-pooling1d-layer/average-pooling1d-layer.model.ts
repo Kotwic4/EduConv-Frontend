@@ -11,7 +11,10 @@ export class AveragePooling1DLayer extends HiddenLayer {
     constructor() {
         super();
         this.layer_name = 'AveragePooling1D';
-        this.args = {};
+        this.args = {
+            pool_size: null,
+            strides: null,
+        };
     }
 
     public setArgs(args: AveragePooling1DLayerArgs) {
