@@ -1,0 +1,60 @@
+<form (ngSubmit)="onSubmit(f)" #f="ngForm">
+    <div class="row">
+        <div class="col-sm-12">
+            <label>Axis</label>
+        </div>
+        <div class="col-sm-6 form-group">
+            <input
+                type="number"
+                class="form-control"
+                name="axis"
+                min="0"
+                ngModel
+                [disabled]="readonly"
+                #axis
+            >
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <label>Momentum</label>
+        </div>
+        <div class="col-sm-6 form-group">
+            <input
+                type="number"
+                class="form-control"
+                name="momentum"
+                min="0"
+                ngModel
+                [disabled]="readonly"
+                #momentum
+            >
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <label>Epsilon</label>
+        </div>
+        <div class="col-sm-6 form-group">
+            <input
+                type="number"
+                class="form-control"
+                name="epsilon"
+                min="0"
+                ngModel
+                [disabled]="readonly"
+                #epsilon
+            >
+        </div>
+    </div>
+
+    <div class="row" *ngIf="!readonly">
+        <div class="col-sm-12">
+            <div class="btn-group d-flex">
+                <button class="btn btn-primary w-100" type="submit" [disabled]="f.invalid">Save</button>
+                <button class="btn btn-light w-100" type="button" (click)="onCancel.emit()">Cancel</button>
+                <button class="btn btn-danger w-100" type="button" (click)="onDelete.emit()">Delete</button>
+            </div>
+        </div>
+    </div>
+</form>

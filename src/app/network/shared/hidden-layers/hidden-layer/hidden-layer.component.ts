@@ -1,6 +1,5 @@
 import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {Store} from '@ngrx/store';
-import * as _ from 'lodash';
 
 import * as NetworkActions from '../../../store/network.actions';
 import * as fromApp from '../../../../store/app.reducers';
@@ -23,6 +22,11 @@ export class HiddenLayerComponent implements OnInit {
     @ViewChild('Dropout') Dropout;
     @ViewChild('Flatten') Flatten;
     @ViewChild('MaxPooling2D') MaxPooling2D;
+    @ViewChild('MaxPooling1D') MaxPooling1D;
+    @ViewChild('BatchNormalization') BatchNormalization;
+    @ViewChild('AveragePooling2D') AveragePooling2D;
+    @ViewChild('AveragePooling1D') AveragePooling1D;
+    @ViewChild('Activation') Activation;
 
     @Input() index: number;
     @Input() layer: HiddenLayer;

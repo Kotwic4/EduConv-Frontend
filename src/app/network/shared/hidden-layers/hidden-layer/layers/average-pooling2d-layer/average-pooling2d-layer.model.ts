@@ -1,23 +1,24 @@
 import {HiddenLayer} from '../hidden-layer.model';
 
-export interface MaxPooling2DLayerArgs {
+
+export interface AveragePooling2DLayerArgs {
     pool_size?: [number, number];
     strides?: [number, number];
 }
 
-export class MaxPooling2DLayer extends HiddenLayer {
-    args: MaxPooling2DLayerArgs;
+export class AveragePooling2DLayer extends HiddenLayer {
+    args: AveragePooling2DLayerArgs;
 
     constructor() {
         super();
-        this.layer_name = 'MaxPooling2D';
+        this.layer_name = 'AveragePooling2D';
         this.args = {
             pool_size: [null, null],
             strides: [null, null],
         };
     }
 
-    public setArgs(args: MaxPooling2DLayerArgs) {
+    public setArgs(args: AveragePooling2DLayerArgs) {
         this.args = args;
     }
 }
