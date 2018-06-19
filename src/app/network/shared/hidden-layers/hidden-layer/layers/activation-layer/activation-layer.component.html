@@ -8,7 +8,7 @@
                     name="activation"
                     ngModel
                     [disabled]="readonly"
-
+                    [required]
                 >
                     <mat-option
                         *ngFor="let value of activation_types_values; let i = index;"
