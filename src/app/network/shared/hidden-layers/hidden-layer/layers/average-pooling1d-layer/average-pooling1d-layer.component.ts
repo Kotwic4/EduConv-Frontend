@@ -9,7 +9,7 @@ import {AveragePooling1DLayerArgs} from './average-pooling1d-layer.model';
     templateUrl: './average-pooling1d-layer.component.html',
     styleUrls: ['./average-pooling1d-layer.component.scss']
 })
-export class AveragePooling1DLayerComponent implements OnInit {
+export class AveragePooling1dLayerComponent implements OnInit {
     @ViewChild('f') confForm: NgForm;
     @Input() index: number;
     @Input() layer: any;

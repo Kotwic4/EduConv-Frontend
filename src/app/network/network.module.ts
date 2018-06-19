@@ -13,40 +13,47 @@ import {InputImageComponent} from './shared/input-layer/input-image/input-image.
 import {ResultsComponent} from './shared/output-layer/results/results.component';
 import {HiddenLayerComponent} from './shared/hidden-layers/hidden-layer/hidden-layer.component';
 import {NeuroneComponent} from './shared/hidden-layers/hidden-layer/neurone/neurone.component';
-import { ModelComponent } from './model/model.component';
-import { LearnComponent } from './learn/learn.component';
-import { RunComponent } from './run/run.component';
+import {ModelComponent} from './model/model.component';
+import {LearnComponent} from './learn/learn.component';
+import {RunComponent} from './run/run.component';
 import {RouterModule} from '@angular/router';
 import {NetworkRoutingModule} from './network-routing.module';
-import { HomeComponent } from './home/home.component';
+import {HomeComponent} from './home/home.component';
 import {HttpClientModule} from '@angular/common/http';
 import {BrowserModule} from '@angular/platform-browser';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {FormsModule} from '@angular/forms';
 import {Conv2dLayerComponent} from './shared/hidden-layers/hidden-layer/layers/conv2d-layer/conv2d-layer.component';
-import { DenseLayerComponent } from './shared/hidden-layers/hidden-layer/layers/dense-layer/dense-layer.component';
-import { DropoutLayerComponent } from './shared/hidden-layers/hidden-layer/layers/dropout-layer/dropout-layer.component';
-import { FlattenLayerComponent } from './shared/hidden-layers/hidden-layer/layers/flatten-layer/flatten-layer.component';
-import { MaxPooling2dLayerComponent } from './shared/hidden-layers/hidden-layer/layers/max-pooling2d-layer/max-pooling2d-layer.component';
+import {DenseLayerComponent} from './shared/hidden-layers/hidden-layer/layers/dense-layer/dense-layer.component';
+import {DropoutLayerComponent} from './shared/hidden-layers/hidden-layer/layers/dropout-layer/dropout-layer.component';
+import {FlattenLayerComponent} from './shared/hidden-layers/hidden-layer/layers/flatten-layer/flatten-layer.component';
+import {MaxPooling2dLayerComponent} from './shared/hidden-layers/hidden-layer/layers/max-pooling2d-layer/max-pooling2d-layer.component';
 import {HiddenLayersService} from './shared/hidden-layers/hidden-layer/layers/hidden-layer.service';
 import {
+    MAT_DIALOG_DEFAULT_OPTIONS,
+    MatButtonModule,
     MatCheckboxModule,
-    MatTabsModule,
-    MatSliderModule,
+    MatDialogModule,
     MatProgressSpinnerModule,
+    MatSliderModule,
     MatSnackBarModule,
-    MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS, MatButtonModule
+    MatTabsModule
 } from '@angular/material';
-import { NeuronsCounterComponent } from './shared/hidden-layers/hidden-layer/neurons-counter/neurons-counter.component';
-import { LoaderComponent } from './shared/loader/loader.component';
-import { HiddenLayersPlaceholderComponent } from './shared/hidden-layers/hidden-layers-placeholder/hidden-layers-placeholder.component';
+import {NeuronsCounterComponent} from './shared/hidden-layers/hidden-layer/neurons-counter/neurons-counter.component';
+import {LoaderComponent} from './shared/loader/loader.component';
+import {HiddenLayersPlaceholderComponent} from './shared/hidden-layers/hidden-layers-placeholder/hidden-layers-placeholder.component';
 import {Ng2ImgToolsModule} from 'ng2-img-tools';
-import { LearnSettingsComponent } from './learn/learn-settings/learn-settings.component';
+import {LearnSettingsComponent} from './learn/learn-settings/learn-settings.component';
 import {SnackBarService} from './shared/snack-bar.service';
-import { DeletionConfirmComponent } from './shared/hidden-layers/hidden-layer/layers/deletion-confirm/deletion-confirm.component';
-import { SchemesComponent } from './home/schemes/schemes.component';
-import { ModelsComponent } from './home/models/models.component';
-import { SquareComponent } from './home/square/square.component';
+import {DeletionConfirmComponent} from './shared/hidden-layers/hidden-layer/layers/deletion-confirm/deletion-confirm.component';
+import {SchemesComponent} from './home/schemes/schemes.component';
+import {ModelsComponent} from './home/models/models.component';
+import {SquareComponent} from './home/square/square.component';
+import {ActivationLayerComponent} from './shared/hidden-layers/hidden-layer/layers/activation-layer/activation-layer.component';
+import {AveragePooling1dLayerComponent} from './shared/hidden-layers/hidden-layer/layers/average-pooling1d-layer/average-pooling1d-layer.component';
+import {AveragePooling2dLayerComponent} from './shared/hidden-layers/hidden-layer/layers/average-pooling2d-layer/average-pooling2d-layer.component';
+import {BatchNormalizationLayerComponent} from './shared/hidden-layers/hidden-layer/layers/batch-normalization-layer/batch-normalization-layer.component';
+import {MaxPooling1dLayerComponent} from './shared/hidden-layers/hidden-layer/layers/max-pooling1d-layer/max-pooling1d-layer.component';
 
 @NgModule({
     imports: [
@@ -88,6 +95,11 @@ import { SquareComponent } from './home/square/square.component';
         DropoutLayerComponent,
         FlattenLayerComponent,
         MaxPooling2dLayerComponent,
+        MaxPooling1dLayerComponent,
+        BatchNormalizationLayerComponent,
+        AveragePooling2dLayerComponent,
+        AveragePooling1dLayerComponent,
+        ActivationLayerComponent,
         NeuronsCounterComponent,
         LoaderComponent,
         HiddenLayersPlaceholderComponent,
@@ -100,9 +112,9 @@ import { SquareComponent } from './home/square/square.component';
     providers: [
         HiddenLayersService,
         SnackBarService,
-        { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false} }
+        {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}}
     ],
-    entryComponents: [ DeletionConfirmComponent ],
+    entryComponents: [DeletionConfirmComponent],
 })
 export class NetworkModule {
 }

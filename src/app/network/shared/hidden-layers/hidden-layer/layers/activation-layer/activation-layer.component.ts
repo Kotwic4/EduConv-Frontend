@@ -6,7 +6,7 @@ import {ActivationLayerArgs} from './activation-layer.model';
 import {HiddenLayerActivationType} from '../hidden-layer-activation.enum';
 
 @Component({
-    selector: 'app-max-pooling2d-layer',
+    selector: 'app-activation-layer',
     templateUrl: './activation-layer.component.html',
     styleUrls: ['./activation-layer.component.scss']
 })

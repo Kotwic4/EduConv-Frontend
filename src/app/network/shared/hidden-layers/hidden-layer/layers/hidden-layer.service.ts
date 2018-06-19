@@ -9,7 +9,6 @@ import {HiddenLayer} from './hidden-layer.model';
 import {MaxPooling1DLayer} from './max-pooling1d-layer/max-pooling1d-layer.model';
 import {AveragePooling1DLayer} from './average-pooling1d-layer/average-pooling1d-layer.model';
 import {AveragePooling2DLayer} from './average-pooling2d-layer/average-pooling2d-layer.model';
-import {InputLayer} from './input-layer/input-layer.model';
 import {ActivationLayer} from './activation-layer/activation-layer.model';
 import {BatchNormalizationLayer} from './batch-normalization-layer/batch-normalization-layer.model';
 
@@ -39,9 +38,6 @@ export class HiddenLayersService {
         }
         else if (type === HiddenLayerType.AveragePooling2D) {
             return new AveragePooling2DLayer();
-        }
-        else if (type === HiddenLayerType.Input) {
-            return new InputLayer();
         }
         else if (type === HiddenLayerType.Activation) {
             return new ActivationLayer();
@@ -79,9 +75,6 @@ export class HiddenLayersService {
         else if (layer instanceof AveragePooling2DLayer) {
             return HiddenLayerType.AveragePooling2D;
         }
-        else if (layer instanceof InputLayer) {
-            return HiddenLayerType.Input;
-        }
         else if (layer instanceof ActivationLayer) {
             return HiddenLayerType.Activation;
         }
@@ -111,8 +104,6 @@ export class HiddenLayersService {
                 return HiddenLayerType.AveragePooling1D;
             case 'averagepooling2d':
                 return HiddenLayerType.AveragePooling2D;
-            case 'input':
-                return HiddenLayerType.Input;
             case 'activation':
                 return HiddenLayerType.Activation;
             case 'batchnormalization':
