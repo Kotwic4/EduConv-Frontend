@@ -1,13 +1,14 @@
 <form (ngSubmit)="onSubmit(f)" #f="ngForm">
     <div class="row">
         <div class="col-sm-12 form-group">
-            <label>Activation</label>
+            <label>Activation*</label>
             <mat-form-field class="form-control">
                 <mat-select
                     [(value)]="layer.args.activation"
                     name="activation"
                     ngModel
                     [disabled]="readonly"
+
                 >
                     <mat-option
                         *ngFor="let value of activation_types_values; let i = index;"
