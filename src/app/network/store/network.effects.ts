@@ -141,16 +141,30 @@ export class NetworkEffects {
         .pipe(
             switchMap(
                 (action: NetworkActions.FetchLearnedNetwork) => {
-                    const learnedNetwork2 = new LearnedNetwork();
-                    learnedNetwork2.id = action.payload;
 
-                    return fromPromise(learnedNetwork2.loadModel()).pipe(
-                        map((result) => new NetworkActions.StartRunningNetwork(result)),
+                    return this.httpClient.get<any>(API_URL + `model/${action.payload}`).pipe(
+                        switchMap((network) => {
+
+                            const modelInfo = LearnedNetworkInfo.fromJSON(network);
+
+                            const learnedNetwork = new LearnedNetwork();
+
+                            learnedNetwork.setModelInfo(modelInfo);
+
+                            return fromPromise(learnedNetwork.loadModel()).pipe(
+                                map((result) => new NetworkActions.StartRunningNetwork(result)),
+                                catchError((error) => {
+                                    this.defaultErrorStrategy('Model parse error', true, '/home/models');
+                                    return of(new NetworkActions.EffectError(error));
+                                })
+                            );
+                        }),
                         catchError((error) => {
                             this.defaultErrorStrategy('Model does not exist', true, '/home/models');
                             return of(new NetworkActions.EffectError(error));
                         })
                     );
+
                 }
             )
         );
@@ -230,14 +244,7 @@ export class NetworkEffects {
                     return this.httpClient.get<any[]>(API_URL + `model`).pipe(
                         map((results) => {
                             const infos = results.map(
-                                (network) => {
-                                    return new LearnedNetworkInfo(
-                                        network.id,
-                                        network.dataset,
-                                        network.epochs_learnt,
-                                        network.epochs_to_learn,
-                                    );
-                                }
+                                network => LearnedNetworkInfo.fromJSON(network)
                             );
 
                             return new NetworkActions.FetchAllLearnedNetworksSuccess(infos);

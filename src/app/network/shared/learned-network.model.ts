@@ -52,6 +52,12 @@ export class LearnedNetwork {
         this._inputShape = value;
     }
 
+    setModelInfo(model) {
+        this._id = model.id;
+        this._inputShape = [-1, model.dataset.imgWidth, model.dataset.imgHeight, model.dataset.imgDepth];
+        this._labels = model.dataset.labels;
+    }
+
     loadModel() {
         const data = tf.loadModel(API_URL + 'model/' + this._id + '/file/model.json');
 
@@ -118,7 +124,7 @@ export class LearnedNetwork {
         img.src = this.input;
 
         const images = [];
-        const croppedImage = tf.fromPixels(img, 1);
+        const croppedImage = tf.fromPixels(img, this._inputShape[3]);
         const batchedImage = croppedImage.expandDims(0).toFloat();
         const reshaped = batchedImage.reshape(this._inputShape);
         let inp: any = reshaped;
