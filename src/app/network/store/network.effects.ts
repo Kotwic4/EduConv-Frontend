@@ -16,7 +16,6 @@ import {Router} from '@angular/router';
 import {Ng2ImgToolsService} from 'ng2-img-tools';
 import {LearnedNetworkInfo} from '../shared/learned-network-info.model';
 import {SnackBarService, SnackBarType} from '../shared/snack-bar.service';
-import {DatasetInfo} from '../shared/dataset-info.model';
 
 @Injectable()
 export class NetworkEffects {
@@ -146,33 +145,16 @@ export class NetworkEffects {
                     return this.httpClient.get<any>(API_URL + `model/${action.payload}`).pipe(
                         switchMap((network) => {
 
-                            const dataset = network.dataset;
-                            const datasetInfo = new DatasetInfo(
-                                dataset.id,
-                                dataset.name,
-                                dataset.train_images_count,
-                                dataset.test_images_count,
-                                dataset.img_width,
-                                dataset.img_height,
-                                dataset.img_depth,
-                                dataset.labels,
-                            );
-                            const modelInfo = new LearnedNetworkInfo(
-                                network.id,
-                                datasetInfo,
-                                network.epochs_learnt,
-                                network.epochs_to_learn,
-                            );
+                            const modelInfo = LearnedNetworkInfo.fromJSON(network);
 
+                            const learnedNetwork = new LearnedNetwork();
 
-                            const learnedNetwork2 = new LearnedNetwork();
+                            learnedNetwork.setModelInfo(modelInfo);
 
-                            learnedNetwork2.setModelInfo(modelInfo);
-
-                            return fromPromise(learnedNetwork2.loadModel()).pipe(
-                                map((result2) => new NetworkActions.StartRunningNetwork(result2)),
+                            return fromPromise(learnedNetwork.loadModel()).pipe(
+                                map((result) => new NetworkActions.StartRunningNetwork(result)),
                                 catchError((error) => {
-                                    this.defaultErrorStrategy('Model does not exist', true, '/home/models');
+                                    this.defaultErrorStrategy('Model parse error', true, '/home/models');
                                     return of(new NetworkActions.EffectError(error));
                                 })
                             );
@@ -262,26 +244,7 @@ export class NetworkEffects {
                     return this.httpClient.get<any[]>(API_URL + `model`).pipe(
                         map((results) => {
                             const infos = results.map(
-                                (network) => {
-                                    const dataset = network.dataset;
-                                    const datasetInfo = new DatasetInfo(
-                                        dataset.id,
-                                        dataset.name,
-                                        dataset.train_images_count,
-                                        dataset.test_images_count,
-                                        dataset.img_width,
-                                        dataset.img_height,
-                                        dataset.img_depth,
-                                        dataset.labels,
-                                    );
-                                    console.log(datasetInfo);
-                                    return new LearnedNetworkInfo(
-                                        network.id,
-                                        datasetInfo,
-                                        network.epochs_learnt,
-                                        network.epochs_to_learn,
-                                    );
-                                }
+                                network => LearnedNetworkInfo.fromJSON(network)
                             );
 
                             return new NetworkActions.FetchAllLearnedNetworksSuccess(infos);

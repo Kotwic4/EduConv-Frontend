@@ -24,4 +24,15 @@ export class LearnedNetworkInfo {
     get epochsToLearn(): number {
         return this._epochsToLearn;
     }
+
+    public static fromJSON(networkData): LearnedNetworkInfo {
+        const datasetData = networkData.dataset;
+        const datasetInfo = DatasetInfo.fromJSON(datasetData);
+        return new LearnedNetworkInfo(
+            networkData.id,
+            datasetInfo,
+            networkData.epochs_learnt,
+            networkData.epochs_to_learn,
+        );
+    }
 }

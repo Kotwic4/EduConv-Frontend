@@ -42,4 +42,17 @@ export class DatasetInfo {
     get labels(): string[] {
         return this._labels;
     }
+
+    public static fromJSON(datasetData: any): DatasetInfo {
+        return new DatasetInfo(
+            datasetData.id,
+            datasetData.name,
+            datasetData.train_images_count,
+            datasetData.test_images_count,
+            datasetData.img_width,
+            datasetData.img_height,
+            datasetData.img_depth,
+            datasetData.labels,
+        );
+    }
 }
