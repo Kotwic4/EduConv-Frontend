@@ -39,6 +39,8 @@ import {
     MatSnackBarModule,
     MatTabsModule
 } from '@angular/material';
+import {MatTableModule} from '@angular/material/table';
+import {MatPaginatorModule} from '@angular/material/paginator';
 import {NeuronsCounterComponent} from './shared/hidden-layers/hidden-layer/neurons-counter/neurons-counter.component';
 import {LoaderComponent} from './shared/loader/loader.component';
 import {HiddenLayersPlaceholderComponent} from './shared/hidden-layers/hidden-layers-placeholder/hidden-layers-placeholder.component';
@@ -48,7 +50,6 @@ import {SnackBarService} from './shared/snack-bar.service';
 import {DeletionConfirmComponent} from './shared/hidden-layers/hidden-layer/layers/deletion-confirm/deletion-confirm.component';
 import {SchemesComponent} from './home/schemes/schemes.component';
 import {ModelsComponent} from './home/models/models.component';
-import {SquareComponent} from './home/square/square.component';
 import {ActivationLayerComponent} from './shared/hidden-layers/hidden-layer/layers/activation-layer/activation-layer.component';
 import {AveragePooling1dLayerComponent} from './shared/hidden-layers/hidden-layer/layers/average-pooling1d-layer/average-pooling1d-layer.component';
 import {AveragePooling2dLayerComponent} from './shared/hidden-layers/hidden-layer/layers/average-pooling2d-layer/average-pooling2d-layer.component';
@@ -74,7 +75,9 @@ import {MaxPooling1dLayerComponent} from './shared/hidden-layers/hidden-layer/la
         Ng2ImgToolsModule,
         MatSliderModule,
         MatDialogModule,
-        MatButtonModule
+        MatButtonModule,
+        MatTableModule,
+        MatPaginatorModule
     ],
     declarations: [
         NetworkComponent,
@@ -106,8 +109,7 @@ import {MaxPooling1dLayerComponent} from './shared/hidden-layers/hidden-layer/la
         LearnSettingsComponent,
         DeletionConfirmComponent,
         SchemesComponent,
-        ModelsComponent,
-        SquareComponent
+        ModelsComponent
     ],
     providers: [
         HiddenLayersService,

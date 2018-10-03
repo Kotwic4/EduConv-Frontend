@@ -1,31 +1,42 @@
 @import "../../../../variables.scss";
 
-.square__dataset {
-    position: absolute;
-    top: 0;
-    left: 5px;
-    font-size: 1.3vw;
-}
+:host {
+    & > .row {
+        margin: 15px 0 0;
+    }
 
-.square__epochs {
-    position: absolute;
-    bottom: 3px;
-    left: 5px;
-    font-size: 1.3vw;
-}
+    .models-table__container {
+        width: 100%;
 
-.square__epochs-indicator {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    height: 4px;
-    background-color: $color-red;
-}
+        .models-table__row {
+            * {
+                color: white;
+            }
 
-::ng-deep .square--learning {
-    #{--square-color}: $color-orange !important;
-}
+            &.models-table__row--learning {
+                background-color: $color-orange;
+            }
 
-::ng-deep .square--learned {
-    #{--square-color}: $color-green !important;
+            &.models-table__row--learned {
+                background-color: $color-green;
+            }
+
+            .models-table__action-btn {
+                height: 30px;
+                display: block;
+                width: 80px;
+                text-align: center;
+                line-height: 30px;
+                border-radius: 3px;
+                background-color: #3f51b5;
+                transition: background-color .1s ease-in;
+                font-size: 13px;
+
+                &:hover {
+                    text-decoration: none;
+                    background-color: lighten(#3f51b5, 10%);
+                }
+            }
+        }
+    }
 }
