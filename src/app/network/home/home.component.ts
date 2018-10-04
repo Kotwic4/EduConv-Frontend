@@ -1,4 +1,6 @@
 import {Component, OnInit} from '@angular/core';
+import {HeaderControl} from '../header/header-control.interface';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'app-home',
@@ -6,6 +8,16 @@ import {Component, OnInit} from '@angular/core';
     styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+    public controls: HeaderControl[] = [
+        {
+            callback: function() {
+                this.router.navigate(['/scheme']);
+            }.bind(this),
+            tooltip: 'New scheme',
+            icon: 'fa-plus-square-o'
+        }
+    ];
+
     public LINKS = [
         {
             path: '/home/schemes',
@@ -16,6 +28,8 @@ export class HomeComponent implements OnInit {
             label: 'Models'
         }
     ];
+
+    constructor(private router: Router) {}
 
     ngOnInit() {
     }

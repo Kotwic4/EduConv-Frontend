@@ -3,22 +3,47 @@
     *ngIf="learnedNetworks"
     @fadeInOut
 >
-    <app-square
-        *ngFor="let network of learnedNetworks"
-        class="col-6 col-sm-4 col-md-3 col-lg-2"
-        [link]="['/run', network.id]"
-        [disabled]="network.epochsLearnt !== network.epochsToLearn"
-        [extraClass]="(network.epochsLearnt === network.epochsToLearn) ? 'square--learned' : 'square--learning'"
-    >
-        <span class="square__id" square-link>{{ network.id }}</span>
-        <span class="square__dataset" square-link>{{ network.dataset.name }}</span>
-        <span class="square__epochs" square-link>{{ network.epochsLearnt }} / {{ network.epochsToLearn }}</span>
-        <span
-            class="square__epochs-indicator"
-            [style.width]="(network.epochsLearnt / network.epochsToLearn)*100 + '%'"
-            square-link
-        ></span>
-    </app-square>
+    <div class="models-table__container mat-elevation-z8">
+        <mat-table #table [dataSource]="dataSource">
+            <ng-container matColumnDef="id">
+                <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
+                <mat-cell *matCellDef="let network"> {{network.id}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="dataset">
+                <mat-header-cell *matHeaderCellDef> Dataset </mat-header-cell>
+                <mat-cell *matCellDef="let network"> {{network.dataset.name}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="progress">
+                <mat-header-cell *matHeaderCellDef> Training progress </mat-header-cell>
+                <mat-cell *matCellDef="let network"> {{ network.epochsLearnt }} / {{ network.epochsToLearn }} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="actions">
+                <mat-header-cell *matHeaderCellDef [style.flex]="'0 0 80px'"> Actions </mat-header-cell>
+                <mat-cell *matCellDef="let network" [style.flex]="'0 0 80px'">
+                    <a
+                        *ngIf="network.epochsLearnt === network.epochsToLearn"
+                        class="models-table__action-btn"
+                        [routerLink]="['/run', network.id]"
+                    >Run</a>
+                </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row
+                *matRowDef="let row; columns: displayedColumns;"
+                [ngClass]="['models-table__row', row.epochsLearnt === row.epochsToLearn ? 'models-table__row--learned' : 'models-table__row--learning']"
+            ></mat-row>
+        </mat-table>
+
+        <mat-paginator #paginator
+                       [pageSize]="10"
+                       [pageSizeOptions]="[5, 10, 20]"
+                       [showFirstLastButtons]="true">
+        </mat-paginator>
+    </div>
 </div>
 <app-loader
     *ngIf="!learnedNetworks"
