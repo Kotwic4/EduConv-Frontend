@@ -10,6 +10,6 @@ export class FlattenLayer extends HiddenLayer {
     }
 
     public setArgs(args: {}) {
-        this.args = args;
+        this.args = Object.assign(this.args, args);
     }
 }

@@ -6,8 +6,6 @@ import {DropoutLayer} from './dropout-layer/dropout-layer.model';
 import {FlattenLayer} from './flatten-layer/flatten-layer.model';
 import {MaxPooling2DLayer} from './max-pooling2d-layer/max-pooling2d-layer.model';
 import {HiddenLayer} from './hidden-layer.model';
-import {MaxPooling1DLayer} from './max-pooling1d-layer/max-pooling1d-layer.model';
-import {AveragePooling1DLayer} from './average-pooling1d-layer/average-pooling1d-layer.model';
 import {AveragePooling2DLayer} from './average-pooling2d-layer/average-pooling2d-layer.model';
 import {ActivationLayer} from './activation-layer/activation-layer.model';
 import {BatchNormalizationLayer} from './batch-normalization-layer/batch-normalization-layer.model';
@@ -29,12 +27,6 @@ export class HiddenLayersService {
         }
         else if (type === HiddenLayerType.MaxPooling2D) {
             return new MaxPooling2DLayer();
-        }
-        else if (type === HiddenLayerType.MaxPooling1D) {
-            return new MaxPooling1DLayer();
-        }
-        else if (type === HiddenLayerType.AveragePooling1D) {
-            return new AveragePooling1DLayer();
         }
         else if (type === HiddenLayerType.AveragePooling2D) {
             return new AveragePooling2DLayer();
@@ -63,14 +55,8 @@ export class HiddenLayersService {
         else if (layer instanceof FlattenLayer) {
             return HiddenLayerType.Flatten;
         }
-        else if (layer instanceof MaxPooling1DLayer) {
-            return HiddenLayerType.MaxPooling1D;
-        }
         else if (layer instanceof MaxPooling2DLayer) {
             return HiddenLayerType.MaxPooling2D;
-        }
-        else if (layer instanceof AveragePooling1DLayer) {
-            return HiddenLayerType.AveragePooling1D;
         }
         else if (layer instanceof AveragePooling2DLayer) {
             return HiddenLayerType.AveragePooling2D;
@@ -98,10 +84,6 @@ export class HiddenLayersService {
                 return HiddenLayerType.Flatten;
             case 'dense':
                 return HiddenLayerType.Dense;
-            case 'maxpooling1d':
-                return HiddenLayerType.MaxPooling1D;
-            case 'averagepooling1d':
-                return HiddenLayerType.AveragePooling1D;
             case 'averagepooling2d':
                 return HiddenLayerType.AveragePooling2D;
             case 'activation':

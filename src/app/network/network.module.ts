@@ -51,10 +51,10 @@ import {DeletionConfirmComponent} from './shared/hidden-layers/hidden-layer/laye
 import {SchemesComponent} from './home/schemes/schemes.component';
 import {ModelsComponent} from './home/models/models.component';
 import {ActivationLayerComponent} from './shared/hidden-layers/hidden-layer/layers/activation-layer/activation-layer.component';
-import {AveragePooling1dLayerComponent} from './shared/hidden-layers/hidden-layer/layers/average-pooling1d-layer/average-pooling1d-layer.component';
-import {AveragePooling2dLayerComponent} from './shared/hidden-layers/hidden-layer/layers/average-pooling2d-layer/average-pooling2d-layer.component';
-import {BatchNormalizationLayerComponent} from './shared/hidden-layers/hidden-layer/layers/batch-normalization-layer/batch-normalization-layer.component';
-import {MaxPooling1dLayerComponent} from './shared/hidden-layers/hidden-layer/layers/max-pooling1d-layer/max-pooling1d-layer.component';
+import {AveragePooling2dLayerComponent
+} from './shared/hidden-layers/hidden-layer/layers/average-pooling2d-layer/average-pooling2d-layer.component';
+import {BatchNormalizationLayerComponent
+} from './shared/hidden-layers/hidden-layer/layers/batch-normalization-layer/batch-normalization-layer.component';
 import {DatasetsComponent} from './home/datasets/datasets.component';
 import {DatasetComponent} from './home/datasets/dataset/dataset.component';
 
@@ -100,10 +100,8 @@ import {DatasetComponent} from './home/datasets/dataset/dataset.component';
         DropoutLayerComponent,
         FlattenLayerComponent,
         MaxPooling2dLayerComponent,
-        MaxPooling1dLayerComponent,
         BatchNormalizationLayerComponent,
         AveragePooling2dLayerComponent,
-        AveragePooling1dLayerComponent,
         ActivationLayerComponent,
         NeuronsCounterComponent,
         LoaderComponent,

@@ -18,6 +18,11 @@ export class MaxPooling2DLayer extends HiddenLayer {
     }
 
     public setArgs(args: MaxPooling2DLayerArgs) {
-        this.args = args;
+        this.args = Object.assign(this.args, args);
+    }
+
+    public getArgsFromLayer(layer: any) {
+        this.args.pool_size = layer.poolSize || [null, null];
+        this.args.strides = layer.strides || [null, null];
     }
 }

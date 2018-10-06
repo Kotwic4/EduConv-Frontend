@@ -169,8 +169,8 @@ export class LearnedNetwork {
         }
 
         const layerInfo = HiddenLayersService.getInstance(type);
+        layerInfo.getArgsFromLayer(layer);
         layerInfo.setNeurons(neurones);
-        layerInfo.setHaveNeurons(true);
 
         return layerInfo;
     }
