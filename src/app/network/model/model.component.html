@@ -7,6 +7,7 @@
             <app-hidden-layers
                 *ngIf="layers && layers.length > 0"
                 [layers]="layers"
+                (valid)="onValid($event)"
             ></app-hidden-layers>
             <app-hidden-layers-placeholder *ngIf="layers && layers.length === 0"></app-hidden-layers-placeholder>
         </div>

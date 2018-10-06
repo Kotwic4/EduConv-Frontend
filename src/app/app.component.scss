@@ -1,0 +1,10 @@
+::ng-deep {
+    .popover-body {
+        form {
+            .ng-invalid {
+                border: 1px solid red;
+                box-shadow: 0 0 6px red;
+            }
+        }
+    }
+}

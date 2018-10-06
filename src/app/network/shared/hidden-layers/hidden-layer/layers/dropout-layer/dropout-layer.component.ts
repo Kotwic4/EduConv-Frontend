@@ -17,6 +17,7 @@ export class DropoutLayerComponent implements OnInit {
     @Output() onSave = new EventEmitter<any>();
     @Output() onCancel = new EventEmitter<any>();
     @Output() onDelete = new EventEmitter<any>();
+    @Output() valid = new EventEmitter<boolean>();
 
     constructor(private store: Store<fromApp.AppState>) {}
 
@@ -26,6 +27,8 @@ export class DropoutLayerComponent implements OnInit {
                 this.confForm.setValue({
                     rate: this.layer.args.rate
                 });
+
+                this.valid.emit(this.confForm.valid);
             }
         );
     }

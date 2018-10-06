@@ -55,6 +55,7 @@ import {AveragePooling1dLayerComponent} from './shared/hidden-layers/hidden-laye
 import {AveragePooling2dLayerComponent} from './shared/hidden-layers/hidden-layer/layers/average-pooling2d-layer/average-pooling2d-layer.component';
 import {BatchNormalizationLayerComponent} from './shared/hidden-layers/hidden-layer/layers/batch-normalization-layer/batch-normalization-layer.component';
 import {MaxPooling1dLayerComponent} from './shared/hidden-layers/hidden-layer/layers/max-pooling1d-layer/max-pooling1d-layer.component';
+import {CustomFormsModule} from 'ng2-validation';
 
 @NgModule({
     imports: [
@@ -77,7 +78,8 @@ import {MaxPooling1dLayerComponent} from './shared/hidden-layers/hidden-layer/la
         MatDialogModule,
         MatButtonModule,
         MatTableModule,
-        MatPaginatorModule
+        MatPaginatorModule,
+        CustomFormsModule
     ],
     declarations: [
         NetworkComponent,
@@ -116,7 +118,7 @@ import {MaxPooling1dLayerComponent} from './shared/hidden-layers/hidden-layer/la
         SnackBarService,
         {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}}
     ],
-    entryComponents: [DeletionConfirmComponent],
+    entryComponents: [DeletionConfirmComponent, Conv2dLayerComponent],
 })
 export class NetworkModule {
 }

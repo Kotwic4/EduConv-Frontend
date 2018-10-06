@@ -16,6 +16,7 @@ export class FlattenLayerComponent implements OnInit {
     @Output() onSave = new EventEmitter<any>();
     @Output() onCancel = new EventEmitter<any>();
     @Output() onDelete = new EventEmitter<any>();
+    @Output() valid = new EventEmitter<boolean>();
 
     constructor(private store: Store<fromApp.AppState>) {}
 
@@ -23,6 +24,8 @@ export class FlattenLayerComponent implements OnInit {
         setTimeout(
             () => {
                 this.confForm.setValue({});
+
+                this.valid.emit(true);
             }
         );
     }

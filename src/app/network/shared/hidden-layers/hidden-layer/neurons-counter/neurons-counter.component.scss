@@ -63,5 +63,11 @@
             padding: 0 2px;
             outline: none;
         }
+
+        &.counter__amount--invalid {
+            background: red;
+            color: white;
+            border-color: black;
+        }
     }
 }

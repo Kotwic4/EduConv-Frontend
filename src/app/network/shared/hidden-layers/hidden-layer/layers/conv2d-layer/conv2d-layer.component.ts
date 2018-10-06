@@ -19,11 +19,14 @@ export class Conv2dLayerComponent implements OnInit {
     @Output() onSave = new EventEmitter<any>();
     @Output() onCancel = new EventEmitter<any>();
     @Output() onDelete = new EventEmitter<any>();
+    @Output() valid = new EventEmitter<boolean>();
     activation_types_names: string[];
     activation_types_values: string[];
 
 
-    constructor(private store: Store<fromApp.AppState>) {
+    constructor(
+        private store: Store<fromApp.AppState>
+    ) {
         this.activation_types_names =
             Object.keys(HiddenLayerActivationType).filter(k => typeof HiddenLayerActivationType[k as any] === 'string');
         this.activation_types_values = this.activation_types_names.map(k => HiddenLayerActivationType[k as any]);
@@ -39,6 +42,8 @@ export class Conv2dLayerComponent implements OnInit {
                     strideY: this.layer.args.strides[1],
                     activation: this.layer.args.activation,
                 });
+
+                this.valid.emit(this.confForm.valid);
             }
         );
     }

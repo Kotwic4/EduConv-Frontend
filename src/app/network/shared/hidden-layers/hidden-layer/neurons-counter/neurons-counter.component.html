@@ -3,7 +3,7 @@
     (click)="$event.stopPropagation()"
 >
     <div class="counter__btn counter__btn--inc" (click)="inc()">+</div>
-    <input class="counter__amount" type="number" [(ngModel)]="value">
+    <input class="counter__amount" type="number" [class.counter__amount--invalid]="value == 0" [(ngModel)]="value">
     <div
         class="counter__btn counter__btn--dec"
         (click)="(value != 0) && dec()"

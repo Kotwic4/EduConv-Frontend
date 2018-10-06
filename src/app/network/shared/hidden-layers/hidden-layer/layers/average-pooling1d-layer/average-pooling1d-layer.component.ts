@@ -17,6 +17,7 @@ export class AveragePooling1dLayerComponent implements OnInit {
     @Output() onSave = new EventEmitter<any>();
     @Output() onCancel = new EventEmitter<any>();
     @Output() onDelete = new EventEmitter<any>();
+    @Output() valid = new EventEmitter<boolean>();
 
     constructor(private store: Store<fromApp.AppState>) {
     }
@@ -28,6 +29,8 @@ export class AveragePooling1dLayerComponent implements OnInit {
                     pool: this.layer.args.pool_size,
                     stride: this.layer.args.strides,
                 });
+
+                this.valid.emit(this.confForm.valid);
             }
         );
     }

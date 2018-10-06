@@ -17,6 +17,7 @@ export class BatchNormalizationLayerComponent implements OnInit {
     @Output() onSave = new EventEmitter<any>();
     @Output() onCancel = new EventEmitter<any>();
     @Output() onDelete = new EventEmitter<any>();
+    @Output() valid = new EventEmitter<boolean>();
 
     constructor(private store: Store<fromApp.AppState>) {}
 
@@ -28,6 +29,8 @@ export class BatchNormalizationLayerComponent implements OnInit {
                     momentum: this.layer.args.momentum,
                     epsilon: this.layer.args.epsilon,
                 });
+
+                this.valid.emit(this.confForm.valid);
             }
         );
     }

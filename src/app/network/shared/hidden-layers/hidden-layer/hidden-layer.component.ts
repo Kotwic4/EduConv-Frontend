@@ -1,4 +1,9 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import {
+    Component,
+    Input,
+    OnInit,
+    ViewChild
+} from '@angular/core';
 import {Store} from '@ngrx/store';
 
 import * as NetworkActions from '../../../store/network.actions';
@@ -9,6 +14,7 @@ import {HiddenLayer} from './layers/hidden-layer.model';
 import {HiddenLayersService} from './layers/hidden-layer.service';
 import {MatDialog} from '@angular/material';
 import {DeletionConfirmComponent} from './layers/deletion-confirm/deletion-confirm.component';
+import {HiddenLayersValidator} from '../hidden-layers-validator.service';
 
 @Component({
     selector: 'app-hidden-layer',
@@ -38,10 +44,13 @@ export class HiddenLayerComponent implements OnInit {
     types_names: string[];
     types_values: number[];
     collapsed: boolean;
+    initArgsValid: boolean = null;
+    argsValid: boolean;
 
     constructor(
         private store: Store<fromApp.AppState>,
-        public dialog: MatDialog
+        public dialog: MatDialog,
+        private hiddenLayersValidator: HiddenLayersValidator
     ) {
         this.types_names = Object.keys(HiddenLayerType).filter(k => typeof HiddenLayerType[k as any] === 'number');
         this.types_values = this.types_names.map(k => Number(HiddenLayerType[k as any]));
@@ -50,6 +59,12 @@ export class HiddenLayerComponent implements OnInit {
     ngOnInit() {
         this.layerType = HiddenLayersService.getType(this.layer);
         this.collapsed = this.readonly || !this.layer.haveNeurons();
+
+        if (!this.readonly) {
+            setTimeout(() => {
+                this.popover.open();
+            });
+        }
     }
 
     range(i: number) {
@@ -61,6 +76,8 @@ export class HiddenLayerComponent implements OnInit {
             index: this.index,
             layer: HiddenLayersService.getInstance(this.layerType)
         }));
+
+        this.initArgsValid = null;
     }
 
     toggleCollapsed() {
@@ -72,10 +89,13 @@ export class HiddenLayerComponent implements OnInit {
             index: this.index,
             args: args
         }));
+        this.updateValid(true);
+        this.initArgsValid = true;
         this.popover.close();
     }
 
     onCancel() {
+        this.updateValid(this.initArgsValid);
         this.popover.close();
     }
 
@@ -86,10 +106,22 @@ export class HiddenLayerComponent implements OnInit {
 
         dialogRef.afterClosed().subscribe(result => {
             if (result) {
+                this.hiddenLayersValidator.removeLayer(this.index);
                 this.popover.close();
                 this.store.dispatch(new HiddenLayerRemove(this.index));
             }
         });
+    }
+
+    onValid(valid: boolean) {
+        this.argsValid = valid;
+
+        if (this.initArgsValid === null) {
+            this.initArgsValid = valid;
+            this.hiddenLayersValidator.addLayer(valid);
+        }
+
+        this.updateValid();
     }
 
     getArgsComponent(name: string) {
@@ -101,9 +133,26 @@ export class HiddenLayerComponent implements OnInit {
             index: this.index,
             amount: value || 0
         }));
+
+        this.updateValid();
     }
 
     getNeuronsName() {
         return this.beforeFlatten ? 'volumens' : 'neurons';
+    }
+
+    updateValid(argsValid = this.argsValid) {
+        if (this.argsValid !== argsValid) {
+            this.argsValid = argsValid;
+        }
+
+        if (!this.readonly) {
+            if (this.layer.haveNeurons()) {
+                this.hiddenLayersValidator.updateValid(this.index, this.layer.getNeurons() > 0 && argsValid);
+            }
+            else {
+                this.hiddenLayersValidator.updateValid(this.index, argsValid);
+            }
+        }
     }
 }
