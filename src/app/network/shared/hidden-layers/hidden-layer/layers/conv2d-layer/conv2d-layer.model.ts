@@ -24,12 +24,19 @@ export class Conv2DLayer extends HiddenLayer {
     }
 
     public setArgs(args: Conv2DLayerArgs) {
-        this.args = args;
+        this.args = Object.assign(this.args, args);
         super.setNeurons(args.filters);
     }
 
     public setNeurons(number: number): void {
         this.args.filters = number;
         super.setNeurons(number);
+    }
+
+    public getArgsFromLayer(layer: any) {
+        this.args.filters = layer.filters;
+        this.args.kernel_size = layer.kernelSize;
+        this.args.strides = layer.strides || [null, null];
+        this.args.activation = layer.activation.name || null;
     }
 }
