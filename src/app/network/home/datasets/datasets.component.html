@@ -1,0 +1,54 @@
+<div
+    class="row datasets-row"
+    *ngIf="datasets"
+    @fadeInOut
+>
+    <div class="datasets-table__container mat-elevation-z8">
+        <mat-table #table [dataSource]="dataSource">
+            <ng-container matColumnDef="id">
+                <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
+                <mat-cell *matCellDef="let dataset"> {{dataset.id}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="name">
+                <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+                <mat-cell *matCellDef="let dataset"> {{dataset.name}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="imagesAmount">
+                <mat-header-cell *matHeaderCellDef> Images amount </mat-header-cell>
+                <mat-cell *matCellDef="let dataset"> {{dataset.trainImagesCount}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="imagesSize">
+                <mat-header-cell *matHeaderCellDef> Images size [x, y, z] </mat-header-cell>
+                <mat-cell *matCellDef="let dataset">
+                    {{dataset.imgWidth}} / {{dataset.imgHeight}} / {{dataset.imgDepth}}
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="actions">
+                <mat-header-cell *matHeaderCellDef [style.flex]="'0 0 80px'"> Actions </mat-header-cell>
+                <mat-cell *matCellDef="let dataset" [style.flex]="'0 0 80px'">
+                    <a class="datasets-table__action-btn" [routerLink]="['/datasets', dataset.id]"
+                    >Details</a>
+                </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row
+                *matRowDef="let row; columns: displayedColumns;"
+            ></mat-row>
+        </mat-table>
+
+        <mat-paginator #paginator
+                       [pageSize]="10"
+                       [pageSizeOptions]="[5, 10, 20]"
+                       [showFirstLastButtons]="true">
+        </mat-paginator>
+    </div>
+</div>
+<app-loader
+    *ngIf="!datasets"
+    [relative]="true"
+></app-loader>

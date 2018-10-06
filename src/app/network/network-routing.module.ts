@@ -7,6 +7,7 @@ import {HomeComponent} from './home/home.component';
 import {NetworkComponent} from './network.component';
 import {ModelsComponent} from './home/models/models.component';
 import {SchemesComponent} from './home/schemes/schemes.component';
+import {DatasetsComponent} from './home/datasets/datasets.component';
 
 const routes: Routes = [
     {
@@ -22,6 +23,10 @@ const routes: Routes = [
                     {
                         path: 'models',
                         component: ModelsComponent
+                    },
+                    {
+                        path: 'datasets',
+                        component: DatasetsComponent
                     },
                     { path: '', redirectTo: 'schemes', pathMatch: 'full' }
                 ]

@@ -55,6 +55,7 @@ import {AveragePooling1dLayerComponent} from './shared/hidden-layers/hidden-laye
 import {AveragePooling2dLayerComponent} from './shared/hidden-layers/hidden-layer/layers/average-pooling2d-layer/average-pooling2d-layer.component';
 import {BatchNormalizationLayerComponent} from './shared/hidden-layers/hidden-layer/layers/batch-normalization-layer/batch-normalization-layer.component';
 import {MaxPooling1dLayerComponent} from './shared/hidden-layers/hidden-layer/layers/max-pooling1d-layer/max-pooling1d-layer.component';
+import {DatasetsComponent} from './home/datasets/datasets.component';
 
 @NgModule({
     imports: [
@@ -109,7 +110,8 @@ import {MaxPooling1dLayerComponent} from './shared/hidden-layers/hidden-layer/la
         LearnSettingsComponent,
         DeletionConfirmComponent,
         SchemesComponent,
-        ModelsComponent
+        ModelsComponent,
+        DatasetsComponent
     ],
     providers: [
         HiddenLayersService,

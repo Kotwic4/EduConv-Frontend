@@ -26,6 +26,10 @@ export class HomeComponent implements OnInit {
         {
             path: '/home/models',
             label: 'Models'
+        },
+        {
+            path: '/home/datasets',
+            label: 'Datasets'
         }
     ];
 

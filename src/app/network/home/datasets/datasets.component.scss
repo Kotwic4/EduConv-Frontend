@@ -1,0 +1,35 @@
+@import "../../../../variables.scss";
+
+:host {
+    & > .row {
+        margin: 15px 0 0;
+    }
+
+    .datasets-table__container {
+        width: 100%;
+
+        .datasets-table__action-btn {
+            height: 30px;
+            display: block;
+            width: 80px;
+            text-align: center;
+            line-height: 30px;
+            border-radius: 3px;
+            background-color: #3f51b5;
+            color: white;
+            transition: background-color .1s ease-in;
+            float: left;
+            font-size: 13px;
+            margin-left: 10px;
+
+            &:hover {
+                text-decoration: none;
+                background-color: lighten(#3f51b5, 10%);
+            }
+
+            &:first-child {
+                margin-left: 0;
+            }
+        }
+    }
+}
