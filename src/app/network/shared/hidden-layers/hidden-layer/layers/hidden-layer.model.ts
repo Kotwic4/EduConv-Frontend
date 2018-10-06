@@ -10,6 +10,7 @@ export abstract class HiddenLayer {
 
     public setNeurons(number: number): void {
         this._neurons = number;
+        this._haveNeurons = true;
     }
 
     public haveNeurons(): boolean {
@@ -22,4 +23,8 @@ export abstract class HiddenLayer {
 
     public setArgs(args: any) {
     }
+
+    public getArgsFromLayer(layer: any) {
+    }
+
 }

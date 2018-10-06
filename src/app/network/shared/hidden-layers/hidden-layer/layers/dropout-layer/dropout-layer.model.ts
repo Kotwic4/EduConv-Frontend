@@ -18,4 +18,8 @@ export class DropoutLayer extends HiddenLayer {
     public setArgs(args: DropoutLayerArgs) {
         this.args = args;
     }
+
+    public getArgsFromLayer(layer: any) {
+        this.args.rate = layer.rate;
+    }
 }
