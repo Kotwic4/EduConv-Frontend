@@ -4,6 +4,7 @@ import {Store} from '@ngrx/store';
 import {LearnSettings} from './learn-settings.model';
 import {NgForm} from '@angular/forms';
 import {SetLearnSettings} from '../../store/network.actions';
+import {DatasetInfo} from '../../shared/dataset-info.model';
 
 @Component({
     selector: 'app-learn-settings',
@@ -12,7 +13,7 @@ import {SetLearnSettings} from '../../store/network.actions';
 })
 export class LearnSettingsComponent implements OnInit {
     @ViewChild('f') settingsForm: NgForm;
-    @Input() datasets: string[];
+    @Input() datasets: DatasetInfo[];
     @Input() settings: LearnSettings;
     @Output() status = new EventEmitter<any>();
 

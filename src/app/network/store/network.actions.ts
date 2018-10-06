@@ -5,6 +5,7 @@ import {NetworkOutput} from '../shared/network-output.model';
 import {HiddenLayer} from '../shared/hidden-layers/hidden-layer/layers/hidden-layer.model';
 import {LearnSettings} from '../learn/learn-settings/learn-settings.model';
 import {LearnedNetworkInfo} from '../shared/learned-network-info.model';
+import {DatasetInfo} from '../shared/dataset-info.model';
 
 export const INPUT_IMAGE_UPLOAD = 'INPUT_IMAGE_UPLOAD';
 export const INPUT_IMAGE_UPLOAD_SUCCESS = 'INPUT_IMAGE_UPLOAD_SUCCESS';
@@ -37,6 +38,8 @@ export const END_RUNNING_NETWORK = 'END_RUNNING_NETWORK';
 
 export const FETCH_DATASETS = 'FETCH_DATASETS';
 export const FETCH_DATASETS_SUCCESS = 'FETCH_DATASETS_SUCCESS';
+export const FETCH_DATASET = 'FETCH_DATASET';
+export const FETCH_DATASET_SUCCESS = 'FETCH_DATASET_SUCCESS';
 
 export const FETCH_ALL_UNLEARNED_NETWORKS = 'FETCH_ALL_UNLEARNED_NETWORKS';
 export const FETCH_ALL_UNLEARNED_NETWORKS_SUCCESS = 'FETCH_ALL_UNLEARNED_NETWORKS_SUCCESS';
@@ -182,10 +185,22 @@ export class FetchDatasets implements Action {
     readonly type = FETCH_DATASETS;
 }
 
+export class FetchDataset implements Action {
+    readonly type = FETCH_DATASET;
+
+    constructor(public payload: number) {}
+}
+
 export class FetchDatasetsSuccess implements Action {
     readonly type = FETCH_DATASETS_SUCCESS;
 
-    constructor(public payload: string[]) {}
+    constructor(public payload: DatasetInfo[]) {}
+}
+
+export class FetchDatasetSuccess implements Action {
+    readonly type = FETCH_DATASET_SUCCESS;
+
+    constructor(public payload: DatasetInfo) {}
 }
 
 export class FetchAllUnlearnedNetworks implements Action {
@@ -239,6 +254,8 @@ export type NetworkActions =
     EndRunningNetwork |
     FetchDatasets |
     FetchDatasetsSuccess |
+    FetchDataset |
+    FetchDatasetSuccess |
     FetchAllUnlearnedNetworks |
     FetchAllUnlearnedNetworksSuccess |
     FetchAllLearnedNetworks |

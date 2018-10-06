@@ -24,7 +24,7 @@ export class DatasetsComponent implements OnInit {
     private subscription: Subscription;
     public datasets: DatasetInfo[];
 
-    displayedColumns = ['id', 'name', 'imagesAmount', 'imagesSize', 'actions'];
+    displayedColumns = ['id', 'name', 'testImagesAmount', 'trainImagesAmount', 'imagesSize', 'actions'];
     dataSource: MatTableDataSource<DatasetInfo>;
     @ViewChild(MatPaginator) paginator: MatPaginator;
 
@@ -40,15 +40,12 @@ export class DatasetsComponent implements OnInit {
         this.subscription = this.store.select('network')
             .subscribe(
                 data => {
-                    this.datasets = [
-                        new DatasetInfo(1, 'mnist', 123, 123, 100, 100, 1, ['1', '2', '3'])
-                    ];
-                    // this.datasets = data.datasets;
+                    this.datasets = data.datasets;
 
-                    // if (data.datasets) {
+                    if (data.datasets) {
                         this.dataSource = new MatTableDataSource<DatasetInfo>(this.datasets);
                         setTimeout(() => this.dataSource.paginator = this.paginator);
-                    // }
+                    }
                 }
             );
     }

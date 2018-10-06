@@ -15,8 +15,13 @@
                 <mat-cell *matCellDef="let dataset"> {{dataset.name}} </mat-cell>
             </ng-container>
 
-            <ng-container matColumnDef="imagesAmount">
-                <mat-header-cell *matHeaderCellDef> Images amount </mat-header-cell>
+            <ng-container matColumnDef="testImagesAmount">
+                <mat-header-cell *matHeaderCellDef> Test images amount </mat-header-cell>
+                <mat-cell *matCellDef="let dataset"> {{dataset.testImagesCount}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="trainImagesAmount">
+                <mat-header-cell *matHeaderCellDef> Train images amount </mat-header-cell>
                 <mat-cell *matCellDef="let dataset"> {{dataset.trainImagesCount}} </mat-cell>
             </ng-container>
 
@@ -30,7 +35,7 @@
             <ng-container matColumnDef="actions">
                 <mat-header-cell *matHeaderCellDef [style.flex]="'0 0 80px'"> Actions </mat-header-cell>
                 <mat-cell *matCellDef="let dataset" [style.flex]="'0 0 80px'">
-                    <a class="datasets-table__action-btn" [routerLink]="['/datasets', dataset.id]"
+                    <a class="datasets-table__action-btn" [routerLink]="['/home/datasets', dataset.id]"
                     >Details</a>
                 </mat-cell>
             </ng-container>
