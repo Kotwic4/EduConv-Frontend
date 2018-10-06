@@ -20,6 +20,12 @@ export class BatchNormalizationLayer extends HiddenLayer {
     }
 
     public setArgs(args: BatchNormalizationLayerArgs) {
-        this.args = args;
+        this.args = Object.assign(this.args, args);
+    }
+
+    public getArgsFromLayer(layer: any) {
+        this.args.axis = layer.axis || null;
+        this.args.momentum = layer.momentum || null;
+        this.args.epsilon = layer.epsilon || null;
     }
 }
