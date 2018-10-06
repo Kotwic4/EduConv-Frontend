@@ -125,7 +125,11 @@ export class NetworkEffects {
                         epochs: network.learnSettings.epochs,
                         batch_size: network.learnSettings.batchSize,
                     }).pipe(
-                        map((result) => new NetworkActions.EndLearningNetwork(result.id)),
+                        map((result) => {
+                            this.snackBarService.open(SnackBarType.SUCCESS,
+                                'Model have started learning in the background. You can now look at progress in the models list.');
+                            return new NetworkActions.EndLearningNetwork(result.model_id);
+                        }),
                         catchError((error) => {
                             this.defaultErrorStrategy(error.message);
                             return of(new NetworkActions.EffectError(error));
