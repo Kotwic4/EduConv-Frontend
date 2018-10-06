@@ -10,7 +10,7 @@
                 <img
                     [src]="getImageUrl(pageIndex*pageSize + i)"
                     class="dataset__image"
-                    (click)="downloadImage(i)"
+                    (click)="downloadImage(pageIndex*pageSize + i)"
                     (load)="setImageLoaded(i)"
                 >
                 <div
