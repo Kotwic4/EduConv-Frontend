@@ -3,7 +3,6 @@ import {HiddenLayersService} from './hidden-layers/hidden-layer/layers/hidden-la
 import {API_URL} from '../network.consts';
 import {HiddenLayer} from './hidden-layers/hidden-layer/layers/hidden-layer.model';
 import {NetworkOutput} from './network-output.model';
-import {debug} from 'util';
 
 export class LearnedNetwork {
     private _id;

@@ -19,11 +19,11 @@ export class AveragePooling2DLayer extends HiddenLayer {
     }
 
     public setArgs(args: AveragePooling2DLayerArgs) {
-        this.args = args;
+        this.args = Object.assign(this.args, args);
     }
 
     public getArgsFromLayer(layer: any) {
-        this.args.pool_size = layer.poolSize;
-        this.args.strides = layer.strides;
+        this.args.pool_size = layer.poolSize || [null, null];
+        this.args.strides = layer.strides || [null, null];
     }
 }

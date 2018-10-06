@@ -22,7 +22,7 @@ export class DenseLayer extends HiddenLayer {
     }
 
     public setArgs(args: DenseLayerArgs) {
-        this.args = args;
+        this.args = Object.assign(this.args, args);
         super.setNeurons(args.units);
     }
 
@@ -33,7 +33,7 @@ export class DenseLayer extends HiddenLayer {
 
     public getArgsFromLayer(layer: any) {
         this.args.units = layer.units;
-        this.args.use_bias = layer.useBias;
-        this.args.activation = layer.activation.name;
+        this.args.use_bias = layer.useBias || true;
+        this.args.activation = layer.activation.name || null;
     }
 }

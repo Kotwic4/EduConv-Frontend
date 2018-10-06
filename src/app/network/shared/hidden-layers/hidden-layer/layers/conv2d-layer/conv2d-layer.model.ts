@@ -24,7 +24,7 @@ export class Conv2DLayer extends HiddenLayer {
     }
 
     public setArgs(args: Conv2DLayerArgs) {
-        this.args = args;
+        this.args = Object.assign(this.args, args);
         super.setNeurons(args.filters);
     }
 
@@ -36,7 +36,7 @@ export class Conv2DLayer extends HiddenLayer {
     public getArgsFromLayer(layer: any) {
         this.args.filters = layer.filters;
         this.args.kernel_size = layer.kernelSize;
-        this.args.strides = layer.strides;
-        this.args.activation = layer.activation.name;
+        this.args.strides = layer.strides || [null, null];
+        this.args.activation = layer.activation.name || null;
     }
 }

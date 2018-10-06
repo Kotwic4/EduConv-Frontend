@@ -16,7 +16,7 @@ export class DropoutLayer extends HiddenLayer {
     }
 
     public setArgs(args: DropoutLayerArgs) {
-        this.args = args;
+        this.args = Object.assign(this.args, args);
     }
 
     public getArgsFromLayer(layer: any) {
