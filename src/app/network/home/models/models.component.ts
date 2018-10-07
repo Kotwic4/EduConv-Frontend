@@ -48,4 +48,9 @@ export class ModelsComponent implements OnInit {
                 }
             );
     }
+
+    refresh() {
+        this.learnedNetworks = null;
+        this.store.dispatch(new NetworkActions.FetchAllLearnedNetworks());
+    }
 }

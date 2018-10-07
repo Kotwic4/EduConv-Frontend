@@ -1,3 +1,11 @@
+<div class="row table-tools">
+    <button
+        mat-flat-button
+        class="table-tools__refresh-btn"
+        (click)="refresh()"
+    >Refresh</button>
+</div>
+
 <div
     class="row datasets-row"
     *ngIf="datasets"

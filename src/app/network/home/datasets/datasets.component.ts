@@ -49,4 +49,9 @@ export class DatasetsComponent implements OnInit {
                 }
             );
     }
+
+    refresh() {
+        this.datasets = null;
+        this.store.dispatch(new NetworkActions.FetchDatasets());
+    }
 }

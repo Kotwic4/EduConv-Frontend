@@ -5,7 +5,6 @@ import * as NetworkActions from '../../store/network.actions';
 import {UnlearnedNetwork} from '../../shared/unlearned-network.model';
 import {Subscription} from 'rxjs/Subscription';
 import {animate, state, style, transition, trigger} from '@angular/animations';
-import {Router} from '@angular/router';
 import {MatPaginator, MatTableDataSource} from '@angular/material';
 
 @Component({
@@ -29,8 +28,7 @@ export class SchemesComponent implements OnInit {
     @ViewChild(MatPaginator) paginator: MatPaginator;
 
     constructor(
-        private store: Store<fromApp.AppState>,
-        private router: Router,
+        private store: Store<fromApp.AppState>
     ) {
     }
 
@@ -50,9 +48,8 @@ export class SchemesComponent implements OnInit {
             );
     }
 
-    addBaseOn(event, id: number) {
-        this.router.navigate(['/scheme', id]);
-
-        event.stopPropagation();
+    refresh() {
+        this.unlearnedNetworks = null;
+        this.store.dispatch(new NetworkActions.FetchAllUnlearnedNetworks());
     }
 }
