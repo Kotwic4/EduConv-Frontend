@@ -6,7 +6,7 @@ import {UnlearnedNetwork} from '../../shared/unlearned-network.model';
 import {Subscription} from 'rxjs/Subscription';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import {Router} from '@angular/router';
-import {MatPaginator, MatTableDataSource} from '@angular/material';
+import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 
 @Component({
     selector: 'app-schemes',
@@ -27,6 +27,7 @@ export class SchemesComponent implements OnInit {
     displayedColumns = ['id', 'actions'];
     dataSource: MatTableDataSource<UnlearnedNetwork>;
     @ViewChild(MatPaginator) paginator: MatPaginator;
+    @ViewChild(MatSort) sort: MatSort;
 
     constructor(
         private store: Store<fromApp.AppState>,
@@ -44,7 +45,10 @@ export class SchemesComponent implements OnInit {
 
                     if (data.unlearnedNetworks) {
                         this.dataSource = new MatTableDataSource<UnlearnedNetwork>(data.unlearnedNetworks);
-                        setTimeout(() => this.dataSource.paginator = this.paginator);
+                        setTimeout(() => {
+                            this.dataSource.paginator = this.paginator;
+                            this.dataSource.sort = this.sort;
+                        });
                     }
                 }
             );

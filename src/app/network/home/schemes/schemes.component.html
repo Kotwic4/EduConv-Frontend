@@ -4,9 +4,9 @@
     @fadeInOut
 >
     <div class="schemes-table__container mat-elevation-z8">
-        <mat-table #table [dataSource]="dataSource">
+        <mat-table #table [dataSource]="dataSource" matSort>
             <ng-container matColumnDef="id">
-                <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
+                <mat-header-cell *matHeaderCellDef mat-sort-header> ID </mat-header-cell>
                 <mat-cell *matCellDef="let network"> {{network.id}} </mat-cell>
             </ng-container>
 

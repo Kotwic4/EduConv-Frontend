@@ -36,7 +36,7 @@ import {
     MatDialogModule,
     MatProgressSpinnerModule,
     MatSliderModule,
-    MatSnackBarModule,
+    MatSnackBarModule, MatSortModule,
     MatTabsModule
 } from '@angular/material';
 import {MatTableModule} from '@angular/material/table';
@@ -79,7 +79,8 @@ import {DatasetComponent} from './home/datasets/dataset/dataset.component';
         MatDialogModule,
         MatButtonModule,
         MatTableModule,
-        MatPaginatorModule
+        MatPaginatorModule,
+        MatSortModule
     ],
     declarations: [
         NetworkComponent,

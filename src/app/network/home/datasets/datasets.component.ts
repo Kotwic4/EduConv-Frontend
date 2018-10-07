@@ -5,7 +5,7 @@ import * as NetworkActions from '../../store/network.actions';
 import {Subscription} from 'rxjs/Subscription';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import {Router} from '@angular/router';
-import {MatPaginator, MatTableDataSource} from '@angular/material';
+import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {DatasetInfo} from '../../shared/dataset-info.model';
 
 @Component({
@@ -24,9 +24,10 @@ export class DatasetsComponent implements OnInit {
     private subscription: Subscription;
     public datasets: DatasetInfo[];
 
-    displayedColumns = ['id', 'name', 'testImagesAmount', 'trainImagesAmount', 'imagesSize', 'actions'];
+    displayedColumns = ['id', 'name', 'testImagesCount', 'trainImagesCount', 'imagesSize', 'actions'];
     dataSource: MatTableDataSource<DatasetInfo>;
     @ViewChild(MatPaginator) paginator: MatPaginator;
+    @ViewChild(MatSort) sort: MatSort;
 
     constructor(
         private store: Store<fromApp.AppState>,
@@ -44,7 +45,11 @@ export class DatasetsComponent implements OnInit {
 
                     if (data.datasets) {
                         this.dataSource = new MatTableDataSource<DatasetInfo>(this.datasets);
-                        setTimeout(() => this.dataSource.paginator = this.paginator);
+
+                        setTimeout(() => {
+                            this.dataSource.paginator = this.paginator;
+                            this.dataSource.sort = this.sort;
+                        });
                     }
                 }
             );
