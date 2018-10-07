@@ -55,6 +55,8 @@ import {AveragePooling2dLayerComponent
 } from './shared/hidden-layers/hidden-layer/layers/average-pooling2d-layer/average-pooling2d-layer.component';
 import {BatchNormalizationLayerComponent
 } from './shared/hidden-layers/hidden-layer/layers/batch-normalization-layer/batch-normalization-layer.component';
+import {DatasetsComponent} from './home/datasets/datasets.component';
+import {DatasetComponent} from './home/datasets/dataset/dataset.component';
 
 @NgModule({
     imports: [
@@ -107,7 +109,9 @@ import {BatchNormalizationLayerComponent
         LearnSettingsComponent,
         DeletionConfirmComponent,
         SchemesComponent,
-        ModelsComponent
+        ModelsComponent,
+        DatasetsComponent,
+        DatasetComponent
     ],
     providers: [
         HiddenLayersService,

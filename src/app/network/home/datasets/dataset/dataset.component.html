@@ -1,0 +1,36 @@
+<div class="container-fluid" *ngIf="images">
+    <div class="row dataset__row">
+        <div class="col-sm-12">
+            <div
+                class="dataset__image-container"
+                *ngFor="let id of images | slice:(pageIndex*pageSize):((pageIndex+1)*pageSize); let i = index"
+                [style.width]="dataset.imgWidth + 'px'"
+                [style.height]="dataset.imgHeight + 'px'"
+            >
+                <img
+                    [src]="getImageUrl(pageIndex*pageSize + i)"
+                    class="dataset__image"
+                    (click)="downloadImage(pageIndex*pageSize + i)"
+                    (load)="setImageLoaded(i)"
+                >
+                <div
+                    *ngIf="!imagesLoaded[i]"
+                    class="dataset__image-loader"
+                >
+
+                </div>
+            </div>
+            <mat-paginator #paginator
+                           [length]="images.length"
+                           [pageIndex]="pageIndex"
+                           [pageSize]="pageSize"
+                           [pageSizeOptions]="pageSizeOptions"
+                           [showFirstLastButtons]="true"
+                           (page)="onPage($event)"></mat-paginator>
+        </div>
+    </div>
+</div>
+<app-loader
+    *ngIf="!images"
+    [relative]="true"
+></app-loader>
