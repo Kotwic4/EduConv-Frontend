@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {LearnedNetworkInfo} from '../../shared/learned-network-info.model';
 import {Subscription} from 'rxjs/Subscription';
 import {Store} from '@ngrx/store';
@@ -6,6 +6,8 @@ import * as fromApp from '../../../store/app.reducers';
 import * as NetworkActions from '../../store/network.actions';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import {MatPaginator, MatTableDataSource} from '@angular/material';
+import {interval} from 'rxjs/observable/interval';
+import {TABLE_REFRESH_INTERVAL} from '../../network.consts';
 
 
 @Component({
@@ -20,8 +22,9 @@ import {MatPaginator, MatTableDataSource} from '@angular/material';
         ])
     ]
 })
-export class ModelsComponent implements OnInit {
+export class ModelsComponent implements OnInit, OnDestroy {
     private subscription: Subscription;
+    private refreshingSubscription: Subscription;
     public learnedNetworks: LearnedNetworkInfo[];
 
     displayedColumns = ['id', 'dataset', 'progress', 'actions'];
@@ -47,9 +50,17 @@ export class ModelsComponent implements OnInit {
                     }
                 }
             );
+
+        this.refreshingSubscription = interval(TABLE_REFRESH_INTERVAL).subscribe(() => {
+            this.refresh();
+        });
     }
 
     refresh() {
         this.store.dispatch(new NetworkActions.FetchAllLearnedNetworks());
+    }
+
+    ngOnDestroy() {
+        this.refreshingSubscription.unsubscribe();
     }
 }

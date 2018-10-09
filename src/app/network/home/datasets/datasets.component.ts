@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {Store} from '@ngrx/store';
 import * as fromApp from '../../../store/app.reducers';
 import * as NetworkActions from '../../store/network.actions';
@@ -7,6 +7,8 @@ import {animate, state, style, transition, trigger} from '@angular/animations';
 import {Router} from '@angular/router';
 import {MatPaginator, MatTableDataSource} from '@angular/material';
 import {DatasetInfo} from '../../shared/dataset-info.model';
+import {interval} from 'rxjs/observable/interval';
+import {TABLE_REFRESH_INTERVAL} from '../../network.consts';
 
 @Component({
     selector: 'app-datasets',
@@ -20,8 +22,9 @@ import {DatasetInfo} from '../../shared/dataset-info.model';
         ])
     ]
 })
-export class DatasetsComponent implements OnInit {
+export class DatasetsComponent implements OnInit, OnDestroy {
     private subscription: Subscription;
+    private refreshingSubscription: Subscription;
     public datasets: DatasetInfo[];
 
     displayedColumns = ['id', 'name', 'testImagesAmount', 'trainImagesAmount', 'imagesSize', 'actions'];
@@ -48,9 +51,17 @@ export class DatasetsComponent implements OnInit {
                     }
                 }
             );
+
+        this.refreshingSubscription = interval(TABLE_REFRESH_INTERVAL).subscribe(() => {
+            this.refresh();
+        });
     }
 
     refresh() {
         this.store.dispatch(new NetworkActions.FetchDatasets());
+    }
+
+    ngOnDestroy() {
+        this.refreshingSubscription.unsubscribe();
     }
 }
