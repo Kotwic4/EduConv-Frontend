@@ -49,7 +49,6 @@ export class SchemesComponent implements OnInit {
     }
 
     refresh() {
-        this.unlearnedNetworks = null;
         this.store.dispatch(new NetworkActions.FetchAllUnlearnedNetworks());
     }
 }
