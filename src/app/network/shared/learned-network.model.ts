@@ -3,6 +3,7 @@ import {HiddenLayersService} from './hidden-layers/hidden-layer/layers/hidden-la
 import {API_URL} from '../network.consts';
 import {HiddenLayer} from './hidden-layers/hidden-layer/layers/hidden-layer.model';
 import {NetworkOutput} from './network-output.model';
+import {NetworkDataParser} from './network-data-parser.model';
 
 export class LearnedNetwork {
     private _id;
@@ -71,75 +72,30 @@ export class LearnedNetwork {
         );
     }
 
-    generateImage(out) {
-        const canvas = <HTMLCanvasElement>document.createElement('canvas');
-        const ctx = canvas.getContext('2d');
-        const result = [];
-        const shape = out.shape;
-        const data = Array.from(out.dataSync());
-        const _min: any = Math.min.apply(null, data);
-        const _max: any = Math.max.apply(null, data);
-        const conf = (_max - _min) / 255;
-
-        if (shape.length === 2) {
-            for (let i = 0; i < shape[1]; i++) {
-                const value: any = data[i];
-                const color = (value - _min) / conf;
-
-                canvas.width  = 1;
-                canvas.height = 1;
-                ctx.fillStyle = `rgb(${color},${color},${color})`;
-                ctx.fillRect(0, 0, 1, 1);
-                result.push(canvas.toDataURL());
-            }
-        }
-        else {
-            const x = shape[1];
-            const y = shape[2];
-            const z = shape[3];
-
-            for (let n = 0; n < z; n++) {
-                canvas.width  = x;
-                canvas.height = y;
-
-                for (let i = 0; i < x; i++) {
-                    for (let j = 0; j < y; j++) {
-                        const index = n + (i * z) + (j * z * x);
-                        const value: any = data[index];
-                        const color = (value - _min) / conf;
-                        ctx.fillStyle = `rgb(${color},${color},${color})`;
-                        ctx.fillRect(i, j, i + 1, j + 1);
-                    }
-                }
-
-                result.push(canvas.toDataURL());
-            }
-        }
-
-        return result;
-    }
-
     runModel(): NetworkOutput {
-        const img = new Image();
-        img.src = this.input;
+        const inputImg = new Image();
+        inputImg.src = this.input;
+        const croppedInputImage = tf.fromPixels(inputImg, this._inputShape[3]);
+        const batchedInputImage = croppedInputImage.expandDims(0).toFloat();
+        const reshapedInputImage = batchedInputImage.reshape(this._inputShape);
 
-        const images = [];
-        const croppedImage = tf.fromPixels(img, this._inputShape[3]);
-        const batchedImage = croppedImage.expandDims(0).toFloat();
-        const reshaped = batchedImage.reshape(this._inputShape);
-        let inp: any = reshaped;
-        let out: any = reshaped;
+        const activationImages = [];
+        const activationHistograms = [];
+        let inputData: any = reshapedInputImage;
+        let outputData: any = reshapedInputImage;
 
         for (let i = 0; i < this._model.layers.length; i++) {
             const layer = this._model.getLayer('', i);
-            out = layer.apply(inp);
-            images.push(this.generateImage(out));
-            inp = out;
+            outputData = layer.apply(inputData);
+            activationImages.push(NetworkDataParser.generateActivationImage(outputData));
+            activationHistograms.push(NetworkDataParser.generateActivationHistogram(outputData));
+            inputData = outputData;
         }
 
         return new NetworkOutput(
-            images,
-            Array.from(out.dataSync())
+            activationImages,
+            activationHistograms,
+            Array.from(outputData.dataSync())
         );
     }
 
