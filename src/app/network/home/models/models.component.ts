@@ -1,11 +1,11 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {LearnedNetworkInfo} from '../../shared/learned-network-info.model';
 import {Subscription} from 'rxjs/Subscription';
 import {Store} from '@ngrx/store';
 import * as fromApp from '../../../store/app.reducers';
 import * as NetworkActions from '../../store/network.actions';
 import {animate, state, style, transition, trigger} from '@angular/animations';
-import {MatPaginator, MatTableDataSource} from '@angular/material';
+import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 
 
 @Component({
@@ -27,6 +27,7 @@ export class ModelsComponent implements OnInit {
     displayedColumns = ['id', 'dataset', 'progress', 'actions'];
     dataSource: MatTableDataSource<LearnedNetworkInfo>;
     @ViewChild(MatPaginator) paginator: MatPaginator;
+    @ViewChild(MatSort) sort: MatSort;
 
     constructor(
         private store: Store<fromApp.AppState>
@@ -43,7 +44,19 @@ export class ModelsComponent implements OnInit {
 
                     if (data.learnedNetworks) {
                         this.dataSource = new MatTableDataSource<LearnedNetworkInfo>(data.learnedNetworks);
-                        setTimeout(() => this.dataSource.paginator = this.paginator);
+                        setTimeout(() => {
+                            this.dataSource.paginator = this.paginator;
+                            this.dataSource.sortingDataAccessor = (item, property) => {
+                                switch (property) {
+                                    case 'dataset':
+                                        return item.dataset.name;
+                                    case 'progress':
+                                        return item.epochsLearnt / item.epochsToLearn;
+                                    default: return item[property];
+                                }
+                            };
+                            this.dataSource.sort = this.sort;
+                        });
                     }
                 }
             );
