@@ -5,7 +5,7 @@ import * as NetworkActions from '../../store/network.actions';
 import {UnlearnedNetwork} from '../../shared/unlearned-network.model';
 import {Subscription} from 'rxjs/Subscription';
 import {animate, state, style, transition, trigger} from '@angular/animations';
-import {MatPaginator, MatTableDataSource} from '@angular/material';
+import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {interval} from 'rxjs/observable/interval';
 import {TABLE_REFRESH_INTERVAL} from '../../network.consts';
 
@@ -29,6 +29,7 @@ export class SchemesComponent implements OnInit, OnDestroy {
     displayedColumns = ['id', 'actions'];
     dataSource: MatTableDataSource<UnlearnedNetwork>;
     @ViewChild(MatPaginator) paginator: MatPaginator;
+    @ViewChild(MatSort) sort: MatSort;
 
     constructor(
         private store: Store<fromApp.AppState>
@@ -45,7 +46,10 @@ export class SchemesComponent implements OnInit, OnDestroy {
 
                     if (data.unlearnedNetworks) {
                         this.dataSource = new MatTableDataSource<UnlearnedNetwork>(data.unlearnedNetworks);
-                        setTimeout(() => this.dataSource.paginator = this.paginator);
+                        setTimeout(() => {
+                            this.dataSource.paginator = this.paginator;
+                            this.dataSource.sort = this.sort;
+                        });
                     }
                 }
             );

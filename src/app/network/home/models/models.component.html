@@ -12,19 +12,19 @@
     @fadeInOut
 >
     <div class="models-table__container mat-elevation-z8">
-        <mat-table #table [dataSource]="dataSource">
+        <mat-table #table [dataSource]="dataSource" matSort>
             <ng-container matColumnDef="id">
-                <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
+                <mat-header-cell *matHeaderCellDef mat-sort-header> ID </mat-header-cell>
                 <mat-cell *matCellDef="let network"> {{network.id}} </mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="dataset">
-                <mat-header-cell *matHeaderCellDef> Dataset </mat-header-cell>
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Dataset </mat-header-cell>
                 <mat-cell *matCellDef="let network"> {{network.dataset.name}} </mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="progress">
-                <mat-header-cell *matHeaderCellDef> Training progress </mat-header-cell>
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Training progress </mat-header-cell>
                 <mat-cell *matCellDef="let network"> {{ network.epochsLearnt }} / {{ network.epochsToLearn }} </mat-cell>
             </ng-container>
 
