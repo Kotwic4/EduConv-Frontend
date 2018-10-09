@@ -54,7 +54,7 @@
             [value]="layer.getNeurons()"
             (onChange)="onAmountChange($event)"
         ></app-neurons-counter>
-        <ng-container *ngIf="!collapsed">
+        <ng-container *ngIf="!collapsed && beforeFlatten">
             <app-neurone
                 *ngFor="let neurone of range(layer.getNeurons()); let i = index;"
                 [index]="i"
@@ -65,6 +65,10 @@
             <span class="hidden-layer__neurons-amount-digits">{{ layer.getNeurons() | number }}</span>
             {{ getNeuronsName() }}
         </div>
+        <app-histogram
+            *ngIf="!collapsed && !beforeFlatten"
+            [data]="histogram"
+        ></app-histogram>
     </ng-container>
     <div *ngIf="!layer.haveNeurons()" class="hidden-layer__no-neurons-info">
         No {{ getNeuronsName() }}

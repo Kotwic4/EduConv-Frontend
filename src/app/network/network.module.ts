@@ -57,6 +57,8 @@ import {BatchNormalizationLayerComponent
 } from './shared/hidden-layers/hidden-layer/layers/batch-normalization-layer/batch-normalization-layer.component';
 import {DatasetsComponent} from './home/datasets/datasets.component';
 import {DatasetComponent} from './home/datasets/dataset/dataset.component';
+import {HistogramComponent, HistogramDataPipe} from './shared/hidden-layers/hidden-layer/histogram/histogram.component';
+import {ChartsModule} from 'ng2-charts';
 
 @NgModule({
     imports: [
@@ -80,7 +82,8 @@ import {DatasetComponent} from './home/datasets/dataset/dataset.component';
         MatButtonModule,
         MatTableModule,
         MatPaginatorModule,
-        MatSortModule
+        MatSortModule,
+        ChartsModule
     ],
     declarations: [
         NetworkComponent,
@@ -112,7 +115,9 @@ import {DatasetComponent} from './home/datasets/dataset/dataset.component';
         SchemesComponent,
         ModelsComponent,
         DatasetsComponent,
-        DatasetComponent
+        DatasetComponent,
+        HistogramComponent,
+        HistogramDataPipe
     ],
     providers: [
         HiddenLayersService,
