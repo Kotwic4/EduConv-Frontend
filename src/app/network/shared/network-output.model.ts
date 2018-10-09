@@ -1,12 +1,13 @@
 export class NetworkOutput {
     constructor(
-        private _neurons,
+        private _activationImages,
+        private _activationHistograms,
         private _classification
     ) {
     }
 
-    get neurons() {
-        return this._neurons;
+    get activationImages() {
+        return this._activationImages;
     }
 
     get classification() {
