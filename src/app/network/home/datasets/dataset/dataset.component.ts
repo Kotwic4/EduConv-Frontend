@@ -6,6 +6,7 @@ import {Subscription} from 'rxjs/Subscription';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {PageEvent} from '@angular/material';
 import {DatasetInfo} from '../../../shared/dataset-info.model';
+import {API_URL} from '../../../network.consts';
 
 @Component({
     selector: 'app-dataset',
@@ -50,7 +51,7 @@ export class DatasetComponent implements OnInit {
     }
 
     getImageUrl(imageId: number) {
-        return `http://127.0.0.1:5000/data/${this.id}/bitmaps/${imageId}`;
+        return `${API_URL}data/${this.id}/bitmaps/${imageId}`;
     }
 
     downloadImage(imageId: number) {

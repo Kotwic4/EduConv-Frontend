@@ -1,12 +1,13 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {Store} from '@ngrx/store';
 import * as fromApp from '../../../store/app.reducers';
 import * as NetworkActions from '../../store/network.actions';
 import {UnlearnedNetwork} from '../../shared/unlearned-network.model';
 import {Subscription} from 'rxjs/Subscription';
 import {animate, state, style, transition, trigger} from '@angular/animations';
-import {Router} from '@angular/router';
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
+import {interval} from 'rxjs/observable/interval';
+import {TABLE_REFRESH_INTERVAL} from '../../network.consts';
 
 @Component({
     selector: 'app-schemes',
@@ -20,8 +21,9 @@ import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
         ])
     ]
 })
-export class SchemesComponent implements OnInit {
+export class SchemesComponent implements OnInit, OnDestroy {
     private subscription: Subscription;
+    private refreshingSubscription: Subscription;
     public unlearnedNetworks: UnlearnedNetwork[];
 
     displayedColumns = ['id', 'actions'];
@@ -30,8 +32,7 @@ export class SchemesComponent implements OnInit {
     @ViewChild(MatSort) sort: MatSort;
 
     constructor(
-        private store: Store<fromApp.AppState>,
-        private router: Router,
+        private store: Store<fromApp.AppState>
     ) {
     }
 
@@ -52,11 +53,17 @@ export class SchemesComponent implements OnInit {
                     }
                 }
             );
+
+        this.refreshingSubscription = interval(TABLE_REFRESH_INTERVAL).subscribe(() => {
+            this.refresh();
+        });
     }
 
-    addBaseOn(event, id: number) {
-        this.router.navigate(['/scheme', id]);
+    refresh() {
+        this.store.dispatch(new NetworkActions.FetchAllUnlearnedNetworks());
+    }
 
-        event.stopPropagation();
+    ngOnDestroy() {
+        this.refreshingSubscription.unsubscribe();
     }
 }
