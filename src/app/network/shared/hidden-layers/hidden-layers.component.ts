@@ -10,6 +10,7 @@ import {HiddenLayerType} from './hidden-layer/layers/hidden-layer-type.enum';
 export class HiddenLayersComponent implements DoCheck {
     @Input() layers;
     @Input() images;
+    @Input() histograms;
     @Input() readonly;
 
     firstFlattenIndex: number;

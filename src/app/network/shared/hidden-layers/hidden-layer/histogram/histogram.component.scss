@@ -1,0 +1,10 @@
+:host {
+    writing-mode: horizontal-tb;
+    display: flex;
+    align-items: center;
+    height: 100%;
+
+    canvas {
+        height: 50%;
+    }
+}

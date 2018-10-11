@@ -51,7 +51,7 @@ export class NetworkDataParser {
     }
 
     static generateActivationHistogram(outData) {
-        const result = new Map();
+        const result = new Map<number, number>();
         const data: any = Array.from(outData.dataSync());
         const _min: any = Math.min.apply(null, data);
         const _max: any = Math.max.apply(null, data);
@@ -60,7 +60,7 @@ export class NetworkDataParser {
 
         for (let i = 0; i < data.length; i++) {
             const dataValue: any = data[i];
-            const key = ((dataValue - _min) / conf).toFixed(howManyDigets);
+            const key = +((dataValue - _min) / conf).toFixed(howManyDigets);
             const value =  result.has(key) ? result.get(key) + 1 : 1;
             result.set(key, value);
         }

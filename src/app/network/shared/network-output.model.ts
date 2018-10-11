@@ -13,4 +13,8 @@ export class NetworkOutput {
     get classification() {
         return this._classification;
     }
+
+    get activationHistograms() {
+        return this._activationHistograms;
+    }
 }

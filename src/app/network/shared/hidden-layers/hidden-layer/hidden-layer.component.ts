@@ -29,6 +29,7 @@ export class HiddenLayerComponent implements OnInit {
     @Input() index: number;
     @Input() layer: HiddenLayer;
     @Input() images: string[];
+    @Input() histogram: Map<number, number>;
     @Input() readonly;
     @Input() beforeFlatten: boolean;
 
