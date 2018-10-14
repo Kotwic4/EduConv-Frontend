@@ -3,9 +3,9 @@ import {HiddenLayer} from '../hidden-layer.model';
 
 export interface Conv2DLayerArgs {
     filters: number;
+    activation: HiddenLayerActivationType;
     kernel_size: [number, number];
     strides?: [number, number];
-    activation?: HiddenLayerActivationType;
 }
 
 export class Conv2DLayer extends HiddenLayer {
@@ -18,7 +18,7 @@ export class Conv2DLayer extends HiddenLayer {
             filters: 0,
             kernel_size: [0, 0],
             strides: [null, null],
-            activation: null
+            activation: HiddenLayerActivationType.LINEAR,
         };
         this.setHaveNeurons(true);
     }
