@@ -129,7 +129,7 @@ export class NetworkEffects {
                         map((result) => {
                             this.snackBarService.open(SnackBarType.SUCCESS,
                                 'Model have started learning in the background. You can now look at progress in the models list.');
-                            return new NetworkActions.EndLearningNetwork(result.model_id);
+                            return new NetworkActions.EndLearningNetwork(result.id);
                         }),
                         catchError((error) => {
                             this.defaultErrorStrategy(error.message);
