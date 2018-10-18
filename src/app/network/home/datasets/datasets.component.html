@@ -3,7 +3,7 @@
         mat-flat-button
         class="table-tools__refresh-btn"
         (click)="refresh()"
-    ><i class="fa fa-refresh" aria-hidden="true"></i></button>
+    ><i class="fa fa-refresh" aria-hidden="true"></i>Refresh</button>
 </div>
 
 <div
@@ -44,7 +44,7 @@
                 <mat-header-cell *matHeaderCellDef [style.flex]="'0 0 80px'"> Actions </mat-header-cell>
                 <mat-cell *matCellDef="let dataset" [style.flex]="'0 0 80px'">
                     <a class="datasets-table__action-btn" [routerLink]="['/home/datasets', dataset.id]"
-                    >Details</a>
+                    ><i class="fa fa-info-circle" aria-hidden="true"></i>Details</a>
                 </mat-cell>
             </ng-container>
 
