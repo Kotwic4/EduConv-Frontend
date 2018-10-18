@@ -12,14 +12,12 @@
             .models-table__action-btn {
                 height: 30px;
                 display: block;
-                width: 80px;
                 text-align: center;
                 line-height: 30px;
-                border-radius: 2px;
-                background-color: #3f51b5;
-                transition: background-color .1s ease-in;
+                color: #3f51b5;
+                transition: color .1s ease-in;
+                float: left;
                 font-size: 13px;
-                color: white;
 
                 i {
                     font-size: 12px;
@@ -28,7 +26,7 @@
 
                 &:hover {
                     text-decoration: none;
-                    background-color: lighten(#3f51b5, 10%);
+                    color: lighten(#3f51b5, 20%);
                 }
             }
         }
