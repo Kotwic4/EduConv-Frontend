@@ -30,7 +30,7 @@ const routes: Routes = [
                         component: DatasetsComponent
                     },
                     {
-                        path: 'datasets/:id',
+                        path: 'datasets/:id/:imageSet',
                         component: DatasetComponent
                     },
                     { path: '', redirectTo: 'schemes', pathMatch: 'full' }
