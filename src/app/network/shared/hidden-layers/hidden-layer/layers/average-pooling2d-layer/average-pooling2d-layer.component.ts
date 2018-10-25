@@ -17,6 +17,7 @@ export class AveragePooling2dLayerComponent implements OnInit {
     @Output() onSave = new EventEmitter<any>();
     @Output() onCancel = new EventEmitter<any>();
     @Output() onDelete = new EventEmitter<any>();
+    @Output() valid = new EventEmitter<boolean>();
 
     constructor(private store: Store<fromApp.AppState>) {
     }
@@ -30,6 +31,13 @@ export class AveragePooling2dLayerComponent implements OnInit {
                     strideX: this.layer.args.strides[0],
                     strideY: this.layer.args.strides[1]
                 });
+
+                if (this.readonly) {
+                    this.valid.emit(true);
+                }
+                else {
+                    this.valid.emit(this.confForm.valid);
+                }
             }
         );
     }

@@ -21,6 +21,7 @@ export class ModelComponent implements OnInit, OnDestroy {
     public saving = false;
     public layers: HiddenLayer[];
     public id: number;
+    public valid = false;
 
     public controls: HeaderControl[] = [
         {
@@ -42,6 +43,10 @@ export class ModelComponent implements OnInit, OnDestroy {
             tooltip: 'Save',
             icon: 'fa-floppy-o',
             disabled: () => {
+                if (!this.valid || !this.layers || this.layers.length === 0) {
+                    return true;
+                }
+
                 return (this.processing || !this.layers || this.layers.length === 0);
             }
         }
@@ -88,6 +93,10 @@ export class ModelComponent implements OnInit, OnDestroy {
                     );
             }
         );
+    }
+
+    onValid(valid: boolean) {
+        this.valid = valid;
     }
 
     ngOnDestroy() {

@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
+import {ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
 import {Store} from '@ngrx/store';
 import * as fromApp from '../../../../../../store/app.reducers';
 import {Subscription} from 'rxjs/Subscription';
@@ -19,11 +19,15 @@ export class Conv2dLayerComponent implements OnInit {
     @Output() onSave = new EventEmitter<any>();
     @Output() onCancel = new EventEmitter<any>();
     @Output() onDelete = new EventEmitter<any>();
+    @Output() valid = new EventEmitter<boolean>();
     activation_types_names: string[];
     activation_types_values: string[];
 
 
-    constructor(private store: Store<fromApp.AppState>) {
+    constructor(
+        private store: Store<fromApp.AppState>,
+        private cd: ChangeDetectorRef
+    ) {
         this.activation_types_names =
             Object.keys(HiddenLayerActivationType).filter(k => typeof HiddenLayerActivationType[k as any] === 'string');
         this.activation_types_values = this.activation_types_names.map(k => HiddenLayerActivationType[k as any]);
@@ -39,6 +43,13 @@ export class Conv2dLayerComponent implements OnInit {
                     strideY: this.layer.args.strides[1],
                     activation: this.layer.args.activation,
                 });
+
+                if (this.readonly) {
+                    this.valid.emit(true);
+                }
+                else {
+                    this.valid.emit(this.confForm.valid);
+                }
             }
         );
     }

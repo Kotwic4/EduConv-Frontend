@@ -18,6 +18,7 @@ export class DenseLayerComponent implements OnInit {
     @Output() onSave = new EventEmitter<any>();
     @Output() onCancel = new EventEmitter<any>();
     @Output() onDelete = new EventEmitter<any>();
+    @Output() valid = new EventEmitter<boolean>();
     activation_types_names: string[];
     activation_types_values: string[];
 
@@ -35,6 +36,13 @@ export class DenseLayerComponent implements OnInit {
                     activation: this.layer.args.activation,
                     useBias: this.layer.args.use_bias
                 });
+
+                if (this.readonly) {
+                    this.valid.emit(true);
+                }
+                else {
+                    this.valid.emit(this.confForm.valid);
+                }
             }
         );
     }

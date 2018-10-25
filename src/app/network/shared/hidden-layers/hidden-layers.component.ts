@@ -1,11 +1,14 @@
-import {Component, DoCheck, Input, IterableDiffers} from '@angular/core';
+import {Component, DoCheck, EventEmitter, Input, IterableDiffers, Output} from '@angular/core';
 import {HiddenLayersService} from './hidden-layer/layers/hidden-layer.service';
 import {HiddenLayerType} from './hidden-layer/layers/hidden-layer-type.enum';
+import {HiddenLayer} from './hidden-layer/layers/hidden-layer.model';
+import {HiddenLayersValidator} from './hidden-layers-validator.service';
 
 @Component({
     selector: 'app-hidden-layers',
     templateUrl: './hidden-layers.component.html',
-    styleUrls: ['./hidden-layers.component.scss']
+    styleUrls: ['./hidden-layers.component.scss'],
+    providers: [HiddenLayersValidator]
 })
 export class HiddenLayersComponent implements DoCheck {
     @Input() layers;
@@ -13,11 +16,19 @@ export class HiddenLayersComponent implements DoCheck {
     @Input() histograms;
     @Input() readonly;
 
+    @Output() valid = new EventEmitter<boolean>();
+
     firstFlattenIndex: number;
     iterableDiffer;
 
-    constructor(private _iterableDiffers: IterableDiffers) {
+    constructor(
+        private _iterableDiffers: IterableDiffers,
+        private hiddenLayersValidator: HiddenLayersValidator
+    ) {
         this.iterableDiffer = this._iterableDiffers.find([]).create(null);
+        this.hiddenLayersValidator.$valid.subscribe((valid: boolean) => {
+            this.valid.emit(valid);
+        });
     }
 
     ngDoCheck() {

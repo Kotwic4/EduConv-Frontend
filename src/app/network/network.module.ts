@@ -51,6 +51,7 @@ import {DeletionConfirmComponent} from './shared/hidden-layers/hidden-layer/laye
 import {SchemesComponent} from './home/schemes/schemes.component';
 import {ModelsComponent} from './home/models/models.component';
 import {ActivationLayerComponent} from './shared/hidden-layers/hidden-layer/layers/activation-layer/activation-layer.component';
+import {CustomFormsModule} from 'ng2-validation';
 import {AveragePooling2dLayerComponent
 } from './shared/hidden-layers/hidden-layer/layers/average-pooling2d-layer/average-pooling2d-layer.component';
 import {BatchNormalizationLayerComponent
@@ -82,6 +83,7 @@ import {ChartsModule} from 'ng2-charts';
         MatButtonModule,
         MatTableModule,
         MatPaginatorModule,
+        CustomFormsModule,
         MatSortModule,
         ChartsModule
     ],
@@ -124,7 +126,7 @@ import {ChartsModule} from 'ng2-charts';
         SnackBarService,
         {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}}
     ],
-    entryComponents: [DeletionConfirmComponent],
+    entryComponents: [DeletionConfirmComponent, Conv2dLayerComponent],
 })
 export class NetworkModule {
 }

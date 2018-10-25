@@ -1,5 +1,7 @@
 <div
-    [ngClass]="['hidden-layer__container', 'hidden-layer__container--type-' + layerType, collapsed && layer.haveNeurons() ? 'hidden-layer__container--collapsed' : '']"
+    [ngClass]="['hidden-layer__container',
+        'hidden-layer__container--type-' + layerType, collapsed && layer.haveNeurons() ? 'hidden-layer__container--collapsed' : '',
+        (layer.haveNeurons() && layer.getNeurons() === 0) || !argsValid  ? 'hidden-layer__container--invalid' : '']"
     (click)="layer.haveNeurons() && toggleCollapsed()"
 >
     <span class="hidden-layer__index">{{ index+1 }}.</span>
@@ -36,6 +38,7 @@
             class="hidden-layer__settings"
             matTooltip="Layer settings"
             matTooltipPosition="above"
+            [class.hidden-layer__settings--invalid]="!argsValid"
         >
             <i
                 class="fa fa-cog"
@@ -47,6 +50,7 @@
             ></i>
         </div>
     </div>
+        <div style="position: absolute;"></div>
 
     <ng-container *ngIf="layer.haveNeurons()">
         <app-neurons-counter
@@ -77,40 +81,40 @@
 
 <ng-template #Conv2D>
     <app-conv2d-layer [index]="index" [layer]="layer" [readonly]="readonly" (onSave)="onSave($event)"
-                      (onCancel)="onCancel($event)" (onDelete)="onDelete($event)"></app-conv2d-layer>
+                      (onCancel)="onCancel($event)" (onDelete)="onDelete($event)" (valid)="onValid($event)"></app-conv2d-layer>
 </ng-template>
 
 <ng-template #Dense>
     <app-dense-layer [index]="index" [layer]="layer" [readonly]="readonly" (onSave)="onSave($event)"
-                     (onCancel)="onCancel($event)" (onDelete)="onDelete($event)"></app-dense-layer>
+                     (onCancel)="onCancel($event)" (onDelete)="onDelete($event)" (valid)="onValid($event)"></app-dense-layer>
 </ng-template>
 
 <ng-template #Dropout>
     <app-dropout-layer [index]="index" [layer]="layer" [readonly]="readonly" (onSave)="onSave($event)"
-                       (onCancel)="onCancel($event)" (onDelete)="onDelete($event)"></app-dropout-layer>
+                       (onCancel)="onCancel($event)" (onDelete)="onDelete($event)" (valid)="onValid($event)"></app-dropout-layer>
 </ng-template>
 
 <ng-template #Flatten>
     <app-flatten-layer [index]="index" [layer]="layer" [readonly]="readonly" (onSave)="onSave($event)"
-                       (onCancel)="onCancel($event)" (onDelete)="onDelete($event)"></app-flatten-layer>
+                       (onCancel)="onCancel($event)" (onDelete)="onDelete($event)" (valid)="onValid($event)"></app-flatten-layer>
 </ng-template>
 
 <ng-template #MaxPooling2D>
     <app-max-pooling2d-layer [index]="index" [layer]="layer" [readonly]="readonly" (onSave)="onSave($event)"
-                             (onCancel)="onCancel($event)" (onDelete)="onDelete($event)"></app-max-pooling2d-layer>
+                             (onCancel)="onCancel($event)" (onDelete)="onDelete($event)" (valid)="onValid($event)"></app-max-pooling2d-layer>
 </ng-template>
 
 <ng-template #BatchNormalization>
     <app-batch-normalization-layer [index]="index" [layer]="layer" [readonly]="readonly" (onSave)="onSave($event)"
-                             (onCancel)="onCancel($event)" (onDelete)="onDelete($event)"></app-batch-normalization-layer>
+                             (onCancel)="onCancel($event)" (onDelete)="onDelete($event)" (valid)="onValid($event)"></app-batch-normalization-layer>
 </ng-template>
 
 <ng-template #AveragePooling2D>
     <app-average-pooling2d-layer [index]="index" [layer]="layer" [readonly]="readonly" (onSave)="onSave($event)"
-                                 (onCancel)="onCancel($event)" (onDelete)="onDelete($event)"></app-average-pooling2d-layer>
+                                 (onCancel)="onCancel($event)" (onDelete)="onDelete($event)" (valid)="onValid($event)"></app-average-pooling2d-layer>
 </ng-template>
 
 <ng-template #Activation>
     <app-activation-layer [index]="index" [layer]="layer" [readonly]="readonly" (onSave)="onSave($event)"
-                             (onCancel)="onCancel($event)" (onDelete)="onDelete($event)"></app-activation-layer>
+                             (onCancel)="onCancel($event)" (onDelete)="onDelete($event)" (valid)="onValid($event)"></app-activation-layer>
 </ng-template>
