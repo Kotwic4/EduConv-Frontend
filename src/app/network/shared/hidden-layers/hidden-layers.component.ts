@@ -13,6 +13,7 @@ import {HiddenLayersValidator} from './hidden-layers-validator.service';
 export class HiddenLayersComponent implements DoCheck {
     @Input() layers;
     @Input() images;
+    @Input() histograms;
     @Input() readonly;
 
     @Output() valid = new EventEmitter<boolean>();

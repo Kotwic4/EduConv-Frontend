@@ -28,15 +28,14 @@ export class HiddenLayerComponent implements OnInit {
     @ViewChild('Dropout') Dropout;
     @ViewChild('Flatten') Flatten;
     @ViewChild('MaxPooling2D') MaxPooling2D;
-    @ViewChild('MaxPooling1D') MaxPooling1D;
     @ViewChild('BatchNormalization') BatchNormalization;
     @ViewChild('AveragePooling2D') AveragePooling2D;
-    @ViewChild('AveragePooling1D') AveragePooling1D;
     @ViewChild('Activation') Activation;
 
     @Input() index: number;
     @Input() layer: HiddenLayer;
     @Input() images: string[];
+    @Input() histogram: Map<number, number>;
     @Input() readonly;
     @Input() beforeFlatten: boolean;
 

@@ -2,17 +2,18 @@ import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {Store} from '@ngrx/store';
 import * as fromApp from '../../../store/app.reducers';
 import * as NetworkActions from '../../store/network.actions';
-import {UnlearnedNetwork} from '../../shared/unlearned-network.model';
 import {Subscription} from 'rxjs/Subscription';
 import {animate, state, style, transition, trigger} from '@angular/animations';
+import {Router} from '@angular/router';
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
+import {DatasetInfo} from '../../shared/dataset-info.model';
 import {interval} from 'rxjs/observable/interval';
 import {TABLE_REFRESH_INTERVAL} from '../../network.consts';
 
 @Component({
-    selector: 'app-schemes',
-    templateUrl: './schemes.component.html',
-    styleUrls: ['./schemes.component.scss'],
+    selector: 'app-datasets',
+    templateUrl: './datasets.component.html',
+    styleUrls: ['./datasets.component.scss'],
     animations: [
         trigger('fadeInOut', [
             state('*' , style({ opacity: 1 })),
@@ -21,31 +22,33 @@ import {TABLE_REFRESH_INTERVAL} from '../../network.consts';
         ])
     ]
 })
-export class SchemesComponent implements OnInit, OnDestroy {
+export class DatasetsComponent implements OnInit, OnDestroy {
     private subscription: Subscription;
     private refreshingSubscription: Subscription;
-    public unlearnedNetworks: UnlearnedNetwork[];
+    public datasets: DatasetInfo[];
 
-    displayedColumns = ['id', 'actions'];
-    dataSource: MatTableDataSource<UnlearnedNetwork>;
+    displayedColumns = ['id', 'name', 'testImagesCount', 'trainImagesCount', 'imagesSize', 'actions'];
+    dataSource: MatTableDataSource<DatasetInfo>;
     @ViewChild(MatPaginator) paginator: MatPaginator;
     @ViewChild(MatSort) sort: MatSort;
 
     constructor(
-        private store: Store<fromApp.AppState>
+        private store: Store<fromApp.AppState>,
+        private router: Router,
     ) {
     }
 
     ngOnInit() {
-        this.store.dispatch(new NetworkActions.FetchAllUnlearnedNetworks());
+        this.store.dispatch(new NetworkActions.FetchDatasets());
 
         this.subscription = this.store.select('network')
             .subscribe(
                 data => {
-                    this.unlearnedNetworks = data.unlearnedNetworks;
+                    this.datasets = data.datasets;
 
-                    if (data.unlearnedNetworks) {
-                        this.dataSource = new MatTableDataSource<UnlearnedNetwork>(data.unlearnedNetworks);
+                    if (data.datasets) {
+                        this.dataSource = new MatTableDataSource<DatasetInfo>(this.datasets);
+
                         setTimeout(() => {
                             this.dataSource.paginator = this.paginator;
                             this.dataSource.sort = this.sort;
@@ -60,7 +63,7 @@ export class SchemesComponent implements OnInit, OnDestroy {
     }
 
     refresh() {
-        this.store.dispatch(new NetworkActions.FetchAllUnlearnedNetworks());
+        this.store.dispatch(new NetworkActions.FetchDatasets());
     }
 
     ngOnDestroy() {

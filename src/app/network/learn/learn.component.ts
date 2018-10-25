@@ -8,6 +8,7 @@ import {HeaderControl} from '../header/header-control.interface';
 import {UnlearnedNetwork} from '../shared/unlearned-network.model';
 import {LearnSettings} from './learn-settings/learn-settings.model';
 import {HiddenLayer} from '../shared/hidden-layers/hidden-layer/layers/hidden-layer.model';
+import {DatasetInfo} from '../shared/dataset-info.model';
 
 @Component({
     selector: 'app-learn',
@@ -19,7 +20,7 @@ export class LearnComponent implements OnInit, OnDestroy {
     public processing;
     public learning = false;
     public layers: HiddenLayer[];
-    public datasets: string[];
+    public datasets: DatasetInfo[];
     public learnSettings: LearnSettings;
     public learnSettingsValid = false;
     private subscription: Subscription;
@@ -66,7 +67,7 @@ export class LearnComponent implements OnInit, OnDestroy {
                             }
 
                             if (!this.processing && this.learning && !data.processingError && data.id) {
-                                this.router.navigate(['/run', data.id]);
+                                this.router.navigate(['/home/models']);
                             }
                         }
                     );

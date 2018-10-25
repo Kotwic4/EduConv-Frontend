@@ -35,7 +35,6 @@
         </div>
 
         <div
-            *ngIf="!readonly"
             class="hidden-layer__settings"
             matTooltip="Layer settings"
             matTooltipPosition="above"
@@ -59,7 +58,7 @@
             [value]="layer.getNeurons()"
             (onChange)="onAmountChange($event)"
         ></app-neurons-counter>
-        <ng-container *ngIf="!collapsed">
+        <ng-container *ngIf="!collapsed && beforeFlatten">
             <app-neurone
                 *ngFor="let neurone of range(layer.getNeurons()); let i = index;"
                 [index]="i"
@@ -70,6 +69,10 @@
             <span class="hidden-layer__neurons-amount-digits">{{ layer.getNeurons() | number }}</span>
             {{ getNeuronsName() }}
         </div>
+        <app-histogram
+            *ngIf="!collapsed && !beforeFlatten"
+            [data]="histogram"
+        ></app-histogram>
     </ng-container>
     <div *ngIf="!layer.haveNeurons()" class="hidden-layer__no-neurons-info">
         No {{ getNeuronsName() }}
@@ -101,11 +104,6 @@
                              (onCancel)="onCancel($event)" (onDelete)="onDelete($event)" (valid)="onValid($event)"></app-max-pooling2d-layer>
 </ng-template>
 
-<ng-template #MaxPooling1D>
-    <app-max-pooling1d-layer [index]="index" [layer]="layer" [readonly]="readonly" (onSave)="onSave($event)"
-                             (onCancel)="onCancel($event)" (onDelete)="onDelete($event)" (valid)="onValid($event)"></app-max-pooling1d-layer>
-</ng-template>
-
 <ng-template #BatchNormalization>
     <app-batch-normalization-layer [index]="index" [layer]="layer" [readonly]="readonly" (onSave)="onSave($event)"
                              (onCancel)="onCancel($event)" (onDelete)="onDelete($event)" (valid)="onValid($event)"></app-batch-normalization-layer>
@@ -114,11 +112,6 @@
 <ng-template #AveragePooling2D>
     <app-average-pooling2d-layer [index]="index" [layer]="layer" [readonly]="readonly" (onSave)="onSave($event)"
                                  (onCancel)="onCancel($event)" (onDelete)="onDelete($event)" (valid)="onValid($event)"></app-average-pooling2d-layer>
-</ng-template>
-
-<ng-template #AveragePooling1D>
-    <app-average-pooling1d-layer [index]="index" [layer]="layer" [readonly]="readonly" (onSave)="onSave($event)"
-                             (onCancel)="onCancel($event)" (onDelete)="onDelete($event)" (valid)="onValid($event)"></app-average-pooling1d-layer>
 </ng-template>
 
 <ng-template #Activation>

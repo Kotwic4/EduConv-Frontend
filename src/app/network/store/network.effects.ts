@@ -16,6 +16,7 @@ import {Router} from '@angular/router';
 import {Ng2ImgToolsService} from 'ng2-img-tools';
 import {LearnedNetworkInfo} from '../shared/learned-network-info.model';
 import {SnackBarService, SnackBarType} from '../shared/snack-bar.service';
+import {DatasetInfo} from '../shared/dataset-info.model';
 
 @Injectable()
 export class NetworkEffects {
@@ -125,7 +126,11 @@ export class NetworkEffects {
                         epochs: network.learnSettings.epochs,
                         batch_size: network.learnSettings.batchSize,
                     }).pipe(
-                        map((result) => new NetworkActions.EndLearningNetwork(result.id)),
+                        map((result) => {
+                            this.snackBarService.open(SnackBarType.SUCCESS,
+                                'Model have started learning in the background. You can now look at progress in the models list.');
+                            return new NetworkActions.EndLearningNetwork(result.id);
+                        }),
                         catchError((error) => {
                             this.defaultErrorStrategy(error.message);
                             return of(new NetworkActions.EffectError(error));
@@ -196,7 +201,30 @@ export class NetworkEffects {
             switchMap(
                 (action: NetworkActions.FetchDatasets) => {
                     return this.httpClient.get<any>(API_URL + `data`).pipe(
-                        map((result: string[]) => new NetworkActions.FetchDatasetsSuccess(result)),
+                        map((result: any) => {
+                            const datasets: DatasetInfo[] = result.map((dataset) => DatasetInfo.fromJSON(dataset));
+
+                            return new NetworkActions.FetchDatasetsSuccess(datasets);
+                        }),
+                        catchError((error) => {
+                            this.defaultErrorStrategy(error);
+                            return of(new NetworkActions.EffectError(error));
+                        })
+                    );
+                }
+            )
+        );
+
+    @Effect()
+    fetchDataset = this.actions$
+        .ofType(NetworkActions.FETCH_DATASET)
+        .pipe(
+            switchMap(
+                (action: NetworkActions.FetchDataset) => {
+                    return this.httpClient.get<any>(API_URL + `data/${action.payload}`).pipe(
+                        map((result: any) => {
+                            return new NetworkActions.FetchDatasetSuccess(DatasetInfo.fromJSON(result));
+                        }),
                         catchError((error) => {
                             this.defaultErrorStrategy(error);
                             return of(new NetworkActions.EffectError(error));
