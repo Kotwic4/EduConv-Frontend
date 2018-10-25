@@ -27,7 +27,7 @@ export class ModelsComponent implements OnInit, OnDestroy {
     private refreshingSubscription: Subscription;
     public learnedNetworks: LearnedNetworkInfo[];
 
-    displayedColumns = ['id', 'dataset', 'progress', 'actions'];
+    displayedColumns = ['id', 'dataset', 'progress', 'status', 'actions'];
     dataSource: MatTableDataSource<LearnedNetworkInfo>;
     @ViewChild(MatPaginator) paginator: MatPaginator;
     @ViewChild(MatSort) sort: MatSort;
@@ -54,7 +54,8 @@ export class ModelsComponent implements OnInit, OnDestroy {
                                     case 'dataset':
                                         return item.dataset.name;
                                     case 'progress':
-                                        return item.epochsLearnt / item.epochsToLearn;
+                                    case 'status':
+                                        return item.epochsToLearn === 0 ? -1 : item.epochsLearnt / item.epochsToLearn;
                                     default: return item[property];
                                 }
                             };
