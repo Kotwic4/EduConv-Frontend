@@ -1,3 +1,5 @@
+@import "../../../../../variables.scss";
+
 .dataset__row {
     padding-top: 25px;
 
@@ -9,7 +11,6 @@
         margin: 15px;
         box-sizing: border-box;
         border-radius: 2px;
-        overflow: hidden;
 
         .dataset__image {
             cursor: pointer;
@@ -28,5 +29,28 @@
             opacity: 0.5;
             border: 1px solid grey;
         }
+
+        .dataset__label {
+            font-size: 12px;
+            width: 100%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            text-align: center;
+        }
+    }
+}
+
+nav {
+    margin-top: 15px;
+    position: sticky;
+    top: 123px;
+    background-color: white;
+    z-index: 2;
+
+    a {
+        text-decoration: none;
+        font-family: $font-family;
+        font-size: 18px;
     }
 }

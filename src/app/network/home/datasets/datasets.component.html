@@ -43,7 +43,7 @@
             <ng-container matColumnDef="actions">
                 <mat-header-cell *matHeaderCellDef [style.flex]="'0 0 65px'"> Actions </mat-header-cell>
                 <mat-cell *matCellDef="let dataset" [style.flex]="'0 0 65px'">
-                    <a class="datasets-table__action-btn" [routerLink]="['/home/datasets', dataset.id]"
+                    <a class="datasets-table__action-btn" [routerLink]="['/home/datasets', dataset.id, 'train']"
                     ><i class="fa fa-info" aria-hidden="true"></i>Details</a>
                 </mat-cell>
             </ng-container>

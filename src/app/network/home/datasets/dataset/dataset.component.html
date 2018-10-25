@@ -1,3 +1,15 @@
+<nav mat-tab-nav-bar>
+    <a
+        mat-tab-link
+        *ngFor="let link of LINKS"
+        [routerLink]="link.path"
+        routerLinkActive #rla="routerLinkActive"
+        [active]="rla.isActive"
+    >
+        {{link.label}}
+    </a>
+</nav>
+
 <div class="container-fluid" *ngIf="images">
     <div class="row dataset__row">
         <div class="col-sm-12">
@@ -13,12 +25,11 @@
                     (click)="downloadImage(pageIndex*pageSize + i)"
                     (load)="setImageLoaded(i)"
                 >
+                <div class="dataset__label">{{ labels[i] | async }}</div>
                 <div
                     *ngIf="!imagesLoaded[i]"
                     class="dataset__image-loader"
-                >
-
-                </div>
+                ></div>
             </div>
             <mat-paginator #paginator
                            [length]="images.length"
