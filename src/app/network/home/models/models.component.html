@@ -3,7 +3,7 @@
         mat-flat-button
         class="table-tools__refresh-btn"
         (click)="refresh()"
-    ><i class="fa fa-refresh" aria-hidden="true"></i></button>
+    ><i class="fa fa-refresh" aria-hidden="true"></i>Refresh</button>
 </div>
 
 <div
@@ -28,21 +28,32 @@
                 <mat-cell *matCellDef="let network"> {{ network.epochsLearnt }} / {{ network.epochsToLearn }} </mat-cell>
             </ng-container>
 
+            <ng-container matColumnDef="status">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Status </mat-header-cell>
+                <mat-cell *matCellDef="let network">
+                    <span *ngIf="network.epochsToLearn === 0 else notErrorStatus" class="badge badge-danger">Error</span>
+                    <ng-template #notErrorStatus>
+                        <span *ngIf="network.epochsLearnt === network.epochsToLearn" class="badge badge-success">Trained</span>
+                        <span *ngIf="network.epochsLearnt !== network.epochsToLearn" class="badge badge-warning">Pending</span>
+                    </ng-template>
+                </mat-cell>
+            </ng-container>
+
             <ng-container matColumnDef="actions">
-                <mat-header-cell *matHeaderCellDef [style.flex]="'0 0 80px'"> Actions </mat-header-cell>
-                <mat-cell *matCellDef="let network" [style.flex]="'0 0 80px'">
+                <mat-header-cell *matHeaderCellDef [style.flex]="'0 0 65px'"> Actions </mat-header-cell>
+                <mat-cell *matCellDef="let network" [style.flex]="'0 0 65px'">
                     <a
                         *ngIf="network.epochsLearnt === network.epochsToLearn"
                         class="models-table__action-btn"
                         [routerLink]="['/run', network.id]"
-                    >Run</a>
+                    ><i class="fa fa-play" aria-hidden="true"></i>Run</a>
                 </mat-cell>
             </ng-container>
 
             <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
             <mat-row
+                class="models-table__row"
                 *matRowDef="let row; columns: displayedColumns;"
-                [ngClass]="['models-table__row', row.epochsLearnt === row.epochsToLearn ? 'models-table__row--learned' : 'models-table__row--learning']"
             ></mat-row>
         </mat-table>
 

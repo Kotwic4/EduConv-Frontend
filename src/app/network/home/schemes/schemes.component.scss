@@ -11,29 +11,39 @@
         .schemes-table__action-btn {
             height: 30px;
             display: block;
-            width: 80px;
             text-align: center;
             line-height: 30px;
-            border-radius: 3px;
-            background-color: #3f51b5;
-            color: white;
-            transition: background-color .1s ease-in;
+            color: #3f51b5;
+            transition: color .1s ease-in;
             float: left;
             font-size: 13px;
-            margin-left: 10px;
+            margin-right: 10px;
+
+            i {
+                font-size: 12px;
+                margin-right: 6px;
+            }
 
             &:hover {
                 text-decoration: none;
-                background-color: lighten(#3f51b5, 10%);
-            }
-
-            &:first-child {
-                margin-left: 0;
+                color: lighten(#3f51b5, 20%);
             }
         }
     }
 
     .table-tools {
         justify-content: flex-end;
+
+        .table-tools__refresh-btn {
+            height: 30px;
+            font-size: 13px;
+            line-height: 14px;
+            font-weight: 400;
+
+            i {
+                font-size: 12px;
+                margin-right: 6px;
+            }
+        }
     }
 }
