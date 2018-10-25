@@ -31,7 +31,12 @@ export class MaxPooling2dLayerComponent implements OnInit {
                     strideY: this.layer.args.strides[1]
                 });
 
-                this.valid.emit(this.confForm.valid);
+                if (this.readonly) {
+                    this.valid.emit(true);
+                }
+                else {
+                    this.valid.emit(this.confForm.valid);
+                }
             }
         );
     }

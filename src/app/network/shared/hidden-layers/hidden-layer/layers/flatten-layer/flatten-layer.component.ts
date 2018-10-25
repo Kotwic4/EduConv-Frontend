@@ -25,7 +25,12 @@ export class FlattenLayerComponent implements OnInit {
             () => {
                 this.confForm.setValue({});
 
-                this.valid.emit(true);
+                if (this.readonly) {
+                    this.valid.emit(true);
+                }
+                else {
+                    this.valid.emit(this.confForm.valid);
+                }
             }
         );
     }

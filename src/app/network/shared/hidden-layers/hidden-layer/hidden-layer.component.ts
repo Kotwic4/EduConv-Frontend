@@ -64,6 +64,10 @@ export class HiddenLayerComponent implements OnInit {
                 this.popover.open();
             });
         }
+        else {
+            this.hiddenLayersValidator.addLayer(true);
+            this.updateValid(true);
+        }
     }
 
     range(i: number) {

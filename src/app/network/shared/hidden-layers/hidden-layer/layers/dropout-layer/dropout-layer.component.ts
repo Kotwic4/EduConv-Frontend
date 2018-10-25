@@ -28,7 +28,12 @@ export class DropoutLayerComponent implements OnInit {
                     rate: this.layer.args.rate
                 });
 
-                this.valid.emit(this.confForm.valid);
+                if (this.readonly) {
+                    this.valid.emit(true);
+                }
+                else {
+                    this.valid.emit(this.confForm.valid);
+                }
             }
         );
     }

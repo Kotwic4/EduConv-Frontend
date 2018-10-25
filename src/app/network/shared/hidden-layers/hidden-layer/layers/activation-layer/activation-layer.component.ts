@@ -36,7 +36,12 @@ export class ActivationLayerComponent implements OnInit {
                     activation: this.layer.args.activation,
                 });
 
-                this.valid.emit(this.confForm.valid);
+                if (this.readonly) {
+                    this.valid.emit(true);
+                }
+                else {
+                    this.valid.emit(this.confForm.valid);
+                }
             }
         );
     }

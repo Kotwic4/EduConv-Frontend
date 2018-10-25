@@ -37,7 +37,12 @@ export class DenseLayerComponent implements OnInit {
                     useBias: this.layer.args.use_bias
                 });
 
-                this.valid.emit(this.confForm.valid);
+                if (this.readonly) {
+                    this.valid.emit(true);
+                }
+                else {
+                    this.valid.emit(this.confForm.valid);
+                }
             }
         );
     }
