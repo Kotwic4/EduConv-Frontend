@@ -1,6 +1,6 @@
 import {
     Component,
-    Input,
+    Input, OnDestroy,
     OnInit,
     ViewChild
 } from '@angular/core';
@@ -21,7 +21,7 @@ import {HiddenLayersValidator} from '../hidden-layers-validator.service';
     templateUrl: './hidden-layer.component.html',
     styleUrls: ['./hidden-layer.component.scss']
 })
-export class HiddenLayerComponent implements OnInit {
+export class HiddenLayerComponent implements OnInit, OnDestroy {
     @ViewChild('p') popover;
     @ViewChild('Conv2D') Conv2D;
     @ViewChild('Dense') Dense;
@@ -157,5 +157,9 @@ export class HiddenLayerComponent implements OnInit {
                 this.hiddenLayersValidator.updateValid(this.index, argsValid);
             }
         }
+    }
+
+    ngOnDestroy() {
+        this.hiddenLayersValidator.removeLayer(this.index);
     }
 }
