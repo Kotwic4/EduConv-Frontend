@@ -26,7 +26,7 @@ export class SchemesComponent implements OnInit, OnDestroy {
     private refreshingSubscription: Subscription;
     public unlearnedNetworks: UnlearnedNetwork[];
 
-    displayedColumns = ['id', 'actions'];
+    displayedColumns = ['id', 'name', 'actions'];
     dataSource: MatTableDataSource<UnlearnedNetwork>;
     @ViewChild(MatPaginator) paginator: MatPaginator;
     @ViewChild(MatSort) sort: MatSort;

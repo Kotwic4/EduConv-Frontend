@@ -33,7 +33,7 @@ import {
     MAT_DIALOG_DEFAULT_OPTIONS,
     MatButtonModule,
     MatCheckboxModule,
-    MatDialogModule,
+    MatDialogModule, MatFormFieldModule, MatInputModule,
     MatProgressSpinnerModule,
     MatSliderModule,
     MatSnackBarModule, MatSortModule,
@@ -60,6 +60,7 @@ import {DatasetsComponent} from './home/datasets/datasets.component';
 import {DatasetComponent} from './home/datasets/dataset/dataset.component';
 import {HistogramComponent, HistogramDataPipe} from './shared/hidden-layers/hidden-layer/histogram/histogram.component';
 import {ChartsModule} from 'ng2-charts';
+import {ModelConfirmComponent} from './model/model-confirm/model-confirm.component';
 
 @NgModule({
     imports: [
@@ -85,7 +86,10 @@ import {ChartsModule} from 'ng2-charts';
         MatPaginatorModule,
         CustomFormsModule,
         MatSortModule,
-        ChartsModule
+        ChartsModule,
+        MatFormFieldModule,
+        MatSelectModule,
+        MatInputModule,
     ],
     declarations: [
         NetworkComponent,
@@ -119,14 +123,15 @@ import {ChartsModule} from 'ng2-charts';
         DatasetsComponent,
         DatasetComponent,
         HistogramComponent,
-        HistogramDataPipe
+        HistogramDataPipe,
+        ModelConfirmComponent,
     ],
     providers: [
         HiddenLayersService,
         SnackBarService,
         {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}}
     ],
-    entryComponents: [DeletionConfirmComponent, Conv2dLayerComponent],
+    entryComponents: [DeletionConfirmComponent, ModelConfirmComponent, Conv2dLayerComponent],
 })
 export class NetworkModule {
 }

@@ -26,6 +26,7 @@ export class LearnSettingsComponent implements OnInit {
         setTimeout(
             () => {
                 this.settingsForm.setValue({
+                    modelName: this.settings.modelName,
                     dataset: this.settings.dataset,
                     epochs: this.settings.epochs,
                     batchSize: this.settings.batchSize,
@@ -35,6 +36,7 @@ export class LearnSettingsComponent implements OnInit {
                     (values) => {
                         this.store.dispatch(new SetLearnSettings(
                             new LearnSettings(
+                                values.modelName,
                                 values.dataset,
                                 values.epochs,
                                 values.batchSize,

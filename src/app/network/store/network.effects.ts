@@ -17,6 +17,7 @@ import {Ng2ImgToolsService} from 'ng2-img-tools';
 import {LearnedNetworkInfo} from '../shared/learned-network-info.model';
 import {SnackBarService, SnackBarType} from '../shared/snack-bar.service';
 import {DatasetInfo} from '../shared/dataset-info.model';
+import {ModelNetwork} from './network.actions';
 
 @Injectable()
 export class NetworkEffects {
@@ -76,10 +77,13 @@ export class NetworkEffects {
             withLatestFrom(this.store.select('network')),
             switchMap(
                 ([action, network]) => {
-                    const layers = (<UnlearnedNetwork>network.networkInUsage).getRawLayers();
+                    const networkInUsage = <UnlearnedNetwork>network.networkInUsage;
 
                     return this.httpClient.post<{ id: number }>(API_URL + 'scheme', {
-                        layers
+                        name: (<ModelNetwork>action).payload,
+                        scheme_json: {
+                            layers: networkInUsage.getRawLayers()
+                        },
                     }).pipe(
                         map((result) => new NetworkActions.EndModelingNetwork(result.id)),
                         catchError((error) => {
@@ -99,9 +103,7 @@ export class NetworkEffects {
                 (action: NetworkActions.FetchUnlearnedNetwork) => {
                     return this.httpClient.get<any>(API_URL + `scheme/${action.payload}`).pipe(
                         map((result) => {
-                            const unlearnedNetwork = new UnlearnedNetwork();
-                            unlearnedNetwork.setRawLayers(result.scheme_json.layers);
-
+                            const unlearnedNetwork = UnlearnedNetwork.fromJSON(result);
                             return new NetworkActions.FetchUnlearnedNetworkSuccess(unlearnedNetwork);
                         }),
                         catchError((error) => {
@@ -123,8 +125,11 @@ export class NetworkEffects {
                     return this.httpClient.post<any>(API_URL + `model`, {
                         scheme_id: action.payload,
                         dataset: network.learnSettings.dataset,
-                        epochs: network.learnSettings.epochs,
-                        batch_size: network.learnSettings.batchSize,
+                        name: network.learnSettings.modelName,
+                        params: {
+                            epochs: network.learnSettings.epochs,
+                            batch_size: network.learnSettings.batchSize,
+                        },
                     }).pipe(
                         map((result) => {
                             this.snackBarService.open(SnackBarType.SUCCESS,
@@ -244,11 +249,7 @@ export class NetworkEffects {
                         map((results) => {
                             const networks = results.map(
                                 (network) => {
-                                    const unlearnedNetwork = new UnlearnedNetwork();
-                                    unlearnedNetwork.setRawLayers(network.scheme_json.layers);
-                                    unlearnedNetwork.id = network.id;
-
-                                    return unlearnedNetwork;
+                                    return UnlearnedNetwork.fromJSON(network);
                                 }
                             );
 

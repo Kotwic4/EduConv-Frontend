@@ -110,7 +110,7 @@ export function networkReducer(state = initialState, action: NetworkActions.Netw
             return {
                 ...state,
                 id: null,
-                learnSettings: new LearnSettings('mnist', 1, 128),
+                learnSettings: new LearnSettings('', 'mnist', 1, 128),
             };
         case (NetworkActions.SET_LEARN_SETTINGS):
             return {

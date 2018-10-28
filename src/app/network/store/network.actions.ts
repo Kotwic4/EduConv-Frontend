@@ -117,6 +117,8 @@ export class StartModelingNetwork implements Action {
 
 export class ModelNetwork implements Action {
     readonly type = MODEL_NETWORK;
+
+    constructor(public payload: string) {}
 }
 
 export class EndModelingNetwork implements Action {
