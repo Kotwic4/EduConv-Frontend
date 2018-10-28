@@ -33,7 +33,7 @@ import {
     MAT_DIALOG_DEFAULT_OPTIONS,
     MatButtonModule,
     MatCheckboxModule,
-    MatDialogModule,
+    MatDialogModule, MatFormFieldModule, MatInputModule,
     MatProgressSpinnerModule,
     MatSliderModule,
     MatSnackBarModule, MatSortModule,
@@ -61,6 +61,7 @@ import {DatasetComponent} from './home/datasets/dataset/dataset.component';
 import {HistogramComponent, HistogramDataPipe} from './shared/hidden-layers/hidden-layer/histogram/histogram.component';
 import {ChartsModule} from 'ng2-charts';
 import {InputDrawComponent} from './shared/input-layer/input-draw/input-draw.component';
+import {ModelConfirmComponent} from './model/model-confirm/model-confirm.component';
 
 @NgModule({
     imports: [
@@ -86,7 +87,10 @@ import {InputDrawComponent} from './shared/input-layer/input-draw/input-draw.com
         MatPaginatorModule,
         CustomFormsModule,
         MatSortModule,
-        ChartsModule
+        ChartsModule,
+        MatFormFieldModule,
+        MatSelectModule,
+        MatInputModule,
     ],
     declarations: [
         NetworkComponent,
@@ -121,14 +125,15 @@ import {InputDrawComponent} from './shared/input-layer/input-draw/input-draw.com
         DatasetComponent,
         HistogramComponent,
         HistogramDataPipe,
-        InputDrawComponent
+        InputDrawComponent,
+        ModelConfirmComponent
     ],
     providers: [
         HiddenLayersService,
         SnackBarService,
         {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}}
     ],
-    entryComponents: [DeletionConfirmComponent, InputDrawComponent, Conv2dLayerComponent],
+    entryComponents: [DeletionConfirmComponent, InputDrawComponent, ModelConfirmComponent, Conv2dLayerComponent]
 })
 export class NetworkModule {
 }

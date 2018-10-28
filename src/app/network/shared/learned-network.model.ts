@@ -4,6 +4,7 @@ import {API_URL} from '../network.consts';
 import {HiddenLayer} from './hidden-layers/hidden-layer/layers/hidden-layer.model';
 import {NetworkOutput} from './network-output.model';
 import {NetworkDataParser} from './network-data-parser.model';
+import {LearnedNetworkInfo} from './learned-network-info.model';
 
 export class LearnedNetwork {
     private _id;
@@ -12,6 +13,7 @@ export class LearnedNetwork {
     private _inputShape = [-1, 28, 28, 1];
     private _input;
     private _model: tf.Sequential;
+    private _name: String;
 
     get id() {
         return this._id;
@@ -53,10 +55,11 @@ export class LearnedNetwork {
         this._inputShape = value;
     }
 
-    setModelInfo(model) {
+    setModelInfo(model: LearnedNetworkInfo) {
         this._id = model.id;
         this._inputShape = [-1, model.dataset.imgWidth, model.dataset.imgHeight, model.dataset.imgDepth];
         this._labels = model.dataset.labels;
+        this._name = model.name;
     }
 
     loadModel() {

@@ -3,6 +3,21 @@
         <form #f="ngForm">
             <div class="row">
                 <div class="col-sm-12 form-group">
+                    <mat-form-field class="form-control">
+                        <label>Model name</label>
+                        <input
+                            matInput
+                            [value]="settings.modelName"
+                            name="modelName"
+                            ngModel
+                            required
+                        >
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12 form-group">
                     <label>Dataset</label>
                     <mat-form-field class="form-control">
                         <mat-select

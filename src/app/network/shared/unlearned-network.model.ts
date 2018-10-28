@@ -2,27 +2,40 @@ import {HiddenLayer} from './hidden-layers/hidden-layer/layers/hidden-layer.mode
 import {HiddenLayersService} from './hidden-layers/hidden-layer/layers/hidden-layer.service';
 
 export class UnlearnedNetwork {
-    private _id;
+    private _id: number;
     private _layers: HiddenLayer[] = [];
+    private _name: String;
 
-    get id() {
+    public static fromJSON(unlearnedNetworkData: any): UnlearnedNetwork {
+        const network =  new UnlearnedNetwork;
+        network.id = unlearnedNetworkData.id;
+        network.name = unlearnedNetworkData.name;
+        network.layers = unlearnedNetworkData.scheme_json.layers.map(HiddenLayersService.getLayerFromJson);
+        return network;
+    }
+
+    get id(): number {
         return this._id;
     }
 
-    set id(value) {
+    set id(value: number) {
         this._id = value;
     }
 
-    get layers() {
+    get layers(): HiddenLayer[]{
         return this._layers;
     }
 
-    set layers(value) {
+    set layers(value: HiddenLayer[]) {
         this._layers = value;
     }
 
-    setRawLayers(layers) {
-        this._layers = layers.map(this._getLayerInfo.bind(this));
+    get name(): String {
+        return this._name;
+    }
+
+    set name(value: String) {
+        this._name = value;
     }
 
     getRawLayers() {
@@ -61,18 +74,5 @@ export class UnlearnedNetwork {
         );
 
         return layers;
-    }
-
-    private _getLayerInfo(layer) {
-        const type = HiddenLayersService.getTypeByName(layer.layer_name);
-
-        if (type === null) {
-            throw new Error('Unrecognized layer type.');
-        }
-
-        const layerInfo = HiddenLayersService.getInstance(type);
-        layerInfo.setArgs(layer.args);
-
-        return layerInfo;
     }
 }
