@@ -34,7 +34,6 @@ export class DenseLayerComponent implements OnInit {
             () => {
                 this.confForm.setValue({
                     activation: this.layer.args.activation,
-                    useBias: this.layer.args.use_bias
                 });
 
                 if (this.readonly) {
@@ -50,7 +49,6 @@ export class DenseLayerComponent implements OnInit {
     onSubmit(form: NgForm) {
         const args: DenseLayerArgs = {
             units: this.layer.args.units,
-            use_bias: form.value.useBias,
             activation: form.value.activation
         };
 

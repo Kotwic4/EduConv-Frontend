@@ -16,7 +16,6 @@ export class DenseLayer extends HiddenLayer {
         this.args = {
             units: 0,
             activation: HiddenLayerActivationType.LINEAR,
-            use_bias: true
         };
         this.setHaveNeurons(true);
     }
@@ -33,7 +32,6 @@ export class DenseLayer extends HiddenLayer {
 
     public getArgsFromLayer(layer: any) {
         this.args.units = layer.units;
-        this.args.use_bias = layer.useBias || true;
         this.args.activation = layer.activation.name || null;
     }
 }
