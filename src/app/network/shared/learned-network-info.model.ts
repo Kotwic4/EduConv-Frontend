@@ -3,6 +3,7 @@ import {DatasetInfo} from './dataset-info.model';
 export class LearnedNetworkInfo {
     constructor(
         private _id: number,
+        private _name: String,
         private _dataset: DatasetInfo,
         private _epochsLearnt: number,
         private _epochsToLearn: number,
@@ -25,11 +26,16 @@ export class LearnedNetworkInfo {
         return this._epochsToLearn;
     }
 
+    get name(): String {
+        return this._name;
+    }
+
     public static fromJSON(networkData): LearnedNetworkInfo {
         const datasetData = networkData.dataset;
         const datasetInfo = DatasetInfo.fromJSON(datasetData);
         return new LearnedNetworkInfo(
             networkData.id,
+            networkData.name,
             datasetInfo,
             networkData.epochs_learnt,
             networkData.epochs_to_learn,

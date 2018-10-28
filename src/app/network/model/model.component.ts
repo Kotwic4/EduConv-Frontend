@@ -9,6 +9,8 @@ import {HeaderControl} from '../header/header-control.interface';
 import {UnlearnedNetwork} from '../shared/unlearned-network.model';
 import {SnackBarService, SnackBarType} from '../shared/snack-bar.service';
 import {HiddenLayer} from '../shared/hidden-layers/hidden-layer/layers/hidden-layer.model';
+import {MatDialog} from '@angular/material';
+import {ModelConfirmComponent} from './model-confirm/model-confirm.component';
 
 @Component({
     selector: 'app-model',
@@ -37,8 +39,16 @@ export class ModelComponent implements OnInit, OnDestroy {
 
         {
             callback: function () {
-                this.saving = true;
-                this.store.dispatch(new NetworkActions.ModelNetwork());
+                const dialogRef = this.dialog.open(ModelConfirmComponent, {
+                    width: '250px',
+                    data: ''
+                });
+
+                dialogRef.afterClosed().subscribe(result => {
+                    console.log(result);
+                    this.saving = true;
+                    this.store.dispatch(new NetworkActions.ModelNetwork(result));
+                });
             }.bind(this),
             tooltip: 'Save',
             icon: 'fa-floppy-o',
@@ -56,7 +66,8 @@ export class ModelComponent implements OnInit, OnDestroy {
         private store: Store<fromApp.AppState>,
         private route: ActivatedRoute,
         private router: Router,
-        private snackBarService: SnackBarService
+        private snackBarService: SnackBarService,
+        public dialog: MatDialog
     ) {
     }
 

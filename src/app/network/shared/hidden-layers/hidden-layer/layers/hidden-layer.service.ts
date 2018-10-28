@@ -12,7 +12,7 @@ import {BatchNormalizationLayer} from './batch-normalization-layer/batch-normali
 
 @Injectable()
 export class HiddenLayersService {
-    static getInstance(type: HiddenLayerType) {
+    static getInstance(type: HiddenLayerType): HiddenLayer {
         if (type === HiddenLayerType.Conv2D) {
             return new Conv2DLayer();
         }
@@ -93,5 +93,18 @@ export class HiddenLayersService {
             default:
                 return null;
         }
+    }
+
+    static getLayerFromJson(layerJson) {
+        const type = HiddenLayersService.getTypeByName(layerJson.layer_name);
+
+        if (type === null) {
+            throw new Error('Unrecognized layer type.');
+        }
+
+        const layer = HiddenLayersService.getInstance(type);
+        layer.setArgs(layerJson.args);
+
+        return layer;
     }
 }
