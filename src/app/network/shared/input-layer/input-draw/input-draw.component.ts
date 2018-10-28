@@ -36,6 +36,7 @@ export class InputDrawComponent implements OnInit, AfterViewInit {
                     this.lineCap = 'round';
                     this.lineJoin = 'round';
                     this.lineWidth = 20;
+                    this.fillStyle = this.strokeStyle = 'white';
 
                     this.beginPath();
                     this.moveTo( touch.ox, touch.oy );
@@ -53,7 +54,7 @@ export class InputDrawComponent implements OnInit, AfterViewInit {
 
         canvas.height = 28;
         canvas.width = 28;
-        context.fillStyle = 'white';
+        context.fillStyle = 'black';
         context.fillRect(0, 0, canvas.width, canvas.height);
         context.drawImage(sketchCanvas, 0, 0, 28, 28);
         const img = canvas.toDataURL();
