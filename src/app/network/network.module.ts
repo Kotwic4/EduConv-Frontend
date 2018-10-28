@@ -60,6 +60,7 @@ import {DatasetsComponent} from './home/datasets/datasets.component';
 import {DatasetComponent} from './home/datasets/dataset/dataset.component';
 import {HistogramComponent, HistogramDataPipe} from './shared/hidden-layers/hidden-layer/histogram/histogram.component';
 import {ChartsModule} from 'ng2-charts';
+import {InputDrawComponent} from './shared/input-layer/input-draw/input-draw.component';
 
 @NgModule({
     imports: [
@@ -119,14 +120,15 @@ import {ChartsModule} from 'ng2-charts';
         DatasetsComponent,
         DatasetComponent,
         HistogramComponent,
-        HistogramDataPipe
+        HistogramDataPipe,
+        InputDrawComponent
     ],
     providers: [
         HiddenLayersService,
         SnackBarService,
         {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}}
     ],
-    entryComponents: [DeletionConfirmComponent, Conv2dLayerComponent],
+    entryComponents: [DeletionConfirmComponent, InputDrawComponent, Conv2dLayerComponent],
 })
 export class NetworkModule {
 }
