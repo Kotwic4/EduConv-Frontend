@@ -35,7 +35,7 @@ export class InputDrawComponent implements OnInit, AfterViewInit {
 
                     this.lineCap = 'round';
                     this.lineJoin = 'round';
-                    this.lineWidth = 10;
+                    this.lineWidth = 20;
 
                     this.beginPath();
                     this.moveTo( touch.ox, touch.oy );

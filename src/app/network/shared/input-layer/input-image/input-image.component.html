@@ -32,3 +32,7 @@
         Click to upload an image
     </div>
 </div>
+<div class="input-image-draw__container" *ngIf="!image">
+    <div class="input-image-draw__button" (click)="drawIt()">Or draw it!</div>
+</div>
+

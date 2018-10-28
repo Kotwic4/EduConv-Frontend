@@ -2,23 +2,7 @@
 
 .input-layer__container {
     overflow: hidden;
-    height: calc(100% - 30px);
+    height: 100%;
     padding-top: 15px;
-}
-
-.input-layer-draw__container {
-    height: 30px;
     padding-bottom: 15px;
-
-    .input-layer-draw__button {
-        border-radius: 0 0 2px 2px;
-        text-align: center;
-        cursor: pointer;
-        background: grey;
-        color: white;
-
-        &:hover {
-            text-shadow: 0 0 2px white;
-        }
-    }
 }
