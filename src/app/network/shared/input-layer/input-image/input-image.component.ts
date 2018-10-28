@@ -3,6 +3,8 @@ import { Store } from '@ngrx/store';
 
 import * as fromApp from '../../../../store/app.reducers';
 import * as NetworkActions from '../../../store/network.actions';
+import {InputDrawComponent} from '../input-draw/input-draw.component';
+import {MatDialog} from '@angular/material';
 
 @Component({
     selector: 'app-input-image',
@@ -13,7 +15,8 @@ export class InputImageComponent {
     @Input() image;
 
     constructor(
-        private store: Store<fromApp.AppState>
+        private store: Store<fromApp.AppState>,
+        public dialog: MatDialog
     ) {}
 
     onImageChange(event, input) {
@@ -27,5 +30,17 @@ export class InputImageComponent {
         input.value = '';
         this.store.dispatch(new NetworkActions.InputImageDelete());
         event.stopPropagation();
+    }
+
+    drawIt() {
+        const dialogRef = this.dialog.open(InputDrawComponent, {
+            hasBackdrop: true
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+            if (result) {
+                this.store.dispatch(new NetworkActions.InputImageUploadSuccess(result));
+            }
+        });
     }
 }

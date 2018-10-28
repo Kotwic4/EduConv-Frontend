@@ -8,9 +8,9 @@ import {Component, Input, OnInit} from '@angular/core';
 export class InputLayerComponent implements OnInit {
     @Input() image;
 
-    constructor() {
+    constructor(
+    ) {
     }
 
-    ngOnInit() {
-    }
+    ngOnInit() {}
 }
