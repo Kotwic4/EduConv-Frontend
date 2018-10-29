@@ -13,6 +13,7 @@ import {MatDialog} from '@angular/material';
 })
 export class InputImageComponent {
     @Input() image;
+    @Input() dataset: string;
 
     constructor(
         private store: Store<fromApp.AppState>,

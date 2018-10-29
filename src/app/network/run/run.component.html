@@ -3,7 +3,7 @@
 <div class="container-fluid">
     <div class="row run__row">
         <div class="col-sm-3">
-            <app-input-layer [image]="network?.input"></app-input-layer>
+            <app-input-layer [image]="network?.input" [dataset]="network?.dataset.name"></app-input-layer>
         </div>
         <div class="col-sm-6">
             <app-loader *ngIf="processing || !network"></app-loader>
