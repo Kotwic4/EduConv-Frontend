@@ -11,7 +11,7 @@ import {HiddenLayersComponent} from './shared/hidden-layers/hidden-layers.compon
 import {OutputLayerComponent} from './shared/output-layer/output-layer.component';
 import {InputImageComponent} from './shared/input-layer/input-image/input-image.component';
 import {ResultsComponent} from './shared/output-layer/results/results.component';
-import {HiddenLayerComponent} from './shared/hidden-layers/hidden-layer/hidden-layer.component';
+import {FormatErrorsTooltipPipe, HiddenLayerComponent} from './shared/hidden-layers/hidden-layer/hidden-layer.component';
 import {NeuroneComponent} from './shared/hidden-layers/hidden-layer/neurone/neurone.component';
 import {ModelComponent} from './model/model.component';
 import {LearnComponent} from './learn/learn.component';
@@ -125,6 +125,7 @@ import {ModelConfirmComponent} from './model/model-confirm/model-confirm.compone
         DatasetComponent,
         HistogramComponent,
         HistogramDataPipe,
+        FormatErrorsTooltipPipe,
         InputDrawComponent,
         ModelConfirmComponent
     ],

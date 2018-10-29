@@ -5,6 +5,7 @@
             [readonly]="readonly"
             [index]="i"
             [layer]="layer"
+            [layerErrors]="layersErrors ? layersErrors[i] : null"
             [images]="images ? images[i] : null"
             [beforeFlatten]="firstFlattenIndex === -1 || i < firstFlattenIndex"
             [histogram]="histograms ? histograms[i] : null"

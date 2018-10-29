@@ -1,7 +1,7 @@
 import {
     Component,
     Input, OnDestroy,
-    OnInit,
+    OnInit, Pipe, PipeTransform,
     ViewChild
 } from '@angular/core';
 import {Store} from '@ngrx/store';
@@ -34,6 +34,7 @@ export class HiddenLayerComponent implements OnInit, OnDestroy {
 
     @Input() index: number;
     @Input() layer: HiddenLayer;
+    @Input() layerErrors: string[];
     @Input() images: string[];
     @Input() histogram: Map<number, number>;
     @Input() readonly;
@@ -161,5 +162,14 @@ export class HiddenLayerComponent implements OnInit, OnDestroy {
 
     ngOnDestroy() {
         this.hiddenLayersValidator.removeLayer(this.index);
+    }
+}
+
+
+
+@Pipe({name: 'formatErrorsTooltip'})
+export class FormatErrorsTooltipPipe implements PipeTransform {
+    transform(data: string[]): string {
+        return data.join('\n');
     }
 }

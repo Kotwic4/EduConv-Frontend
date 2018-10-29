@@ -12,6 +12,7 @@ import {HiddenLayersValidator} from './hidden-layers-validator.service';
 })
 export class HiddenLayersComponent implements DoCheck {
     @Input() layers;
+    @Input() layersErrors;
     @Input() images;
     @Input() histograms;
     @Input() readonly;

@@ -20,6 +20,8 @@ import {ModelConfirmComponent} from './model-confirm/model-confirm.component';
 export class ModelComponent implements OnInit, OnDestroy {
     private subscription: Subscription;
     public processing: boolean;
+    public processingError: any;
+    public layersErrors: {[key: number]: string[]};
     public saving = false;
     public layers: HiddenLayer[];
     public id: number;
@@ -45,7 +47,6 @@ export class ModelComponent implements OnInit, OnDestroy {
                 });
 
                 dialogRef.afterClosed().subscribe(result => {
-                    console.log(result);
                     this.saving = true;
                     this.store.dispatch(new NetworkActions.ModelNetwork(result));
                 });
@@ -89,10 +90,16 @@ export class ModelComponent implements OnInit, OnDestroy {
                     .subscribe(
                         data => {
                             this.processing = data.processing;
+                            this.processingError = data.processingError;
 
                             const network = <UnlearnedNetwork>data.networkInUsage;
                             if (network) {
                                 this.layers = network.layers;
+                            }
+
+                            if (!this.processing && this.processingError) {
+                                this.saving = false;
+                                this.layersErrors = this.processingError.error.errors;
                             }
 
                             if (!this.processing && this.saving) {

@@ -1,10 +1,20 @@
 <div
     [ngClass]="['hidden-layer__container',
         'hidden-layer__container--type-' + layerType, collapsed && layer.haveNeurons() ? 'hidden-layer__container--collapsed' : '',
-        (layer.haveNeurons() && layer.getNeurons() === 0) || !argsValid  ? 'hidden-layer__container--invalid' : '']"
+        (layer.haveNeurons() && layer.getNeurons() === 0) || !argsValid || layerErrors  ? 'hidden-layer__container--invalid' : '']"
     (click)="layer.haveNeurons() && toggleCollapsed()"
 >
-    <span class="hidden-layer__index">{{ index+1 }}.</span>
+    <span class="hidden-layer__index">
+        {{ index+1 }}.
+        <i
+            *ngIf="layerErrors"
+            class="fa fa-exclamation-triangle hidden-layer__error-tooltip"
+            aria-hidden="true"
+            [matTooltip]="layerErrors | formatErrorsTooltip"
+            matTooltipPosition="right"
+            matTooltipClass="my-tooltip"
+        ></i>
+    </span>
 
     <div
         class="hidden-layer__tools"
