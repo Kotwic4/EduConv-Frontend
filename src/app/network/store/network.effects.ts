@@ -79,9 +79,9 @@ export class NetworkEffects {
                 ([action, network]) => {
                     const networkInUsage = <UnlearnedNetwork>network.networkInUsage;
 
-                    return this.httpClient.post<{ id: number }>(API_URL + 'scheme', {
+                    return this.httpClient.post<{ id: number }>(API_URL + 'model', {
                         name: (<ModelNetwork>action).payload,
-                        scheme_json: {
+                        model_json: {
                             layers: networkInUsage.getRawLayers()
                         },
                     }).pipe(
@@ -101,13 +101,13 @@ export class NetworkEffects {
         .pipe(
             switchMap(
                 (action: NetworkActions.FetchUnlearnedNetwork) => {
-                    return this.httpClient.get<any>(API_URL + `scheme/${action.payload}`).pipe(
+                    return this.httpClient.get<any>(API_URL + `model/${action.payload}`).pipe(
                         map((result) => {
                             const unlearnedNetwork = UnlearnedNetwork.fromJSON(result);
                             return new NetworkActions.FetchUnlearnedNetworkSuccess(unlearnedNetwork);
                         }),
                         catchError((error) => {
-                            this.defaultErrorStrategy('Scheme does not exist', true, '/home/schemes');
+                            this.defaultErrorStrategy('Model does not exist', true, '/home/models');
                             return of(new NetworkActions.EffectError(error));
                         })
                     );
@@ -122,8 +122,8 @@ export class NetworkEffects {
             withLatestFrom(this.store.select('network')),
             switchMap(
                 ([action, network]: [NetworkActions.LearnNetwork, any]) => {
-                    return this.httpClient.post<any>(API_URL + `model`, {
-                        scheme_id: action.payload,
+                    return this.httpClient.post<any>(API_URL + `trained_model`, {
+                        model_id: action.payload,
                         dataset: network.learnSettings.dataset,
                         name: network.learnSettings.modelName,
                         params: {
@@ -133,7 +133,7 @@ export class NetworkEffects {
                     }).pipe(
                         map((result) => {
                             this.snackBarService.open(SnackBarType.SUCCESS,
-                                'Model have started learning in the background. You can now look at progress in the models list.');
+                                'Model have started learning in the background. You can now look at progress in the trained models list.');
                             return new NetworkActions.EndLearningNetwork(result.id);
                         }),
                         catchError((error) => {
@@ -152,7 +152,7 @@ export class NetworkEffects {
             switchMap(
                 (action: NetworkActions.FetchLearnedNetwork) => {
 
-                    return this.httpClient.get<any>(API_URL + `model/${action.payload}`).pipe(
+                    return this.httpClient.get<any>(API_URL + `trained_model/${action.payload}`).pipe(
                         switchMap((network) => {
 
                             const modelInfo = LearnedNetworkInfo.fromJSON(network);
@@ -164,13 +164,13 @@ export class NetworkEffects {
                             return fromPromise(learnedNetwork.loadModel()).pipe(
                                 map((result) => new NetworkActions.StartRunningNetwork(result)),
                                 catchError((error) => {
-                                    this.defaultErrorStrategy('Model parse error', true, '/home/models');
+                                    this.defaultErrorStrategy('Trained model parse error', true, '/home/trained_models');
                                     return of(new NetworkActions.EffectError(error));
                                 })
                             );
                         }),
                         catchError((error) => {
-                            this.defaultErrorStrategy('Model does not exist', true, '/home/models');
+                            this.defaultErrorStrategy('Trained model does not exist', true, '/home/trained_models');
                             return of(new NetworkActions.EffectError(error));
                         })
                     );
@@ -245,7 +245,7 @@ export class NetworkEffects {
         .pipe(
             switchMap(
                 (action: NetworkActions.FetchAllUnlearnedNetworks) => {
-                    return this.httpClient.get<any[]>(API_URL + `scheme`).pipe(
+                    return this.httpClient.get<any[]>(API_URL + `model`).pipe(
                         map((results) => {
                             const networks = results.map(
                                 (network) => {
@@ -270,7 +270,7 @@ export class NetworkEffects {
         .pipe(
             switchMap(
                 (action: NetworkActions.FetchAllLearnedNetworks) => {
-                    return this.httpClient.get<any[]>(API_URL + `model`).pipe(
+                    return this.httpClient.get<any[]>(API_URL + `trained_model`).pipe(
                         map((results) => {
                             const infos = results.map(
                                 network => LearnedNetworkInfo.fromJSON(network)

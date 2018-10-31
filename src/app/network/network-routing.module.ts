@@ -18,11 +18,11 @@ const routes: Routes = [
                 component: HomeComponent,
                 children: [
                     {
-                        path: 'schemes',
+                        path: 'models',
                         component: SchemesComponent
                     },
                     {
-                        path: 'models',
+                        path: 'trained_models',
                         component: ModelsComponent
                     },
                     {
@@ -33,15 +33,15 @@ const routes: Routes = [
                         path: 'datasets/:id/:imageSet',
                         component: DatasetComponent
                     },
-                    { path: '', redirectTo: 'schemes', pathMatch: 'full' }
+                    { path: '', redirectTo: 'models', pathMatch: 'full' }
                 ]
             },
             {
-                path: 'scheme',
+                path: 'model',
                 component: ModelComponent,
             },
             {
-                path: 'scheme/:id',
+                path: 'model/:id',
                 component: ModelComponent,
             },
             {

@@ -11,21 +11,21 @@ export class HomeComponent implements OnInit {
     public controls: HeaderControl[] = [
         {
             callback: function() {
-                this.router.navigate(['/scheme']);
+                this.router.navigate(['/model']);
             }.bind(this),
-            tooltip: 'New scheme',
+            tooltip: 'New model',
             icon: 'fa-plus-square-o'
         }
     ];
 
     public LINKS = [
         {
-            path: '/home/schemes',
-            label: 'Schemes'
-        },
-        {
             path: '/home/models',
             label: 'Models'
+        },
+        {
+            path: '/home/trained_models',
+            label: 'Trained models'
         },
         {
             path: '/home/datasets',
