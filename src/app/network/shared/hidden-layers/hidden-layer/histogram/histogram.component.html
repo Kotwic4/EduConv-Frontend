@@ -1,7 +1,7 @@
 <ng-container *ngIf="data">
     <canvas baseChart
             [datasets]="data | histogramData"
-            [labels]="barChartLabels"
+            [labels]="data.dataX"
             [options]="barChartOptions"
             [legend]="false"
             chartType="bar"
