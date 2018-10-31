@@ -87,7 +87,12 @@ export class NetworkEffects {
                     }).pipe(
                         map((result) => new NetworkActions.EndModelingNetwork(result.id)),
                         catchError((error) => {
-                            this.defaultErrorStrategy(error.message);
+                            if (error.error && error.error.message) {
+                                this.defaultErrorStrategy(error.error.message);
+                            }
+                            else {
+                                this.defaultErrorStrategy(error.message);
+                            }
                             return of(new NetworkActions.EffectError(error));
                         })
                     );

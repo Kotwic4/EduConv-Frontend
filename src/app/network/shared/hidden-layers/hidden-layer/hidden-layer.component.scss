@@ -86,6 +86,14 @@
         top: 0;
         left: 2px;
         font-size: 16px;
+
+        .hidden-layer__error-tooltip {
+            font-size: 10px;
+            position: relative;
+            top: -1px;
+            color: red;
+            animation: blink 2s ease-in-out infinite;
+        }
     }
 
     .hidden-layer__tools {
