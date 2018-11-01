@@ -50,21 +50,29 @@ export class NetworkDataParser {
         return result;
     }
 
-    static generateActivationHistogram(outData) {
-        const result = new Map<number, number>();
+    static generateActivationHistogram(outData): {dataX: string[], dataY: number[]} {
         const data: any = Array.from(outData.dataSync());
         const _min: any = Math.min.apply(null, data);
         const _max: any = Math.max.apply(null, data);
         const conf = (_max - _min);
-        const howManyDigets = 2;
+        const numberOfBeans = Math.min(20, data.length / 2);
+        const diff = 100 / numberOfBeans;
+        const dataX = [];
+        const dataY = [];
+
+        for (let i = 0; i < numberOfBeans - 1; i++) {
+            dataX.push(`${i * diff}%-${(i + 1) * diff}%`);
+            dataY.push(0);
+        }
+        dataX.push(`${(numberOfBeans - 1) * diff}%-100%`);
+        dataY.push(0);
 
         for (let i = 0; i < data.length; i++) {
             const dataValue: any = data[i];
-            const key = +((dataValue - _min) / conf).toFixed(howManyDigets);
-            const value =  result.has(key) ? result.get(key) + 1 : 1;
-            result.set(key, value);
+            const key = Math.min(Math.floor(((dataValue - _min) / conf ) * 100 / diff), numberOfBeans - 1);
+            dataY[key]++;
         }
 
-        return result;
+        return {dataX, dataY};
     }
 }
