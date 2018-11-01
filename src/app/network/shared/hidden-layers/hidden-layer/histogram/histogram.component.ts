@@ -10,7 +10,12 @@ export class HistogramComponent {
 
     public barChartOptions: any = {
         scaleShowVerticalLines: false,
-        responsive: true
+        responsive: true,
+        scales: {
+            yAxes: [{
+                type: 'logarithmic',
+            }]
+        }
     };
 }
 
