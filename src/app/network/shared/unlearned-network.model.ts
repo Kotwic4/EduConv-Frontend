@@ -10,7 +10,7 @@ export class UnlearnedNetwork {
         const network =  new UnlearnedNetwork;
         network.id = unlearnedNetworkData.id;
         network.name = unlearnedNetworkData.name;
-        network.layers = unlearnedNetworkData.scheme_json.layers.map(HiddenLayersService.getLayerFromJson);
+        network.layers = unlearnedNetworkData.model_json.layers.map(HiddenLayersService.getLayerFromJson);
         return network;
     }
 

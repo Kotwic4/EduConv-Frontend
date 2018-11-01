@@ -74,7 +74,7 @@ export class LearnedNetwork {
     }
 
     loadModel() {
-        const data = tf.loadModel(API_URL + 'model/' + this._id + '/file/model.json');
+        const data = tf.loadModel(API_URL + 'trained_model/' + this._id + '/file/model.json');
 
         return data.then(
             (model: tf.Sequential) => {
