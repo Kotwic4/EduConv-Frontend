@@ -17,7 +17,6 @@ export class HistogramComponent {
 @Pipe({name: 'histogramData'})
 export class HistogramDataPipe implements PipeTransform {
     transform(data: {dataX: string[], dataY: number[]}): [{data: number[]}] {
-        console.log(data.dataX);
         return [{ data: data.dataY}];
     }
 }

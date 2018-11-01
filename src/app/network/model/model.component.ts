@@ -45,7 +45,6 @@ export class ModelComponent implements OnInit, OnDestroy {
                 });
 
                 dialogRef.afterClosed().subscribe(result => {
-                    console.log(result);
                     this.saving = true;
                     this.store.dispatch(new NetworkActions.ModelNetwork(result));
                 });
