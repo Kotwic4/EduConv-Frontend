@@ -37,6 +37,7 @@ export class Conv2dLayerComponent implements OnInit {
         setTimeout(
             () => {
                 this.confForm.setValue({
+                    filters: this.layer.args.filters,
                     kernelX: this.layer.args.kernel_size[0],
                     kernelY: this.layer.args.kernel_size[1],
                     strideX: this.layer.args.strides[0],
@@ -56,7 +57,7 @@ export class Conv2dLayerComponent implements OnInit {
 
     onSubmit(form: NgForm) {
         const args: Conv2DLayerArgs = {
-            filters: this.layer.args.filters,
+            filters: form.value.filters,
             kernel_size: [form.value.kernelX, form.value.kernelY],
             strides: [form.value.strideX, form.value.strideY],
             activation: form.value.activation

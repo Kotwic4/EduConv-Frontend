@@ -39,6 +39,7 @@ export class HiddenLayerComponent implements OnInit, OnDestroy {
     @Input() histogram: Map<number, number>;
     @Input() readonly;
     @Input() beforeFlatten: boolean;
+    @Input() isRun: boolean;
 
     layerType: HiddenLayerType;
     types_names: string[];
@@ -60,15 +61,8 @@ export class HiddenLayerComponent implements OnInit, OnDestroy {
         this.layerType = HiddenLayersService.getType(this.layer);
         this.collapsed = this.readonly || !this.layer.haveNeurons();
 
-        if (!this.readonly) {
-            setTimeout(() => {
-                this.popover.open();
-            });
-        }
-        else {
-            this.hiddenLayersValidator.addLayer(true);
-            this.updateValid(true);
-        }
+        this.hiddenLayersValidator.addLayer(true);
+        this.updateValid(true);
     }
 
     range(i: number) {

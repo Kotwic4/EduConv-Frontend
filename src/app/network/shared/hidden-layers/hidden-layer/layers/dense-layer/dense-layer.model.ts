@@ -4,7 +4,6 @@ import {HiddenLayer} from '../hidden-layer.model';
 export interface DenseLayerArgs {
     units: number;
     activation: HiddenLayerActivationType;
-    use_bias?: Boolean;
 }
 
 export class DenseLayer extends HiddenLayer {
