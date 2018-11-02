@@ -67,7 +67,7 @@ export class LearnComponent implements OnInit, OnDestroy {
                             }
 
                             if (!this.processing && this.learning && !data.processingError && data.id) {
-                                this.router.navigate(['/home/models']);
+                                this.router.navigate(['/home/trained_models']);
                             }
                         }
                     );
