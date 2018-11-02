@@ -41,7 +41,7 @@
             </ng-container>
 
             <ng-container matColumnDef="labelsCount">
-                <mat-header-cell *matHeaderCellDef> Labels count </mat-header-cell>
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Labels count </mat-header-cell>
                 <mat-cell *matCellDef="let dataset">
                     {{dataset.labels.length}}
                 </mat-cell>
