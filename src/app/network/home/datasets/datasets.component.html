@@ -40,10 +40,17 @@
                 </mat-cell>
             </ng-container>
 
+            <ng-container matColumnDef="labelsCount">
+                <mat-header-cell *matHeaderCellDef> Labels count </mat-header-cell>
+                <mat-cell *matCellDef="let dataset">
+                    {{dataset.labels.length}}
+                </mat-cell>
+            </ng-container>
+
             <ng-container matColumnDef="actions">
                 <mat-header-cell *matHeaderCellDef [style.flex]="'0 0 65px'"> Actions </mat-header-cell>
                 <mat-cell *matCellDef="let dataset" [style.flex]="'0 0 65px'">
-                    <a class="datasets-table__action-btn" [routerLink]="['/home/datasets', dataset.id, 'train']"
+                    <a class="datasets-table__action-btn" [routerLink]="['/home/datasets', dataset.id, 'info']"
                     ><i class="fa fa-info" aria-hidden="true"></i>Details</a>
                 </mat-cell>
             </ng-container>

@@ -70,12 +70,16 @@ export class DatasetComponent implements OnInit {
     initLinks(id: number) {
         this.LINKS = [
             {
-                path: `/home/datasets/${id}/train`,
-                label: 'Train'
+                path: `/home/datasets/${id}/images/train`,
+                label: 'Train Images'
             },
             {
-                path: `/home/datasets/${id}/test`,
-                label: 'Test'
+                path: `/home/datasets/${id}/images/test`,
+                label: 'Test Images'
+            },
+            {
+                path: `/home/datasets/${id}/info`,
+                label: 'Info'
             }
         ];
     }

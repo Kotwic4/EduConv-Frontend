@@ -62,6 +62,7 @@ import {HistogramComponent, HistogramDataPipe} from './shared/hidden-layers/hidd
 import {ChartsModule} from 'ng2-charts';
 import {InputDrawComponent} from './shared/input-layer/input-draw/input-draw.component';
 import {ModelConfirmComponent} from './model/model-confirm/model-confirm.component';
+import {DatasetInfoComponent} from './home/datasets/dataset-info/dataset-info.component';
 
 @NgModule({
     imports: [
@@ -127,7 +128,8 @@ import {ModelConfirmComponent} from './model/model-confirm/model-confirm.compone
         HistogramDataPipe,
         FormatErrorsTooltipPipe,
         InputDrawComponent,
-        ModelConfirmComponent
+        ModelConfirmComponent,
+        DatasetInfoComponent
     ],
     providers: [
         HiddenLayersService,

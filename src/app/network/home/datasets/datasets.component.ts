@@ -27,7 +27,7 @@ export class DatasetsComponent implements OnInit, OnDestroy {
     private refreshingSubscription: Subscription;
     public datasets: DatasetInfo[];
 
-    displayedColumns = ['id', 'name', 'testImagesCount', 'trainImagesCount', 'imagesSize', 'actions'];
+    displayedColumns = ['id', 'name', 'testImagesCount', 'trainImagesCount', 'imagesSize', 'labelsCount', 'actions'];
     dataSource: MatTableDataSource<DatasetInfo>;
     @ViewChild(MatPaginator) paginator: MatPaginator;
     @ViewChild(MatSort) sort: MatSort;
