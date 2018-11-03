@@ -1,0 +1,80 @@
+<nav mat-tab-nav-bar>
+    <a
+        mat-tab-link
+        *ngFor="let link of LINKS"
+        [routerLink]="link.path"
+        routerLinkActive #rla="routerLinkActive"
+        [active]="rla.isActive"
+    >
+        {{link.label}}
+    </a>
+</nav>
+
+<div class="container-fluid" *ngIf="dataset">
+    <div class="dataset-info" >
+        <table>
+            <tr>
+                <td>
+                    ID
+                </td>
+                <td>
+                    {{dataset.id}}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Name
+                </td>
+                <td>
+                    {{dataset.name}}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Test images amount
+                </td>
+                <td>
+                    {{dataset.testImagesCount}}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Train images amount
+                </td>
+                <td>
+                    {{dataset.trainImagesCount}}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Images size [x,y,z]
+                </td>
+                <td>
+                    {{dataset.imgWidth}} / {{dataset.imgHeight}} / {{dataset.imgDepth}}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Labels count
+                </td>
+                <td>
+                    {{dataset.labels.length}}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Labels
+                </td>
+                <td>
+                    <span *ngFor="let name of dataset.labels">
+                      {{name}}<br />
+                    </span>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<app-loader
+    *ngIf="!dataset"
+    [relative]="true"
+></app-loader>

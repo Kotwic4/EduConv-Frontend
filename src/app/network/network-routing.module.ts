@@ -9,6 +9,7 @@ import {ModelsComponent} from './home/models/models.component';
 import {SchemesComponent} from './home/schemes/schemes.component';
 import {DatasetsComponent} from './home/datasets/datasets.component';
 import {DatasetComponent} from './home/datasets/dataset/dataset.component';
+import {DatasetInfoComponent} from './home/datasets/dataset-info/dataset-info.component';
 
 const routes: Routes = [
     {
@@ -30,7 +31,11 @@ const routes: Routes = [
                         component: DatasetsComponent
                     },
                     {
-                        path: 'datasets/:id/:imageSet',
+                        path: 'datasets/:id/info',
+                        component: DatasetInfoComponent
+                    },
+                    {
+                        path: 'datasets/:id/images/:imageSet',
                         component: DatasetComponent
                     },
                     { path: '', redirectTo: 'models', pathMatch: 'full' }

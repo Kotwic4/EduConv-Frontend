@@ -35,7 +35,7 @@ export class SnackBarService {
                 return 'snack-bar--error';
 
             case SnackBarType.INFO:
-                return 'snack-bar--info';
+                return 'snack-bar--dataset-info';
 
             default:
                 return '';
