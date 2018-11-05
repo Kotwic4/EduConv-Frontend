@@ -4,7 +4,6 @@ import {HiddenLayer} from '../hidden-layer.model';
 export interface DenseLayerArgs {
     units: number;
     activation: HiddenLayerActivationType;
-    use_bias?: Boolean;
 }
 
 export class DenseLayer extends HiddenLayer {
@@ -14,9 +13,10 @@ export class DenseLayer extends HiddenLayer {
         super();
         this.layer_name = 'Dense';
         this.args = {
-            units: 0,
+            units: 1,
             activation: HiddenLayerActivationType.LINEAR,
         };
+        this.setNeurons(1);
         this.setHaveNeurons(true);
     }
 

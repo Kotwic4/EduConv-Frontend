@@ -2,7 +2,7 @@
     [ngClass]="['hidden-layer__container',
         'hidden-layer__container--type-' + layerType, collapsed && layer.haveNeurons() ? 'hidden-layer__container--collapsed' : '',
         (layer.haveNeurons() && layer.getNeurons() === 0) || !argsValid || layerErrors  ? 'hidden-layer__container--invalid' : '']"
-    (click)="layer.haveNeurons() && toggleCollapsed()"
+    (click)="layer.haveNeurons() && isRun && toggleCollapsed()"
 >
     <span class="hidden-layer__index">
         {{ index+1 }}.
@@ -62,31 +62,28 @@
     </div>
         <div style="position: absolute;"></div>
 
-    <ng-container *ngIf="layer.haveNeurons()">
-        <app-neurons-counter
-            *ngIf="!readonly"
-            [value]="layer.getNeurons()"
-            (onChange)="onAmountChange($event)"
-        ></app-neurons-counter>
-        <ng-container *ngIf="!collapsed && beforeFlatten">
-            <app-neurone
-                *ngFor="let neurone of range(layer.getNeurons()); let i = index;"
-                [index]="i"
-                [image]="images ? images[i] : null"
-            ></app-neurone>
+    <ng-container *ngIf="isRun">
+        <ng-container *ngIf="layer.haveNeurons()">
+            <ng-container *ngIf="!collapsed && beforeFlatten">
+                <app-neurone
+                    *ngFor="let neurone of range(layer.getNeurons()); let i = index;"
+                    [index]="i"
+                    [image]="images ? images[i] : null"
+                ></app-neurone>
+            </ng-container>
+            <div *ngIf="readonly && collapsed" class="hidden-layer__neurons-amount">
+                <span class="hidden-layer__neurons-amount-digits">{{ layer.getNeurons() | number }}</span>
+                {{ getNeuronsName() }}
+            </div>
+            <app-histogram
+                *ngIf="!collapsed && !beforeFlatten"
+                [data]="histogram"
+            ></app-histogram>
         </ng-container>
-        <div *ngIf="readonly && collapsed" class="hidden-layer__neurons-amount">
-            <span class="hidden-layer__neurons-amount-digits">{{ layer.getNeurons() | number }}</span>
-            {{ getNeuronsName() }}
+        <div *ngIf="!layer.haveNeurons()" class="hidden-layer__no-neurons-info">
+            No {{ getNeuronsName() }}
         </div>
-        <app-histogram
-            *ngIf="!collapsed && !beforeFlatten"
-            [data]="histogram"
-        ></app-histogram>
     </ng-container>
-    <div *ngIf="!layer.haveNeurons()" class="hidden-layer__no-neurons-info">
-        No {{ getNeuronsName() }}
-    </div>
 </div>
 
 <ng-template #Conv2D>

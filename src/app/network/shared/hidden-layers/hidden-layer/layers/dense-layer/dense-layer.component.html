@@ -1,5 +1,21 @@
 <form (ngSubmit)="onSubmit(f)" #f="ngForm">
     <div class="row">
+        <div class="col-sm-12">
+            <label>Units*</label>
+        </div>
+        <div class="col-sm-12 form-group">
+            <input
+                type="number"
+                class="form-control"
+                name="units"
+                [min]="1"
+                ngModel
+                required
+                [disabled]="readonly"
+            >
+        </div>
+    </div>
+    <div class="row">
         <div class="col-sm-12 form-group">
             <label>Activation</label>
             <mat-form-field class="form-control">

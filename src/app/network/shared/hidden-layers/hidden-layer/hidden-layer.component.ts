@@ -39,6 +39,7 @@ export class HiddenLayerComponent implements OnInit, OnDestroy {
     @Input() histogram: Map<number, number>;
     @Input() readonly;
     @Input() beforeFlatten: boolean;
+    @Input() isRun: boolean;
 
     layerType: HiddenLayerType;
     types_names: string[];
@@ -60,15 +61,9 @@ export class HiddenLayerComponent implements OnInit, OnDestroy {
         this.layerType = HiddenLayersService.getType(this.layer);
         this.collapsed = this.readonly || !this.layer.haveNeurons();
 
-        if (!this.readonly) {
-            setTimeout(() => {
-                this.popover.open();
-            });
-        }
-        else {
-            this.hiddenLayersValidator.addLayer(true);
-            this.updateValid(true);
-        }
+        this.initArgsValid = true;
+        this.hiddenLayersValidator.addLayer(true);
+        this.updateValid(true);
     }
 
     range(i: number) {
@@ -93,6 +88,7 @@ export class HiddenLayerComponent implements OnInit, OnDestroy {
             index: this.index,
             args: args
         }));
+        this.layer.setArgs(args);
         this.updateValid(true);
         this.initArgsValid = true;
         this.popover.close();
@@ -110,7 +106,6 @@ export class HiddenLayerComponent implements OnInit, OnDestroy {
 
         dialogRef.afterClosed().subscribe(result => {
             if (result) {
-                this.hiddenLayersValidator.removeLayer(this.index);
                 this.popover.close();
                 this.store.dispatch(new HiddenLayerRemove(this.index));
             }
@@ -132,15 +127,6 @@ export class HiddenLayerComponent implements OnInit, OnDestroy {
         return this[name];
     }
 
-    onAmountChange(value: number) {
-        this.store.dispatch(new NetworkActions.NeuroneChange({
-            index: this.index,
-            amount: value || 0
-        }));
-
-        this.updateValid();
-    }
-
     getNeuronsName() {
         return this.beforeFlatten ? 'volumens' : 'neurons';
     }
@@ -151,12 +137,7 @@ export class HiddenLayerComponent implements OnInit, OnDestroy {
         }
 
         if (!this.readonly) {
-            if (this.layer.haveNeurons()) {
-                this.hiddenLayersValidator.updateValid(this.index, this.layer.getNeurons() > 0 && argsValid);
-            }
-            else {
-                this.hiddenLayersValidator.updateValid(this.index, argsValid);
-            }
+            this.hiddenLayersValidator.updateValid(this.index, argsValid);
         }
     }
 

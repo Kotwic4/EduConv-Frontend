@@ -1,7 +1,6 @@
 import {Component, DoCheck, EventEmitter, Input, IterableDiffers, Output} from '@angular/core';
 import {HiddenLayersService} from './hidden-layer/layers/hidden-layer.service';
 import {HiddenLayerType} from './hidden-layer/layers/hidden-layer-type.enum';
-import {HiddenLayer} from './hidden-layer/layers/hidden-layer.model';
 import {HiddenLayersValidator} from './hidden-layers-validator.service';
 
 @Component({
@@ -16,6 +15,7 @@ export class HiddenLayersComponent implements DoCheck {
     @Input() images;
     @Input() histograms;
     @Input() readonly;
+    @Input() isRun: boolean;
 
     @Output() valid = new EventEmitter<boolean>();
 

@@ -33,6 +33,7 @@ export class DenseLayerComponent implements OnInit {
         setTimeout(
             () => {
                 this.confForm.setValue({
+                    units: this.layer.args.units,
                     activation: this.layer.args.activation,
                 });
 
@@ -48,7 +49,7 @@ export class DenseLayerComponent implements OnInit {
 
     onSubmit(form: NgForm) {
         const args: DenseLayerArgs = {
-            units: this.layer.args.units,
+            units: form.value.units,
             activation: form.value.activation
         };
 
