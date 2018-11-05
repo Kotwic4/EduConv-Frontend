@@ -3,7 +3,8 @@
         mat-flat-button
         class="table-tools__refresh-btn"
         (click)="refresh()"
-    ><i class="fa fa-refresh" aria-hidden="true"></i>Refresh</button>
+    ><i class="fa fa-refresh" aria-hidden="true"></i>Refresh
+    </button>
 </div>
 
 <div
@@ -14,64 +15,69 @@
     <div class="models-table__container mat-elevation-z8">
         <mat-table #table [dataSource]="dataSource" matSort>
             <ng-container matColumnDef="id">
-                <mat-header-cell *matHeaderCellDef mat-sort-header> ID </mat-header-cell>
-                <mat-cell *matCellDef="let network"> {{network.id}} </mat-cell>
+                <mat-header-cell *matHeaderCellDef mat-sort-header> ID</mat-header-cell>
+                <mat-cell *matCellDef="let network"> {{network.id}}</mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="name">
-                <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
-                <mat-cell *matCellDef="let network"> {{network.name}} </mat-cell>
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Name</mat-header-cell>
+                <mat-cell *matCellDef="let network"> {{network.name}}</mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="dataset">
-                <mat-header-cell *matHeaderCellDef mat-sort-header> Dataset </mat-header-cell>
-                <mat-cell *matCellDef="let network"> {{network.dataset.name}} </mat-cell>
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Dataset</mat-header-cell>
+                <mat-cell *matCellDef="let network"> {{network.dataset.name}}</mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="modelId">
-                <mat-header-cell *matHeaderCellDef mat-sort-header> Model ID </mat-header-cell>
-                <mat-cell *matCellDef="let network"> {{network.modelId}} </mat-cell>
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Model ID</mat-header-cell>
+                <mat-cell *matCellDef="let network"> {{network.modelId}}</mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="numberOfLayers">
-                <mat-header-cell *matHeaderCellDef mat-sort-header> Number of layers </mat-header-cell>
-                <mat-cell *matCellDef="let network"> {{network.numberOfLayers}} </mat-cell>
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Number of layers</mat-header-cell>
+                <mat-cell *matCellDef="let network"> {{network.numberOfLayers}}</mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="batchSize">
-                <mat-header-cell *matHeaderCellDef mat-sort-header> Batch size </mat-header-cell>
-                <mat-cell *matCellDef="let network"> {{network.batchSize}} </mat-cell>
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Batch size</mat-header-cell>
+                <mat-cell *matCellDef="let network"> {{network.batchSize}}</mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="accuracy">
-                <mat-header-cell *matHeaderCellDef mat-sort-header> Accuracy </mat-header-cell>
-                <mat-cell *matCellDef="let network"> {{network.accuracy}} </mat-cell>
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Accuracy</mat-header-cell>
+                <mat-cell *matCellDef="let network"> {{(network.accuracy*100).toFixed(2)}}%</mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="progress">
-                <mat-header-cell *matHeaderCellDef mat-sort-header> Training progress </mat-header-cell>
-                <mat-cell *matCellDef="let network"> {{ network.epochsLearnt }} / {{ network.epochsToLearn }} </mat-cell>
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Training progress</mat-header-cell>
+                <mat-cell *matCellDef="let network"> {{ network.epochsLearnt }} / {{ network.epochsToLearn }}</mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="status">
-                <mat-header-cell *matHeaderCellDef mat-sort-header> Status </mat-header-cell>
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Status</mat-header-cell>
                 <mat-cell *matCellDef="let network">
-                    <span *ngIf="network.epochsToLearn === 0 else notErrorStatus" class="badge badge-danger">Error</span>
+                    <span *ngIf="network.epochsToLearn === 0 else notErrorStatus"
+                          class="badge badge-danger">Error</span>
                     <ng-template #notErrorStatus>
-                        <span *ngIf="network.epochsLearnt === network.epochsToLearn" class="badge badge-success">Trained</span>
-                        <span *ngIf="network.epochsLearnt !== network.epochsToLearn" class="badge badge-warning">Pending</span>
+                        <span *ngIf="network.epochsLearnt === network.epochsToLearn"
+                              class="badge badge-success">Trained</span>
+                        <span *ngIf="network.epochsLearnt !== network.epochsToLearn"
+                              class="badge badge-warning">Pending</span>
                     </ng-template>
                 </mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="actions">
-                <mat-header-cell *matHeaderCellDef [style.flex]="'0 0 65px'"> Actions </mat-header-cell>
-                <mat-cell *matCellDef="let network" [style.flex]="'0 0 65px'">
+                <mat-header-cell *matHeaderCellDef> Actions</mat-header-cell>
+                <mat-cell *matCellDef="let network">
                     <a
                         *ngIf="network.epochsLearnt === network.epochsToLearn"
                         class="models-table__action-btn"
                         [routerLink]="['/run', network.id]"
                     ><i class="fa fa-play" aria-hidden="true"></i>Run</a>
+                    <a class="models-table__action-btn" [routerLink]="" (click)="showEpochData(network.epochsData)"
+                    ><i class="fa fa-info" aria-hidden="true"></i>Statistics</a>
                 </mat-cell>
             </ng-container>
 

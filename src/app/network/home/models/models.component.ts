@@ -5,9 +5,11 @@ import {Store} from '@ngrx/store';
 import * as fromApp from '../../../store/app.reducers';
 import * as NetworkActions from '../../store/network.actions';
 import {animate, state, style, transition, trigger} from '@angular/animations';
-import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
+import {MatDialog, MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {interval} from 'rxjs/observable/interval';
 import {TABLE_REFRESH_INTERVAL} from '../../network.consts';
+import {EpochDiagramComponent} from './epoch-diagram/epoch-diagram.component';
+import {EpochDataInfo} from '../../shared/epoch-data-info.model';
 
 
 @Component({
@@ -16,8 +18,8 @@ import {TABLE_REFRESH_INTERVAL} from '../../network.consts';
     styleUrls: ['./models.component.scss'],
     animations: [
         trigger('fadeInOut', [
-            state('*' , style({ opacity: 1 })),
-            state('void', style({ opacity: 0 })),
+            state('*', style({opacity: 1})),
+            state('void', style({opacity: 0})),
             transition('* <=> void', animate('.3s ease-in')),
         ])
     ]
@@ -33,7 +35,8 @@ export class ModelsComponent implements OnInit, OnDestroy {
     @ViewChild(MatSort) sort: MatSort;
 
     constructor(
-        private store: Store<fromApp.AppState>
+        private store: Store<fromApp.AppState>,
+        public dialog: MatDialog
     ) {
     }
 
@@ -56,7 +59,8 @@ export class ModelsComponent implements OnInit, OnDestroy {
                                     case 'progress':
                                     case 'status':
                                         return item.epochsToLearn === 0 ? -1 : item.epochsLearnt / item.epochsToLearn;
-                                    default: return item[property];
+                                    default:
+                                        return item[property];
                                 }
                             };
                             this.dataSource.sort = this.sort;
@@ -72,6 +76,13 @@ export class ModelsComponent implements OnInit, OnDestroy {
 
     refresh() {
         this.store.dispatch(new NetworkActions.FetchAllLearnedNetworks());
+    }
+
+    showEpochData(epochData: EpochDataInfo[]) {
+        this.dialog.open(EpochDiagramComponent, {
+            data: epochData,
+            width: '70vw',
+        });
     }
 
     ngOnDestroy() {

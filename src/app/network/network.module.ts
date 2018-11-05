@@ -63,6 +63,7 @@ import {ChartsModule} from 'ng2-charts';
 import {InputDrawComponent} from './shared/input-layer/input-draw/input-draw.component';
 import {ModelConfirmComponent} from './model/model-confirm/model-confirm.component';
 import {DatasetInfoComponent} from './home/datasets/dataset-info/dataset-info.component';
+import {EpochDiagramComponent} from './home/models/epoch-diagram/epoch-diagram.component';
 
 @NgModule({
     imports: [
@@ -129,6 +130,7 @@ import {DatasetInfoComponent} from './home/datasets/dataset-info/dataset-info.co
         FormatErrorsTooltipPipe,
         InputDrawComponent,
         ModelConfirmComponent,
+        EpochDiagramComponent,
         DatasetInfoComponent
     ],
     providers: [
@@ -136,7 +138,7 @@ import {DatasetInfoComponent} from './home/datasets/dataset-info/dataset-info.co
         SnackBarService,
         {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}}
     ],
-    entryComponents: [DeletionConfirmComponent, InputDrawComponent, ModelConfirmComponent, Conv2dLayerComponent]
+    entryComponents: [DeletionConfirmComponent, InputDrawComponent, ModelConfirmComponent, Conv2dLayerComponent, EpochDiagramComponent]
 })
 export class NetworkModule {
 }
