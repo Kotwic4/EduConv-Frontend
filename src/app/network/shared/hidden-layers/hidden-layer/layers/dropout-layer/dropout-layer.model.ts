@@ -11,7 +11,7 @@ export class DropoutLayer extends HiddenLayer {
         super();
         this.layer_name = 'Dropout';
         this.args = {
-            rate: 0
+            rate: 0.5
         };
     }
 

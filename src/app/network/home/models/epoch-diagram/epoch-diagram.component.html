@@ -1,0 +1,13 @@
+<h1 mat-dialog-title>Accuracy by epoch diagram</h1>
+<div mat-dialog-content>
+    <canvas baseChart
+            [datasets]="dataset"
+            [labels]="labels"
+            [options]="diagramOptions"
+            [legend]="false"
+            chartType="line"
+    ></canvas>
+</div>
+<div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">Close</button>
+</div>
