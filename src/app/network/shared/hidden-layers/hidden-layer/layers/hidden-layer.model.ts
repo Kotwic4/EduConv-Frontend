@@ -1,7 +1,7 @@
 export abstract class HiddenLayer {
     public layer_name: String;
     public args: any;
-    private _neurons = 0;
+    private _neurons = 1;
     private _haveNeurons = false;
 
     public getNeurons() {

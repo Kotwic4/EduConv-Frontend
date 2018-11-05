@@ -54,11 +54,7 @@ export class ModelComponent implements OnInit, OnDestroy {
             tooltip: 'Save',
             icon: 'fa-floppy-o',
             disabled: () => {
-                if (!this.valid || !this.layers || this.layers.length === 0) {
-                    return true;
-                }
-
-                return (this.processing || !this.layers || this.layers.length === 0);
+                return (!this.valid || this.processing || !this.layers || this.layers.length === 0);
             }
         }
     ];

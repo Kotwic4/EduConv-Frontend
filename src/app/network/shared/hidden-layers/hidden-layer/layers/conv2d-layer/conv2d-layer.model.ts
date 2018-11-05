@@ -15,11 +15,12 @@ export class Conv2DLayer extends HiddenLayer {
         super();
         this.layer_name = 'Conv2D';
         this.args = {
-            filters: 0,
-            kernel_size: [0, 0],
+            filters: 1,
+            kernel_size: [1, 1],
             strides: [null, null],
             activation: HiddenLayerActivationType.LINEAR,
         };
+        this.setNeurons(1);
         this.setHaveNeurons(true);
     }
 

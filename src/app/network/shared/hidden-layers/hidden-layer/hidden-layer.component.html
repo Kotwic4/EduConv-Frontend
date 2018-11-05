@@ -64,11 +64,6 @@
 
     <ng-container *ngIf="isRun">
         <ng-container *ngIf="layer.haveNeurons()">
-            <app-neurons-counter
-                *ngIf="!readonly"
-                [value]="layer.getNeurons()"
-                (onChange)="onAmountChange($event)"
-            ></app-neurons-counter>
             <ng-container *ngIf="!collapsed && beforeFlatten">
                 <app-neurone
                     *ngFor="let neurone of range(layer.getNeurons()); let i = index;"
