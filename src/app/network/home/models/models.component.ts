@@ -27,7 +27,7 @@ export class ModelsComponent implements OnInit, OnDestroy {
     private refreshingSubscription: Subscription;
     public learnedNetworks: LearnedNetworkInfo[];
 
-    displayedColumns = ['id', 'name', 'dataset', 'progress', 'status', 'actions'];
+    displayedColumns = ['id', 'name', 'dataset', 'modelId', 'numberOfLayers', 'batchSize', 'accuracy', 'progress', 'status', 'actions'];
     dataSource: MatTableDataSource<LearnedNetworkInfo>;
     @ViewChild(MatPaginator) paginator: MatPaginator;
     @ViewChild(MatSort) sort: MatSort;

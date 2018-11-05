@@ -8,6 +8,7 @@ import {animate, state, style, transition, trigger} from '@angular/animations';
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {interval} from 'rxjs/observable/interval';
 import {TABLE_REFRESH_INTERVAL} from '../../network.consts';
+import {LearnedNetworkInfo} from '../../shared/learned-network-info.model';
 
 @Component({
     selector: 'app-schemes',
@@ -26,7 +27,7 @@ export class SchemesComponent implements OnInit, OnDestroy {
     private refreshingSubscription: Subscription;
     public unlearnedNetworks: UnlearnedNetwork[];
 
-    displayedColumns = ['id', 'name', 'actions'];
+    displayedColumns = ['id', 'name', 'layersCount', 'actions'];
     dataSource: MatTableDataSource<UnlearnedNetwork>;
     @ViewChild(MatPaginator) paginator: MatPaginator;
     @ViewChild(MatSort) sort: MatSort;
@@ -48,6 +49,13 @@ export class SchemesComponent implements OnInit, OnDestroy {
                         this.dataSource = new MatTableDataSource<UnlearnedNetwork>(data.unlearnedNetworks);
                         setTimeout(() => {
                             this.dataSource.paginator = this.paginator;
+                            this.dataSource.sortingDataAccessor = (item, property) => {
+                                switch (property) {
+                                    case 'layersCount':
+                                        return item.layers.length;
+                                    default: return item[property];
+                                }
+                            };
                             this.dataSource.sort = this.sort;
                         });
                     }
