@@ -3,7 +3,14 @@
 .input-image {
     overflow: hidden;
     position: relative;
-    height: calc(100% - 30px);
+
+    @media only screen and (min-width: 576px) {
+        height: calc(100% - 30px);
+    }
+
+    @media only screen and (max-width: 575px) {
+        height: 100px;
+    }
 
     &.input-image--full-height {
         height: 100%;

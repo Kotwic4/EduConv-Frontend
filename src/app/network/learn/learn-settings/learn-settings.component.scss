@@ -18,6 +18,11 @@
     }
 
     ::ng-deep {
+        * {
+            font-family: Times new Roman;
+            color: black;
+        }
+
         .mat-slider-thumb-label {
             transform: rotate(45deg) !important;
             border-radius: 50% 50% 0 !important;
