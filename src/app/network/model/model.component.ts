@@ -21,7 +21,7 @@ export class ModelComponent implements OnInit, OnDestroy {
     private subscription: Subscription;
     public processing: boolean;
     public processingError: any;
-    public layersErrors: {[key: number]: string[]};
+    public layersErrors: { [key: number]: string[] };
     public saving = false;
     public layers: HiddenLayer[];
     public id: number;
@@ -47,7 +47,7 @@ export class ModelComponent implements OnInit, OnDestroy {
                 });
 
                 dialogRef.afterClosed().subscribe(result => {
-                    if (result !== undefined){
+                    if (result !== undefined) {
                         this.saving = true;
                         this.store.dispatch(new NetworkActions.ModelNetwork(result));
                     }

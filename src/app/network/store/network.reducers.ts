@@ -183,7 +183,7 @@ export function networkReducer(state = initialState, action: NetworkActions.Netw
             return {
                 ...state,
                 datasets: action.payload
-            }
+            };
         case (NetworkActions.FETCH_DATASET):
             return {
                 ...state,

@@ -7,7 +7,7 @@ export class UnlearnedNetwork {
     private _name: String;
 
     public static fromJSON(unlearnedNetworkData: any): UnlearnedNetwork {
-        const network =  new UnlearnedNetwork;
+        const network = new UnlearnedNetwork;
         network.id = unlearnedNetworkData.id;
         network.name = unlearnedNetworkData.name;
         network.layers = unlearnedNetworkData.model_json.layers.map(HiddenLayersService.getLayerFromJson);
@@ -22,7 +22,7 @@ export class UnlearnedNetwork {
         this._id = value;
     }
 
-    get layers(): HiddenLayer[]{
+    get layers(): HiddenLayer[] {
         return this._layers;
     }
 
