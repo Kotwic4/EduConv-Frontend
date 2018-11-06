@@ -7,6 +7,8 @@
         [routerLink]="link.path"
         routerLinkActive #rla="routerLinkActive"
         [active]="rla.isActive"
+        [matTooltip]="link.tooltip"
+        matTooltipPosition="right"
     >
         {{link.label}}
     </a>

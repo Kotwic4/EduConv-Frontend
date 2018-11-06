@@ -1,7 +1,10 @@
 <form (ngSubmit)="onSubmit(f)" #f="ngForm">
     <div class="row">
         <div class="col-sm-12">
-            <label>Axis</label>
+            <label>
+                Axis
+                <app-info-tooltip key="arguments_axis"></app-info-tooltip>
+            </label>
         </div>
         <div class="col-sm-6 form-group">
             <input
@@ -17,7 +20,10 @@
     </div>
     <div class="row">
         <div class="col-sm-12">
-            <label>Momentum</label>
+            <label>
+                Momentum
+                <app-info-tooltip key="arguments_momentum"></app-info-tooltip>
+            </label>
         </div>
         <div class="col-sm-6 form-group">
             <input
@@ -33,7 +39,10 @@
     </div>
     <div class="row">
         <div class="col-sm-12">
-            <label>Epsilon</label>
+            <label>
+                Epsilon
+                <app-info-tooltip key="arguments_epsilon"></app-info-tooltip>
+            </label>
         </div>
         <div class="col-sm-6 form-group">
             <input

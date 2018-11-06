@@ -1,7 +1,10 @@
 <form (ngSubmit)="onSubmit(f)" #f="ngForm">
     <div class="row">
         <div class="col-sm-12 form-group">
-            <label>Activation*</label>
+            <label>
+                Activation*
+                <app-info-tooltip key="arguments_activation" [multiline]="true"></app-info-tooltip>
+            </label>
             <mat-form-field class="form-control">
                 <mat-select
                     [(value)]="layer.args.activation"

@@ -64,6 +64,7 @@ import {InputDrawComponent} from './shared/input-layer/input-draw/input-draw.com
 import {ModelConfirmComponent} from './model/model-confirm/model-confirm.component';
 import {DatasetInfoComponent} from './home/datasets/dataset-info/dataset-info.component';
 import {EpochDiagramComponent} from './home/models/epoch-diagram/epoch-diagram.component';
+import {InfoTooltipComponent} from './shared/info-tooltip/info-tooltip.component';
 
 @NgModule({
     imports: [
@@ -131,7 +132,8 @@ import {EpochDiagramComponent} from './home/models/epoch-diagram/epoch-diagram.c
         InputDrawComponent,
         ModelConfirmComponent,
         EpochDiagramComponent,
-        DatasetInfoComponent
+        DatasetInfoComponent,
+        InfoTooltipComponent
     ],
     providers: [
         HiddenLayersService,

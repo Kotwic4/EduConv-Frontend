@@ -48,5 +48,10 @@ mat-option {
 }
 
 mat-tooltip-component > .mat-tooltip {
-    white-space: pre;
+    padding: 10px;
+
+    &.multiline {
+        white-space: pre !important;
+        min-width: fit-content !important;
+    }
 }

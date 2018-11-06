@@ -1,7 +1,10 @@
 <form (ngSubmit)="onSubmit(f)" #f="ngForm">
     <div class="row">
         <div class="col-sm-12 form-group">
-            <label>Rate*</label>
+            <label>
+                Rate*
+                <app-info-tooltip key="arguments_rate"></app-info-tooltip>
+            </label>
             <input
                 type="number"
                 class="form-control"
