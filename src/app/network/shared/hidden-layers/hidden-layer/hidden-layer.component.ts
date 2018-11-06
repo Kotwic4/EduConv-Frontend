@@ -15,6 +15,7 @@ import {HiddenLayersService} from './layers/hidden-layer.service';
 import {MatDialog} from '@angular/material';
 import {DeletionConfirmComponent} from './layers/deletion-confirm/deletion-confirm.component';
 import {HiddenLayersValidator} from '../hidden-layers-validator.service';
+import {INFO_DICTIONARY} from '../../info-dictionary';
 
 @Component({
     selector: 'app-hidden-layer',
@@ -47,6 +48,7 @@ export class HiddenLayerComponent implements OnInit, OnDestroy {
     collapsed: boolean;
     initArgsValid: boolean = null;
     argsValid: boolean;
+    dictionary = INFO_DICTIONARY;
 
     constructor(
         private store: Store<fromApp.AppState>,

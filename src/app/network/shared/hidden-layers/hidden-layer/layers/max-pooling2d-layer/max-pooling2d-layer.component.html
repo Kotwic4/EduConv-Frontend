@@ -1,7 +1,10 @@
 <form (ngSubmit)="onSubmit(f)" #f="ngForm">
     <div class="row">
         <div class="col-sm-12">
-            <label>Pool size</label>
+            <label>
+                Pool size
+                <app-info-tooltip key="arguments_pool_size"></app-info-tooltip>
+            </label>
         </div>
         <div class="col-sm-6 form-group">
             <input
@@ -30,7 +33,10 @@
     </div>
     <div class="row">
         <div class="col-sm-12">
-            <label>Strides</label>
+            <label>
+                Strides
+                <app-info-tooltip key="arguments_strides"></app-info-tooltip>
+            </label>
         </div>
         <div class="col-sm-6 form-group">
             <input

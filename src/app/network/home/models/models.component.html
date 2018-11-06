@@ -30,7 +30,10 @@
             </ng-container>
 
             <ng-container matColumnDef="modelId">
-                <mat-header-cell *matHeaderCellDef mat-sort-header> Model ID</mat-header-cell>
+                <mat-header-cell *matHeaderCellDef mat-sort-header>
+                    Model ID&nbsp;
+                    <app-info-tooltip key="model_id"></app-info-tooltip>
+                </mat-header-cell>
                 <mat-cell *matCellDef="let network"> {{network.modelId}}</mat-cell>
             </ng-container>
 
@@ -40,12 +43,18 @@
             </ng-container>
 
             <ng-container matColumnDef="batchSize">
-                <mat-header-cell *matHeaderCellDef mat-sort-header> Batch size</mat-header-cell>
+                <mat-header-cell *matHeaderCellDef mat-sort-header>
+                    Batch size&nbsp;
+                    <app-info-tooltip key="batch_size"></app-info-tooltip>
+                </mat-header-cell>
                 <mat-cell *matCellDef="let network"> {{network.batchSize}}</mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="accuracy">
-                <mat-header-cell *matHeaderCellDef mat-sort-header> Accuracy</mat-header-cell>
+                <mat-header-cell *matHeaderCellDef mat-sort-header>
+                    Accuracy&nbsp;
+                    <app-info-tooltip key="accuracy"></app-info-tooltip>
+                </mat-header-cell>
                 <mat-cell *matCellDef="let network"> {{(network.accuracy*100).toFixed(2)}}%</mat-cell>
             </ng-container>
 

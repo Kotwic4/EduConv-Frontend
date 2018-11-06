@@ -1,7 +1,10 @@
 <form (ngSubmit)="onSubmit(f)" #f="ngForm">
     <div class="row">
         <div class="col-sm-12">
-            <label>Filters*</label>
+            <label>
+                Filters*
+                <app-info-tooltip key="arguments_filters"></app-info-tooltip>
+            </label>
         </div>
         <div class="col-sm-12 form-group">
             <input
@@ -17,7 +20,10 @@
     </div>
     <div class="row">
         <div class="col-sm-12">
-            <label>Kernel*</label>
+            <label>
+                Kernel*
+                <app-info-tooltip key="arguments_kernel_size"></app-info-tooltip>
+            </label>
         </div>
         <div class="col-sm-6 form-group">
             <input
@@ -44,7 +50,10 @@
     </div>
     <div class="row">
         <div class="col-sm-12">
-            <label>Strides</label>
+            <label>
+                Strides
+                <app-info-tooltip key="arguments_strides"></app-info-tooltip>
+            </label>
         </div>
         <div class="col-sm-6 form-group">
             <input
@@ -74,7 +83,10 @@
 
     <div class="row">
         <div class="col-sm-12 form-group">
-            <label>Activation</label>
+            <label>
+                Activation
+                <app-info-tooltip key="arguments_activation" [multiline]="true"></app-info-tooltip>
+            </label>
             <mat-form-field class="form-control">
                 <mat-select
                     [(value)]="layer.args.activation"

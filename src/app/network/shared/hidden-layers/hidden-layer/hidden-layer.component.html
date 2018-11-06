@@ -12,7 +12,7 @@
             aria-hidden="true"
             [matTooltip]="layerErrors | formatErrorsTooltip"
             matTooltipPosition="right"
-            matTooltipClass="my-tooltip"
+            matTooltipClass="multiline"
         ></i>
     </span>
 
@@ -22,8 +22,8 @@
     >
         <div
             class="hidden-layer__type"
-            [matTooltip]="types_names[layerType]"
-            matTooltipPosition="above"
+            [matTooltip]="dictionary['layers_' + types_names[layerType]]"
+            matTooltipPosition="right"
         >
             <mat-form-field
                 *ngIf="!readonly"
