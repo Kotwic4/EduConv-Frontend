@@ -87,12 +87,7 @@ export class NetworkEffects {
                     }).pipe(
                         map((result) => new NetworkActions.EndModelingNetwork(result.id)),
                         catchError((error) => {
-                            if (error.error && error.error.message) {
-                                this.defaultErrorStrategy(error.error.message);
-                            }
-                            else {
-                                this.defaultErrorStrategy(error.message);
-                            }
+                            this.defaultErrorStrategy(error);
                             return of(new NetworkActions.EffectError(error));
                         })
                     );
@@ -142,7 +137,7 @@ export class NetworkEffects {
                             return new NetworkActions.EndLearningNetwork(result.id);
                         }),
                         catchError((error) => {
-                            this.defaultErrorStrategy(error.message);
+                            this.defaultErrorStrategy(error);
                             return of(new NetworkActions.EffectError(error));
                         })
                     );
@@ -261,7 +256,7 @@ export class NetworkEffects {
                             return new NetworkActions.FetchAllUnlearnedNetworksSuccess(networks);
                         }),
                         catchError((error) => {
-                            this.defaultErrorStrategy(error.message);
+                            this.defaultErrorStrategy(error);
                             return of(new NetworkActions.EffectError(error));
                         })
                     );
@@ -284,7 +279,7 @@ export class NetworkEffects {
                             return new NetworkActions.FetchAllLearnedNetworksSuccess(infos);
                         }),
                         catchError((error) => {
-                            this.defaultErrorStrategy(error.message);
+                            this.defaultErrorStrategy(error);
                             return of(new NetworkActions.EffectError(error));
                         })
                     );
@@ -300,7 +295,17 @@ export class NetworkEffects {
                 private snackBarService: SnackBarService
     ) {}
 
-    private defaultErrorStrategy(message, redirect = false, url = '') {
+    private defaultErrorStrategy(error, redirect = false, url = '') {
+        let message = '';
+        if (error.error && error.error.message) {
+            message = error.error.message;
+        }
+        else if (error.message) {
+            message = error.message;
+        } else {
+            message = error;
+        }
+
         this.snackBarService.open(SnackBarType.ERROR, message);
 
         if (redirect) {
