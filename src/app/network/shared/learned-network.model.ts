@@ -91,11 +91,11 @@ export class LearnedNetwork {
         inputImg.src = this.input;
         const croppedInputImage = tf.fromPixels(inputImg, this._inputShape[3]);
         const batchedInputImage = croppedInputImage.expandDims(0).toFloat();
-        const reshapedInputImage = batchedInputImage.reshape(this._inputShape);
+        const reshapedInputImage: any = batchedInputImage.reshape(this._inputShape);
 
         const activationImages = [];
         const activationHistograms = [];
-        let inputData: any = reshapedInputImage;
+        let inputData: any = reshapedInputImage.div(255);
         let outputData: any = reshapedInputImage;
 
         for (let i = 0; i < this._model.layers.length; i++) {
