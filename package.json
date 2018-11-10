@@ -26,7 +26,7 @@
     "@ng-bootstrap/ng-bootstrap": "2.0.0",
     "@ngrx/effects": "^5.2.0",
     "@ngrx/store": "^5.2.0",
-    "@tensorflow/tfjs": "^0.10.3",
+    "@tensorflow/tfjs": "0.13.4",
     "blueimp-canvas-to-blob": "^3.14.0",
     "bootstrap": "4.1.1",
     "core-js": "^2.4.1",

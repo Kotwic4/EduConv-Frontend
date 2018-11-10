@@ -95,8 +95,8 @@ export class LearnedNetwork {
 
         const activationImages = [];
         const activationHistograms = [];
-        let inputData: any = reshapedInputImage;
-        let outputData: any = reshapedInputImage;
+        let inputData = reshapedInputImage.div(tf.fill([1, 1], 255));
+        let outputData;
 
         for (let i = 0; i < this._model.layers.length; i++) {
             const layer = this._model.getLayer('', i);
