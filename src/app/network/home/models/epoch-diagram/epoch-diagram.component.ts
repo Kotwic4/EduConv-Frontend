@@ -1,7 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {EpochDataInfo} from '../../../shared/epoch-data-info.model';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
-import {number} from 'ng2-validation/dist/number';
 
 @Component({
     selector: 'app-epoch-diagram',
@@ -36,7 +35,10 @@ export class EpochDiagramComponent implements OnInit {
     };
 
     public labels: String[];
-    public dataset: [{data: number[]}];
+    public dataset: [{ data: number[] }];
+    public from = 0;
+    public to = 0;
+    public maxValue = 0;
 
     constructor(
         public dialogRef: MatDialogRef<EpochDiagramComponent>,
@@ -45,8 +47,19 @@ export class EpochDiagramComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.from = 0;
+        this.to = this.data.length - 1;
+        this.maxValue = this.data.length - 1;
         this.labels = this.data.map(e => e.epochNumber.toString());
-        this.dataset = [{ data: this.data.map(e => e.acc * 100)}];
+        this.dataset = [{data: this.data.map(e => e.acc * 100)}];
+    }
+
+    onChange() {
+        const to = Math.min(this.to, this.maxValue);
+        const from = Math.min(Math.max(this.from, 0), to);
+        const data = this.data.slice(from, to + 1);
+        this.labels = data.map(e => e.epochNumber.toString());
+        this.dataset = [{data: data.map(e => e.acc * 100)}];
     }
 
     onNoClick(): void {

@@ -1,5 +1,32 @@
 <h1 mat-dialog-title>Accuracy by epoch diagram</h1>
+
 <div mat-dialog-content>
+    <mat-form-field>
+        <label>
+            From epoch
+         </label>
+        <input
+            matInput
+            type="number"
+            [(ngModel)]="from"
+            min="0"
+            [max]="to"
+            (ngModelChange)="onChange()"
+        >
+    </mat-form-field>
+    <mat-form-field>
+        <label>
+            To epoch
+        </label>
+        <input
+            matInput
+            type="number"
+            [(ngModel)]="to"
+            [min]="from"
+            [max]="maxValue"
+            (ngModelChange)="onChange()"
+        >
+    </mat-form-field>
     <canvas baseChart
             [datasets]="dataset"
             [labels]="labels"
