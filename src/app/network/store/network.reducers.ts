@@ -82,7 +82,7 @@ export function networkReducer(state = initialState, action: NetworkActions.Netw
         case (NetworkActions.START_MODELING_NETWORK):
             return {
                 ...state,
-                networkInUsage: action.payload,
+                networkInUsage: action.payload
             };
         case (NetworkActions.MODEL_NETWORK):
             return {
@@ -94,7 +94,8 @@ export function networkReducer(state = initialState, action: NetworkActions.Netw
             return {
                 ...state,
                 networkInUsageID: action.payload,
-                processing: false
+                processing: false,
+                processingError: null
             };
         case (NetworkActions.FETCH_UNLEARNED_NETWORK):
             return {
@@ -105,12 +106,14 @@ export function networkReducer(state = initialState, action: NetworkActions.Netw
             return {
                 ...state,
                 networkInUsage: action.payload,
+                processingError: null
             };
         case (NetworkActions.START_LEARNING_NETWORK):
             return {
                 ...state,
                 id: null,
                 learnSettings: new LearnSettings('', 'mnist', 1, 128),
+                processingError: null
             };
         case (NetworkActions.SET_LEARN_SETTINGS):
             return {
@@ -139,7 +142,8 @@ export function networkReducer(state = initialState, action: NetworkActions.Netw
         case (NetworkActions.START_RUNNING_NETWORK):
             return {
                 ...state,
-                networkInUsage: action.payload
+                networkInUsage: action.payload,
+                processingError: null
             };
         case (NetworkActions.RUN_NETWORK):
             return {
@@ -151,7 +155,8 @@ export function networkReducer(state = initialState, action: NetworkActions.Netw
             return {
                 ...state,
                 networkRunResult: action.payload,
-                processing: false
+                processing: false,
+                processingError: null
             };
         case (NetworkActions.INPUT_IMAGE_UPLOAD):
             return {
