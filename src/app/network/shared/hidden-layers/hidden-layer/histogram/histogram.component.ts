@@ -14,6 +14,9 @@ export class HistogramComponent {
         scales: {
             yAxes: [{
                 type: 'logarithmic',
+                ticks: {
+                    beginAtZero: true
+                },
             }]
         }
     };
