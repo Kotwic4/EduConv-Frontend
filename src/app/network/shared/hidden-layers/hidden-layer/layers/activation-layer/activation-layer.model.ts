@@ -21,6 +21,6 @@ export class ActivationLayer extends HiddenLayer {
     }
 
     public getArgsFromLayer(layer: any) {
-        this.args.activation = layer.activation.name;
+        this.args.activation = layer.getConfig().activation;
     }
 }

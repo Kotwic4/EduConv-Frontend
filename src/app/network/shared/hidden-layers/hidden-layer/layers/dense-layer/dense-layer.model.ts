@@ -32,6 +32,6 @@ export class DenseLayer extends HiddenLayer {
 
     public getArgsFromLayer(layer: any) {
         this.args.units = layer.units;
-        this.args.activation = layer.activation.name || null;
+        this.args.activation = layer.getConfig().activation;
     }
 }

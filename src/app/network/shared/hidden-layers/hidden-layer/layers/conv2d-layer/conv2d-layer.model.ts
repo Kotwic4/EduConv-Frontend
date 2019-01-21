@@ -38,6 +38,6 @@ export class Conv2DLayer extends HiddenLayer {
         this.args.filters = layer.filters;
         this.args.kernel_size = layer.kernelSize;
         this.args.strides = layer.strides || [null, null];
-        this.args.activation = layer.activation.name || null;
+        this.args.activation = layer.getConfig().activation;
     }
 }
